@@ -1,0 +1,93 @@
+{
+  "name": "Omnia GCC E-Commerce News Summarizer to Telegram (Fully Mapped)",
+  "flow": [
+    {
+      "id": 4,
+      "module": "http:MakeRequest",
+      "version": 4,
+      "parameters": {
+        "tlsType": "",
+        "authenticationType": "noAuth"
+      },
+      "mapper": {
+        "url": "https://newsdata.io/api/1/latest?apikey=pub_237440f77ad946f5a9497076484516b5&q=retail%20OR%20ecommerce%20OR%20jewelry%20OR%20luxury&country=ae,sa&language=en",
+        "method": "get",
+        "timeout": "40",
+        "shareCookies": false,
+        "parseResponse": true,
+        "allowRedirects": true,
+        "stopOnHttpError": true,
+        "requestCompressedContent": true
+      },
+      "metadata": {
+        "designer": {
+          "x": -200,
+          "y": 0
+        }
+      }
+    },
+    {
+      "id": 6,
+      "module": "openai-gpt-3:createModelResponse",
+      "version": 1,
+      "parameters": {
+        "__IMTCONN__": 12158819
+      },
+      "mapper": {
+        "model": "gpt-4o-mini",
+        "inputContentType": "text",
+        "input": "You are the Senior Retail & Luxury Analyst for Omnia Stores (UAE & GCC 925 Sterling Silver Jewellery).\n\nAnalyze these latest GCC retail/e-commerce news items:\n{{4.data}}\n\nProvide an executive briefing for Telegram with:\n1. <b>Headline Takeaway:</b> (1 punchy line)\n2. <b>Key Market Movements:</b> (3 concise bullet points starting with 🔹)\n3. <b>Omnia Growth Opportunity:</b> (Actionable angle for 925 sterling silver bridal/luxury demand)\n\nCRITICAL TELEGRAM RULES:\n- Keep under 250 words.\n- Telegram does NOT support <ul>, <ol>, <li>, or <p> tags. Do NOT use them.\n- Use plain newlines and 🔹 emoji for list bullets.\n- Only use <b>, <i>, and <code> tags.",
+        "max_output_tokens": 600,
+        "temperature": 0.5,
+        "createConversation": false
+      },
+      "metadata": {
+        "designer": {
+          "x": 150,
+          "y": 0
+        }
+      }
+    },
+    {
+      "id": 3,
+      "module": "telegram:SendReplyMessage",
+      "version": 1,
+      "parameters": {
+        "__IMTCONN__": 12159286
+      },
+      "mapper": {
+        "chatId": "7922295856",
+        "text": "👑 <b>OMNIA STORES — DAILY GCC INTELLIGENCE BRIEF</b>\n<i>Automated Market & Trends Radar</i>\n\n{{6.output[1].content[1].text}}\n\n🔗 <i>Omnia Autonomous Growth Engine</i>",
+        "parseMode": "HTML",
+        "disableWebPagePreview": false,
+        "replyMarkupAssembleType": "reply_markup_enter"
+      },
+      "metadata": {
+        "designer": {
+          "x": 500,
+          "y": 0
+        }
+      }
+    }
+  ],
+  "metadata": {
+    "instant": false,
+    "version": 1,
+    "scenario": {
+      "roundtrips": 1,
+      "maxErrors": 3,
+      "autoCommit": true,
+      "autoCommitTriggerLast": true,
+      "sequential": false,
+      "slots": null,
+      "confidential": false,
+      "dataloss": false,
+      "dlq": false,
+      "freshVariables": false
+    },
+    "designer": {
+      "orphans": []
+    },
+    "zone": "eu1.make.com"
+  }
+}

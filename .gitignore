@@ -1,0 +1,46 @@
+# Dependencies
+node_modules/
+**/node_modules/
+.pnp
+.pnp.js
+
+# Next.js build outputs
+.next/
+**/.next/
+out/
+build/
+dist/
+
+# Archives & binaries
+*.zip
+*.tar.gz
+
+# Environment variables
+.env*.local
+.env
+.tmp_uploads/
+
+# OS Files
+.DS_Store
+Thumbs.db
+*.pem
+*.lock
+
+# Logs
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+*.log
+
+# Vercel & IDE
+.vercel/
+.idea/
+.vscode/
+scratch/
+
+# TypeScript
+*.tsbuildinfo
+next-env.d.ts
+
+# Legacy static exports
+public/editorial-portal/

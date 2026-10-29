@@ -1,0 +1,72 @@
+{
+  "name": "Omnia Autonomous Growth Engine — Daily Auto-Pilot Scheduler",
+  "flow": [
+    {
+      "id": 1,
+      "module": "http:MakeRequest",
+      "version": 4,
+      "parameters": {
+        "tlsType": "",
+        "authenticationType": "noAuth"
+      },
+      "mapper": {
+        "url": "http://localhost:3000/api/pipeline/run",
+        "method": "post",
+        "headers": [
+          {
+            "name": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "contentType": "json",
+        "data": "{\"storeId\": \"OMNIA_AE\", \"language\": \"ar\"}",
+        "timeout": "120",
+        "parseResponse": true,
+        "allowRedirects": true,
+        "stopOnHttpError": false
+      },
+      "metadata": {
+        "designer": {
+          "x": -250,
+          "y": 0
+        }
+      }
+    },
+    {
+      "id": 2,
+      "module": "telegram:SendReplyMessage",
+      "version": 1,
+      "parameters": {
+        "__IMTCONN__": 12159286
+      },
+      "mapper": {
+        "chatId": "7922295856",
+        "text": "💎 <b>OMNIA GROWTH ENGINE — AUTOMATION CYCLE FINISHED</b>\n\n<b>Store:</b> <code>{{1.data.storeId}}</code>\n<b>Language:</b> <code>{{1.data.language}}</code>\n<b>Quality Score:</b> <b>{{1.data.article.qualityScore}}/100</b>\n<b>Article Title:</b> {{1.data.article.title}}\n<b>Execution ID:</b> <code>{{1.data.executionId}}</code>\n<b>Duration:</b> {{1.data.totalDurationMs}}ms\n\n📌 <b>Supabase Cloud Status:</b> <i>Article & Audit Run Synchronized</i>\n📲 <b>Action:</b> Review in Content Studio or Shopify Staging.",
+        "parseMode": "HTML",
+        "disableWebPagePreview": true,
+        "replyMarkupAssembleType": "reply_markup_enter"
+      },
+      "metadata": {
+        "designer": {
+          "x": 200,
+          "y": 0
+        }
+      }
+    }
+  ],
+  "metadata": {
+    "instant": false,
+    "version": 1,
+    "scenario": {
+      "roundtrips": 1,
+      "maxErrors": 3,
+      "autoCommit": true,
+      "autoCommitTriggerLast": true,
+      "sequential": false
+    },
+    "designer": {
+      "orphans": []
+    },
+    "zone": "eu1.make.com"
+  }
+}

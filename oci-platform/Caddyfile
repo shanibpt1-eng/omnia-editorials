@@ -1,0 +1,36 @@
+{
+  email admin@omniastores.com
+}
+
+intelligence.omniastores.com {
+  encode zstd gzip
+
+  # Security headers
+  header {
+    Strict-Transport-Security "max-age=31536000; includeSubDomains; preload"
+    X-Content-Type-Options "nosniff"
+    X-Frame-Options "DENY"
+    X-XSS-Protection "1; mode=block"
+    Referrer-Policy "strict-origin-when-cross-origin"
+    Content-Security-Policy "default-src 'self' 'unsafe-inline' 'unsafe-eval' https: data:;"
+  }
+
+  # API & OpenAPI docs
+  handle /api/* {
+    reverse_proxy api:3333
+  }
+  handle /docs* {
+    reverse_proxy api:3333
+  }
+
+  # Object storage media
+  handle /media/* {
+    uri strip_prefix /media
+    reverse_proxy minio:9000
+  }
+
+  # Next.js web application
+  handle /* {
+    reverse_proxy web:3001
+  }
+}

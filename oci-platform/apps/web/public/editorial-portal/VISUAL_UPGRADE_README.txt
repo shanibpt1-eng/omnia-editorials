@@ -1,0 +1,2 @@
+Omnia Editorial Photo & Motion Upgrade
+1000 original HTML articles preserved; original image screenshot crops replaced with 12 clean editorial photo-only crops. Separate image panels retain portrait proportions. All photographs are illustrative, not verified Omnia catalogue photographs. CSS adds premium newsroom, fashion, business and bridal distinctions, motion and reduced-motion support. Extract ZIP and open index.html.

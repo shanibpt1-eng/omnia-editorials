@@ -1,0 +1,28 @@
+{
+  "name": "oci-platform-monorepo",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Omnia Content Intelligence (OCI) - Production-oriented self-hosted modular monolith for Omnia Stores",
+  "workspaces": [
+    "packages/*",
+    "apps/*"
+  ],
+  "scripts": {
+    "build": "npm run build --workspaces --if-present",
+    "test": "npm run test --workspaces --if-present",
+    "lint": "npm run lint --workspaces --if-present",
+    "db:generate": "npm run generate --workspace=@oci/database",
+    "db:push": "npm run push --workspace=@oci/database",
+    "dev:api": "npm run dev --workspace=@oci/api",
+    "dev:web": "npm run dev --workspace=@oci/web",
+    "dev:worker": "npm run dev --workspace=@oci/worker"
+  },
+  "devDependencies": {
+    "@types/node": "^22.10.0",
+    "typescript": "^5.7.0"
+  },
+  "engines": {
+    "node": ">=20.0.0",
+    "npm": ">=10.0.0"
+  }
+}

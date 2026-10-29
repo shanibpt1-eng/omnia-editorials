@@ -1,0 +1,56 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --background: #0f1013;
+    --foreground: #f4f5f7;
+    --border: #262830;
+    --card: #18191f;
+    --card-foreground: #f4f5f7;
+  }
+
+  body {
+    background-color: var(--background);
+    color: var(--foreground);
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  /* Custom luxury scrollbar */
+  ::-webkit-scrollbar {
+    width: 6px;
+    height: 6px;
+  }
+  ::-webkit-scrollbar-track {
+    background: #121318;
+  }
+  ::-webkit-scrollbar-thumb {
+    background: #2a2c35;
+    border-radius: 3px;
+  }
+  ::-webkit-scrollbar-thumb:hover {
+    background: #3c3f4c;
+  }
+}
+
+.luxury-gradient-text {
+  background: linear-gradient(135deg, #f8f9fa 0%, #dfc7a5 60%, #c5a880 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.luxury-gold-border {
+  border-color: rgba(197, 168, 128, 0.25);
+}
+
+.luxury-gold-border:hover {
+  border-color: rgba(197, 168, 128, 0.5);
+}
+
+.luxury-card {
+  background: #16171d;
+  border: 1px solid #23252e;
+  border-radius: 0.75rem;
+}

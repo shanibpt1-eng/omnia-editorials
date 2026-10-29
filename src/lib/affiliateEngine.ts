@@ -65,6 +65,7 @@ export function autoInjectAffiliateLinks(
   if (!contentHtml) return "";
   let parsedContent = contentHtml;
 
+  // Track already linked keywords in this text to avoid over-linking
   const linkedKeywords = new Set<string>();
 
   Object.entries(GCC_KEYWORD_MAP).forEach(([keyword, rawUrl]) => {
@@ -77,6 +78,7 @@ export function autoInjectAffiliateLinks(
       medium: "automated_article_link",
     });
 
+    // Replace first occurrence outside of existing HTML tags/anchors
     const escapedKeyword = keyword.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
     const regex = new RegExp(`(?<!<[^>]*)\\b(${escapedKeyword})\\b(?![^<]*<\\/a>)`, "i");
 

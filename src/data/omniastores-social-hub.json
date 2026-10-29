@@ -1,0 +1,408 @@
+{
+  "platforms": {
+    "youtube": {
+      "id": "youtube",
+      "name": "YouTube TV & Shorts",
+      "handle": "@omniastores",
+      "url": "https://youtube.com/@omniastores?si=DY0jsLaCSNS3i1XZ",
+      "badge": "18.4K Subscribers • Official TV Atelier",
+      "subCount": "18.4K",
+      "color": "#FF0000",
+      "actionText": "Subscribe",
+      "accent": "from-red-600 to-rose-700",
+      "description": "4K Masterclasses, DCL Assay tests, and full bridal suite runway films."
+    },
+    "instagram": {
+      "id": "instagram",
+      "name": "Instagram Reels & Stories",
+      "handle": "@omniastores",
+      "url": "https://www.instagram.com/omniastores/",
+      "badge": "125K+ Followers • Reels & Lookbooks",
+      "subCount": "125K+",
+      "color": "#E1306C",
+      "actionText": "Follow on Instagram",
+      "accent": "from-purple-600 via-pink-600 to-orange-500",
+      "description": "Daily couture styling, bridal lookbooks, and high-jewelry editorial glamour."
+    },
+    "tiktok": {
+      "id": "tiktok",
+      "name": "TikTok Trends & Tok",
+      "handle": "@omniastoresuae",
+      "url": "https://www.tiktok.com/@omniastoresuae",
+      "badge": "98K+ Followers • Viral Sparkle Tests",
+      "subCount": "98K+",
+      "color": "#00F2FE",
+      "actionText": "Follow on TikTok",
+      "accent": "from-cyan-400 via-neutral-900 to-rose-500",
+      "description": "Viral 925 water tests, macro sparkle zooms, and behind-the-scenes packaging."
+    },
+    "snapchat": {
+      "id": "snapchat",
+      "name": "Snapchat Spotlight & Shows",
+      "handle": "@omniastores",
+      "url": "https://www.snapchat.com/@omniastores",
+      "badge": "Official Dubai Lens • VIP Flash Snaps",
+      "subCount": "64K+",
+      "color": "#FFFC00",
+      "actionText": "Subscribe on Snapchat",
+      "accent": "from-yellow-400 to-amber-500",
+      "description": "Exclusive 24-hour VIP promo codes, Deira Souk walking snaps, and AR try-on."
+    },
+    "facebook": {
+      "id": "facebook",
+      "name": "Facebook Watch & Live",
+      "handle": "@omniastoresuae",
+      "url": "https://www.facebook.com/omniastoresuae",
+      "badge": "48K+ Community • Facebook Watch Live",
+      "subCount": "48K+",
+      "color": "#1877F2",
+      "actionText": "Follow on Facebook",
+      "accent": "from-blue-600 to-indigo-700",
+      "description": "Live bridal Q&A streams, customer testimonials, and GCC delivery reveals."
+    }
+  },
+  "socialReels": [
+    {
+      "id": "soc-ig-1",
+      "platform": "instagram",
+      "handle": "@omniastores",
+      "title": "The Audrey 925 Royal Bridal Suite in Midday Dubai Sunlight ✨",
+      "subtitle": "Original Audio • omniastores",
+      "views": "148.2K views",
+      "likes": "18.4K",
+      "comments": "492",
+      "tag": "#InstagramReel #BridalGlamour",
+      "videoId": "VtgA0to897k",
+      "thumbnail": "https://i.ytimg.com/vi/VtgA0to897k/hqdefault.jpg",
+      "platformUrl": "https://www.instagram.com/omniastores/",
+      "featuredProduct": {
+        "name": "Audrey Bridal Suite",
+        "price": "AED 1,250"
+      }
+    },
+    {
+      "id": "soc-ig-2",
+      "platform": "instagram",
+      "handle": "@omniastores",
+      "title": "Canary Yellow Cushion Solitaire Stacking: 92.5 Sterling Masterpiece 💍",
+      "subtitle": "Trending Sound • Dubai Haute Joaillerie",
+      "views": "210.5K views",
+      "likes": "29.1K",
+      "comments": "830",
+      "tag": "#RingStacking #CanaryDiamond",
+      "videoId": "KlmursBdJ5Q",
+      "thumbnail": "https://i.ytimg.com/vi/KlmursBdJ5Q/hqdefault.jpg",
+      "platformUrl": "https://www.instagram.com/omniastores/",
+      "featuredProduct": {
+        "name": "Canary Cushion Solitaire",
+        "price": "AED 480"
+      }
+    },
+    {
+      "id": "soc-ig-3",
+      "platform": "instagram",
+      "handle": "@omniastores",
+      "title": "Micro-Prong Hand Setting 450 Zircon Stones Under In-Studio Macro 💎",
+      "subtitle": "Atelier Craft • Master Goldsmith",
+      "views": "94.8K views",
+      "likes": "14.2K",
+      "comments": "310",
+      "tag": "#AtelierCraft #JewelryReels",
+      "videoId": "GkRbDecZ0Qs",
+      "thumbnail": "https://i.ytimg.com/vi/GkRbDecZ0Qs/hqdefault.jpg",
+      "platformUrl": "https://www.instagram.com/omniastores/",
+      "featuredProduct": {
+        "name": "Veryna Choker Set",
+        "price": "AED 1,180"
+      }
+    },
+    {
+      "id": "soc-ig-4",
+      "platform": "instagram",
+      "handle": "@omniastores",
+      "title": "Unboxing The Imperial Velvet Presentation Vault for Royal UAE Brides 🎁",
+      "subtitle": "Luxury ASMR • Velvet Unboxing",
+      "views": "182.0K views",
+      "likes": "24.5K",
+      "comments": "672",
+      "tag": "#BridalUnboxing #LuxuryGifts",
+      "videoId": "t-YNtXRqjG4",
+      "thumbnail": "https://i.ytimg.com/vi/t-YNtXRqjG4/hqdefault.jpg",
+      "platformUrl": "https://www.instagram.com/omniastores/",
+      "featuredProduct": {
+        "name": "Imperial Presentation Box",
+        "price": "AED 890"
+      }
+    },
+    {
+      "id": "soc-ig-5",
+      "platform": "instagram",
+      "handle": "@omniastores",
+      "title": "Emerald Cut Chandelier Drops: 3-Layer Rhodium Plating Finish 👑",
+      "subtitle": "Original Reel • Dubai Runway",
+      "views": "125.4K views",
+      "likes": "16.9K",
+      "comments": "418",
+      "tag": "#HauteJoaillerie #DubaiEvents",
+      "videoId": "OQQBhA0ceoM",
+      "thumbnail": "https://i.ytimg.com/vi/OQQBhA0ceoM/hqdefault.jpg",
+      "platformUrl": "https://www.instagram.com/omniastores/",
+      "featuredProduct": {
+        "name": "Emerald Cut Chandelier Drops",
+        "price": "AED 560"
+      }
+    },
+    {
+      "id": "soc-tt-1",
+      "platform": "tiktok",
+      "handle": "@omniastoresuae",
+      "title": "Does 92.5 Sterling Silver Tarnish in UAE Sea Water? 10s Test! 🌊",
+      "subtitle": "Viral Sound • #JewelryTok Challenge",
+      "views": "480.2K views",
+      "likes": "62.4K",
+      "comments": "1.8K",
+      "tag": "#JewelryTok #SilverTest #UAE",
+      "videoId": "_ft1hAvZe3g",
+      "thumbnail": "https://i.ytimg.com/vi/_ft1hAvZe3g/hqdefault.jpg",
+      "platformUrl": "https://www.tiktok.com/@omniastoresuae",
+      "featuredProduct": {
+        "name": "Sea-Resistant 925 Rings",
+        "price": "AED 380"
+      }
+    },
+    {
+      "id": "soc-tt-2",
+      "platform": "tiktok",
+      "handle": "@omniastoresuae",
+      "title": "Packing an AED 1,250 Bridal Order for our Abu Dhabi VIP Bride 📦✨",
+      "subtitle": "ASMR Packing • Velvet Ribbon",
+      "views": "340.9K views",
+      "likes": "45.1K",
+      "comments": "980",
+      "tag": "#PackingOrders #DubaiBride #ASMR",
+      "videoId": "Dh7OPfMNJzU",
+      "thumbnail": "https://i.ytimg.com/vi/Dh7OPfMNJzU/hqdefault.jpg",
+      "platformUrl": "https://www.tiktok.com/@omniastoresuae",
+      "featuredProduct": {
+        "name": "VIP Bridal Package",
+        "price": "AED 1,250"
+      }
+    },
+    {
+      "id": "soc-tt-3",
+      "platform": "tiktok",
+      "handle": "@omniastoresuae",
+      "title": "Mined Diamond vs Omnia Simulated Diamond: Can YOU Spot the Difference? 🔍",
+      "subtitle": "Beat Drop • Optical Zoom 40x",
+      "views": "612.8K views",
+      "likes": "88.3K",
+      "comments": "3.2K",
+      "tag": "#DiamondTest #SparkleCheck #OmniaStores",
+      "videoId": "p38j1i7EAY4",
+      "thumbnail": "https://i.ytimg.com/vi/p38j1i7EAY4/hqdefault.jpg",
+      "platformUrl": "https://www.tiktok.com/@omniastoresuae",
+      "featuredProduct": {
+        "name": "Solitaire Sparkle Ring",
+        "price": "AED 490"
+      }
+    },
+    {
+      "id": "soc-tt-4",
+      "platform": "tiktok",
+      "handle": "@omniastoresuae",
+      "title": "How to stack 5 Tennis Bracelets on your wrist without tangling 💎",
+      "subtitle": "Trending TikTok Sound • Fashion Hack",
+      "views": "290.1K views",
+      "likes": "38.6K",
+      "comments": "740",
+      "tag": "#TennisBracelet #WristStack #FYP",
+      "videoId": "dzakdkrQ_7A",
+      "thumbnail": "https://i.ytimg.com/vi/dzakdkrQ_7A/hqdefault.jpg",
+      "platformUrl": "https://www.tiktok.com/@omniastoresuae",
+      "featuredProduct": {
+        "name": "4mm Tennis Bracelet",
+        "price": "AED 480"
+      }
+    },
+    {
+      "id": "soc-tt-5",
+      "platform": "tiktok",
+      "handle": "@omniastoresuae",
+      "title": "Bride cries tears of joy when she sees her custom Nicole Emerald Suite 😭💚",
+      "subtitle": "Emotional Reaction • Wedding Morning",
+      "views": "519.4K views",
+      "likes": "71.2K",
+      "comments": "2.1K",
+      "tag": "#WeddingTiktok #ArabWedding #Reactions",
+      "videoId": "SZTE--QBTCU",
+      "thumbnail": "https://i.ytimg.com/vi/SZTE--QBTCU/hqdefault.jpg",
+      "platformUrl": "https://www.tiktok.com/@omniastoresuae",
+      "featuredProduct": {
+        "name": "Nicole Emerald Suite",
+        "price": "AED 1,350"
+      }
+    },
+    {
+      "id": "soc-snap-1",
+      "platform": "snapchat",
+      "handle": "@omniastores",
+      "title": "Behind the Velvet Curtain: Morning Vault Walkthrough at Deira Souk 👻",
+      "subtitle": "Snap Spotlight • Dubai Stories",
+      "views": "88.4K views",
+      "likes": "11.8K",
+      "comments": "190",
+      "tag": "#SnapSpotlight #DeiraSouk #Dubai",
+      "videoId": "y8pO3v7lStQ",
+      "thumbnail": "https://i.ytimg.com/vi/y8pO3v7lStQ/hqdefault.jpg",
+      "platformUrl": "https://www.snapchat.com/@omniastores",
+      "featuredProduct": {
+        "name": "Deira Vault Selection",
+        "price": "AED 750"
+      }
+    },
+    {
+      "id": "soc-snap-2",
+      "platform": "snapchat",
+      "handle": "@omniastores",
+      "title": "Exclusive 24-Hour Snap VIP Code: Tap To Unlock 20% Off Bridal Sets ⚡",
+      "subtitle": "Flash Deal • Snap Story Only",
+      "views": "142.1K views",
+      "likes": "21.0K",
+      "comments": "540",
+      "tag": "#SnapExclusive #VIPDiscount #BridalPromo",
+      "videoId": "dOXA43K7sqw",
+      "thumbnail": "https://i.ytimg.com/vi/dOXA43K7sqw/hqdefault.jpg",
+      "platformUrl": "https://www.snapchat.com/@omniastores",
+      "featuredProduct": {
+        "name": "VIP Code: SNAP20",
+        "price": "AED 999"
+      }
+    },
+    {
+      "id": "soc-snap-3",
+      "platform": "snapchat",
+      "handle": "@omniastores",
+      "title": "Try On The Audrey Bridal Suite in AR! Lens Live on our Snap Profile 📱",
+      "subtitle": "AR Lens Filter • Virtual Try-On",
+      "views": "176.5K views",
+      "likes": "28.4K",
+      "comments": "820",
+      "tag": "#SnapLens #ARTryOn #OmniaFilter",
+      "videoId": "CC0P0Ikvys4",
+      "thumbnail": "https://i.ytimg.com/vi/CC0P0Ikvys4/hqdefault.jpg",
+      "platformUrl": "https://www.snapchat.com/@omniastores",
+      "featuredProduct": {
+        "name": "Audrey AR Suite",
+        "price": "AED 1,250"
+      }
+    },
+    {
+      "id": "soc-snap-4",
+      "platform": "snapchat",
+      "handle": "@omniastores",
+      "title": "Morning Spectrometry at Dubai Central Labs: 100% Verified 925 Silver 🔬",
+      "subtitle": "Government Lab Snap • DCL Assay",
+      "views": "65.2K views",
+      "likes": "9.1K",
+      "comments": "145",
+      "tag": "#DCLAssay #VerifiedSilver #UAEGov",
+      "videoId": "v3QuaVKu8v4",
+      "thumbnail": "https://i.ytimg.com/vi/v3QuaVKu8v4/hqdefault.jpg",
+      "platformUrl": "https://www.snapchat.com/@omniastores",
+      "featuredProduct": {
+        "name": "Assay Certified 925",
+        "price": "AED 620"
+      }
+    },
+    {
+      "id": "soc-fb-1",
+      "platform": "facebook",
+      "handle": "@omniastoresuae",
+      "title": "Omnia Stores Dubai Ramadan & Eid Royal High-Jewelry Premiere Broadcast 🌙",
+      "subtitle": "Facebook Live Event • 14,200 Viewers",
+      "views": "78.9K views",
+      "likes": "8.4K",
+      "comments": "620",
+      "tag": "#FacebookWatch #OmniaLive #DubaiJewelry",
+      "videoId": "O_pMtPv0MLc",
+      "thumbnail": "https://i.ytimg.com/vi/O_pMtPv0MLc/hqdefault.jpg",
+      "platformUrl": "https://www.facebook.com/omniastoresuae",
+      "featuredProduct": {
+        "name": "Eid High Jewelry Premiere",
+        "price": "AED 1,450"
+      }
+    },
+    {
+      "id": "soc-fb-2",
+      "platform": "facebook",
+      "handle": "@omniastoresuae",
+      "title": "Client Testimonial: 50 GCC Brides Share Their Wedding Day Omnia Experience 👰",
+      "subtitle": "Customer Wire • Verified Reviews",
+      "views": "92.4K views",
+      "likes": "11.3K",
+      "comments": "480",
+      "tag": "#BrideStories #GCCBrides #CustomerLove",
+      "videoId": "OULjdCP7Nw8",
+      "thumbnail": "https://i.ytimg.com/vi/OULjdCP7Nw8/hq720.jpg?sqp=-oaymwE6CNAFEJQDSFXyq4qpAywIARUAAIhCGAFwAcABBvABAfgB_g6AArgIigIMCAAQARhlIEwoSDAPuALzGA==&rs=AOn4CLA-rPuWmZUtu4i70ktEckKPReWIVg",
+      "platformUrl": "https://www.facebook.com/omniastoresuae",
+      "featuredProduct": {
+        "name": "Samirah Bridal Set",
+        "price": "AED 1,150"
+      }
+    },
+    {
+      "id": "soc-fb-3",
+      "platform": "facebook",
+      "handle": "@omniastoresuae",
+      "title": "Masterclass: How to Clean & Maintain Rhodium Plated Silver to Keep It Pristine ✨",
+      "subtitle": "Jewelry Care Guide • 4K Watch",
+      "views": "54.7K views",
+      "likes": "6.8K",
+      "comments": "290",
+      "tag": "#JewelryCare #SilverMaintenance #OmniaGuide",
+      "videoId": "tQ9wG87_mtU",
+      "thumbnail": "https://i.ytimg.com/vi/tQ9wG87_mtU/hq720.jpg?sqp=-oaymwE6CNAFEJQDSFXyq4qpAywIARUAAIhCGAFwAcABBvABAfgB_g6AArgIigIMCAAQARhlIEsoRzAPuALzGA==&rs=AOn4CLBuS8f0RKnvsXTAOVhzZjpTxm-2mg",
+      "platformUrl": "https://www.facebook.com/omniastoresuae",
+      "featuredProduct": {
+        "name": "Omnia Care Kit",
+        "price": "AED 120"
+      }
+    },
+    {
+      "id": "soc-yt-1",
+      "platform": "youtube",
+      "handle": "@omniastores",
+      "title": "Khayra Earrings with Certificate | High-Quality Simulated Diamonds 💎",
+      "subtitle": "YouTube Shorts • @omniastores",
+      "views": "45.2K views",
+      "likes": "5.8K",
+      "comments": "180",
+      "tag": "#YouTubeShorts #KhayraEarrings #925Silver",
+      "videoId": "VtgA0to897k",
+      "thumbnail": "https://i.ytimg.com/vi/VtgA0to897k/hqdefault.jpg",
+      "platformUrl": "https://youtube.com/@omniastores?si=DY0jsLaCSNS3i1XZ",
+      "featuredProduct": {
+        "name": "Khayra Earrings",
+        "price": "AED 380"
+      }
+    },
+    {
+      "id": "soc-yt-2",
+      "platform": "youtube",
+      "handle": "@omniastores",
+      "title": "Omnia Golden Clove Choker Full Set with High-Quality Simulated Diamonds ✨",
+      "subtitle": "YouTube Shorts • @omniastores",
+      "views": "85.4K views",
+      "likes": "12.1K",
+      "comments": "410",
+      "tag": "#GoldenClove #ChokerSet #BridalShorts",
+      "videoId": "t-YNtXRqjG4",
+      "thumbnail": "https://i.ytimg.com/vi/t-YNtXRqjG4/hqdefault.jpg",
+      "platformUrl": "https://youtube.com/@omniastores?si=DY0jsLaCSNS3i1XZ",
+      "featuredProduct": {
+        "name": "Golden Clove Choker",
+        "price": "AED 920"
+      }
+    }
+  ]
+}

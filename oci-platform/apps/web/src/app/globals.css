@@ -2,6 +2,13 @@
 @tailwind components;
 @tailwind utilities;
 
+/* Suppress Next.js dev overlay indicator toast */
+nextjs-portal,
+[data-nextjs-toast],
+[data-nextjs-dev-overlay] {
+  display: none !important;
+}
+
 :root,
 .dark,
 html.dark,

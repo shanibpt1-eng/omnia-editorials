@@ -250,7 +250,7 @@ export default function GulfChronicleEditorialPortal() {
   const [selectedCity, setSelectedCity] = useState<string>('Dubai');
   const [fontSize, setFontSize] = useState<'standard' | 'large'>('standard');
   
-  // Real-Time Live Broadsheet Clock & Accurate Calendar State
+  // Real-Time Live Broadsheet Clock & Accurate Calendar State (SSR-Stable fallback to eliminate hydration mismatches)
   const [currentDate, setCurrentDate] = useState<Date | null>(null);
 
   useEffect(() => {
@@ -270,7 +270,8 @@ export default function GulfChronicleEditorialPortal() {
   }), []);
 
   const activeCityInfo = cityData[selectedCity] || cityData['Dubai'];
-  const now = currentDate || new Date();
+  const ssrStableDate = useMemo(() => new Date('2026-10-30T12:00:00Z'), []);
+  const now = currentDate || ssrStableDate;
 
   // Accurate Gregorian Formatted Date
   const gregorianDateEn = useMemo(() => {
@@ -1929,14 +1930,14 @@ export default function GulfChronicleEditorialPortal() {
             
             {/* Left: Accurate Broadsheet Date, Hijri Calendar & Live Ticking Clock */}
             <div className="flex flex-wrap items-center gap-2 sm:gap-3 text-neutral-700 dark:text-neutral-400 font-medium">
-              <span className="font-bold text-neutral-950 dark:text-white uppercase tracking-wider flex items-center gap-1.5 font-serif">
+              <span className="font-bold text-neutral-950 dark:text-white uppercase tracking-wider flex items-center gap-1.5 font-serif" suppressHydrationWarning>
                 <Calendar className="w-3.5 h-3.5 text-[#B8860B] dark:text-gold" />
-                <span>{isAr ? gregorianDateAr : gregorianDateEn}</span>
+                <span suppressHydrationWarning>{isAr ? gregorianDateAr : gregorianDateEn}</span>
               </span>
 
               <span className="text-neutral-400 dark:text-neutral-600">•</span>
 
-              <span className="font-serif text-[#8B6508] dark:text-gold/90 font-bold">
+              <span className="font-serif text-[#8B6508] dark:text-gold/90 font-bold" suppressHydrationWarning>
                 {isAr ? hijriDateAr : hijriDateEn}
               </span>
 
@@ -1946,7 +1947,7 @@ export default function GulfChronicleEditorialPortal() {
               <span className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full bg-emerald-500/10 text-emerald-700 dark:text-emerald-400 border border-emerald-500/30 text-[10px] sm:text-[11px] font-mono font-bold shadow-2xs">
                 <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-ping" />
                 <Clock className="w-3 h-3 text-emerald-600 dark:text-emerald-400" />
-                <span>{isAr ? `${liveTimeAr} (${activeCityInfo.tzCode})` : `${liveTimeEn} ${activeCityInfo.tzCode}`}</span>
+                <span suppressHydrationWarning>{isAr ? `${liveTimeAr} (${activeCityInfo.tzCode})` : `${liveTimeEn} ${activeCityInfo.tzCode}`}</span>
               </span>
 
               <span className="hidden lg:inline text-neutral-400 dark:text-neutral-600">•</span>

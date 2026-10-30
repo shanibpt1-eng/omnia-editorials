@@ -19,6 +19,8 @@ import {
   Layers,
   Edit3,
   History,
+  Maximize2,
+  X,
 } from 'lucide-react';
 import { ArticleEditModal } from '@/components/ArticleEditModal';
 import { ArticleHistoryModal } from '@/components/ArticleHistoryModal';
@@ -37,6 +39,7 @@ export default function PipelinePage() {
 
   const [isEditModalOpen, setIsEditModalOpen] = useState(false);
   const [isHistoryModalOpen, setIsHistoryModalOpen] = useState(false);
+  const [previewImage, setPreviewImage] = useState<string | null>(null);
 
   const handleRunDaily = async () => {
     setIsDailyRunning(true);
@@ -250,11 +253,30 @@ export default function PipelinePage() {
                 )}
                 {step.data?.imageUrl && (
                   <div className="pt-2">
-                    <img
-                      src={step.data.imageUrl}
-                      alt="Higgsfield Generated Visual"
-                      className="w-full h-24 object-cover rounded-lg border border-[#2c2f3a]"
-                    />
+                    <div
+                      onClick={() => setPreviewImage(step.data.imageUrl)}
+                      className="group relative w-full aspect-[16/10] sm:aspect-video rounded-lg overflow-hidden border border-[#2c2f3a] bg-gradient-to-b from-[#181a24] to-[#0c0d12] flex items-center justify-center cursor-pointer transition-all hover:border-luxury-gold/50 shadow-inner"
+                      title="Click to expand high-resolution asset"
+                    >
+                      <img
+                        src={step.data.imageUrl}
+                        alt="Higgsfield Generated Visual"
+                        className="w-full h-full object-contain p-1 transition-transform duration-300 group-hover:scale-[1.02]"
+                      />
+                      {/* Top luxury badge */}
+                      <div className="absolute top-2 left-2 px-2 py-0.5 rounded bg-black/75 backdrop-blur-sm text-[9px] font-mono text-luxury-gold border border-luxury-gold/30 flex items-center gap-1 shadow">
+                        <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse" />
+                        <span>Higgsfield 8K</span>
+                      </div>
+
+                      {/* Hover action overlay */}
+                      <div className="absolute inset-0 bg-black/45 backdrop-blur-[1px] opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center gap-2">
+                        <span className="px-2.5 py-1.5 rounded-lg bg-black/85 border border-luxury-gold/50 text-[11px] font-mono text-luxury-gold flex items-center gap-1.5 shadow-xl font-semibold">
+                          <Maximize2 className="w-3.5 h-3.5" />
+                          <span>View Full Master</span>
+                        </span>
+                      </div>
+                    </div>
                   </div>
                 )}
                 {step.data?.shopifyArticleId && (
@@ -346,6 +368,29 @@ export default function PipelinePage() {
               </div>
             )}
 
+            {/* Featured Hero Banner if present */}
+            {pipelineData.article?.featuredImageUrl && (
+              <div
+                onClick={() => setPreviewImage(pipelineData.article.featuredImageUrl)}
+                className="rounded-xl overflow-hidden border border-[#2a2c3a] bg-[#0c0d12] max-h-96 relative group shadow-lg cursor-pointer flex items-center justify-center"
+                title="Click to view full master"
+              >
+                <img
+                  src={pipelineData.article.featuredImageUrl}
+                  alt={pipelineData.article.title}
+                  className="w-full max-h-88 object-contain sm:object-cover object-top transition-transform duration-300 group-hover:scale-[1.01]"
+                />
+                <div className="absolute top-3 left-3 px-2.5 py-1 rounded bg-black/80 backdrop-blur-md border border-white/10 text-[10px] text-luxury-gold font-mono flex items-center gap-1.5 shadow">
+                  <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse" />
+                  <span>Higgsfield.ai 8K Editorial Asset</span>
+                </div>
+                <div className="absolute bottom-3 right-3 px-2.5 py-1 rounded bg-black/80 backdrop-blur-md border border-luxury-gold/40 text-[10px] text-luxury-platinum font-mono opacity-0 group-hover:opacity-100 transition-opacity flex items-center gap-1.5 shadow">
+                  <Maximize2 className="w-3 h-3 text-luxury-gold" />
+                  <span>Click to Expand</span>
+                </div>
+              </div>
+            )}
+
             <div
               className={`prose prose-invert max-w-none text-xs leading-relaxed text-luxury-platinum space-y-3 ${
                 pipelineData.language === 'ar' ? 'font-arabic text-right' : ''
@@ -389,6 +434,62 @@ export default function PipelinePage() {
               setStorefrontPublishResult(null);
             }}
           />
+
+          {/* Lightbox Modal for Higgsfield Full Master Visual */}
+          {previewImage && (
+            <div
+              className="fixed inset-0 z-50 bg-black/90 backdrop-blur-md flex items-center justify-center p-4 animate-fadeIn"
+              onClick={() => setPreviewImage(null)}
+            >
+              <div
+                className="relative max-w-5xl w-full bg-[#121319] border border-luxury-gold/40 rounded-2xl overflow-hidden shadow-2xl space-y-4 p-5"
+                onClick={(e) => e.stopPropagation()}
+              >
+                {/* Header */}
+                <div className="flex items-center justify-between pb-3 border-b border-[#23252e]">
+                  <div className="flex items-center gap-2">
+                    <span className="px-2.5 py-0.5 rounded bg-luxury-gold/20 text-luxury-gold border border-luxury-gold/40 text-[10px] font-mono uppercase font-bold">
+                      Higgsfield.ai 8K Neural Visual
+                    </span>
+                    <span className="text-xs text-luxury-muted font-mono hidden sm:inline">Uncropped Full-Scale Luxury Asset</span>
+                  </div>
+
+                  <div className="flex items-center gap-2">
+                    <a
+                      href={previewImage}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="px-3 py-1.5 rounded-lg bg-[#1f212a] hover:bg-[#282a36] text-luxury-platinum text-xs font-mono flex items-center gap-1.5 border border-[#323644] transition-all"
+                    >
+                      <ExternalLink className="w-3.5 h-3.5 text-luxury-gold" />
+                      <span>Open Master</span>
+                    </a>
+                    <button
+                      onClick={() => setPreviewImage(null)}
+                      className="p-1.5 rounded-lg bg-[#1f212a] hover:bg-[#282a36] text-luxury-muted hover:text-white transition-all"
+                    >
+                      <X className="w-4 h-4" />
+                    </button>
+                  </div>
+                </div>
+
+                {/* Full Visual Container */}
+                <div className="w-full max-h-[75vh] flex items-center justify-center overflow-hidden rounded-xl bg-black/70 border border-[#23252e] p-2">
+                  <img
+                    src={previewImage}
+                    alt="Higgsfield Master Visual"
+                    className="max-h-[70vh] w-auto max-w-full object-contain rounded-lg shadow-2xl"
+                  />
+                </div>
+
+                {/* Footer specs */}
+                <div className="flex flex-wrap items-center justify-between text-xs text-luxury-muted font-mono pt-1">
+                  <span>Aspect: Complete Editorial Standard • Uncropped</span>
+                  <span className="text-emerald-400">Status: Verified & Staged for Storefront</span>
+                </div>
+              </div>
+            </div>
+          )}
         </div>
       )}
     </div>

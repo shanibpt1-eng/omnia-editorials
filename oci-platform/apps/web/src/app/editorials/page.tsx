@@ -242,7 +242,7 @@ const verifiedDispatches: DispatchItem[] = verifiedDispatchesRaw.map((d: any) =>
 }));
 
 export default function GulfChronicleEditorialPortal() {
-  const { language, formatPrice } = useLuxury();
+  const { language, currency, formatPrice } = useLuxury();
   const isAr = language === 'ar';
 
   // Navigation & Desk State
@@ -647,17 +647,17 @@ export default function GulfChronicleEditorialPortal() {
       tag: 'MARKET WATCH',
       slides: [
         {
-          title: 'Dubai 24K Gold Holds at AED 312.50/g',
+          title: 'Dubai 24K Gold Holds at AED 328.50/g',
           deck: 'Wedding season buying spikes demand for certified 925 silver suites as alternative bridal investment.',
           image: '/campaigns/golden-lumiere.jpg',
-          stat: 'AED 312.50 /g',
+          stat: 'AED 328.50 /g',
           badge: 'DCL Benchmark',
         },
         {
           title: '925 Sterling Silver Up 1.1% Across Souk',
           deck: 'Rhodiated silver suites capture 62% of young GCC bridal gifting registries this quarter.',
           image: '/campaigns/golden-nocturne.jpg',
-          stat: 'AED 3.85 /g',
+          stat: 'AED 4.15 /g',
           badge: '100% XRF Tested',
         },
       ],
@@ -1094,14 +1094,15 @@ export default function GulfChronicleEditorialPortal() {
   };
 
   // DUBAI SOUK VALUE ESTIMATOR
-  const [calcMetal, setCalcMetal] = useState<'24k' | '22k' | '18k' | '925silver'>('925silver');
+  const [calcMetal, setCalcMetal] = useState<'24k' | '22k' | '21k' | '18k' | '925silver'>('925silver');
   const [calcGrams, setCalcGrams] = useState<number>(45);
 
   const metalPricesPerGram = {
-    '24k': 312.50,
-    '22k': 289.25,
-    '18k': 236.80,
-    '925silver': 3.85,
+    '24k': 328.50,
+    '22k': 304.25,
+    '21k': 294.50,
+    '18k': 252.75,
+    '925silver': 4.15,
   };
 
   const calculatedValuationAed = calcGrams * metalPricesPerGram[calcMetal];
@@ -1784,7 +1785,7 @@ export default function GulfChronicleEditorialPortal() {
   // Live Breaking News Headlines for Marquee
   const breakingHeadlines = [
     'OMNIA STORES: Unveils 2026 Royal Bridal Demi-Fine Suite in Certified 925 Silver across Dubai Souk',
-    'MARKET WATCH: Dubai Gold Souk 24K holds at AED 312.50 as wedding season demand accelerates',
+    'MARKET WATCH: Dubai Gold Souk 24K holds at AED 328.50 as wedding season demand accelerates',
     'LABORATORY ASSAY: Dubai Central Laboratories reinforces 925 silver spectrometry hallmarking protocols',
     'KSA COMMERCE: Riyadh logistics facility activates 24-hr cross-border delivery corridor for Saudi buyers',
     'HAUTE COUTURE: Vogue Arabia spotlights the resurgence of handcrafted Arabesque 925 silver statement pins',
@@ -2027,52 +2028,102 @@ export default function GulfChronicleEditorialPortal() {
         {/* =========================================================================
             2. LIVE DUBAI GOLD & PRECIOUS METALS SOUK BOARD (Signature Khaleej Times)
         ========================================================================== */}
-        <section className="bg-white dark:bg-[#111520] border-b border-neutral-200 dark:border-gold/20 shadow-sm py-2 px-4 overflow-x-auto">
-          <div className="w-full max-w-[1760px] mx-auto flex items-center justify-between min-w-[800px] gap-6 text-xs">
+        <section className="bg-white dark:bg-[#111520] border-b border-neutral-200 dark:border-gold/20 shadow-xs py-2 px-3 sm:px-4 overflow-x-auto scrollbar-none">
+          <div className="w-full max-w-[1760px] mx-auto flex items-center justify-between gap-4 lg:gap-6 text-xs whitespace-nowrap min-w-max">
+            {/* Header Badge */}
             <div className="flex items-center gap-2 flex-shrink-0">
-              <span className="bg-[#B8860B] dark:bg-gold text-black font-extrabold px-2.5 py-0.5 rounded text-[10px] tracking-wider uppercase animate-pulse shadow-sm">
+              <span className="bg-[#B8860B] dark:bg-gold text-black font-black px-2.5 py-1 rounded text-[10px] tracking-wider uppercase shadow-xs flex-shrink-0 select-none">
                 {isAr ? 'سوق الذهب بدبي' : 'DUBAI GOLD SOUK'}
               </span>
-              <span className="text-[11px] font-mono text-neutral-500 dark:text-neutral-400">
+              <span className="text-[11px] font-mono text-neutral-500 dark:text-neutral-400 hidden sm:inline flex-shrink-0">
                 {isAr ? 'معايير مختبر دبي المركزي المعتمدة' : 'Official DCL Benchmarks'}
               </span>
             </div>
 
-            <div className="flex items-center gap-5 lg:gap-6 divide-x divide-neutral-200 dark:divide-neutral-800 text-xs">
-              <div className="flex items-center gap-1.5 pl-4">
-                <span className="font-bold text-neutral-800 dark:text-neutral-200">{isAr ? 'ذهب عيار 24:' : '24K Gold:'}</span>
-                <span className="font-mono font-bold text-neutral-950 dark:text-white">AED 312.50</span>
-                <span className="text-emerald-600 dark:text-emerald-400 text-[11px] font-semibold">▲ +0.4%</span>
+            {/* Gold & Precious Metal Rates (Always Straight, Zero Line-Wrap) */}
+            <div className="flex items-center gap-2.5 sm:gap-3 text-xs flex-shrink-0">
+              {/* 24K Gold */}
+              <div className="whitespace-nowrap flex-shrink-0 inline-flex items-center gap-1.5 px-2.5 py-1 rounded-lg bg-neutral-100/80 dark:bg-white/5 border border-neutral-200 dark:border-white/10 shadow-2xs">
+                <span className="font-bold text-neutral-800 dark:text-neutral-200">
+                  {isAr ? 'ذهب عيار 24:' : '24K Gold:'}
+                </span>
+                <span className="font-mono font-bold text-neutral-950 dark:text-white">
+                  {currency === 'SAR' ? 'SAR 335.25' : 'AED 328.50'}
+                </span>
+                <span className="text-emerald-600 dark:text-emerald-400 text-[11px] font-semibold font-mono">
+                  ▲ +0.4%
+                </span>
               </div>
 
-              <div className="flex items-center gap-1.5 pl-4">
-                <span className="font-bold text-neutral-800 dark:text-neutral-200">{isAr ? 'ذهب عيار 22:' : '22K Gold:'}</span>
-                <span className="font-mono font-bold text-neutral-950 dark:text-white">AED 289.25</span>
-                <span className="text-emerald-600 dark:text-emerald-400 text-[11px] font-semibold">▲ +0.3%</span>
+              {/* 22K Gold */}
+              <div className="whitespace-nowrap flex-shrink-0 inline-flex items-center gap-1.5 px-2.5 py-1 rounded-lg bg-neutral-100/80 dark:bg-white/5 border border-neutral-200 dark:border-white/10 shadow-2xs">
+                <span className="font-bold text-neutral-800 dark:text-neutral-200">
+                  {isAr ? 'ذهب عيار 22:' : '22K Gold:'}
+                </span>
+                <span className="font-mono font-bold text-neutral-950 dark:text-white">
+                  {currency === 'SAR' ? 'SAR 310.50' : 'AED 304.25'}
+                </span>
+                <span className="text-emerald-600 dark:text-emerald-400 text-[11px] font-semibold font-mono">
+                  ▲ +0.3%
+                </span>
               </div>
 
-              <div className="flex items-center gap-1.5 pl-4">
-                <span className="font-bold text-neutral-800 dark:text-neutral-200">{isAr ? 'ذهب عيار 18:' : '18K Gold:'}</span>
-                <span className="font-mono font-bold text-neutral-950 dark:text-white">AED 236.80</span>
-                <span className="text-emerald-600 dark:text-emerald-400 text-[11px] font-semibold">▲ +0.2%</span>
+              {/* 21K Gold (GCC Bridal Standard) */}
+              <div className="whitespace-nowrap flex-shrink-0 inline-flex items-center gap-1.5 px-2.5 py-1 rounded-lg bg-neutral-100/80 dark:bg-white/5 border border-neutral-200 dark:border-white/10 shadow-2xs">
+                <span className="font-bold text-neutral-800 dark:text-neutral-200">
+                  {isAr ? 'ذهب عيار 21:' : '21K Gold:'}
+                </span>
+                <span className="font-mono font-bold text-neutral-950 dark:text-white">
+                  {currency === 'SAR' ? 'SAR 300.60' : 'AED 294.50'}
+                </span>
+                <span className="text-emerald-600 dark:text-emerald-400 text-[11px] font-semibold font-mono">
+                  ▲ +0.3%
+                </span>
               </div>
 
-              <div className="flex items-center gap-1.5 pl-4 bg-gold/10 px-2.5 py-0.5 rounded border border-gold/30 shadow-[0_0_10px_rgba(212,175,55,0.15)]">
-                <span className="font-bold text-[#8B6508] dark:text-gold">{isAr ? 'فضة إسترلينية 925:' : '925 Sterling Silver:'}</span>
-                <span className="font-mono font-bold text-neutral-950 dark:text-white">AED 3.85 /g</span>
-                <span className="text-emerald-600 dark:text-emerald-400 text-[11px] font-semibold">▲ +1.1%</span>
+              {/* 18K Gold */}
+              <div className="whitespace-nowrap flex-shrink-0 inline-flex items-center gap-1.5 px-2.5 py-1 rounded-lg bg-neutral-100/80 dark:bg-white/5 border border-neutral-200 dark:border-white/10 shadow-2xs">
+                <span className="font-bold text-neutral-800 dark:text-neutral-200">
+                  {isAr ? 'ذهب عيار 18:' : '18K Gold:'}
+                </span>
+                <span className="font-mono font-bold text-neutral-950 dark:text-white">
+                  {currency === 'SAR' ? 'SAR 258.00' : 'AED 252.75'}
+                </span>
+                <span className="text-emerald-600 dark:text-emerald-400 text-[11px] font-semibold font-mono">
+                  ▲ +0.2%
+                </span>
               </div>
 
-              <div className="flex items-center gap-1.5 pl-4">
-                <span className="font-bold text-neutral-800 dark:text-neutral-200">{isAr ? 'بلاتين:' : 'Platinum:'}</span>
-                <span className="font-mono font-bold text-neutral-950 dark:text-white">AED 118.40</span>
-                <span className="text-rose-600 dark:text-rose-400 text-[11px] font-semibold">▼ -0.2%</span>
+              {/* 925 Sterling Silver (Omnia Craft Base) */}
+              <div className="whitespace-nowrap flex-shrink-0 inline-flex items-center gap-1.5 px-2.5 py-1 rounded-lg bg-gold/15 dark:bg-gold/20 border border-gold/40 shadow-[0_0_12px_rgba(212,175,55,0.18)]">
+                <span className="font-bold text-[#8B6508] dark:text-gold">
+                  {isAr ? 'فضة إسترلينية 925:' : '925 Sterling Silver:'}
+                </span>
+                <span className="font-mono font-bold text-neutral-950 dark:text-white">
+                  {currency === 'SAR' ? 'SAR 4.25 /g' : 'AED 4.15 /g'}
+                </span>
+                <span className="text-emerald-600 dark:text-emerald-400 text-[11px] font-semibold font-mono">
+                  ▲ +1.1%
+                </span>
+              </div>
+
+              {/* Platinum */}
+              <div className="whitespace-nowrap flex-shrink-0 inline-flex items-center gap-1.5 px-2.5 py-1 rounded-lg bg-neutral-100/80 dark:bg-white/5 border border-neutral-200 dark:border-white/10 shadow-2xs hidden md:inline-flex">
+                <span className="font-bold text-neutral-800 dark:text-neutral-200">
+                  {isAr ? 'بلاتين:' : 'Platinum:'}
+                </span>
+                <span className="font-mono font-bold text-neutral-950 dark:text-white">
+                  {currency === 'SAR' ? 'SAR 121.25' : 'AED 118.80'}
+                </span>
+                <span className="text-rose-600 dark:text-rose-400 text-[11px] font-semibold font-mono">
+                  ▼ -0.2%
+                </span>
               </div>
             </div>
 
             {/* Live Ticker Telemetry Time (Real-Time Synchronized GST Wire) */}
-            <div className="flex-shrink-0 text-[11px] text-neutral-600 dark:text-neutral-400 font-mono hidden xl:flex items-center gap-2 bg-neutral-100 dark:bg-white/5 px-3 py-1 rounded-full border border-neutral-200 dark:border-white/10 shadow-2xs">
-              <span className="w-2 h-2 rounded-full bg-emerald-500 animate-ping" />
+            <div className="flex-shrink-0 text-[11px] text-neutral-600 dark:text-neutral-400 font-mono hidden xl:flex items-center gap-2 bg-neutral-100 dark:bg-white/5 px-3 py-1 rounded-full border border-neutral-200 dark:border-white/10 shadow-2xs whitespace-nowrap">
+              <span className="w-2 h-2 rounded-full bg-emerald-500 animate-ping flex-shrink-0" />
               <span className="font-bold text-neutral-900 dark:text-white">
                 {isAr ? `الأسعار المباشرة: ${liveTimeAr} (${activeCityInfo.tzCode})` : `Live DCL Wire: ${liveTimeEn} ${activeCityInfo.tzCode}`}
               </span>
@@ -2133,32 +2184,32 @@ export default function GulfChronicleEditorialPortal() {
               {/* Center Column: Prestigious Regal Broadsheet Title */}
               <div className="lg:col-span-6 text-center">
                 {/* Royal Crest & Broadsheet Filigree */}
-                <div className="flex items-center justify-center gap-2 sm:gap-3 mb-2">
-                  <span className="h-px w-8 sm:w-16 bg-gradient-to-r from-transparent via-gold to-gold/80" />
-                  <span className="text-[10px] sm:text-xs font-mono font-black tracking-[0.25em] text-[#8B6508] dark:text-gold uppercase flex items-center gap-1.5">
-                    <Crown className="w-3.5 h-3.5 text-gold inline" />
-                    {isAr ? 'الجريدة الخليجية المستقلة للمجوهرات الراقية' : 'THE INDEPENDENT GCC LUXURY JOURNAL'}
+                <div className="flex items-center justify-center gap-2 sm:gap-3 mb-2.5 max-w-full overflow-hidden">
+                  <span className="h-px flex-1 max-w-[30px] sm:max-w-[70px] bg-gradient-to-r from-transparent via-gold to-gold/80" />
+                  <span className="whitespace-nowrap text-[9px] sm:text-xs font-mono font-black tracking-[0.16em] sm:tracking-[0.25em] text-[#8B6508] dark:text-gold uppercase flex items-center gap-1.5 flex-shrink-0 select-none">
+                    <Crown className="w-3.5 h-3.5 text-gold flex-shrink-0" />
+                    <span>{isAr ? 'الجريدة الخليجية المستقلة للمجوهرات الراقية' : 'THE INDEPENDENT GCC LUXURY JOURNAL'}</span>
                   </span>
-                  <span className="h-px w-8 sm:w-16 bg-gradient-to-l from-transparent via-gold to-gold/80" />
+                  <span className="h-px flex-1 max-w-[30px] sm:max-w-[70px] bg-gradient-to-l from-transparent via-gold to-gold/80" />
                 </div>
 
-                <h1 className="text-3xl sm:text-5xl lg:text-6xl font-serif font-black tracking-tight uppercase leading-[1.05] drop-shadow-sm select-none">
+                <h1 className="text-3xl sm:text-5xl lg:text-5xl xl:text-6xl font-serif font-black tracking-tight uppercase leading-[1.08] drop-shadow-sm select-none whitespace-nowrap">
                   <span className="bg-clip-text text-transparent bg-gradient-to-b from-neutral-950 via-neutral-800 to-neutral-700 dark:from-[#FFFDF7] dark:via-[#F9E8B8] dark:to-[#D4AF37]">
                     {isAr ? 'ذا جلف كرونيكل • صحيفة الخليج' : 'The Gulf Chronicle'}
                   </span>
                 </h1>
                 
-                <div className="text-[11px] sm:text-xs font-serif text-[#8B6508] dark:text-gold/90 mt-2 tracking-widest font-bold flex items-center justify-center gap-2">
+                <div className="text-[11px] sm:text-xs font-serif text-[#8B6508] dark:text-gold/90 mt-2 tracking-wider sm:tracking-widest font-bold flex items-center justify-center gap-2">
                   <span>{isAr ? 'صحيفة الخليج اليومية • قسم المجوهرات الفاخرة والمعايير العالمية' : 'Daily Gulf Broadsheet • High Jewellery, Assay Standards & Haute Couture'}</span>
                 </div>
 
                 {/* Broadsheet Meta Ribbon */}
                 <div className="flex flex-wrap items-center justify-center gap-2 sm:gap-3 text-[10px] sm:text-[11px] text-neutral-500 dark:text-neutral-400 uppercase tracking-wider mt-3 font-mono">
-                  <span className="px-2 py-0.5 rounded bg-neutral-100 dark:bg-white/5 border border-neutral-300 dark:border-white/10 font-bold">Vol. XXXIV No. 10</span>
+                  <span className="px-2 py-0.5 rounded bg-neutral-100 dark:bg-white/5 border border-neutral-300 dark:border-white/10 font-bold whitespace-nowrap">Vol. XXXIV No. 10</span>
                   <span className="text-gold/60">•</span>
-                  <span className="font-serif">{isAr ? 'دبي • الرياض • أبوظبي • الدوحة • الكويت' : 'Dubai • Riyadh • Abu Dhabi • Doha • Kuwait'}</span>
+                  <span className="font-serif whitespace-nowrap">{isAr ? 'دبي • الرياض • أبوظبي • الدوحة • الكويت' : 'Dubai • Riyadh • Abu Dhabi • Doha • Kuwait'}</span>
                   <span className="text-gold/60">•</span>
-                  <span className="inline-flex items-center gap-1 text-emerald-600 dark:text-emerald-400 font-bold">
+                  <span className="inline-flex items-center gap-1 text-emerald-600 dark:text-emerald-400 font-bold whitespace-nowrap">
                     <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-ping" />
                     {isAr ? 'بث الوكالات المعتمد' : 'Live Syndicated Wire'}
                   </span>
@@ -2759,33 +2810,16 @@ export default function GulfChronicleEditorialPortal() {
                         </div>
                       )}
 
-                      {/* Top Bar Floating Badges: Tag, Gemstone, VIP Voucher & WhatsApp Stylist */}
-                      <div className="absolute top-3 sm:top-5 left-3 sm:left-6 right-3 sm:right-6 z-20 flex items-center justify-between gap-2 pointer-events-none">
-                        <div className="flex items-center gap-2">
-                          <span className="px-3 py-1 rounded-full bg-black/80 backdrop-blur-md text-gold border border-gold/40 text-[10px] sm:text-xs font-bold uppercase tracking-wider flex items-center gap-1.5 shadow-lg">
-                            <Crown className="w-3.5 h-3.5 text-gold" />
+                      {/* Top Bar Floating Badges: Straight, Responsive & Face-Clear */}
+                      <div className="absolute top-3 sm:top-5 left-3 sm:left-6 right-3 sm:right-6 z-20 flex items-center justify-between gap-3 pointer-events-none">
+                        <div className="flex items-center gap-2 pointer-events-auto">
+                          <span className="whitespace-nowrap px-3 py-1 rounded-full bg-black/85 backdrop-blur-md text-gold border border-gold/40 text-[10px] sm:text-xs font-bold uppercase tracking-wider flex items-center gap-1.5 shadow-lg select-none">
+                            <Crown className="w-3.5 h-3.5 text-gold flex-shrink-0" />
                             <span>{camp.tag}</span>
                           </span>
-                          {camp.gemstone && (
-                            <span className="hidden md:inline-flex px-2.5 py-0.5 rounded-full bg-black/70 backdrop-blur-md text-neutral-200 text-[10px] font-mono border border-white/20">
-                              {camp.gemstone}
-                            </span>
-                          )}
                         </div>
 
-                        <div className="pointer-events-auto flex items-center gap-2">
-                          {/* VIP Stylist WhatsApp Desk */}
-                          <a
-                            href={`https://wa.me/971501234567?text=${encodeURIComponent(`Hello Omnia Stylist, I am viewing the ${camp.title} campaign in The Gulf Chronicle and would like styling advice.`)}`}
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            className="hidden sm:flex px-3 py-1.5 rounded-full bg-emerald-600/90 hover:bg-emerald-600 text-white text-xs font-bold uppercase tracking-wider items-center gap-1.5 transition-all shadow-xl hover:scale-105 active:scale-95"
-                            title="Chat with Private Jewelry Concierge"
-                          >
-                            <WhatsAppIcon className="w-3.5 h-3.5 text-white" />
-                            <span>VIP Stylist</span>
-                          </a>
-
+                        <div className="pointer-events-auto flex items-center gap-2 flex-shrink-0">
                           {/* VIP Promo Code Button */}
                           <button
                             onClick={(e) => {
@@ -2793,18 +2827,18 @@ export default function GulfChronicleEditorialPortal() {
                               e.stopPropagation();
                               handleCopyCode(camp.code, 'leaderboard');
                             }}
-                            className="px-3.5 py-1.5 rounded-full bg-gold hover:bg-gold-light text-black text-xs font-extrabold uppercase tracking-wider flex items-center gap-1.5 transition-all shadow-xl active:scale-95"
+                            className="whitespace-nowrap px-3 py-1 sm:px-3.5 sm:py-1.5 rounded-full bg-gold hover:bg-gold-light text-black text-[11px] sm:text-xs font-black uppercase tracking-wider flex items-center gap-1.5 transition-all shadow-xl active:scale-95 select-none"
                             title="Click to copy VIP code"
                           >
                             {copiedLeaderboardCode ? (
                               <>
-                                <Check className="w-3.5 h-3.5 text-black" />
-                                <span>COPIED!</span>
+                                <Check className="w-3.5 h-3.5 text-black flex-shrink-0" />
+                                <span>{isAr ? 'تم النسخ!' : 'COPIED!'}</span>
                               </>
                             ) : (
                               <>
-                                <Percent className="w-3.5 h-3.5" />
-                                <span>{camp.code} (15% OFF)</span>
+                                <Percent className="w-3.5 h-3.5 flex-shrink-0" />
+                                <span>{camp.code} ({isAr ? 'خصم 15%' : '15% OFF'})</span>
                               </>
                             )}
                           </button>
@@ -2816,7 +2850,7 @@ export default function GulfChronicleEditorialPortal() {
                               e.stopPropagation();
                               setIsCinemaFullscreen(true);
                             }}
-                            className="p-1.5 rounded-full bg-black/75 hover:bg-black text-gold border border-gold/40 shadow-xl transition-transform hover:scale-110"
+                            className="p-1.5 sm:p-2 rounded-full bg-black/80 hover:bg-black text-gold border border-gold/40 shadow-xl transition-transform hover:scale-110 active:scale-95 flex-shrink-0"
                             title="Full Screen 4K Cinema"
                           >
                             <Maximize2 className="w-3.5 h-3.5" />
@@ -2850,22 +2884,35 @@ export default function GulfChronicleEditorialPortal() {
                         <ChevronRight className="w-5 h-5" />
                       </button>
 
-                      {/* Bottom Floating Bar: Perk Pill & Direct Shop Button */}
+                      {/* Bottom Floating Bar: Perk Pill & Action Buttons (Stylist + Shop) */}
                       <div className="absolute bottom-3 sm:bottom-5 left-3 sm:left-6 right-3 sm:right-6 z-20 flex items-center justify-between gap-3 pointer-events-none">
-                        <div className="hidden sm:flex items-center gap-2 px-3 py-1 rounded-full bg-black/80 backdrop-blur-md text-gold text-xs font-mono font-bold border border-gold/30 shadow-md">
+                        <div className="hidden sm:flex items-center gap-2 px-3 py-1.5 rounded-full bg-black/85 backdrop-blur-md text-gold text-xs font-mono font-bold border border-gold/30 shadow-md pointer-events-auto whitespace-nowrap max-w-[200px] lg:max-w-xs truncate">
                           <Truck className="w-3.5 h-3.5 text-gold flex-shrink-0" />
                           <span className="truncate">{camp.perk}</span>
                         </div>
 
-                        <div className="pointer-events-auto ml-auto">
+                        <div className="pointer-events-auto ml-auto flex items-center gap-2 flex-shrink-0">
+                          {/* VIP Stylist WhatsApp Desk */}
+                          <a
+                            href={`https://wa.me/971501234567?text=${encodeURIComponent(`Hello Omnia Stylist, I am viewing the ${camp.title} campaign in The Gulf Chronicle and would like styling advice.`)}`}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="whitespace-nowrap px-3 py-1.5 sm:px-3.5 sm:py-2 rounded-xl bg-emerald-600/95 hover:bg-emerald-500 text-white text-xs font-bold uppercase tracking-wider flex items-center gap-1.5 transition-all shadow-xl hover:scale-105 active:scale-95 select-none"
+                            title="Chat with Private Jewelry Concierge"
+                          >
+                            <WhatsAppIcon className="w-3.5 h-3.5 text-white flex-shrink-0" />
+                            <span>{isAr ? 'مستشار واتساب' : 'VIP Stylist'}</span>
+                          </a>
+
+                          {/* Direct Collection Shop Button */}
                           <a
                             href={camp.ctaUrl}
                             target="_blank"
                             rel="noopener noreferrer"
-                            className="px-4 py-2 rounded-xl bg-gold hover:bg-gold-light text-black font-extrabold text-xs uppercase tracking-wider flex items-center gap-1.5 transition-all shadow-xl hover:shadow-[0_0_20px_rgba(212,175,55,0.4)]"
+                            className="whitespace-nowrap px-3.5 py-1.5 sm:px-4 sm:py-2 rounded-xl bg-gold hover:bg-gold-light text-black font-black text-xs uppercase tracking-wider flex items-center gap-1.5 transition-all shadow-xl hover:shadow-[0_0_20px_rgba(212,175,55,0.4)] active:scale-95 select-none"
                           >
-                            <span>{camp.ctaText}</span>
-                            <ArrowRight className="w-3.5 h-3.5" />
+                            <span>{isAr ? 'تسوق الطقم' : camp.ctaText}</span>
+                            <ArrowRight className="w-3.5 h-3.5 flex-shrink-0" />
                           </a>
                         </div>
                       </div>
@@ -3151,8 +3198,8 @@ export default function GulfChronicleEditorialPortal() {
                     />
 
                     {/* Top Tag & Code */}
-                    <div className="absolute top-3 left-3 right-3 flex items-center justify-between gap-2 z-10">
-                      <span className="px-2.5 py-0.5 rounded-full bg-black/75 backdrop-blur-md text-gold border border-gold/40 text-[10px] font-mono font-bold uppercase">
+                    <div className="absolute top-3 left-3 right-3 flex items-center justify-between gap-2 z-10 pointer-events-none">
+                      <span className="whitespace-nowrap px-2.5 py-0.5 rounded-full bg-black/85 backdrop-blur-md text-gold border border-gold/40 text-[10px] font-mono font-bold uppercase pointer-events-auto">
                         {camp.tag}
                       </span>
                       <button
@@ -3161,16 +3208,16 @@ export default function GulfChronicleEditorialPortal() {
                           e.stopPropagation();
                           handleCopyCode(camp.code, 'banner');
                         }}
-                        className="px-2.5 py-0.5 rounded-full bg-gold hover:bg-gold-light text-black text-[10px] font-mono font-black uppercase tracking-wider transition-colors shadow flex items-center gap-1"
+                        className="whitespace-nowrap px-2.5 py-0.5 rounded-full bg-gold hover:bg-gold-light text-black text-[10px] font-mono font-black uppercase tracking-wider transition-colors shadow flex items-center gap-1 pointer-events-auto"
                         title="Copy promo code"
                       >
                         {copiedBannerCode === camp.code ? (
                           <>
                             <Check className="w-3 h-3 text-black" />
-                            <span>COPIED!</span>
+                            <span>{isAr ? 'تم النسخ!' : 'COPIED!'}</span>
                           </>
                         ) : (
-                          <span>{camp.code} (15% OFF)</span>
+                          <span>{camp.code} ({isAr ? 'خصم 15%' : '15% OFF'})</span>
                         )}
                       </button>
                     </div>

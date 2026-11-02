@@ -136,8 +136,8 @@ export async function POST(req: Request) {
     return NextResponse.json({
       success: true,
       message: 'Article successfully published to Port 3001 Storefront!',
-      publishedUrl: `http://localhost:3001/trending/${article.slug}`,
-      editorialsUrl: 'http://localhost:3001/editorials',
+      publishedUrl: `${process.env.NEXT_PUBLIC_STOREFRONT_URL || 'http://localhost:3001'}/trending/${article.slug}`,
+      editorialsUrl: `${process.env.NEXT_PUBLIC_STOREFRONT_URL || 'http://localhost:3001'}/editorials`,
       article,
       publishedAt: new Date().toISOString(),
     });

@@ -188,7 +188,7 @@ export async function POST(req: Request) {
         details: {
           title: storefrontArticlePayload.title,
           slug: storefrontArticlePayload.slug,
-          publishedUrl: `http://localhost:3001/trending/${storefrontArticlePayload.slug}`,
+          publishedUrl: `${process.env.NEXT_PUBLIC_STOREFRONT_URL || 'http://localhost:3001'}/trending/${storefrontArticlePayload.slug}`,
         },
       });
 
@@ -196,7 +196,7 @@ export async function POST(req: Request) {
         title: 'Article Approved & Published',
         message: `"${storefrontArticlePayload.title.slice(0, 45)}..." is now live on Port 3001 Storefront!`,
         severity: 'SUCCESS',
-        action_url: `http://localhost:3001/trending/${storefrontArticlePayload.slug}`,
+        action_url: `${process.env.NEXT_PUBLIC_STOREFRONT_URL || 'http://localhost:3001'}/trending/${storefrontArticlePayload.slug}`,
       });
     } catch (e) {
       // Fallback
@@ -205,8 +205,8 @@ export async function POST(req: Request) {
     return NextResponse.json({
       success: true,
       message: 'Article successfully approved and published to Port 3001 Storefront!',
-      publishedUrl: `http://localhost:3001/trending/${storefrontArticlePayload.slug}`,
-      editorialsUrl: 'http://localhost:3001/editorials',
+      publishedUrl: `${process.env.NEXT_PUBLIC_STOREFRONT_URL || 'http://localhost:3001'}/trending/${storefrontArticlePayload.slug}`,
+      editorialsUrl: `${process.env.NEXT_PUBLIC_STOREFRONT_URL || 'http://localhost:3001'}/editorials`,
       publishedAt: new Date().toISOString(),
       article: storefrontArticlePayload,
     });

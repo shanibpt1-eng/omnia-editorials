@@ -145,8 +145,16 @@ nano .env.local          # fill in real API keys
 bash deploy/update.sh    # rebuild with the new env
 ```
 
-The script installs Node 20, PM2, Nginx, UFW and a Let's Encrypt certificate, and puts the whole
-site behind HTTP basic auth (the dashboard and `/api/publisher/*` routes have no login of their own).
+The script builds and runs both apps with PM2 and puts them behind Nginx + Let's Encrypt:
+
+| URL | App | Access |
+| :--- | :--- | :--- |
+| `https://DOMAIN` | Public storefront (`oci-platform/apps/web`, port 3001) | Public (`/backend` and `/api/publish-article` need the admin password) |
+| `https://admin.DOMAIN` | Admin dashboard (repo root, port 3000) | HTTP basic auth (`ADMIN_USER` / `ADMIN_PASS`) |
+
+Create DNS A records for `DOMAIN` and `admin.DOMAIN` first (Cloudflare: grey cloud while the
+certificate is issued, then orange cloud with SSL mode **Full (strict)**).
+
 Later updates: `cd /var/www/omnia && bash deploy/update.sh`.
 
 ---

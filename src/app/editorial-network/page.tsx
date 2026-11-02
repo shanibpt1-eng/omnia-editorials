@@ -197,7 +197,7 @@ export default function EditorialNetworkPage() {
           </a>
 
           <a
-            href="http://localhost:3001"
+            href={`${process.env.NEXT_PUBLIC_STOREFRONT_URL || 'http://localhost:3001'}`}
             target="_blank"
             rel="noreferrer"
             className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-bold bg-gradient-to-r from-luxury-gold to-luxury-gold-dark text-luxury-charcoal hover:brightness-110 shadow-md"

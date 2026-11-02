@@ -1,20 +1,23 @@
 #!/usr/bin/env bash
-# One-time setup for a fresh Ubuntu 22.04/24.04 DigitalOcean droplet.
+# Setup for a fresh Ubuntu 22.04/24.04 DigitalOcean droplet. Safe to re-run.
 # Run as root from inside the cloned repo:
 #   DOMAIN=example.com ADMIN_USER=admin ADMIN_PASS='strong-pass' bash deploy/setup-droplet.sh
+#
+#   DOMAIN        -> public storefront (oci-platform/apps/web, port 3001)
+#   ADMIN_DOMAIN  -> password-protected dashboard (repo root app, port 3000)
+#                    default: admin.$DOMAIN
 set -euo pipefail
 
-: "${DOMAIN:?Set DOMAIN, e.g. DOMAIN=dashboard.omniastores.com}"
+: "${DOMAIN:?Set DOMAIN, e.g. DOMAIN=example.com}"
 : "${ADMIN_USER:?Set ADMIN_USER for HTTP basic auth}"
 : "${ADMIN_PASS:?Set ADMIN_PASS for HTTP basic auth}"
-EMAIL="${EMAIL:-admin@${DOMAIN#*.}}"
+ADMIN_DOMAIN="${ADMIN_DOMAIN:-admin.$DOMAIN}"
+EMAIL="${EMAIL:-admin@$DOMAIN}"
 APP_DIR="$(cd "$(dirname "$0")/.." && pwd)"
-APP_NAME="omnia-web"
-PORT=3000
 
 echo "==> Installing system packages"
 apt-get update -y
-apt-get install -y curl git nginx apache2-utils certbot python3-certbot-nginx ufw
+apt-get install -y curl git nginx apache2-utils certbot python3-certbot-nginx ufw dnsutils
 
 if ! command -v node >/dev/null || ! node -v | grep -q '^v20'; then
   curl -fsSL https://deb.nodesource.com/setup_20.x | bash -
@@ -39,26 +42,29 @@ if [ ! -f .env.local ]; then
   cp .env.example .env.local
   echo "!! Created .env.local from .env.example - edit it with real keys, then run deploy/update.sh"
 fi
+# Links the dashboard shows/sends for published articles.
+sed -i '/^NEXT_PUBLIC_STOREFRONT_URL=/d' .env.local
+echo "NEXT_PUBLIC_STOREFRONT_URL=https://$DOMAIN" >> .env.local
 
-echo "==> Building app"
-npm ci
-npm run build
-
-echo "==> Starting with PM2 on port $PORT"
-pm2 delete "$APP_NAME" >/dev/null 2>&1 || true
-PORT=$PORT pm2 start npm --name "$APP_NAME" -- start
-pm2 save
+bash deploy/build-and-restart.sh
 pm2 startup systemd -u root --hp /root >/dev/null
 
 echo "==> Nginx + basic auth"
 htpasswd -bc /etc/nginx/.htpasswd-omnia "$ADMIN_USER" "$ADMIN_PASS"
-sed "s/__DOMAIN__/$DOMAIN/g" deploy/nginx-omnia.conf > /etc/nginx/sites-available/omnia
+cp deploy/nginx-omnia-proxy.conf /etc/nginx/snippets/omnia-proxy.conf
+sed -e "s/__DOMAIN__/$DOMAIN/g" -e "s/__ADMIN_DOMAIN__/$ADMIN_DOMAIN/g" \
+  deploy/nginx-omnia.conf > /etc/nginx/sites-available/omnia
 ln -sf /etc/nginx/sites-available/omnia /etc/nginx/sites-enabled/omnia
 rm -f /etc/nginx/sites-enabled/default
 nginx -t && systemctl reload nginx
 
-echo "==> HTTPS (DNS A record for $DOMAIN must already point to this droplet)"
-certbot --nginx -d "$DOMAIN" --non-interactive --agree-tos -m "$EMAIL" --redirect \
-  || echo "!! certbot failed - point DNS to this droplet, then run: certbot --nginx -d $DOMAIN"
+echo "==> HTTPS (DNS records must point straight to this droplet, Cloudflare proxy OFF/grey)"
+CERT_DOMAINS=(-d "$DOMAIN" -d "$ADMIN_DOMAIN")
+if [ -n "$(dig +short "www.$DOMAIN")" ]; then CERT_DOMAINS+=(-d "www.$DOMAIN"); fi
+certbot --nginx "${CERT_DOMAINS[@]}" --cert-name "$DOMAIN" --expand \
+  --non-interactive --agree-tos -m "$EMAIL" --redirect \
+  || echo "!! certbot failed - check DNS, then re-run this script"
 
-echo "==> Done: https://$DOMAIN"
+echo "==> Done"
+echo "    Storefront: https://$DOMAIN"
+echo "    Dashboard:  https://$ADMIN_DOMAIN  (user: $ADMIN_USER)"

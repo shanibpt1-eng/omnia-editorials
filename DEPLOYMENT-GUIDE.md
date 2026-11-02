@@ -114,7 +114,7 @@ If your hosting provider offers cPanel with Node.js support (Hostinger, Namechea
        server_name omniastores.com www.omniastores.com;
 
        location / {
-           proxy_pass http://127.0.0.1:3001;
+           proxy_pass http://127.0.0.1:3000;
            proxy_http_version 1.1;
            proxy_set_header Upgrade $http_upgrade;
            proxy_set_header Connection 'upgrade';
@@ -129,6 +129,25 @@ If your hosting provider offers cPanel with Node.js support (Hostinger, Namechea
    sudo nginx -t && sudo systemctl reload nginx
    ```
    *(Optional: run `sudo certbot --nginx` for free Let's Encrypt SSL!)*
+
+---
+
+## 💧 3b. New DigitalOcean Droplet (automated)
+
+Ubuntu 22.04/24.04 droplet (2 GB RAM recommended; the script adds swap for 1 GB).
+Point your domain's DNS A record to the droplet IP first, then:
+
+```bash
+ssh root@your-droplet-ip
+git clone https://github.com/omniastores/blog.git /var/www/omnia && cd /var/www/omnia
+DOMAIN=dashboard.omniastores.com ADMIN_USER=admin ADMIN_PASS='strong-password' bash deploy/setup-droplet.sh
+nano .env.local          # fill in real API keys
+bash deploy/update.sh    # rebuild with the new env
+```
+
+The script installs Node 20, PM2, Nginx, UFW and a Let's Encrypt certificate, and puts the whole
+site behind HTTP basic auth (the dashboard and `/api/publisher/*` routes have no login of their own).
+Later updates: `cd /var/www/omnia && bash deploy/update.sh`.
 
 ---
 

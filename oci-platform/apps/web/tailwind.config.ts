@@ -38,7 +38,7 @@ const config: Config = {
         },
       },
       fontFamily: {
-        serif: ['Didot', 'Bodoni MT', 'Cinzel', 'Georgia', 'serif'],
+        serif: ['Didot', 'Bodoni Moda', 'Bodoni MT', 'Cinzel', 'Playfair Display', 'Georgia', 'serif'],
         sans: ['Inter', 'system-ui', 'sans-serif'],
       },
       keyframes: {

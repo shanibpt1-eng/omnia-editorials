@@ -28,7 +28,7 @@ const config: Config = {
         },
       },
       fontFamily: {
-        serif: ["Playfair Display", "Georgia", "serif"],
+        serif: ["Didot", "Bodoni Moda", "Bodoni MT", "Playfair Display", "Georgia", "serif"],
         sans: ["Inter", "-apple-system", "BlinkMacSystemFont", "Segoe UI", "Roboto", "sans-serif"],
         arabic: ["Cairo", "Amiri", "system-ui", "sans-serif"],
       },

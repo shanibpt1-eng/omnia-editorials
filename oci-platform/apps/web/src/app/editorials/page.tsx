@@ -2194,14 +2194,16 @@ export default function GulfChronicleEditorialPortal() {
                   <span className="h-px flex-1 max-w-[30px] sm:max-w-[70px] bg-gradient-to-l from-transparent via-gold to-gold/80" />
                 </div>
 
-                <h1 className="text-3xl sm:text-5xl lg:text-5xl xl:text-6xl font-serif font-black tracking-tight uppercase leading-[1.08] drop-shadow-sm select-none whitespace-nowrap">
+                <h1 className="text-3xl sm:text-5xl lg:text-5xl xl:text-6xl font-serif font-black tracking-[0.06em] sm:tracking-[0.1em] uppercase leading-[1.08] drop-shadow-sm select-none whitespace-nowrap">
                   <span className="bg-clip-text text-transparent bg-gradient-to-b from-neutral-950 via-neutral-800 to-neutral-700 dark:from-[#FFFDF7] dark:via-[#F9E8B8] dark:to-[#D4AF37]">
-                    {isAr ? 'ذا جلف كرونيكل • صحيفة الخليج' : 'The Gulf Chronicle'}
+                    {isAr ? 'ذا فوغ نيوز • أخبار الموضة' : 'THE VOGUE NEWS'}
                   </span>
                 </h1>
                 
-                <div className="text-[11px] sm:text-xs font-serif text-[#8B6508] dark:text-gold/90 mt-2 tracking-wider sm:tracking-widest font-bold flex items-center justify-center gap-2">
-                  <span>{isAr ? 'صحيفة الخليج اليومية • قسم المجوهرات الفاخرة والمعايير العالمية' : 'Daily Gulf Broadsheet • High Jewellery, Assay Standards & Haute Couture'}</span>
+                <div className="text-[11px] sm:text-xs font-serif text-[#8B6508] dark:text-gold/90 mt-2 tracking-wider sm:tracking-widest font-bold flex flex-wrap items-center justify-center gap-2">
+                  <span className="font-mono text-[10px] sm:text-[11px] px-2 py-0.5 rounded bg-gold/10 border border-gold/30 text-[#8B6508] dark:text-gold lowercase tracking-normal">thevoguenews</span>
+                  <span className="text-gold/40">•</span>
+                  <span>{isAr ? 'صحيفة فوغ نيوز اليومية • قسم المجوهرات الفاخرة والمعايير العالمية' : 'Daily Vogue News Broadsheet • High Jewellery, Assay Standards & Haute Couture'}</span>
                 </div>
 
                 {/* Broadsheet Meta Ribbon */}
@@ -2784,7 +2786,7 @@ export default function GulfChronicleEditorialPortal() {
                                       </div>
                                       <div className="flex items-center gap-1.5">
                                         <a
-                                          href={`https://wa.me/971501234567?text=${encodeURIComponent(`Hello Omnia Private Stylist, I am inquiring about the ${hs.title} (${formatPrice(hs.priceAed)}) featured in The Gulf Chronicle campaign.`)}`}
+                                          href={`https://wa.me/971501234567?text=${encodeURIComponent(`Hello Omnia Private Stylist, I am inquiring about the ${hs.title} (${formatPrice(hs.priceAed)}) featured in The Vogue News campaign.`)}`}
                                           target="_blank"
                                           rel="noopener noreferrer"
                                           className="p-1.5 rounded-lg bg-emerald-600/30 hover:bg-emerald-600 text-emerald-300 hover:text-white border border-emerald-500/40 transition-colors"
@@ -2895,7 +2897,7 @@ export default function GulfChronicleEditorialPortal() {
                         <div className="pointer-events-auto ml-auto flex items-center gap-2 flex-shrink-0">
                           {/* VIP Stylist WhatsApp Desk */}
                           <a
-                            href={`https://wa.me/971501234567?text=${encodeURIComponent(`Hello Omnia Stylist, I am viewing the ${camp.title} campaign in The Gulf Chronicle and would like styling advice.`)}`}
+                            href={`https://wa.me/971501234567?text=${encodeURIComponent(`Hello Omnia Stylist, I am viewing the ${camp.title} campaign in The Vogue News and would like styling advice.`)}`}
                             target="_blank"
                             rel="noopener noreferrer"
                             className="whitespace-nowrap px-3 py-1.5 sm:px-3.5 sm:py-2 rounded-xl bg-emerald-600/95 hover:bg-emerald-500 text-white text-xs font-bold uppercase tracking-wider flex items-center gap-1.5 transition-all shadow-xl hover:scale-105 active:scale-95 select-none"
@@ -3589,7 +3591,7 @@ export default function GulfChronicleEditorialPortal() {
                       </span>
                     </div>
                     <div className="text-xs font-serif font-semibold text-neutral-950 dark:text-white">
-                      {isAr ? 'بصوت نور الصباح، خبيرة الأحجار • استوديو جلف كرونيكل' : 'Narrated by Nour Al-Sabah, G.G. • Gulf Chronicle Studio'}
+                      {isAr ? 'بصوت نور الصباح، خبيرة الأحجار • استوديو فوغ نيوز' : 'Narrated by Nour Al-Sabah, G.G. • The Vogue News Studio'}
                     </div>
                   </div>
                 </div>
@@ -3873,7 +3875,7 @@ export default function GulfChronicleEditorialPortal() {
 
                           <div className="flex items-center gap-2">
                             <a
-                              href={`https://wa.me/971501234567?text=${encodeURIComponent(`Hello Omnia Private Stylist, I am inquiring about the ${leadStory.featuredProduct.title} featured in The Gulf Chronicle.`)}`}
+                              href={`https://wa.me/971501234567?text=${encodeURIComponent(`Hello Omnia Private Stylist, I am inquiring about the ${leadStory.featuredProduct.title} featured in The Vogue News.`)}`}
                               target="_blank"
                               rel="noopener noreferrer"
                               className="px-3 py-1.5 rounded-xl bg-emerald-600/20 hover:bg-emerald-600 text-emerald-400 hover:text-white border border-emerald-500/40 text-[10px] font-mono font-bold flex items-center gap-1.5 transition-colors"
@@ -6363,7 +6365,7 @@ export default function GulfChronicleEditorialPortal() {
               <div className="p-4 border-b border-neutral-300 dark:border-neutral-800 bg-[#F4EFE6] dark:bg-[#111520] flex items-center justify-between">
                 <div className="flex items-center gap-3">
                   <span className="text-[10px] font-extrabold uppercase tracking-widest bg-neutral-900 text-white dark:bg-gold dark:text-black px-2 py-0.5 rounded">
-                    {getPublicationLabel(activeModalArticle.publication, isAr) || (isAr ? 'ذا جلف كرونيكل' : 'THE GULF CHRONICLE')}
+                    {getPublicationLabel(activeModalArticle.publication, isAr) || (isAr ? 'ذا فوغ نيوز' : 'THE VOGUE NEWS')}
                   </span>
                   <span className="text-xs font-mono text-neutral-500 hidden sm:inline">
                     {isAr && activeModalArticle.dateAr ? activeModalArticle.dateAr : (activeModalArticle.date || 'October 2026')} • {isAr && activeModalArticle.readTimeAr ? activeModalArticle.readTimeAr : (activeModalArticle.readTime || '5 min read')}

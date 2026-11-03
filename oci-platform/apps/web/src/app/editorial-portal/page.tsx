@@ -102,18 +102,18 @@ export default function EditorialPortalPage() {
               className="flex items-center gap-2 group transition-transform active:scale-95"
               title={isAr ? 'العودة إلى صحيفة الغلاف' : 'Return to Broadsheet Edition'}
             >
-              <div className="relative w-8 h-8 rounded-full overflow-hidden bg-black border border-gold/50 flex items-center justify-center">
+              <div className="relative w-8 h-8 rounded-full overflow-hidden bg-black border border-gold/50 flex items-center justify-center p-1">
                 <Image
-                  src="/omnia-logo-white.png"
-                  alt="Omnia Stores"
-                  width={20}
-                  height={20}
+                  src="/the-vogue-news-white.png"
+                  alt="THE VOGUE NEWS"
+                  width={28}
+                  height={28}
                   className="object-contain"
                 />
               </div>
               <div className="hidden sm:block leading-tight">
                 <span className="font-serif font-black tracking-widest text-xs uppercase block text-neutral-950 dark:text-white group-hover:text-gold transition-colors">
-                  OMNIA STORES
+                  THE VOGUE NEWS
                 </span>
                 <span className="text-[8px] font-mono uppercase tracking-widest text-neutral-500 dark:text-neutral-400">
                   DUBAI • EDITORIAL PORTAL

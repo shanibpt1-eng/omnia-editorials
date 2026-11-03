@@ -2194,9 +2194,17 @@ export default function GulfChronicleEditorialPortal() {
                   <span className="h-px flex-1 max-w-[30px] sm:max-w-[70px] bg-gradient-to-l from-transparent via-gold to-gold/80" />
                 </div>
 
-                <h1 className="text-3xl sm:text-5xl lg:text-5xl xl:text-6xl font-serif font-black tracking-[0.06em] sm:tracking-[0.1em] uppercase leading-[1.08] drop-shadow-sm select-none whitespace-nowrap">
+                <h1 className="text-3xl sm:text-5xl lg:text-5xl xl:text-6xl font-serif font-black uppercase leading-[1.08] drop-shadow-sm select-none whitespace-nowrap">
                   <span className="bg-clip-text text-transparent bg-gradient-to-b from-neutral-950 via-neutral-800 to-neutral-700 dark:from-[#FFFDF7] dark:via-[#F9E8B8] dark:to-[#D4AF37]">
-                    {isAr ? 'ذا فوغ نيوز • أخبار الموضة' : 'THE VOGUE NEWS'}
+                    {isAr ? (
+                      'ذا فوغ نيوز • أخبار الموضة'
+                    ) : (
+                      <span className="inline-flex items-baseline justify-center gap-2 sm:gap-3 lg:gap-4">
+                        <span className="text-lg sm:text-2xl lg:text-3xl tracking-[0.25em] sm:tracking-[0.35em] font-normal opacity-90">THE</span>
+                        <span className="text-3xl sm:text-5xl lg:text-6xl xl:text-7xl font-serif font-black tracking-tight">VOGUE</span>
+                        <span className="text-lg sm:text-2xl lg:text-3xl tracking-[0.25em] sm:tracking-[0.35em] font-normal opacity-90">NEWS</span>
+                      </span>
+                    )}
                   </span>
                 </h1>
                 

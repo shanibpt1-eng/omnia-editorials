@@ -17,21 +17,21 @@ export function Footer() {
           
           {/* Brand Info */}
           <div className="lg:col-span-2 space-y-4">
-            <Link href="/" className="inline-block group py-1">
+            <Link href="/" className="inline-block group py-1" aria-label="The Vogue News Home">
               <div className="relative flex items-center">
                 <Image
-                  src="/omnia-logo-white.png"
-                  alt="OMNIA"
-                  width={200}
-                  height={31}
-                  className="h-8 w-auto object-contain hidden dark:block transition-all duration-300 group-hover:opacity-90"
+                  src="/the-vogue-news-white.png"
+                  alt="THE VOGUE NEWS"
+                  width={240}
+                  height={37}
+                  className="h-8 sm:h-9 w-auto object-contain hidden dark:block transition-all duration-300 group-hover:opacity-90"
                 />
                 <Image
-                  src="/omnia-logo-black.png"
-                  alt="OMNIA"
-                  width={200}
-                  height={31}
-                  className="h-8 w-auto object-contain block dark:hidden transition-all duration-300 group-hover:opacity-90"
+                  src="/the-vogue-news-black.png"
+                  alt="THE VOGUE NEWS"
+                  width={240}
+                  height={37}
+                  className="h-8 sm:h-9 w-auto object-contain block dark:hidden transition-all duration-300 group-hover:opacity-90"
                 />
               </div>
             </Link>

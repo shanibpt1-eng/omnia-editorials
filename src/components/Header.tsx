@@ -62,23 +62,23 @@ export function Header() {
       <div className="backdrop-blur-xl bg-white/95 dark:bg-[#0A0D14]/92 border-b border-neutral-200 dark:border-[#D4AF37]/20 shadow-md dark:shadow-[0_4px_30px_rgba(0,0,0,0.5)]">
         <div className="max-w-7xl 2xl:max-w-[1440px] mx-auto px-4 sm:px-6 lg:px-8 h-[70px] sm:h-[74px] flex items-center justify-between gap-3 sm:gap-4 lg:gap-6">
           
-          {/* Official OMNIA Wordmark Logo */}
+          {/* Official THE VOGUE NEWS Wordmark Logo */}
           <div className="flex items-center shrink-0 z-10">
-            <Link href="/" className="flex items-center group py-1 shrink-0" aria-label="Omnia Stores Home">
+            <Link href="/" className="flex items-center group py-1 shrink-0" aria-label="The Vogue News Home">
               <Image
-                src="/omnia-logo-white.png"
-                alt="OMNIA"
-                width={140}
-                height={22}
-                className="h-5 sm:h-6 md:h-7 w-auto object-contain hidden dark:block transition-all duration-300 group-hover:opacity-90 group-hover:drop-shadow-[0_0_12px_rgba(212,175,55,0.4)]"
+                src="/the-vogue-news-white.png"
+                alt="THE VOGUE NEWS"
+                width={210}
+                height={32}
+                className="h-6 sm:h-7 md:h-8 w-auto object-contain hidden dark:block transition-all duration-300 group-hover:opacity-90 group-hover:drop-shadow-[0_0_12px_rgba(212,175,55,0.4)]"
                 priority
               />
               <Image
-                src="/omnia-logo-black.png"
-                alt="OMNIA"
-                width={140}
-                height={22}
-                className="h-5 sm:h-6 md:h-7 w-auto object-contain block dark:hidden transition-all duration-300 group-hover:opacity-80"
+                src="/the-vogue-news-black.png"
+                alt="THE VOGUE NEWS"
+                width={210}
+                height={32}
+                className="h-6 sm:h-7 md:h-8 w-auto object-contain block dark:hidden transition-all duration-300 group-hover:opacity-80"
                 priority
               />
             </Link>

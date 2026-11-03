@@ -133,8 +133,8 @@ export function Sidebar() {
       <div className="p-5 border-b border-[#23252e]">
         <Link href="/" className="flex flex-col gap-1.5 group">
           <img
-            src="/omnia-logo-white.png"
-            alt="OMNIA STORES"
+            src="/the-vogue-news-white.png"
+            alt="THE VOGUE NEWS"
             className="h-7 w-auto object-contain filter group-hover:drop-shadow-[0_0_10px_rgba(212,175,55,0.4)] transition-all"
           />
           <div className="flex items-center justify-between">

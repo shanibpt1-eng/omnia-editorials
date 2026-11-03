@@ -72,7 +72,6 @@ export function Footer() {
               <li><Link href="/editorials" className="hover:text-[#B8860B] dark:hover:text-gold transition-colors">{t.navEditorials}</Link></li>
               <li><Link href="/products" className="hover:text-[#B8860B] dark:hover:text-gold transition-colors">{t.navProducts}</Link></li>
               <li><Link href="/about" className="hover:text-[#B8860B] dark:hover:text-gold transition-colors">{t.navAbout}</Link></li>
-              <li><Link href="/backend" className="hover:text-[#B8860B] dark:hover:text-gold transition-colors text-emerald-500 font-semibold">{t.navBackend}</Link></li>
             </ul>
           </div>
 

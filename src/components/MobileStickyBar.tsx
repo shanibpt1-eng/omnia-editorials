@@ -50,15 +50,6 @@ export function MobileStickyBar() {
         </div>
         <span>{language === 'ar' ? 'البوابة التحريرية' : 'Editorial'}</span>
       </Link>
-
-      {/* Backend Control Center */}
-      <Link
-        href="/backend"
-        className="flex flex-col items-center gap-1 text-[10px] text-emerald-400 font-semibold"
-      >
-        <ArrowUpRight className="w-4 h-4" />
-        <span>{language === 'ar' ? 'التحكم' : 'Backend'}</span>
-      </Link>
     </div>
   );
 }

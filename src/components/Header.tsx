@@ -4,7 +4,7 @@ import React, { useState } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 import { usePathname } from 'next/navigation';
-import { Sun, Moon, Sparkles, ShoppingBag, ArrowUpRight, Menu, X, Server } from 'lucide-react';
+import { Sun, Moon, Sparkles, ShoppingBag, ArrowUpRight, Menu, X } from 'lucide-react';
 import { useLuxury } from './ThemeProvider';
 
 export function Header() {
@@ -21,10 +21,9 @@ export function Header() {
     { label: t.navAbout, href: '/about' },
   ];
 
-  // Full links including developer/admin backend for mobile drawer
+  // Consumer links for mobile drawer
   const mobileNavLinks = [
     ...desktopNavLinks,
-    { label: t.navBackend, href: '/backend' },
   ];
 
   return (
@@ -124,17 +123,6 @@ export function Header() {
 
           {/* Right Action Tools: Language Toggle, Currency Toggle, Theme Toggle, Main Flagship Storefront CTA */}
           <div className="flex items-center gap-2 sm:gap-2.5 lg:gap-3 shrink-0 z-20">
-            
-            {/* Desktop Backend Hub Quick Shortcut (Visible on 2xl) */}
-            <Link
-              href="/backend"
-              className="hidden 2xl:flex items-center gap-1 px-3 py-1.5 rounded-full border border-gold/30 hover:border-gold text-gold hover:bg-gold/10 text-[10px] font-mono uppercase tracking-wider transition-all"
-              title="Backend & AI Operations Hub"
-            >
-              <Server className="w-3 h-3 text-gold" />
-              <span>{t.navBackend}</span>
-            </Link>
-
             {/* Bilingual Switcher (EN / عربي) */}
             <div className="flex items-center bg-black/40 dark:bg-white/[0.04] border border-neutral-300/80 dark:border-gold/30 rounded-full p-0.5 text-xs shadow-inner">
               <button

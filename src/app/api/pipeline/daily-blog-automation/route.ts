@@ -283,8 +283,8 @@ export async function POST(req: Request) {
         fs.writeFileSync(publishedJsonPath, JSON.stringify(filtered, null, 2), 'utf-8');
         storefrontResult = {
           success: true,
-          publishedUrl: `http://localhost:3001/trending/${storefrontArticlePayload.slug}`,
-          editorialsUrl: 'http://localhost:3001/editorials',
+          publishedUrl: `${process.env.NEXT_PUBLIC_STOREFRONT_URL || 'http://localhost:3001'}/trending/${storefrontArticlePayload.slug}`,
+          editorialsUrl: `${process.env.NEXT_PUBLIC_STOREFRONT_URL || 'http://localhost:3001'}/editorials`,
           method: 'SYNCHRONIZED_BRIDGE',
         };
 
@@ -331,7 +331,7 @@ export async function POST(req: Request) {
           productHandle: selectedAngle.productHandle,
           qualityScore: article.qualityScore,
           storefrontSuccess: storefrontResult?.success || false,
-          publishedUrl: storefrontResult?.publishedUrl || `http://localhost:3001/trending/${storefrontArticlePayload.slug}`,
+          publishedUrl: storefrontResult?.publishedUrl || `${process.env.NEXT_PUBLIC_STOREFRONT_URL || 'http://localhost:3001'}/trending/${storefrontArticlePayload.slug}`,
           publishError,
         },
       });
@@ -341,7 +341,7 @@ export async function POST(req: Request) {
         title: `Daily Blog Created & Published`,
         message: `"${selectedAngle.topicEn.slice(0, 45)}..." is now live on Port 3001 Storefront!`,
         severity: 'SUCCESS',
-        action_url: storefrontResult?.publishedUrl || 'http://localhost:3001/editorials',
+        action_url: storefrontResult?.publishedUrl || `${process.env.NEXT_PUBLIC_STOREFRONT_URL || 'http://localhost:3001'}/editorials`,
       });
     } catch (e) {
       console.warn('Backend notification notice:', e);
@@ -357,8 +357,8 @@ export async function POST(req: Request) {
       storefrontBridge: {
         connected: !publishError,
         published: storefrontResult?.success || false,
-        publishedUrl: storefrontResult?.publishedUrl || `http://localhost:3001/trending/${storefrontArticlePayload.slug}`,
-        editorialsUrl: 'http://localhost:3001/editorials',
+        publishedUrl: storefrontResult?.publishedUrl || `${process.env.NEXT_PUBLIC_STOREFRONT_URL || 'http://localhost:3001'}/trending/${storefrontArticlePayload.slug}`,
+        editorialsUrl: `${process.env.NEXT_PUBLIC_STOREFRONT_URL || 'http://localhost:3001'}/editorials`,
         error: publishError,
       },
     });

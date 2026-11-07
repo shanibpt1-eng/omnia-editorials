@@ -114,7 +114,7 @@ If your hosting provider offers cPanel with Node.js support (Hostinger, Namechea
        server_name omniastores.com www.omniastores.com;
 
        location / {
-           proxy_pass http://127.0.0.1:3001;
+           proxy_pass http://127.0.0.1:3000;
            proxy_http_version 1.1;
            proxy_set_header Upgrade $http_upgrade;
            proxy_set_header Connection 'upgrade';
@@ -129,6 +129,33 @@ If your hosting provider offers cPanel with Node.js support (Hostinger, Namechea
    sudo nginx -t && sudo systemctl reload nginx
    ```
    *(Optional: run `sudo certbot --nginx` for free Let's Encrypt SSL!)*
+
+---
+
+## 💧 3b. New DigitalOcean Droplet (automated)
+
+Ubuntu 22.04/24.04 droplet (2 GB RAM recommended; the script adds swap for 1 GB).
+Point your domain's DNS A record to the droplet IP first, then:
+
+```bash
+ssh root@your-droplet-ip
+git clone https://github.com/omniastores/blog.git /var/www/omnia && cd /var/www/omnia
+DOMAIN=dashboard.omniastores.com ADMIN_USER=admin ADMIN_PASS='strong-password' bash deploy/setup-droplet.sh
+nano .env.local          # fill in real API keys
+bash deploy/update.sh    # rebuild with the new env
+```
+
+The script builds and runs both apps with PM2 and puts them behind Nginx + Let's Encrypt:
+
+| URL | App | Access |
+| :--- | :--- | :--- |
+| `https://DOMAIN` | Public storefront (`oci-platform/apps/web`, port 3001) | Public (`/backend` and `/api/publish-article` need the admin password) |
+| `https://admin.DOMAIN` | Admin dashboard (repo root, port 3000) | HTTP basic auth (`ADMIN_USER` / `ADMIN_PASS`) |
+
+Create DNS A records for `DOMAIN` and `admin.DOMAIN` first (Cloudflare: grey cloud while the
+certificate is issued, then orange cloud with SSL mode **Full (strict)**).
+
+Later updates: `cd /var/www/omnia && bash deploy/update.sh`.
 
 ---
 

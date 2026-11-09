@@ -402,6 +402,60 @@ export default function GulfChronicleEditorialPortal() {
   };
 
   // =========================================================================
+  // 🔥 11:11 MEGA SALE COUNTDOWN & PROMOTION STATE
+  // =========================================================================
+  const [countdown1111, setCountdown1111] = useState({ days: 1, hours: 8, minutes: 24, seconds: 11 });
+  const [is1111CodeCopied, setIs1111CodeCopied] = useState(false);
+  const [is1111VideoPlaying, setIs1111VideoPlaying] = useState(true);
+  const [is1111VideoMuted, setIs1111VideoMuted] = useState(true);
+  const video1111Ref = useRef<HTMLVideoElement>(null);
+
+  useEffect(() => {
+    const calculateTimeLeft = () => {
+      const target = new Date('2026-11-11T23:59:59+04:00').getTime();
+      const now = Date.now();
+      const diff = Math.max(0, target - now);
+      return {
+        days: Math.floor(diff / (1000 * 60 * 60 * 24)),
+        hours: Math.floor((diff / (1000 * 60 * 60)) % 24),
+        minutes: Math.floor((diff / (1000 * 60)) % 60),
+        seconds: Math.floor((diff / 1000) % 60),
+      };
+    };
+    setCountdown1111(calculateTimeLeft());
+    const timer = setInterval(() => {
+      setCountdown1111(calculateTimeLeft());
+    }, 1000);
+    return () => clearInterval(timer);
+  }, []);
+
+  const handleCopy1111Code = () => {
+    if (typeof navigator !== 'undefined' && navigator.clipboard) {
+      navigator.clipboard.writeText('OMNIA1111');
+      setIs1111CodeCopied(true);
+      setTimeout(() => setIs1111CodeCopied(false), 2500);
+    }
+  };
+
+  const toggle1111Video = () => {
+    if (!video1111Ref.current) return;
+    if (video1111Ref.current.paused) {
+      video1111Ref.current.play().catch(() => {});
+      setIs1111VideoPlaying(true);
+    } else {
+      video1111Ref.current.pause();
+      setIs1111VideoPlaying(false);
+    }
+  };
+
+  const toggle1111Sound = () => {
+    if (!video1111Ref.current) return;
+    const nextMuted = !is1111VideoMuted;
+    video1111Ref.current.muted = nextMuted;
+    setIs1111VideoMuted(nextMuted);
+  };
+
+  // =========================================================================
   // ⭐ OMNIA STORES OMNICHANNEL SOCIAL DESK & BROADCAST TV STATE
   // =========================================================================
   const omniaVlogs: VlogItem[] = useMemo(() => omniastoresYoutubeData.videos as VlogItem[], []);
@@ -1785,11 +1839,13 @@ export default function GulfChronicleEditorialPortal() {
 
   // Live Breaking News Headlines for Marquee
   const breakingHeadlines = [
+    '11:11 LIVE WIRE: Omnia Stores triggers UAE’s largest online luxury cart drops with deals from Dh111 and code OMNIA1111',
+    'GULF NEWS FOCUS: 11.11 shopping surge sets new luxury jewellery cart drop records across Dubai and Abu Dhabi',
+    'KHALEEJ TIMES: Homegrown demi-fine leader Omnia Stores delivers up to 85% discount and Dh3,000 cart savings',
     'OMNIA STORES: Unveils 2026 Royal Bridal Demi-Fine Suite in Certified 925 Silver across Dubai Souk',
     'MARKET WATCH: Dubai Gold Souk 24K holds at AED 328.50 as wedding season demand accelerates',
     'LABORATORY ASSAY: Dubai Central Laboratories reinforces 925 silver spectrometry hallmarking protocols',
     'KSA COMMERCE: Riyadh logistics facility activates 24-hr cross-border delivery corridor for Saudi buyers',
-    'HAUTE COUTURE: Vogue Arabia spotlights the resurgence of handcrafted Arabesque 925 silver statement pins',
   ];
 
   // Dynamic Synchronized Editorial Feed
@@ -2406,6 +2462,510 @@ export default function GulfChronicleEditorialPortal() {
               <span className="hidden sm:inline font-bold text-neutral-600 dark:text-neutral-400">
                 {isAr ? 'اسحب أو استخدم الأسهم للتنقل بين جميع المجموعات الـ ١٦' : 'Swipe or use glide arrows to explore all 16 collections'}
               </span>
+            </div>
+
+          </div>
+        </section>
+
+        {/* =========================================================================
+            🔥 11:11 MEGA SALE LIVE COUNTDOWN HEADQUARTERS & OMNIASTORES.COM ADVERTISING EVENT
+            - Interactive Real-Time Countdown to Single's Day
+            - 1080P Web Banner Video Cinema Theater
+            - High-Fashion Omnia Stores 11:11 Advertisement Banner Gallery (All 8 Editions)
+            - Top Publisher Syndicated Coverage (Gulf News & Khaleej Times)
+            - 100% Mobile Responsive Layout
+        ========================================================================== */}
+        <section className="w-full max-w-[1780px] mx-auto px-3 sm:px-6 lg:px-8 pt-6 pb-6">
+          <div className="relative rounded-2xl sm:rounded-3xl border-2 border-gold/40 bg-[radial-gradient(ellipse_100%_80%_at_50%_-20%,rgba(212,175,55,0.18),transparent_80%),linear-gradient(to_bottom,#0F131D,#090B10)] p-4 sm:p-7 lg:p-9 shadow-[0_20px_60px_rgba(0,0,0,0.85)] overflow-hidden">
+            
+            {/* Ambient Background Gold Sparkles */}
+            <div className="absolute top-0 right-1/4 w-80 h-80 bg-gold/10 rounded-full blur-[100px] pointer-events-none" />
+            <div className="absolute bottom-0 left-1/4 w-80 h-80 bg-red-600/10 rounded-full blur-[100px] pointer-events-none" />
+
+            {/* 1. Header Ticker & Event Announcement */}
+            <div className="relative z-10 flex flex-wrap items-center justify-between gap-3 pb-6 border-b border-gold/25">
+              <div className="flex flex-wrap items-center gap-2 sm:gap-3">
+                <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-gradient-to-r from-red-600 via-amber-500 to-amber-600 text-white font-extrabold text-[11px] sm:text-xs tracking-wider uppercase animate-pulse shadow-md">
+                  <Flame className="w-3.5 h-3.5 fill-current" />
+                  <span>{isAr ? 'مهرجان 11:11 الحصري — اليوم فقط' : '11:11 MEGA SALE — ONLY TODAY'}</span>
+                </span>
+
+                <span className="px-2.5 py-1 rounded-full bg-black/80 border border-gold/40 text-gold font-mono font-bold text-[11px] sm:text-xs">
+                  {isAr ? 'كود الخصم: OMNIA1111' : 'VOUCHER: OMNIA1111'}
+                </span>
+
+                <span className="hidden sm:inline-flex items-center gap-1 text-emerald-400 font-mono text-xs font-bold">
+                  <span className="w-2 h-2 rounded-full bg-emerald-500 animate-ping" />
+                  {isAr ? 'العروض حية الآن على المتجر' : 'OFFERS LIVE ON OMNIASTORES.COM'}
+                </span>
+              </div>
+
+              <div className="flex items-center gap-2">
+                <span className="text-[11px] font-serif text-neutral-400">
+                  {isAr ? 'تغطية معتمدة من' : 'Official Coverage:'}
+                </span>
+                <span className="px-2 py-0.5 rounded bg-gold/10 border border-gold/30 text-gold text-[10px] font-bold">
+                  GULF NEWS
+                </span>
+                <span className="px-2 py-0.5 rounded bg-gold/10 border border-gold/30 text-gold text-[10px] font-bold">
+                  KHALEEJ TIMES
+                </span>
+              </div>
+            </div>
+
+            {/* 2. Broadsheet Title & Live Countdown Grid */}
+            <div className="relative z-10 py-6 sm:py-8 grid grid-cols-1 lg:grid-cols-12 items-center gap-6 lg:gap-8">
+              
+              {/* Left Column: Event Headline & Value Proposition */}
+              <div className="lg:col-span-7 space-y-3.5 sm:space-y-4 text-left rtl:text-right">
+                <span className="text-xs sm:text-sm font-mono font-black uppercase tracking-[0.2em] text-gold flex items-center gap-2">
+                  <Crown className="w-4 h-4 text-gold shrink-0" />
+                  <span>{isAr ? 'أضخم تخفيضات السلة لهذا العام في الإمارات والخليج' : "THE YEAR'S BIGGEST ONLINE CART DROPS IN THE UAE & GCC"}</span>
+                </span>
+
+                <h2 className="text-2xl sm:text-4xl lg:text-5xl font-serif font-black text-white leading-[1.15] tracking-tight">
+                  {isAr ? (
+                    <>
+                      عروض 11.11 الكبرى لمجوهرات أمنية ستورز: <br className="hidden sm:inline" />
+                      <span className="text-transparent bg-clip-text bg-gradient-to-r from-gold via-amber-200 to-gold">
+                        خصم حتى 90% وصفقات تبدأ من 111 درهم
+                      </span>
+                    </>
+                  ) : (
+                    <>
+                      Omnia Stores 11.11 Mega Sale: <br className="hidden sm:inline" />
+                      <span className="text-transparent bg-clip-text bg-gradient-to-r from-gold via-amber-200 to-gold">
+                        Up to 90% Off & Deals from Dh111
+                      </span>
+                    </>
+                  )}
+                </h2>
+
+                <p className="text-xs sm:text-sm lg:text-base text-neutral-300 font-serif leading-relaxed max-w-2xl">
+                  {isAr
+                    ? 'انطلاق مهرجان التسوق الأكبر عبر متجر omniastores.com بمشاركة أحدث أطقم الفضة الإسترلينية 925، قلائد الفراشة الماسية، ومجموعات الياقوت الأصفر. وفر حتى 3,000 درهم مع شحن سريع خلال 24 ساعة في الإمارات وتقسيط ميسر عبر تابي.'
+                    : 'The year’s biggest cart drops go live across the UAE with discounts up to 90%, deals starting from Dh111, and savings of up to Dh3,000 on DCL-assayed 925 sterling silver bridal sets, butterfly collier suites, and high-carat cushion solitaires.'}
+                </p>
+
+                {/* 1-Click Code Copy + Store Direct CTA */}
+                <div className="flex flex-wrap items-center gap-3 pt-2">
+                  <a
+                    href="https://omniastores.com/collections/discounted-items"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="px-5 sm:px-7 py-3 sm:py-3.5 rounded-full bg-gradient-to-r from-gold via-amber-300 to-[#AA8C2C] text-black font-extrabold text-xs sm:text-sm tracking-wider uppercase flex items-center gap-2.5 shadow-[0_0_30px_rgba(212,175,55,0.6)] hover:scale-105 active:scale-95 transition-all group"
+                  >
+                    <Crown className="w-4 h-4 text-black shrink-0" />
+                    <span>{isAr ? 'تسوق قطع 11:11 المخفضة الآن' : 'Shop 11:11 Discounted Items'}</span>
+                    <ExternalLink className="w-4 h-4 shrink-0 group-hover:translate-x-0.5 transition-transform" />
+                  </a>
+
+                  {/* 1-Click Voucher Copier */}
+                  <button
+                    onClick={handleCopy1111Code}
+                    className="px-4 sm:px-5 py-3 rounded-full bg-black/80 hover:bg-gold hover:text-black border border-gold/50 text-gold text-xs font-mono font-bold flex items-center gap-2 shadow-md transition-all active:scale-95"
+                    title="Click to copy 11:11 VIP Voucher Code"
+                  >
+                    {is1111CodeCopied ? (
+                      <>
+                        <Check className="w-4 h-4 text-emerald-400" />
+                        <span className="text-emerald-400 font-bold">{isAr ? 'تم نسخ الكود!' : 'COPIED TO CLIPBOARD!'}</span>
+                      </>
+                    ) : (
+                      <>
+                        <Copy className="w-4 h-4" />
+                        <span>CODE: <strong>OMNIA1111</strong> ({isAr ? 'نسخ' : 'Copy'})</span>
+                      </>
+                    )}
+                  </button>
+                </div>
+              </div>
+
+              {/* Right Column: Real-Time Flip Countdown Cards */}
+              <div className="lg:col-span-5 flex flex-col items-center justify-center p-5 sm:p-7 rounded-2xl bg-black/85 border-2 border-gold/40 shadow-2xl backdrop-blur-md text-center space-y-4">
+                <div className="flex items-center gap-2 text-xs font-mono font-black uppercase tracking-widest text-gold">
+                  <Clock className="w-4 h-4 text-gold animate-spin" style={{ animationDuration: '8s' }} />
+                  <span>{isAr ? 'العد التنازلي المباشر لعروض 11:11' : '11:11 CART DROPS LIVE COUNTDOWN'}</span>
+                </div>
+
+                {/* 4 Digital Timer Cells */}
+                <div className="grid grid-cols-4 gap-2 sm:gap-3 w-full max-w-sm">
+                  {/* Days */}
+                  <div className="flex flex-col items-center p-2.5 sm:p-3 rounded-xl bg-neutral-900/90 border border-gold/30 shadow-inner">
+                    <span className="text-2xl sm:text-4xl font-mono font-black text-white">
+                      {String(countdown1111.days).padStart(2, '0')}
+                    </span>
+                    <span className="text-[9px] sm:text-[10px] font-mono uppercase tracking-wider text-gold font-bold mt-1">
+                      {isAr ? 'أيام' : 'DAYS'}
+                    </span>
+                  </div>
+
+                  {/* Hours */}
+                  <div className="flex flex-col items-center p-2.5 sm:p-3 rounded-xl bg-neutral-900/90 border border-gold/30 shadow-inner">
+                    <span className="text-2xl sm:text-4xl font-mono font-black text-gold">
+                      {String(countdown1111.hours).padStart(2, '0')}
+                    </span>
+                    <span className="text-[9px] sm:text-[10px] font-mono uppercase tracking-wider text-gold font-bold mt-1">
+                      {isAr ? 'ساعات' : 'HOURS'}
+                    </span>
+                  </div>
+
+                  {/* Minutes */}
+                  <div className="flex flex-col items-center p-2.5 sm:p-3 rounded-xl bg-neutral-900/90 border border-gold/30 shadow-inner">
+                    <span className="text-2xl sm:text-4xl font-mono font-black text-white">
+                      {String(countdown1111.minutes).padStart(2, '0')}
+                    </span>
+                    <span className="text-[9px] sm:text-[10px] font-mono uppercase tracking-wider text-gold font-bold mt-1">
+                      {isAr ? 'دقائق' : 'MINS'}
+                    </span>
+                  </div>
+
+                  {/* Seconds */}
+                  <div className="flex flex-col items-center p-2.5 sm:p-3 rounded-xl bg-neutral-900/90 border border-red-500/40 shadow-inner">
+                    <span className="text-2xl sm:text-4xl font-mono font-black text-red-500 animate-pulse">
+                      {String(countdown1111.seconds).padStart(2, '0')}
+                    </span>
+                    <span className="text-[9px] sm:text-[10px] font-mono uppercase tracking-wider text-red-400 font-bold mt-1">
+                      {isAr ? 'ثوانٍ' : 'SECS'}
+                    </span>
+                  </div>
+                </div>
+
+                <div className="text-[11px] font-serif text-neutral-300 flex items-center justify-center gap-2 pt-1">
+                  <Sparkles className="w-3.5 h-3.5 text-gold shrink-0" />
+                  <span>{isAr ? 'خصم فوري إضافي بقيمة 3,000 درهم عند استخدام كود OMNIA1111' : 'Instant Dh3,000 cart savings applied at checkout with code OMNIA1111'}</span>
+                </div>
+              </div>
+
+            </div>
+
+            {/* 3. 4 Trust & Advantage Badges (Full 4-Col Grid on Desktop, 2x2 on Mobile) */}
+            <div className="relative z-10 grid grid-cols-2 md:grid-cols-4 gap-3 sm:gap-4 py-5 border-t border-b border-gold/25">
+              <div className="p-3 sm:p-4 rounded-xl bg-white/[0.03] border border-gold/20 flex items-center gap-3">
+                <div className="w-10 h-10 rounded-lg bg-gold/15 flex items-center justify-center text-gold border border-gold/30 shrink-0">
+                  <Percent className="w-5 h-5" />
+                </div>
+                <div>
+                  <h4 className="text-xs sm:text-sm font-bold text-white">{isAr ? 'خصم حتى 90%' : 'Up to 90% Off'}</h4>
+                  <p className="text-[10px] sm:text-[11px] text-neutral-400">{isAr ? 'أسعار مصنع مباشرة' : 'Direct atelier pricing'}</p>
+                </div>
+              </div>
+
+              <div className="p-3 sm:p-4 rounded-xl bg-white/[0.03] border border-gold/20 flex items-center gap-3">
+                <div className="w-10 h-10 rounded-lg bg-gold/15 flex items-center justify-center text-gold border border-gold/30 shrink-0">
+                  <Coins className="w-5 h-5" />
+                </div>
+                <div>
+                  <h4 className="text-xs sm:text-sm font-bold text-white">{isAr ? 'تبدأ من 111 درهم' : 'Deals from Dh111'}</h4>
+                  <p className="text-[10px] sm:text-[11px] text-neutral-400">{isAr ? 'عروض خاطفة يومية' : 'Hourly cart drops'}</p>
+                </div>
+              </div>
+
+              <div className="p-3 sm:p-4 rounded-xl bg-white/[0.03] border border-gold/20 flex items-center gap-3">
+                <div className="w-10 h-10 rounded-lg bg-gold/15 flex items-center justify-center text-gold border border-gold/30 shrink-0">
+                  <ShieldCheck className="w-5 h-5" />
+                </div>
+                <div>
+                  <h4 className="text-xs sm:text-sm font-bold text-white">{isAr ? 'فحص مختبر دبي DCL' : 'DCL Assay Certified'}</h4>
+                  <p className="text-[10px] sm:text-[11px] text-neutral-400">{isAr ? 'فضة 925 أصلية 100%' : 'Pure 925 sterling silver'}</p>
+                </div>
+              </div>
+
+              <div className="p-3 sm:p-4 rounded-xl bg-white/[0.03] border border-gold/20 flex items-center gap-3">
+                <div className="w-10 h-10 rounded-lg bg-gold/15 flex items-center justify-center text-gold border border-gold/30 shrink-0">
+                  <Truck className="w-5 h-5" />
+                </div>
+                <div>
+                  <h4 className="text-xs sm:text-sm font-bold text-white">{isAr ? 'توصيل 24 ساعة + تابي' : '24h Delivery & Tabby'}</h4>
+                  <p className="text-[10px] sm:text-[11px] text-neutral-400">{isAr ? 'تقسيط على 4 دفعات' : 'Split in 4 installments'}</p>
+                </div>
+              </div>
+            </div>
+
+            {/* 4. 1080P Web Banner Video Cinema Theater */}
+            <div className="relative z-10 pt-6">
+              <div className="flex flex-wrap items-center justify-between gap-2 mb-3">
+                <div className="flex items-center gap-2">
+                  <Film className="w-4 h-4 text-gold" />
+                  <h3 className="text-xs sm:text-sm font-serif font-black uppercase tracking-wider text-white">
+                    {isAr ? 'الفيلم الإعلاني الرسمي عالي الدقة 1080P — مهرجان 11.11' : 'Official 1080P HD Web Banner Commercial — 11.11 Luxury Gala'}
+                  </h3>
+                </div>
+                
+                <div className="flex items-center gap-2">
+                  <button
+                    onClick={toggle1111Video}
+                    className="p-1.5 rounded-full bg-black/80 hover:bg-gold hover:text-black text-gold border border-gold/40 text-xs transition-all shadow-sm active:scale-95"
+                    title={is1111VideoPlaying ? 'Pause Commercial' : 'Play Commercial'}
+                  >
+                    {is1111VideoPlaying ? <Pause className="w-3.5 h-3.5" /> : <Play className="w-3.5 h-3.5 fill-current" />}
+                  </button>
+
+                  <button
+                    onClick={toggle1111Sound}
+                    className="px-2.5 py-1 rounded-full bg-black/80 hover:bg-gold hover:text-black text-gold border border-gold/40 text-xs font-semibold transition-all flex items-center gap-1 shadow-sm active:scale-95"
+                    title={is1111VideoMuted ? 'Unmute Audio' : 'Mute Audio'}
+                  >
+                    {is1111VideoMuted ? <VolumeX className="w-3.5 h-3.5" /> : <Volume2 className="w-3.5 h-3.5 text-emerald-400" />}
+                    <span>{is1111VideoMuted ? (isAr ? 'الصوت' : 'Sound') : (isAr ? 'مفعل' : 'On')}</span>
+                  </button>
+
+                  <a
+                    href="https://omniastores.com/collections/discounted-items"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="px-3.5 py-1 rounded-full bg-gold text-black font-bold text-xs flex items-center gap-1 shadow-sm hover:brightness-110 active:scale-95 transition-all"
+                  >
+                    <span>{isAr ? 'اقتنِ طقم الفيديو' : 'Shop Video Suite'}</span>
+                    <ExternalLink className="w-3 h-3" />
+                  </a>
+                </div>
+              </div>
+
+              {/* 16:9 Video Canvas */}
+              <div className="relative aspect-[16/9] w-full max-h-[560px] rounded-2xl overflow-hidden border-2 border-gold/40 shadow-2xl bg-black">
+                <video
+                  ref={video1111Ref}
+                  src="/videos/11-11-web-banner-1080p.mp4"
+                  poster="/banners/11-11-sale-butterfly-podium-exclusive.jpg"
+                  autoPlay
+                  loop
+                  muted={is1111VideoMuted}
+                  playsInline
+                  className="w-full h-full object-contain bg-black"
+                />
+
+                <a
+                  href="https://omniastores.com/collections/discounted-items"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="absolute inset-0 z-10 cursor-pointer"
+                  title="Shop Discounted Items on omniastores.com"
+                />
+              </div>
+            </div>
+
+            {/* 5. High-Fashion 11:11 Advertisement Banner Gallery (All 8 Editions) */}
+            <div className="relative z-10 pt-8">
+              <div className="flex flex-wrap items-center justify-between gap-2 mb-4">
+                <div className="flex items-center gap-2">
+                  <Sparkles className="w-4 h-4 text-gold animate-spin" style={{ animationDuration: '6s' }} />
+                  <h3 className="text-xs sm:text-sm font-serif font-black uppercase tracking-wider text-white">
+                    {isAr ? 'معرض حملات 11:11 الحصرية لأمنية ستورز' : 'Omnia Stores 11:11 Campaign Advertisements Gallery'}
+                  </h3>
+                  <span className="px-2 py-0.5 rounded-full text-[10px] font-mono font-bold bg-gold/15 text-gold border border-gold/30">
+                    8 EDITIONS • ONLY TODAY
+                  </span>
+                </div>
+
+                <a
+                  href="https://omniastores.com/collections/discounted-items"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-xs font-bold text-gold hover:text-white flex items-center gap-1 transition-colors"
+                >
+                  <span>{isAr ? 'عرض جميع القطع المخفضة' : 'View All Discounted Items'}</span>
+                  <ArrowRight className="w-3.5 h-3.5 rtl:rotate-180" />
+                </a>
+              </div>
+
+              {/* 8 Banners Responsive Grid: 1 col on mobile, 2 on tablet, 4 on desktop */}
+              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6">
+                {[
+                  {
+                    id: 'ad-podium',
+                    title: 'Butterfly Solitaire Podium Drop',
+                    titleAr: 'منصة قلائد الفراشة والسوليتير',
+                    subtitle: 'Pavé butterfly necklace, heart, lock, and teddy bear pendants',
+                    image: '/banners/11-11-sale-butterfly-podium-exclusive.jpg',
+                    badge: 'ONLY TODAY • DH111+',
+                    price: 'Dh450',
+                  },
+                  {
+                    id: 'ad-yellow-heart',
+                    title: 'Canary Heart & Horseshoe Solitaire',
+                    titleAr: 'قلب الياقوت الأصفر وحدوة الحظ',
+                    subtitle: 'High-carat radiant yellow heart suite with butterfly pendant',
+                    image: '/banners/11-11-sale-butterfly-yellow-heart-showcase.jpg',
+                    badge: '85% OFF • SAVE DH3,000',
+                    price: 'Dh1,111',
+                  },
+                  {
+                    id: 'ad-teardrop',
+                    title: 'Exclusive Diamond Teardrop Suite',
+                    titleAr: 'طقم قطرة الألماس الملكي الحصري',
+                    subtitle: 'Cascading teardrop bridal collar & chandelier drops with gift box',
+                    image: '/banners/11-11-sale-diamond-teardrop-exclusive.png',
+                    badge: 'GULF NEWS FOCUS',
+                    price: 'Dh850',
+                  },
+                  {
+                    id: 'ad-ruby-floral',
+                    title: 'Regal Ruby Floral Gala Event',
+                    titleAr: 'مهرجان زهرة الياقوت الملكي',
+                    subtitle: 'Pigeon-blood red simulated ruby floral collar & emerald-cut ring',
+                    image: '/banners/11-11-sale-ruby-floral-luxury-event.jpg',
+                    badge: 'KHALEEJ TIMES DEAL',
+                    price: 'Dh950',
+                  },
+                  {
+                    id: 'ad-butterfly-black',
+                    title: 'Midnight Butterfly Velvet Gala',
+                    titleAr: 'فراشة منتصف الليل المخملية',
+                    subtitle: 'Arabian gala choker with sovereign satin gold presentation vault',
+                    image: '/banners/11-11-sale-butterfly-black-dress-vault.jpg',
+                    badge: 'ONLY TODAY • VAULT INCLUDED',
+                    price: 'Dh650',
+                  },
+                  {
+                    id: 'ad-yellow-statement',
+                    title: 'Emerald-Cut Yellow Statement Collar',
+                    titleAr: 'طوق الياقوت الأصفر بقطع الزمرد',
+                    subtitle: 'Architectural ladder setting with matching emerald-cut solitaire ring',
+                    image: '/banners/11-11-sale-yellow-sapphire-statement.jpg',
+                    badge: 'LIMITED EDITION',
+                    price: 'Dh1,111',
+                  },
+                  {
+                    id: 'ad-dual-royal',
+                    title: 'Dual Royal Bridal Parure Gala',
+                    titleAr: 'الأطقم الملكية المزدوجة للعرائس',
+                    subtitle: 'Canary yellow cushion parure and Burmese royal ruby chandelier suite',
+                    image: '/banners/11-11-sale-dual-royal-suite-edition.jpg',
+                    badge: 'BRIDAL GRAND LUXE',
+                    price: 'Dh1,450',
+                  },
+                  {
+                    id: 'ad-triple-trio',
+                    title: 'Grand Gala 11:11 Trio Edition',
+                    titleAr: 'ثلاثية السهرة الكبرى في 11:11',
+                    subtitle: 'Pavé butterfly collar, canary yellow cushion heart, & colour drops',
+                    image: '/banners/11-11-sale-triple-model-grand-gala.jpg',
+                    badge: 'UP TO 90% OFF',
+                    price: 'Dh1,650',
+                  },
+                ].map((item) => (
+                  <div
+                    key={item.id}
+                    className="group rounded-2xl overflow-hidden border border-gold/30 bg-neutral-900/90 shadow-xl flex flex-col justify-between hover:border-gold hover:shadow-[0_0_25px_rgba(212,175,55,0.35)] transition-all transform hover:-translate-y-1"
+                  >
+                    <div>
+                      {/* 2:1 Rectangular Banner Image Canvas */}
+                      <div className="relative aspect-[2/1] w-full overflow-hidden bg-black">
+                        <Image
+                          src={item.image}
+                          alt={item.title}
+                          fill
+                          unoptimized
+                          sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 25vw"
+                          className="object-contain object-center group-hover:scale-105 transition-transform duration-500"
+                        />
+                        <span className="absolute top-2 left-2 rtl:left-auto rtl:right-2 px-2 py-0.5 rounded bg-black/80 border border-gold/40 text-gold text-[9px] font-mono font-bold backdrop-blur-md">
+                          {item.badge}
+                        </span>
+                      </div>
+
+                      {/* Card Content */}
+                      <div className="p-3.5 space-y-1.5 text-left rtl:text-right">
+                        <div className="flex items-center justify-between gap-2">
+                          <h4 className="text-xs sm:text-sm font-serif font-black text-white group-hover:text-gold transition-colors truncate">
+                            {isAr ? item.titleAr : item.title}
+                          </h4>
+                          <span className="text-xs font-mono font-bold text-gold shrink-0">
+                            {item.price}
+                          </span>
+                        </div>
+                        <p className="text-[11px] text-neutral-400 font-serif line-clamp-2 leading-relaxed">
+                          {item.subtitle}
+                        </p>
+                      </div>
+                    </div>
+
+                    {/* Bottom CTA Button */}
+                    <div className="p-3.5 pt-0">
+                      <a
+                        href="https://omniastores.com/collections/discounted-items"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="w-full py-2 rounded-xl bg-gold/15 hover:bg-gold text-gold hover:text-black border border-gold/40 text-xs font-bold transition-all flex items-center justify-center gap-1.5 shadow-sm active:scale-95"
+                      >
+                        <Crown className="w-3.5 h-3.5 shrink-0" />
+                        <span>{isAr ? 'تسوق القطعة الآن' : 'Shop on omniastores.com'}</span>
+                        <ExternalLink className="w-3 h-3 shrink-0" />
+                      </a>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
+
+            {/* 6. Syndicated Top Publisher Coverage Highlights */}
+            <div className="relative z-10 pt-8 mt-8 border-t border-gold/25">
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-4 sm:gap-6">
+                
+                {/* Gulf News Focus Wire Card */}
+                <div className="p-4 sm:p-5 rounded-2xl bg-black/75 border border-gold/30 space-y-2.5 text-left rtl:text-right">
+                  <div className="flex items-center justify-between gap-2">
+                    <span className="px-2 py-0.5 rounded bg-gold/20 text-gold text-[10px] font-bold">
+                      GULF NEWS FOCUS
+                    </span>
+                    <span className="text-[10px] font-mono text-neutral-400">
+                      {isAr ? 'تغطية يوم العزاب 11.11' : "11.11 Single's Day Report"}
+                    </span>
+                  </div>
+                  <h4 className="text-sm sm:text-base font-serif font-bold text-white">
+                    {isAr
+                      ? 'جلف نيوز: أضخم تخفيضات السلة لهذا العام: انطلاق عروض 11.11 لمجوهرات أمنية ستورز في الإمارات بخصومات حتى 90%'
+                      : "The year's biggest online cart drops: Omnia Stores 11.11 Sale goes live across the UAE with up to 90% off"}
+                  </h4>
+                  <p className="text-xs text-neutral-300 font-serif leading-relaxed line-clamp-3">
+                    {isAr
+                      ? 'تشهد منصات التجارة الإلكترونية في دبي وأبوظبي إقبالاً قياسياً مع انطلاق عروض 11.11، حيث تطرح أمنية ستورز أطقم الفضة الإسترلينية 925 المعتمدة من مختبر دبي بأسعار تبدأ من 111 درهماً وتوفير يصل إلى 3,000 درهم مع شحن مجاني.'
+                      : "UAE e-commerce shoppers are flocking to omniastores.com as the official 11.11 luxury jewellery event goes live. Factory-direct DCL laser-assayed sterling silver bridal suites, butterfly pavé colliers, and gift vaults feature instant savings up to Dh3,000."}
+                  </p>
+                  <a
+                    href="https://omniastores.com/collections/discounted-items"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="inline-flex items-center gap-1.5 text-xs font-bold text-gold hover:text-white pt-1 transition-colors"
+                  >
+                    <span>{isAr ? 'تسوق عروض جلف نيوز المخفضة' : 'Shop Gulf News 11.11 Deals'}</span>
+                    <ExternalLink className="w-3 h-3" />
+                  </a>
+                </div>
+
+                {/* Khaleej Times Business Wire Card */}
+                <div className="p-4 sm:p-5 rounded-2xl bg-black/75 border border-gold/30 space-y-2.5 text-left rtl:text-right">
+                  <div className="flex items-center justify-between gap-2">
+                    <span className="px-2 py-0.5 rounded bg-gold/20 text-gold text-[10px] font-bold">
+                      KHALEEJ TIMES BUSINESS
+                    </span>
+                    <span className="text-[10px] font-mono text-neutral-400">
+                      {isAr ? 'قسم الاقتصاد والتجارة' : 'Retail Commerce Wire'}
+                    </span>
+                  </div>
+                  <h4 className="text-sm sm:text-base font-serif font-bold text-white">
+                    {isAr
+                      ? 'خليج تايمز: انطلاق عروض 11.11 في الإمارات: خصم 90%، صفقات تبدأ من 111 درهم وتوفير حتى 3,000 درهم'
+                      : '11.11 sale begins in UAE: 90% discount, deals from Dh111 and savings of up to Dh3,000'}
+                  </h4>
+                  <p className="text-xs text-neutral-300 font-serif leading-relaxed line-clamp-3">
+                    {isAr
+                      ? 'تسجل مبيعات المجوهرات الفاخرة أرقاماً غير مسبوقة مع إطلاق أمنية ستورز عروض 11.11 الحصرية. تتيح الشركة تقسيط المدفوعات على 4 دفعات ميسرة عبر تابي بدون فوائد، مع شهادات الفحص الطيفي XRF.'
+                      : "Omnia Stores records unprecedented Single's Day demand across Dubai and Riyadh. Featuring Tabby 4 interest-free split payments and Dubai Central Laboratory certification, shoppers unlock historic deals starting from Dh111."}
+                  </p>
+                  <a
+                    href="https://omniastores.com/collections/discounted-items"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="inline-flex items-center gap-1.5 text-xs font-bold text-gold hover:text-white pt-1 transition-colors"
+                  >
+                    <span>{isAr ? 'تسوق عروض خليج تايمز المخفضة' : 'Shop Khaleej Times 11.11 Deals'}</span>
+                    <ExternalLink className="w-3 h-3" />
+                  </a>
+                </div>
+
+              </div>
             </div>
 
           </div>

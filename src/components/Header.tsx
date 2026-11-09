@@ -29,34 +29,57 @@ export function Header() {
   return (
     <header className="sticky top-0 z-50 w-full transition-colors duration-300">
       {/* 1. Animated Top Announcement Ticker */}
-      <div className="w-full bg-[#07090E] text-[#D4AF37] border-b border-[#D4AF37]/25 text-xs py-2 overflow-hidden relative">
+      <a
+        href="https://omniastores.com/collections/discounted-items"
+        target="_blank"
+        rel="noopener noreferrer"
+        title="Explore 11:11 Discounted Items on omniastores.com"
+        className="block w-full bg-[#07090E] text-[#D4AF37] hover:text-white border-b border-[#D4AF37]/25 text-xs py-2 overflow-hidden relative transition-colors cursor-pointer group"
+      >
         <div className="flex items-center whitespace-nowrap animate-ticker pause-hover">
           <span className="flex items-center mx-6 gap-2">
+            <span className="px-2 py-0.5 rounded bg-gradient-to-r from-red-600 via-amber-500 to-amber-600 text-white font-extrabold text-[10px] tracking-wider animate-pulse shadow-sm">
+              11:11 LIVE
+            </span>
+            <strong className="tracking-widest uppercase font-bold text-white">
+              {language === 'ar' ? 'أضخم تخفيضات السلة لهذا العام في الإمارات والخليج' : "The Year's Biggest Online Cart Drops Across the UAE & GCC"}
+            </strong>
+            <span className="px-1.5 py-0.5 rounded bg-black/80 border border-gold/60 text-gold font-mono font-bold">OMNIA1111</span>
+            <span className="text-amber-200">
+              {language === 'ar' ? 'خصم حتى 85% • صفقات تبدأ من 111 د.إ • وفّر حتى 3,000 د.إ على omniastores.com' : 'Up to 85% Off • Deals from Dh111 • Save up to Dh3,000 at omniastores.com'}
+            </span>
+          </span>
+          <span className="text-[#D4AF37]/40">◆</span>
+          <span className="flex items-center mx-6 gap-2">
+            <span className="px-1.5 py-0.5 rounded bg-gold/20 border border-gold/40 text-gold text-[10px] font-bold">GULF NEWS FOCUS</span>
+            <strong className="tracking-widest uppercase font-semibold text-white">
+              {language === 'ar' ? 'تغطية جلف نيوز: انطلاق عروض 11.11 الكبرى لمجوهرات الفضة عيار 925' : 'Gulf News: Omnia Stores 11.11 Mega Sale Goes Live Across UAE'}
+            </strong>
+          </span>
+          <span className="text-[#D4AF37]/40">◆</span>
+          <span className="flex items-center mx-6 gap-2">
+            <span className="px-1.5 py-0.5 rounded bg-gold/20 border border-gold/40 text-gold text-[10px] font-bold">KHALEEJ TIMES</span>
+            <strong className="text-neutral-200">
+              {language === 'ar' ? 'خليج تايمز: صفقات فاخرة تبدأ من 111 درهم مع فحص مختبر دبي المركزي' : 'Khaleej Times: DCL Assay Certified Suites from Dh111'}
+            </strong>
+          </span>
+          <span className="text-[#D4AF37]/40">◆</span>
+          <span className="flex items-center mx-6 gap-2">
             <Sparkles className="w-3.5 h-3.5 text-gold animate-spin" style={{ animationDuration: '6s' }} />
-            <strong className="tracking-widest uppercase font-semibold text-white">{t.tickerFlagship}</strong>
-            <span className="px-1.5 py-0.5 rounded bg-black/60 border border-gold/40 text-gold font-mono font-bold">OMNIA-VIP15</span> {language === 'ar' ? 'للحصول على خصم 15% على omniastores.com' : 'for 15% Off at omniastores.com'}
-          </span>
-          <span className="text-[#D4AF37]/40">◆</span>
-          <span className="flex items-center mx-6 gap-2">
-            <Sparkles className="w-3.5 h-3.5 text-gold" />
-            <strong className="tracking-widest uppercase font-semibold">{t.tickerGccWire}</strong>
-          </span>
-          <span className="text-[#D4AF37]/40">◆</span>
-          <span className="flex items-center mx-6 gap-2">
-            <strong>{t.tickerParity}</strong>
-          </span>
-          <span className="text-[#D4AF37]/40">◆</span>
-          <span className="flex items-center mx-6 gap-2">
             <strong>{t.tickerFulfillment}</strong>
           </span>
           <span className="text-[#D4AF37]/40">◆</span>
           <span className="flex items-center mx-6 gap-2">
-            <Sparkles className="w-3.5 h-3.5 text-gold animate-spin" style={{ animationDuration: '6s' }} />
-            <strong className="tracking-widest uppercase font-semibold text-white">{t.tickerFlagship}</strong>
-            <span className="px-1.5 py-0.5 rounded bg-black/60 border border-gold/40 text-gold font-mono font-bold">OMNIA-VIP15</span>
+            <span className="px-2 py-0.5 rounded bg-gradient-to-r from-red-600 via-amber-500 to-amber-600 text-white font-extrabold text-[10px] tracking-wider animate-pulse shadow-sm">
+              11:11 LIVE
+            </span>
+            <strong className="tracking-widest uppercase font-bold text-white">
+              {language === 'ar' ? 'أضخم تخفيضات السلة لهذا العام' : "The Year's Biggest Online Cart Drops"}
+            </strong>
+            <span className="px-1.5 py-0.5 rounded bg-black/80 border border-gold/60 text-gold font-mono font-bold">OMNIA1111</span>
           </span>
         </div>
-      </div>
+      </a>
 
       {/* 2. Glassmorphic Luxury Navigation Bar */}
       <div className="backdrop-blur-xl bg-white/95 dark:bg-[#0A0D14]/92 border-b border-neutral-200 dark:border-[#D4AF37]/20 shadow-md dark:shadow-[0_4px_30px_rgba(0,0,0,0.5)]">

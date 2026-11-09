@@ -627,7 +627,7 @@ export default function DigitalNewspaperPlatform() {
             <span className="w-1.5 h-1.5 rounded-full bg-white animate-ping" />
             LIVE PRESS WIRE
           </span>
-          <span className="font-mono text-luxury-gold hidden sm:inline">news.1fill.com</span>
+          <span className="font-mono text-luxury-gold hidden sm:inline">omniastores.com</span>
         </div>
 
         <div className="overflow-hidden whitespace-nowrap flex-1 mx-4 sm:mx-8 relative">
@@ -793,7 +793,7 @@ export default function DigitalNewspaperPlatform() {
             </button>
 
             <a
-              href="https://omniastores.com/collections/bridal-sets-ae?utm_source=newspaper_billboard&utm_medium=news_1fill"
+              href="https://omniastores.com/collections/bridal-sets-ae?utm_source=newspaper_billboard&utm_medium=omnia_newsroom"
               target="_blank"
               rel="noreferrer"
               className="flex items-center gap-2 px-5 py-2.5 rounded-xl text-xs font-bold bg-gradient-to-r from-luxury-gold to-luxury-gold-light text-luxury-charcoal hover:brightness-110 shadow-lg transition-all"
@@ -1350,7 +1350,7 @@ export default function DigitalNewspaperPlatform() {
 
             <div className="space-y-2 pt-2">
               <a
-                href="https://omniastores.com/collections/bridal-sets-ae?utm_source=news_1fill&utm_medium=newspaper_popup&utm_campaign=vip15"
+                href="https://omniastores.com/collections/bridal-sets-ae?utm_source=omnia_newsroom&utm_medium=newspaper_popup&utm_campaign=vip15"
                 target="_blank"
                 rel="noreferrer"
                 className="w-full py-3 rounded-xl text-xs font-bold bg-gradient-to-r from-luxury-gold to-luxury-gold-light text-luxury-charcoal flex items-center justify-center gap-2 hover:brightness-110 shadow-lg transition-all"
@@ -1361,7 +1361,7 @@ export default function DigitalNewspaperPlatform() {
               </a>
 
               <a
-                href="https://omniastores.com/collections/luxury-sets?utm_source=news_1fill&utm_medium=newspaper_popup&utm_campaign=vip15"
+                href="https://omniastores.com/collections/luxury-sets?utm_source=omnia_newsroom&utm_medium=newspaper_popup&utm_campaign=vip15"
                 target="_blank"
                 rel="noreferrer"
                 className="w-full py-2.5 rounded-xl text-xs font-semibold bg-[#171924] hover:bg-[#202332] text-luxury-platinum border border-[#2c3044] flex items-center justify-center gap-2 transition-all"

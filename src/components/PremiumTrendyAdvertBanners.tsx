@@ -33,6 +33,26 @@ interface VaultLook {
 
 const VAULT_LOOKS: VaultLook[] = [
   {
+    id: 'vault-11-11-diamond',
+    name: '11:11 Diamond Drops',
+    nameAr: 'عروض 11:11 الألماسية',
+    image: '/banners/11-11-sale-diamond-teardrop-exclusive.png',
+    badge: '11:11 MEGA SALE',
+    badgeAr: 'تخفيضات 11:11 الكبرى',
+    desc: 'The year’s biggest cart drops: Pure 925 silver bridal suite with code OMNIA1111.',
+    descAr: 'أضخم تخفيضات السلة لهذا العام: طقم العروس الملكي بالفضة 925 مع كود OMNIA1111.',
+  },
+  {
+    id: 'vault-11-11-ruby',
+    name: '11:11 Ruby Gala',
+    nameAr: 'مهرجان الياقوت 11:11',
+    image: '/banners/11-11-sale-ruby-floral-luxury-event.jpg',
+    badge: 'DEALS FROM DH111',
+    badgeAr: 'عروض تبدأ من 111 د.إ',
+    desc: 'Pigeon-blood simulated rubies with cocktail ring and instant Dh3,000 checkout savings.',
+    descAr: 'أحجار محاكاة الياقوت القرمزي مع خاتم السهرة وتوفير فوري يصل إلى 3,000 درهم عند الدفع.',
+  },
+  {
     id: 'vault-emerald',
     name: 'Imperial Emerald',
     nameAr: 'الزمرد الإمبراطوري',

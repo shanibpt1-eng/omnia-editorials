@@ -193,7 +193,7 @@ export default function EditorialNetworkPage() {
             className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-bold bg-[#1d1f2b] hover:bg-[#272a3b] text-luxury-gold border border-luxury-gold/40 shadow-md transition-all"
           >
             <Newspaper className="w-3.5 h-3.5" />
-            <span>Digital Newspaper (news.1fill.com)</span>
+            <span>Digital Newspaper (omniastores.com)</span>
           </a>
 
           <a

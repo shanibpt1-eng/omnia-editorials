@@ -85,7 +85,7 @@ export function Sidebar() {
     },
     {
       title: isArabic ? 'بوابة المدونة والمجلة الفاخرة' : 'Luxury Editorial Portal',
-      href: 'http://localhost:3001',
+      href: `${process.env.NEXT_PUBLIC_STOREFRONT_URL || 'http://localhost:3001'}`,
       icon: Sparkles,
       badge: 'Live :3001',
       external: true,

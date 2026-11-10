@@ -36,7 +36,7 @@ export async function POST(request: NextRequest) {
           slug: result.article.slug,
           revertedToRevisionId: revisionId,
           restoredTitle: result.article.title,
-          storefrontUrl: `http://localhost:3001/trending/${result.article.slug}`,
+          storefrontUrl: `${process.env.NEXT_PUBLIC_STOREFRONT_URL || 'http://localhost:3001'}/trending/${result.article.slug}`,
         },
       });
 
@@ -44,7 +44,7 @@ export async function POST(request: NextRequest) {
         title: 'Article Version Reverted',
         message: `"${result.article.title.slice(0, 45)}..." was reverted to snapshot ${revisionId}.`,
         severity: 'SUCCESS',
-        action_url: `http://localhost:3001/trending/${result.article.slug}`,
+        action_url: `${process.env.NEXT_PUBLIC_STOREFRONT_URL || 'http://localhost:3001'}/trending/${result.article.slug}`,
       });
     } catch (e) {
       // Fallback
@@ -54,8 +54,8 @@ export async function POST(request: NextRequest) {
       success: true,
       message: `Successfully reverted article to revision ${revisionId}. Frontend Port 3001 is now updated!`,
       article: result.article,
-      publishedUrl: `http://localhost:3001/trending/${result.article.slug}`,
-      editorialsUrl: 'http://localhost:3001/editorials',
+      publishedUrl: `${process.env.NEXT_PUBLIC_STOREFRONT_URL || 'http://localhost:3001'}/trending/${result.article.slug}`,
+      editorialsUrl: `${process.env.NEXT_PUBLIC_STOREFRONT_URL || 'http://localhost:3001'}/editorials`,
     });
   } catch (err: any) {
     return NextResponse.json(

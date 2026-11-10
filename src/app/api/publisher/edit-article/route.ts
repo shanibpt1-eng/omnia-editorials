@@ -43,7 +43,7 @@ export async function POST(request: NextRequest) {
         details: {
           slug: result.article.slug,
           updatedTitle: result.article.title,
-          storefrontUrl: `http://localhost:3001/trending/${result.article.slug}`,
+          storefrontUrl: `${process.env.NEXT_PUBLIC_STOREFRONT_URL || 'http://localhost:3001'}/trending/${result.article.slug}`,
         },
       });
     } catch (e) {
@@ -54,7 +54,7 @@ export async function POST(request: NextRequest) {
       success: true,
       message: 'Article successfully updated in backend and synced to Port 3001 Storefront!',
       article: result.article,
-      publishedUrl: `http://localhost:3001/trending/${result.article.slug}`,
+      publishedUrl: `${process.env.NEXT_PUBLIC_STOREFRONT_URL || 'http://localhost:3001'}/trending/${result.article.slug}`,
     });
   } catch (err: any) {
     return NextResponse.json(

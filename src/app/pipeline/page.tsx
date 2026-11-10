@@ -160,7 +160,7 @@ export default function PipelinePage() {
             )}
           </div>
           <a
-            href={dailyRunResult.storefrontBridge?.publishedUrl || 'http://localhost:3001/editorials'}
+            href={dailyRunResult.storefrontBridge?.publishedUrl || `${process.env.NEXT_PUBLIC_STOREFRONT_URL || 'http://localhost:3001'}/editorials`}
             target="_blank"
             rel="noopener noreferrer"
             className="px-3 py-1.5 rounded-lg bg-luxury-gold text-luxury-charcoal font-bold text-xs uppercase tracking-wider flex items-center gap-1 shadow shrink-0"

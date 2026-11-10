@@ -1982,8 +1982,8 @@ export default function GulfChronicleEditorialPortal() {
             1. TOP NEWSPAPER MASTHEAD STRIP (Gulf News / Khaleej Times Wire Format)
         ========================================================================== */}
         <section className="border-b border-neutral-300 dark:border-neutral-800 bg-[#F4EFE6] dark:bg-[#0E121B] text-[11px] sm:text-xs">
-          <div className="w-full max-w-[1760px] mx-auto px-4 sm:px-6 lg:px-8 py-2 flex flex-col md:flex-row items-center justify-between gap-2.5">
-            
+          {/* Desktop & Tablet Layout (md+) */}
+          <div className="hidden md:flex w-full max-w-[1760px] mx-auto px-4 sm:px-6 lg:px-8 py-2 items-center justify-between gap-2.5">
             {/* Left: Accurate Broadsheet Date, Hijri Calendar & Live Ticking Clock */}
             <div className="flex flex-wrap items-center gap-2 sm:gap-3 text-neutral-700 dark:text-neutral-400 font-medium">
               <span className="font-bold text-neutral-950 dark:text-white uppercase tracking-wider flex items-center gap-1.5 font-serif" suppressHydrationWarning>
@@ -2078,14 +2078,66 @@ export default function GulfChronicleEditorialPortal() {
                 <span className="font-semibold text-neutral-900 dark:text-white">• {isAr ? (selectedCity === 'Dubai' ? 'دبي' : selectedCity === 'Abu Dhabi' ? 'أبوظبي' : selectedCity === 'Riyadh' ? 'الرياض' : selectedCity === 'Doha' ? 'الدوحة' : 'الكويت') : selectedCity}</span>
               </div>
             </div>
+          </div>
 
+          {/* Dedicated Clean Mobile Status Bar (md:hidden) */}
+          <div className="md:hidden w-full px-3 py-1.5 flex flex-col gap-1.5 bg-[#F4EFE6] dark:bg-[#0E121B]">
+            {/* Mobile Row 1: Date & Live Time */}
+            <div className="flex items-center justify-between text-[10px] text-neutral-700 dark:text-neutral-400 font-medium">
+              <span className="font-bold text-neutral-950 dark:text-white uppercase tracking-wider flex items-center gap-1 font-serif truncate" suppressHydrationWarning>
+                <Calendar className="w-3 h-3 text-[#B8860B] dark:text-gold shrink-0" />
+                <span suppressHydrationWarning>{isAr ? gregorianDateAr : gregorianDateEn}</span>
+              </span>
+              <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-full bg-emerald-500/10 text-emerald-700 dark:text-emerald-400 border border-emerald-500/30 font-mono font-bold shrink-0">
+                <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-ping" />
+                <Clock className="w-2.5 h-2.5 text-emerald-600 dark:text-emerald-400" />
+                <span suppressHydrationWarning>{isAr ? `${liveTimeAr}` : `${liveTimeEn} ${activeCityInfo.tzCode}`}</span>
+              </span>
+            </div>
+
+            {/* Mobile Row 2: Weather, Font Size, Bookmarks */}
+            <div className="flex items-center justify-between gap-2 pt-1 border-t border-neutral-300/60 dark:border-white/5 text-[10px]">
+              {/* Weather */}
+              <div className="flex items-center gap-1 bg-neutral-200/70 dark:bg-black/50 px-2 py-0.5 rounded-full border border-neutral-300 dark:border-neutral-800 font-mono">
+                <span>{activeCityInfo.icon}</span>
+                <span className="font-bold text-neutral-900 dark:text-white">{activeCityInfo.temp}</span>
+                <span className="text-neutral-600 dark:text-neutral-300 font-semibold">• {isAr ? (selectedCity === 'Dubai' ? 'دبي' : selectedCity === 'Abu Dhabi' ? 'أبوظبي' : selectedCity === 'Riyadh' ? 'الرياض' : selectedCity === 'Doha' ? 'الدوحة' : 'الكويت') : selectedCity}</span>
+              </div>
+
+              <div className="flex items-center gap-1.5">
+                {/* Font Size Resizer */}
+                <div className="flex items-center border border-neutral-300 dark:border-neutral-700 rounded-md overflow-hidden bg-white dark:bg-black/40 text-[9px] font-bold">
+                  <button
+                    onClick={() => setFontSize('standard')}
+                    className={`px-1.5 py-0.5 transition-colors ${fontSize === 'standard' ? 'bg-gold text-black' : 'text-neutral-600 dark:text-neutral-400'}`}
+                  >
+                    A
+                  </button>
+                  <button
+                    onClick={() => setFontSize('large')}
+                    className={`px-1.5 py-0.5 transition-colors ${fontSize === 'large' ? 'bg-gold text-black' : 'text-neutral-600 dark:text-neutral-400'}`}
+                  >
+                    A+
+                  </button>
+                </div>
+
+                {/* Saved Bookmarks */}
+                <button
+                  onClick={() => setIsSavedDrawerOpen(true)}
+                  className="inline-flex items-center gap-1 px-2 py-0.5 rounded-full bg-gold/15 text-[#8B6508] dark:text-gold border border-gold/30 text-[10px] font-bold hover:bg-gold hover:text-black transition-all"
+                >
+                  <Bookmark className="w-2.5 h-2.5" />
+                  <span>{isAr ? `(${bookmarkedIds.length})` : `Saved (${bookmarkedIds.length})`}</span>
+                </button>
+              </div>
+            </div>
           </div>
         </section>
 
         {/* =========================================================================
             2. LIVE DUBAI GOLD & PRECIOUS METALS SOUK BOARD (Signature Khaleej Times)
         ========================================================================== */}
-        <section className="bg-white dark:bg-[#111520] border-b border-neutral-200 dark:border-gold/20 shadow-xs py-2 px-3 sm:px-4 overflow-x-auto scrollbar-none">
+        <section className="bg-white dark:bg-[#111520] border-b border-neutral-200 dark:border-gold/20 shadow-xs py-2 px-3 sm:px-4 overflow-x-auto scrollbar-none [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none] touch-pan-x">
           <div className="w-full max-w-[1760px] mx-auto flex items-center justify-between gap-4 lg:gap-6 text-xs whitespace-nowrap min-w-max">
             {/* Header Badge */}
             <div className="flex items-center gap-2 flex-shrink-0">
@@ -2098,7 +2150,7 @@ export default function GulfChronicleEditorialPortal() {
             </div>
 
             {/* Gold & Precious Metal Rates (Always Straight, Zero Line-Wrap) */}
-            <div className="flex items-center gap-2.5 sm:gap-3 text-xs flex-shrink-0">
+            <div className="flex items-center gap-2 sm:gap-3 text-xs flex-shrink-0">
               {/* 24K Gold */}
               <div className="whitespace-nowrap flex-shrink-0 inline-flex items-center gap-1.5 px-2.5 py-1 rounded-lg bg-neutral-100/80 dark:bg-white/5 border border-neutral-200 dark:border-white/10 shadow-2xs">
                 <span className="font-bold text-neutral-800 dark:text-neutral-200">
@@ -2191,20 +2243,20 @@ export default function GulfChronicleEditorialPortal() {
         {/* =========================================================================
             3. GRAND BROADSHEET MASTHEAD BANNER (Ultra-Luxury Broadsheet Presentation)
         ========================================================================== */}
-        <header className="relative border-b-4 border-double border-neutral-900/80 dark:border-gold/30 py-6 sm:py-8 lg:py-10 px-4 sm:px-6 lg:px-8 bg-[radial-gradient(ellipse_80%_60%_at_50%_-15%,rgba(212,175,55,0.08),transparent_100%),linear-gradient(to_bottom,#FFFFFF,#FAF8F3,#F4EFE6)] dark:bg-[radial-gradient(ellipse_80%_60%_at_50%_-15%,rgba(212,175,55,0.12),transparent_100%),linear-gradient(to_bottom,#080B11,#0D111A,#080B11)]">
-          <div className="w-full max-w-[1760px] mx-auto flex flex-col space-y-5 lg:space-y-0">
+        <header className="relative border-b-4 border-double border-neutral-900/80 dark:border-gold/30 py-3.5 sm:py-8 lg:py-10 px-3 sm:px-6 lg:px-8 bg-[radial-gradient(ellipse_80%_60%_at_50%_-15%,rgba(212,175,55,0.08),transparent_100%),linear-gradient(to_bottom,#FFFFFF,#FAF8F3,#F4EFE6)] dark:bg-[radial-gradient(ellipse_80%_60%_at_50%_-15%,rgba(212,175,55,0.12),transparent_100%),linear-gradient(to_bottom,#080B11,#0D111A,#080B11)]">
+          <div className="w-full max-w-[1760px] mx-auto flex flex-col space-y-3 sm:space-y-5 lg:space-y-0">
             
             {/* Mobile & Tablet Quick Status Ribbon (Visible on < lg screens) */}
-            <div className="flex lg:hidden items-center justify-between gap-2 pb-3 border-b border-neutral-200/80 dark:border-white/10">
-              <div className="flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-gold/10 dark:bg-gold/15 border border-gold/30 text-[10px] font-mono font-bold text-[#8B6508] dark:text-gold shadow-2xs">
-                <ShieldCheck className="w-3.5 h-3.5 text-gold flex-shrink-0" />
+            <div className="flex lg:hidden items-center justify-between gap-2 pb-2.5 border-b border-neutral-200/80 dark:border-white/10">
+              <div className="flex items-center gap-1.5 px-2 sm:px-2.5 py-1 rounded-full bg-gold/10 dark:bg-gold/15 border border-gold/30 text-[9px] sm:text-[10px] font-mono font-bold text-[#8B6508] dark:text-gold shadow-2xs">
+                <ShieldCheck className="w-3 h-3 sm:w-3.5 sm:h-3.5 text-gold flex-shrink-0" />
                 <span className="truncate">{isAr ? 'معتمد من GIA ومختبر دبي' : 'GIA & DCL Certified Assay'}</span>
                 <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-ping flex-shrink-0" />
               </div>
 
               <Link
                 href="/editorial-portal/"
-                className="relative inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-gradient-to-r from-[#DFB743] via-[#FCEAA5] to-[#C99E32] text-black shadow-sm font-serif font-black text-[10px] uppercase tracking-wider overflow-hidden active:scale-95 transition-transform flex-shrink-0 group"
+                className="relative inline-flex items-center gap-1.5 px-2.5 sm:px-3 py-1 rounded-full bg-gradient-to-r from-[#DFB743] via-[#FCEAA5] to-[#C99E32] text-black shadow-sm font-serif font-black text-[9px] sm:text-[10px] uppercase tracking-wider overflow-hidden active:scale-95 transition-transform flex-shrink-0 group"
                 title="Access Omnia Stores Official Editorial Portal"
               >
                 <Sparkles className="w-3 h-3 text-black animate-spin" style={{ animationDuration: '6s' }} />
@@ -2214,7 +2266,7 @@ export default function GulfChronicleEditorialPortal() {
             </div>
 
             {/* Main Broadsheet 12-Column Balanced Grid */}
-            <div className="grid grid-cols-1 lg:grid-cols-12 items-center gap-6 sm:gap-8">
+            <div className="grid grid-cols-1 lg:grid-cols-12 items-center gap-4 sm:gap-8">
               
               {/* Left Column (Accreditation & Bureau of Assay Dispatch) */}
               <div className={`hidden lg:flex lg:col-span-3 flex-col ${isAr ? 'text-right' : 'text-left'} space-y-2.5 p-3.5 rounded-2xl bg-white/70 dark:bg-white/[0.03] border border-neutral-200 dark:border-gold/25 shadow-sm backdrop-blur-sm`}>
@@ -2241,44 +2293,46 @@ export default function GulfChronicleEditorialPortal() {
               {/* Center Column: Prestigious Regal Broadsheet Title */}
               <div className="lg:col-span-6 text-center">
                 {/* Royal Crest & Broadsheet Filigree */}
-                <div className="flex items-center justify-center gap-2 sm:gap-3 mb-2.5 max-w-full overflow-hidden">
-                  <span className="h-px flex-1 max-w-[30px] sm:max-w-[70px] bg-gradient-to-r from-transparent via-gold to-gold/80" />
-                  <span className="whitespace-nowrap text-[9px] sm:text-xs font-mono font-black tracking-[0.16em] sm:tracking-[0.25em] text-[#8B6508] dark:text-gold uppercase flex items-center gap-1.5 flex-shrink-0 select-none">
-                    <Crown className="w-3.5 h-3.5 text-gold flex-shrink-0" />
+                <div className="flex items-center justify-center gap-1.5 sm:gap-3 mb-1.5 sm:mb-2.5 max-w-full overflow-hidden">
+                  <span className="h-px flex-1 max-w-[20px] sm:max-w-[70px] bg-gradient-to-r from-transparent via-gold to-gold/80" />
+                  <span className="whitespace-nowrap text-[8.5px] sm:text-xs font-mono font-black tracking-[0.14em] sm:tracking-[0.25em] text-[#8B6508] dark:text-gold uppercase flex items-center gap-1 sm:gap-1.5 flex-shrink-0 select-none">
+                    <Crown className="w-3 h-3 sm:w-3.5 sm:h-3.5 text-gold flex-shrink-0" />
                     <span>{isAr ? 'الجريدة الخليجية المستقلة للمجوهرات الراقية' : 'THE INDEPENDENT GCC LUXURY JOURNAL'}</span>
                   </span>
-                  <span className="h-px flex-1 max-w-[30px] sm:max-w-[70px] bg-gradient-to-l from-transparent via-gold to-gold/80" />
+                  <span className="h-px flex-1 max-w-[20px] sm:max-w-[70px] bg-gradient-to-l from-transparent via-gold to-gold/80" />
                 </div>
 
-                <h1 className="text-3xl sm:text-5xl lg:text-5xl xl:text-6xl font-serif font-black uppercase leading-[1.08] drop-shadow-sm select-none whitespace-nowrap">
+                <h1 className="text-2xl sm:text-4xl lg:text-5xl xl:text-6xl font-serif font-black uppercase leading-[1.08] drop-shadow-sm select-none">
                   <span className="bg-clip-text text-transparent bg-gradient-to-b from-neutral-950 via-neutral-800 to-neutral-700 dark:from-[#FFFDF7] dark:via-[#F9E8B8] dark:to-[#D4AF37]">
                     {isAr ? (
                       'ذا فوغ نيوز • أخبار الموضة'
                     ) : (
-                      <span className="inline-flex items-baseline justify-center gap-2 sm:gap-3 lg:gap-4">
-                        <span className="text-lg sm:text-2xl lg:text-3xl tracking-[0.25em] sm:tracking-[0.35em] font-normal opacity-90">THE</span>
-                        <span className="text-3xl sm:text-5xl lg:text-6xl xl:text-7xl font-serif font-black tracking-tight">VOGUE</span>
-                        <span className="text-lg sm:text-2xl lg:text-3xl tracking-[0.25em] sm:tracking-[0.35em] font-normal opacity-90">NEWS</span>
+                      <span className="inline-flex items-baseline justify-center gap-1.5 sm:gap-3 lg:gap-4">
+                        <span className="text-sm sm:text-xl lg:text-3xl tracking-[0.2em] sm:tracking-[0.35em] font-normal opacity-90">THE</span>
+                        <span className="text-2xl sm:text-4xl lg:text-6xl xl:text-7xl font-serif font-black tracking-tight">VOGUE</span>
+                        <span className="text-sm sm:text-xl lg:text-3xl tracking-[0.2em] sm:tracking-[0.35em] font-normal opacity-90">NEWS</span>
                       </span>
                     )}
                   </span>
                 </h1>
                 
-                <div className="text-[11px] sm:text-xs font-serif text-[#8B6508] dark:text-gold/90 mt-2 tracking-wider sm:tracking-widest font-bold flex flex-wrap items-center justify-center gap-2">
-                  <span className="font-mono text-[10px] sm:text-[11px] px-2 py-0.5 rounded bg-gold/10 border border-gold/30 text-[#8B6508] dark:text-gold lowercase tracking-normal">thevoguenews</span>
+                <div className="text-[10px] sm:text-xs font-serif text-[#8B6508] dark:text-gold/90 mt-1.5 tracking-wider font-bold flex flex-wrap items-center justify-center gap-1.5 sm:gap-2">
+                  <span className="font-mono text-[9px] sm:text-[11px] px-1.5 py-0.5 rounded bg-gold/10 border border-gold/30 text-[#8B6508] dark:text-gold lowercase tracking-normal">thevoguenews</span>
                   <span className="text-gold/40">•</span>
-                  <span>{isAr ? 'صحيفة فوغ نيوز اليومية • قسم المجوهرات الفاخرة والمعايير العالمية' : 'Daily Vogue News Broadsheet • High Jewellery, Assay Standards & Haute Couture'}</span>
+                  <span className="hidden sm:inline">{isAr ? 'صحيفة فوغ نيوز اليومية • قسم المجوهرات الفاخرة والمعايير العالمية' : 'Daily Vogue News Broadsheet • High Jewellery, Assay Standards & Haute Couture'}</span>
+                  <span className="sm:hidden">{isAr ? 'صحيفة فوغ نيوز • قسم المجوهرات والمعايير' : 'Daily Broadsheet • High Jewellery & Assay Standards'}</span>
                 </div>
 
                 {/* Broadsheet Meta Ribbon */}
-                <div className="flex flex-wrap items-center justify-center gap-2 sm:gap-3 text-[10px] sm:text-[11px] text-neutral-500 dark:text-neutral-400 uppercase tracking-wider mt-3 font-mono">
-                  <span className="px-2 py-0.5 rounded bg-neutral-100 dark:bg-white/5 border border-neutral-300 dark:border-white/10 font-bold whitespace-nowrap">Vol. XXXIV No. 10</span>
+                <div className="flex flex-wrap items-center justify-center gap-1.5 sm:gap-3 text-[9px] sm:text-[11px] text-neutral-500 dark:text-neutral-400 uppercase tracking-wider mt-2 font-mono">
+                  <span className="px-1.5 py-0.5 rounded bg-neutral-100 dark:bg-white/5 border border-neutral-300 dark:border-white/10 font-bold whitespace-nowrap">Vol. XXXIV No. 10</span>
                   <span className="text-gold/60">•</span>
-                  <span className="font-serif whitespace-nowrap">{isAr ? 'دبي • الرياض • أبوظبي • الدوحة • الكويت' : 'Dubai • Riyadh • Abu Dhabi • Doha • Kuwait'}</span>
+                  <span className="font-serif whitespace-nowrap hidden sm:inline">{isAr ? 'دبي • الرياض • أبوظبي • الدوحة • الكويت' : 'Dubai • Riyadh • Abu Dhabi • Doha • Kuwait'}</span>
+                  <span className="font-serif whitespace-nowrap sm:hidden">{isAr ? 'طبعة الإمارات والخليج' : 'UAE & GCC Edition'}</span>
                   <span className="text-gold/60">•</span>
                   <span className="inline-flex items-center gap-1 text-emerald-600 dark:text-emerald-400 font-bold whitespace-nowrap">
                     <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-ping" />
-                    {isAr ? 'بث الوكالات المعتمد' : 'Live Syndicated Wire'}
+                    {isAr ? 'بث الوكالات' : 'Live Wire'}
                   </span>
                 </div>
               </div>
@@ -2320,12 +2374,12 @@ export default function GulfChronicleEditorialPortal() {
             </div>
 
             {/* Mobile Bottom Syndication Bar (< lg screens) */}
-            <div className="lg:hidden pt-3 border-t border-neutral-200 dark:border-white/10 flex flex-wrap items-center justify-center gap-1.5 text-[9px] font-serif font-bold text-neutral-600 dark:text-neutral-400">
-              <span className="uppercase text-[9px] font-mono text-neutral-400 mr-1">{isAr ? 'بالشراكة مع:' : 'Syndicated With:'}</span>
+            <div className="lg:hidden pt-2.5 border-t border-neutral-200 dark:border-white/10 flex items-center justify-center gap-1 text-[8px] sm:text-[9px] font-serif font-bold text-neutral-600 dark:text-neutral-400">
+              <span className="uppercase text-[8px] font-mono text-neutral-400 mr-0.5">{isAr ? 'شراكة:' : 'Wire:'}</span>
               {['GULF NEWS', 'KHALEEJ TIMES', 'VOGUE ARABIA', 'THE NATIONAL'].map((partner) => (
                 <span
                   key={partner}
-                  className="border border-neutral-300 dark:border-gold/30 px-2 py-0.5 rounded bg-white/80 dark:bg-white/5 text-[9px] font-mono"
+                  className="border border-neutral-300 dark:border-gold/30 px-1.5 py-0.5 rounded bg-white/80 dark:bg-white/5 text-[8px] font-mono whitespace-nowrap"
                 >
                   {partner}
                 </span>

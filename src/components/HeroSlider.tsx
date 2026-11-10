@@ -14,7 +14,8 @@ import {
   VolumeX, 
   Play, 
   Pause,
-  Film
+  Film,
+  ArrowRight
 } from 'lucide-react';
 import { useLuxury } from './ThemeProvider';
 import { getPublicationLabel } from '../lib/productLocalization';
@@ -289,6 +290,33 @@ export function HeroSlider() {
   const [isVideoPlaying, setIsVideoPlaying] = useState(true);
   const videoRef = useRef<HTMLVideoElement>(null);
 
+  // Mobile Touch Swipe State
+  const [touchStartX, setTouchStartX] = useState<number | null>(null);
+  const [touchEndX, setTouchEndX] = useState<number | null>(null);
+
+  const handleTouchStart = (e: React.TouchEvent) => {
+    setTouchEndX(null);
+    setTouchStartX(e.targetTouches[0].clientX);
+  };
+
+  const handleTouchMove = (e: React.TouchEvent) => {
+    setTouchEndX(e.targetTouches[0].clientX);
+  };
+
+  const handleTouchEnd = () => {
+    if (touchStartX === null || touchEndX === null) return;
+    const distance = touchStartX - touchEndX;
+    if (distance > 45) {
+      // Swiped left
+      isAr ? prevSlide() : nextSlide();
+    } else if (distance < -45) {
+      // Swiped right
+      isAr ? nextSlide() : prevSlide();
+    }
+    setTouchStartX(null);
+    setTouchEndX(null);
+  };
+
   const slides = HERO_SLIDES;
   const SLIDE_DURATION = 7500;
 
@@ -354,12 +382,41 @@ export function HeroSlider() {
     <section
       onMouseEnter={() => setIsPaused(true)}
       onMouseLeave={() => setIsPaused(false)}
-      className="relative w-full bg-[#07090E] border-b border-[#B8860B]/25 dark:border-gold/25 overflow-hidden flex flex-col group"
+      className="relative w-full bg-[#07090E] border-b border-[#B8860B]/25 dark:border-gold/25 overflow-hidden flex flex-col group select-none"
     >
       {/* =========================================================================
-          1. DEDICATED BANNER DISPLAY CANVAS (Zero-overlap, 100% visible from top to bottom)
+          0. MOBILE 11:11 TOP ANNOUNCEMENT & PROMO STRIP (Sleek, Unobtrusive)
+          - Keeps the mobile banner canvas 100% clean and free of overlapping buttons
       ========================================================================== */}
-      <div className="relative w-full aspect-[2/1] sm:aspect-[2/1] max-h-[75vh] min-h-[220px] sm:min-h-[320px] md:min-h-[420px] lg:min-h-[520px] xl:min-h-[600px] overflow-hidden bg-[#07090E] flex items-center justify-center">
+      <div className="sm:hidden w-full bg-gradient-to-r from-[#170B04] via-[#2A1402] to-[#170B04] border-b border-gold/30 px-3 py-1.5 flex items-center justify-between text-xs z-30">
+        <div className="flex items-center gap-1.5">
+          <span className="px-2 py-0.5 rounded-full bg-gradient-to-r from-red-600 via-amber-500 to-amber-600 text-white font-extrabold text-[9px] uppercase tracking-wider animate-pulse shadow-sm">
+            {isAr ? 'اليوم فقط • 11:11' : 'ONLY TODAY • 11:11'}
+          </span>
+          <span className="px-1.5 py-0.5 rounded bg-black/85 border border-gold/50 text-gold font-mono font-bold text-[9px]">
+            OMNIA1111
+          </span>
+        </div>
+        <a
+          href={DISCOUNTED_ITEMS_URL}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="text-[10px] font-bold text-amber-300 hover:text-white flex items-center gap-1"
+        >
+          <span>{isAr ? 'خصم 85% • تسوق' : '85% Off • Shop'}</span>
+          <ExternalLink className="w-2.5 h-2.5" />
+        </a>
+      </div>
+
+      {/* =========================================================================
+          1. DEDICATED BANNER DISPLAY CANVAS (Exact 2:1 on mobile, 100% uncropped)
+      ========================================================================== */}
+      <div
+        onTouchStart={handleTouchStart}
+        onTouchMove={handleTouchMove}
+        onTouchEnd={handleTouchEnd}
+        className="relative w-full aspect-[2/1] sm:aspect-[2/1] max-h-[75vh] sm:min-h-[320px] md:min-h-[420px] lg:min-h-[520px] xl:min-h-[600px] overflow-hidden bg-[#07090E] flex items-center justify-center cursor-grab active:cursor-grabbing"
+      >
         {slides.map((s, idx) => {
           const isCurrent = idx === current;
           return (
@@ -369,7 +426,7 @@ export function HeroSlider() {
                 isCurrent ? 'opacity-100 z-10 pointer-events-auto' : 'opacity-0 z-0 pointer-events-none'
               }`}
             >
-              {/* Luxury Ambient Blurred Backing (Fills extra wide-screen space seamlessly with matching banner colors) */}
+              {/* Luxury Ambient Blurred Backing */}
               <div className="absolute inset-0 overflow-hidden pointer-events-none">
                 <Image
                   src={s.coverImage}
@@ -422,8 +479,8 @@ export function HeroSlider() {
           );
         })}
 
-        {/* Floating Top Corner Badges (Positioned cleanly at the top corners without blocking artwork) */}
-        <div className="absolute top-2 sm:top-4 inset-x-0 z-25 max-w-7xl mx-auto px-3 sm:px-6 flex items-center justify-between gap-2 pointer-events-none">
+        {/* Desktop / Tablet Floating Top Corner Badges (Hidden on mobile to guarantee zero artwork obstruction) */}
+        <div className="hidden sm:flex absolute top-3 sm:top-4 inset-x-0 z-25 max-w-7xl mx-auto px-4 sm:px-6 items-center justify-between gap-2 pointer-events-none">
           
           {/* Top-Left: Glowing "ONLY TODAY • 11:11" Badge & Promo Code */}
           <div className="flex flex-wrap items-center gap-1.5 sm:gap-2 pointer-events-auto">
@@ -500,68 +557,154 @@ export function HeroSlider() {
             )}
           </div>
         </div>
+
+        {/* Mobile Floating Video Controls (Compact corner buttons only for video slides) */}
+        {active.type === 'video' && (
+          <div className="sm:hidden absolute top-2 right-2 rtl:right-auto rtl:left-2 z-25 flex items-center gap-1.5 pointer-events-auto">
+            <button
+              onClick={toggleVideoPlayback}
+              aria-label={isVideoPlaying ? 'Pause Video' : 'Play Video'}
+              className="p-1.5 rounded-full bg-black/80 text-gold border border-gold/30 backdrop-blur-md shadow-md active:scale-90"
+            >
+              {isVideoPlaying ? <Pause className="w-3 h-3" /> : <Play className="w-3 h-3 fill-current" />}
+            </button>
+            <button
+              onClick={toggleSound}
+              aria-label={isMuted ? 'Unmute Sound' : 'Mute Sound'}
+              className="px-2 py-1 rounded-full bg-black/80 text-gold border border-gold/30 text-[9px] font-semibold backdrop-blur-md flex items-center gap-1 shadow-md active:scale-90"
+            >
+              {isMuted ? <VolumeX className="w-3 h-3" /> : <Volume2 className="w-3 h-3 text-emerald-400" />}
+              <span>{isMuted ? (isAr ? 'الصوت' : 'Sound') : (isAr ? 'مفعل' : 'On')}</span>
+            </button>
+          </div>
+        )}
       </div>
 
       {/* =========================================================================
-          2. BOTTOM CAROUSEL TABS & CONTROLS (Cleanly separated below the banner)
+          2. MOBILE PRIMARY ACTION BAR (Positioned directly below the artwork)
+      ========================================================================== */}
+      <div className="sm:hidden w-full px-3 py-2 bg-[#090C14] border-t border-gold/25 flex items-center justify-between gap-2 z-20">
+        <div className="flex flex-col min-w-0 pr-2">
+          <span className="text-[11px] font-serif font-bold text-white truncate">
+            {slideTitle}
+          </span>
+          <span className="text-[9px] font-mono text-gold truncate">
+            {isAr ? 'صفقات تبدأ من 111 درهم • وفّر حتى 3,000 درهم' : 'Deals from Dh111 • Save up to Dh3,000'}
+          </span>
+        </div>
+        <a
+          href={DISCOUNTED_ITEMS_URL}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="px-3.5 py-1.5 rounded-full bg-gradient-to-r from-gold via-amber-300 to-[#AA8C2C] text-black font-extrabold text-[10px] tracking-wider uppercase flex items-center gap-1 shadow-md shrink-0 active:scale-95"
+        >
+          <span>{isAr ? 'تسوق الآن' : 'Shop Now'}</span>
+          <ArrowRight className="w-3 h-3 rtl:rotate-180" />
+        </a>
+      </div>
+
+      {/* =========================================================================
+          3. BOTTOM CAROUSEL CONTROLS (Responsive on all screen sizes)
       ========================================================================== */}
       <div className="relative z-20 w-full border-t border-gold/20 bg-[#0B0E17]/98 backdrop-blur-md">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-3 flex flex-wrap items-center justify-between gap-4">
+        <div className="max-w-7xl mx-auto px-3 sm:px-6 lg:px-8 py-2.5 sm:py-3">
 
-          {/* Interactive Campaign Slide Tabs */}
-          <div className="flex items-center gap-2 overflow-x-auto scrollbar-none py-1">
-            {slides.map((s, idx) => {
-              const isTabActive = idx === current;
-              const meta = SLIDE_TABS[idx] || { label: `Slide 0${idx + 1}`, labelAr: `شريحة 0${idx + 1}`, sub: '', subAr: '' };
-              return (
-                <button
-                  key={s.id}
-                  onClick={() => setCurrent(idx)}
-                  className={`px-3.5 py-2 rounded-xl text-left rtl:text-right transition-all duration-300 flex items-center gap-2.5 border whitespace-nowrap flex-shrink-0 ${
-                    isTabActive
-                      ? 'bg-gold/20 border-gold text-gold shadow-[0_0_15px_rgba(212,175,55,0.3)] font-semibold'
-                      : 'border-white/10 hover:border-gold/40 text-neutral-400 hover:text-white bg-black/40'
-                  }`}
-                >
-                  <span className={`text-[10px] font-mono ${isTabActive ? 'text-gold' : 'text-neutral-500'}`}>
-                    0{idx + 1}
-                  </span>
-                  <div className="flex flex-col text-left rtl:text-right">
-                    <span className="text-xs uppercase tracking-wider font-bold">
-                      {isAr ? meta.labelAr : meta.label}
-                    </span>
-                    <span className="text-[9px] font-serif text-neutral-400">
-                      {isAr ? meta.subAr : meta.sub}
-                    </span>
-                  </div>
-                  {isTabActive && <Crown className="w-3 h-3 text-gold shrink-0 animate-pulse" />}
-                </button>
-              );
-            })}
-          </div>
-
-          {/* Arrows & Counter */}
-          <div className="flex items-center gap-3">
-            <span className="text-xs font-mono text-neutral-400 hidden sm:inline">
+          {/* Mobile / Small Screen Navigation Bar */}
+          <div className="md:hidden flex items-center justify-between w-full gap-2">
+            {/* Active Counter */}
+            <span className="text-[11px] font-mono font-bold text-gold">
               0{current + 1} / 0{slides.length}
             </span>
 
+            {/* Pagination Dots */}
+            <div className="flex items-center gap-1.5">
+              {slides.map((_, idx) => (
+                <button
+                  key={idx}
+                  onClick={() => setCurrent(idx)}
+                  aria-label={`Go to slide ${idx + 1}`}
+                  className={`h-1.5 transition-all duration-300 rounded-full ${
+                    idx === current ? 'w-6 bg-gold shadow-[0_0_8px_rgba(212,175,55,0.8)]' : 'w-1.5 bg-white/20 hover:bg-white/40'
+                  }`}
+                />
+              ))}
+            </div>
+
+            {/* Prev / Next Chevrons */}
             <div className="flex items-center gap-1.5">
               <button
                 onClick={prevSlide}
                 aria-label="Previous editorial slide"
-                className="p-2 rounded-full bg-black/80 border border-gold/30 text-gold hover:bg-gold hover:text-black transition-all shadow-md active:scale-95"
+                className="p-1.5 rounded-full bg-black/80 border border-gold/30 text-gold hover:bg-gold hover:text-black transition-all active:scale-90"
               >
-                <ChevronLeft className={`w-4 h-4 ${isAr ? 'rotate-180' : ''}`} />
+                <ChevronLeft className={`w-3.5 h-3.5 ${isAr ? 'rotate-180' : ''}`} />
               </button>
-
               <button
                 onClick={nextSlide}
                 aria-label="Next editorial slide"
-                className="p-2 rounded-full bg-black/80 border border-gold/30 text-gold hover:bg-gold hover:text-black transition-all shadow-md active:scale-95"
+                className="p-1.5 rounded-full bg-black/80 border border-gold/30 text-gold hover:bg-gold hover:text-black transition-all active:scale-90"
               >
-                <ChevronRight className={`w-4 h-4 ${isAr ? 'rotate-180' : ''}`} />
+                <ChevronRight className={`w-3.5 h-3.5 ${isAr ? 'rotate-180' : ''}`} />
               </button>
+            </div>
+          </div>
+
+          {/* Desktop Campaign Slide Tabs */}
+          <div className="hidden md:flex items-center justify-between gap-4">
+            <div className="flex items-center gap-2 overflow-x-auto scrollbar-none py-1">
+              {slides.map((s, idx) => {
+                const isTabActive = idx === current;
+                const meta = SLIDE_TABS[idx] || { label: `Slide 0${idx + 1}`, labelAr: `شريحة 0${idx + 1}`, sub: '', subAr: '' };
+                return (
+                  <button
+                    key={s.id}
+                    onClick={() => setCurrent(idx)}
+                    className={`px-3.5 py-2 rounded-xl text-left rtl:text-right transition-all duration-300 flex items-center gap-2.5 border whitespace-nowrap flex-shrink-0 ${
+                      isTabActive
+                        ? 'bg-gold/20 border-gold text-gold shadow-[0_0_15px_rgba(212,175,55,0.3)] font-semibold'
+                        : 'border-white/10 hover:border-gold/40 text-neutral-400 hover:text-white bg-black/40'
+                    }`}
+                  >
+                    <span className={`text-[10px] font-mono ${isTabActive ? 'text-gold' : 'text-neutral-500'}`}>
+                      0{idx + 1}
+                    </span>
+                    <div className="flex flex-col text-left rtl:text-right">
+                      <span className="text-xs uppercase tracking-wider font-bold">
+                        {isAr ? meta.labelAr : meta.label}
+                      </span>
+                      <span className="text-[9px] font-serif text-neutral-400">
+                        {isAr ? meta.subAr : meta.sub}
+                      </span>
+                    </div>
+                    {isTabActive && <Crown className="w-3 h-3 text-gold shrink-0 animate-pulse" />}
+                  </button>
+                );
+              })}
+            </div>
+
+            {/* Desktop Arrows & Counter */}
+            <div className="flex items-center gap-3 shrink-0">
+              <span className="text-xs font-mono text-neutral-400">
+                0{current + 1} / 0{slides.length}
+              </span>
+
+              <div className="flex items-center gap-1.5">
+                <button
+                  onClick={prevSlide}
+                  aria-label="Previous editorial slide"
+                  className="p-2 rounded-full bg-black/80 border border-gold/30 text-gold hover:bg-gold hover:text-black transition-all shadow-md active:scale-95"
+                >
+                  <ChevronLeft className={`w-4 h-4 ${isAr ? 'rotate-180' : ''}`} />
+                </button>
+
+                <button
+                  onClick={nextSlide}
+                  aria-label="Next editorial slide"
+                  className="p-2 rounded-full bg-black/80 border border-gold/30 text-gold hover:bg-gold hover:text-black transition-all shadow-md active:scale-95"
+                >
+                  <ChevronRight className={`w-4 h-4 ${isAr ? 'rotate-180' : ''}`} />
+                </button>
+              </div>
             </div>
           </div>
 

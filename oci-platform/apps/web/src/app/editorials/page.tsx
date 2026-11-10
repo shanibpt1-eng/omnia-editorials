@@ -2588,44 +2588,44 @@ export default function GulfChronicleEditorialPortal() {
                   <span>{isAr ? 'العد التنازلي المباشر لعروض 11:11' : '11:11 CART DROPS LIVE COUNTDOWN'}</span>
                 </div>
 
-                {/* 4 Digital Timer Cells */}
-                <div className="grid grid-cols-4 gap-2 sm:gap-3 w-full max-w-sm">
+                {/* 4 Digital Timer Cells (Responsive scaling on all screens) */}
+                <div className="grid grid-cols-4 gap-1.5 sm:gap-3 w-full max-w-sm">
                   {/* Days */}
-                  <div className="flex flex-col items-center p-2.5 sm:p-3 rounded-xl bg-neutral-900/90 border border-gold/30 shadow-inner">
-                    <span className="text-2xl sm:text-4xl font-mono font-black text-white">
+                  <div className="flex flex-col items-center p-2 sm:p-3 rounded-xl bg-neutral-900/90 border border-gold/30 shadow-inner">
+                    <span className="text-xl sm:text-3xl lg:text-4xl font-mono font-black text-white">
                       {String(countdown1111.days).padStart(2, '0')}
                     </span>
-                    <span className="text-[9px] sm:text-[10px] font-mono uppercase tracking-wider text-gold font-bold mt-1">
+                    <span className="text-[9px] sm:text-[10px] font-mono uppercase tracking-wider text-gold font-bold mt-0.5 sm:mt-1">
                       {isAr ? 'أيام' : 'DAYS'}
                     </span>
                   </div>
 
                   {/* Hours */}
-                  <div className="flex flex-col items-center p-2.5 sm:p-3 rounded-xl bg-neutral-900/90 border border-gold/30 shadow-inner">
-                    <span className="text-2xl sm:text-4xl font-mono font-black text-gold">
+                  <div className="flex flex-col items-center p-2 sm:p-3 rounded-xl bg-neutral-900/90 border border-gold/30 shadow-inner">
+                    <span className="text-xl sm:text-3xl lg:text-4xl font-mono font-black text-gold">
                       {String(countdown1111.hours).padStart(2, '0')}
                     </span>
-                    <span className="text-[9px] sm:text-[10px] font-mono uppercase tracking-wider text-gold font-bold mt-1">
+                    <span className="text-[9px] sm:text-[10px] font-mono uppercase tracking-wider text-gold font-bold mt-0.5 sm:mt-1">
                       {isAr ? 'ساعات' : 'HOURS'}
                     </span>
                   </div>
 
                   {/* Minutes */}
-                  <div className="flex flex-col items-center p-2.5 sm:p-3 rounded-xl bg-neutral-900/90 border border-gold/30 shadow-inner">
-                    <span className="text-2xl sm:text-4xl font-mono font-black text-white">
+                  <div className="flex flex-col items-center p-2 sm:p-3 rounded-xl bg-neutral-900/90 border border-gold/30 shadow-inner">
+                    <span className="text-xl sm:text-3xl lg:text-4xl font-mono font-black text-white">
                       {String(countdown1111.minutes).padStart(2, '0')}
                     </span>
-                    <span className="text-[9px] sm:text-[10px] font-mono uppercase tracking-wider text-gold font-bold mt-1">
+                    <span className="text-[9px] sm:text-[10px] font-mono uppercase tracking-wider text-gold font-bold mt-0.5 sm:mt-1">
                       {isAr ? 'دقائق' : 'MINS'}
                     </span>
                   </div>
 
                   {/* Seconds */}
-                  <div className="flex flex-col items-center p-2.5 sm:p-3 rounded-xl bg-neutral-900/90 border border-red-500/40 shadow-inner">
-                    <span className="text-2xl sm:text-4xl font-mono font-black text-red-500 animate-pulse">
+                  <div className="flex flex-col items-center p-2 sm:p-3 rounded-xl bg-neutral-900/90 border border-red-500/40 shadow-inner">
+                    <span className="text-xl sm:text-3xl lg:text-4xl font-mono font-black text-red-500 animate-pulse">
                       {String(countdown1111.seconds).padStart(2, '0')}
                     </span>
-                    <span className="text-[9px] sm:text-[10px] font-mono uppercase tracking-wider text-red-400 font-bold mt-1">
+                    <span className="text-[9px] sm:text-[10px] font-mono uppercase tracking-wider text-red-400 font-bold mt-0.5 sm:mt-1">
                       {isAr ? 'ثوانٍ' : 'SECS'}
                     </span>
                   </div>
@@ -2684,15 +2684,15 @@ export default function GulfChronicleEditorialPortal() {
 
             {/* 4. 1080P Web Banner Video Cinema Theater */}
             <div className="relative z-10 pt-6">
-              <div className="flex flex-wrap items-center justify-between gap-2 mb-3">
+              <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 mb-3">
                 <div className="flex items-center gap-2">
-                  <Film className="w-4 h-4 text-gold" />
+                  <Film className="w-4 h-4 text-gold shrink-0" />
                   <h3 className="text-xs sm:text-sm font-serif font-black uppercase tracking-wider text-white">
                     {isAr ? 'الفيلم الإعلاني الرسمي عالي الدقة 1080P — مهرجان 11.11' : 'Official 1080P HD Web Banner Commercial — 11.11 Luxury Gala'}
                   </h3>
                 </div>
                 
-                <div className="flex items-center gap-2">
+                <div className="flex items-center gap-2 flex-wrap">
                   <button
                     onClick={toggle1111Video}
                     className="p-1.5 rounded-full bg-black/80 hover:bg-gold hover:text-black text-gold border border-gold/40 text-xs transition-all shadow-sm active:scale-95"

@@ -52,6 +52,7 @@ import { SeoHead } from '../../components/SeoHead';
 import { EDITORIAL_ARTICLES } from '../../data/editorial-feed';
 import { AutoSlidingProductMarquee } from '../../components/AutoSlidingProductMarquee';
 import { InteractiveShopTheLook } from '../../components/InteractiveShopTheLook';
+import { OmniaVsCompetitorBenchmark } from '../../components/OmniaVsCompetitorBenchmark';
 import { OmniaStoresSkyscraperAd } from '../../components/OmniaStoresSkyscraperAd';
 import verifiedDispatchesRaw from '../../data/verified-dispatches.json';
 import omniastoresYoutubeData from '../../data/omniastores-youtube.json';
@@ -6353,6 +6354,13 @@ export default function GulfChronicleEditorialPortal() {
         ========================================================================== */}
         <section className="my-10">
           <InteractiveShopTheLook />
+        </section>
+
+        {/* =========================================================================
+            MASTER AEO & GEO BENCHMARK: OMNIA STORES VS SWAROVSKI UAE
+        ========================================================================== */}
+        <section className="my-10">
+          <OmniaVsCompetitorBenchmark />
         </section>
 
         {/* =========================================================================

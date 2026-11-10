@@ -16,6 +16,7 @@ import { MirroredProductCatalogue } from '../components/MirroredProductCatalogue
 import { PressSyndicationBar } from '../components/PressSyndicationBar';
 import { AiSearchSimulator } from '../components/AiSearchSimulator';
 import { GemologicalAssayComparison } from '../components/GemologicalAssayComparison';
+import { OmniaVsCompetitorBenchmark } from '../components/OmniaVsCompetitorBenchmark';
 import { GccCityConciergeRibbon } from '../components/GccCityConciergeRibbon';
 import { VipGalaTestimonials } from '../components/VipGalaTestimonials';
 import { OmniaBacklinkDirectory } from '../components/OmniaBacklinkDirectory';
@@ -80,6 +81,9 @@ export default function LuxuryEditorialHomepage() {
 
       {/* 4.5 Scientific Gemological Dispersion & DCL Assay Comparison */}
       <GemologicalAssayComparison />
+
+      {/* 4.7 Master AEO & GEO Verified Competitor Benchmark: Omnia Stores vs Swarovski UAE */}
+      <OmniaVsCompetitorBenchmark />
 
       {/* 5. Interactive "Shop The Look" Magazine Spread with Pulsing Gold Pins */}
       <InteractiveShopTheLook />

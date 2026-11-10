@@ -1,10 +1,18 @@
-import type { Metadata } from 'next';
+import type { Metadata, Viewport } from 'next';
 import './globals.css';
 import { ThemeProvider } from '../components/ThemeProvider';
 import { Header } from '../components/Header';
 import { Footer } from '../components/Footer';
 import { VipConciergeModal } from '../components/VipConciergeModal';
 import { MobileStickyBar } from '../components/MobileStickyBar';
+
+export const viewport: Viewport = {
+  width: 'device-width',
+  initialScale: 1,
+  maximumScale: 5,
+  userScalable: true,
+  themeColor: '#0A0D14',
+};
 
 export const metadata: Metadata = {
   title: 'Omnia Stores Luxury Editorial & GCC Wire | 925 Sterling Silver & Haute Horlogerie',
@@ -44,12 +52,12 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en" className="dark" suppressHydrationWarning>
-      <body className="dark antialiased min-h-screen flex flex-col bg-[#0A0D14] text-[#F4F5F8] selection:bg-gold selection:text-black">
+    <html lang="en" className="dark overflow-x-hidden max-w-full" suppressHydrationWarning>
+      <body className="dark antialiased min-h-screen flex flex-col bg-[#0A0D14] text-[#F4F5F8] selection:bg-gold selection:text-black overflow-x-hidden max-w-full w-full relative">
         <ThemeProvider>
-          <div className="flex flex-col min-h-screen pb-14 sm:pb-0">
+          <div className="flex flex-col min-h-screen pb-14 sm:pb-0 overflow-x-hidden max-w-full w-full">
             <Header />
-            <main className="flex-1">
+            <main className="flex-1 overflow-x-hidden max-w-full w-full">
               {children}
             </main>
             <Footer />

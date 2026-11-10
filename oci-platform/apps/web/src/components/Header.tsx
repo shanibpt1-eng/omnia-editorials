@@ -27,16 +27,17 @@ export function Header() {
   ];
 
   return (
-    <header className="sticky top-0 z-50 w-full transition-colors duration-300">
+    <header className="sticky top-0 z-50 w-full max-w-full transition-colors duration-300">
       {/* 1. Animated Top Announcement Ticker */}
       <a
         href="https://omniastores.com/collections/discounted-items"
         target="_blank"
         rel="noopener noreferrer"
         title="Explore 11:11 Discounted Items on omniastores.com"
-        className="block w-full bg-[#07090E] text-[#D4AF37] hover:text-white border-b border-[#D4AF37]/25 text-xs py-2 overflow-hidden relative transition-colors cursor-pointer group"
+        className="block w-full max-w-full bg-[#07090E] text-[#D4AF37] hover:text-white border-b border-[#D4AF37]/25 text-xs py-2 overflow-hidden relative transition-colors cursor-pointer group"
       >
-        <div className="flex items-center whitespace-nowrap animate-ticker pause-hover">
+        <div className="w-full max-w-full overflow-hidden">
+          <div className="flex items-center whitespace-nowrap animate-ticker pause-hover">
           <span className="flex items-center mx-6 gap-2">
             <span className="px-2 py-0.5 rounded bg-gradient-to-r from-red-600 via-amber-500 to-amber-600 text-white font-extrabold text-[10px] tracking-wider animate-pulse shadow-sm">
               11:11 LIVE
@@ -79,11 +80,12 @@ export function Header() {
             <span className="px-1.5 py-0.5 rounded bg-black/80 border border-gold/60 text-gold font-mono font-bold">OMNIA1111</span>
           </span>
         </div>
+        </div>
       </a>
 
       {/* 2. Glassmorphic Luxury Navigation Bar */}
       <div className="backdrop-blur-xl bg-white/95 dark:bg-[#0A0D14]/92 border-b border-neutral-200 dark:border-[#D4AF37]/20 shadow-md dark:shadow-[0_4px_30px_rgba(0,0,0,0.5)]">
-        <div className="max-w-7xl 2xl:max-w-[1440px] mx-auto px-4 sm:px-6 lg:px-8 h-[70px] sm:h-[74px] flex items-center justify-between gap-3 sm:gap-4 lg:gap-6">
+        <div className="max-w-7xl 2xl:max-w-[1440px] mx-auto px-3 sm:px-6 lg:px-8 h-[62px] sm:h-[74px] flex items-center justify-between gap-2 sm:gap-4 lg:gap-6 w-full max-w-full">
           
           {/* Official THE VOGUE NEWS Wordmark Logo */}
           <div className="flex items-center shrink-0 z-10">
@@ -93,7 +95,7 @@ export function Header() {
                 alt="THE VOGUE NEWS"
                 width={210}
                 height={32}
-                className="h-6 sm:h-7 md:h-8 w-auto object-contain hidden dark:block transition-all duration-300 group-hover:opacity-90 group-hover:drop-shadow-[0_0_12px_rgba(212,175,55,0.4)]"
+                className="h-5 sm:h-7 md:h-8 w-auto object-contain hidden dark:block transition-all duration-300 group-hover:opacity-90 group-hover:drop-shadow-[0_0_12px_rgba(212,175,55,0.4)]"
                 priority
               />
               <Image
@@ -101,7 +103,7 @@ export function Header() {
                 alt="THE VOGUE NEWS"
                 width={210}
                 height={32}
-                className="h-6 sm:h-7 md:h-8 w-auto object-contain block dark:hidden transition-all duration-300 group-hover:opacity-80"
+                className="h-5 sm:h-7 md:h-8 w-auto object-contain block dark:hidden transition-all duration-300 group-hover:opacity-80"
                 priority
               />
             </Link>
@@ -145,9 +147,9 @@ export function Header() {
           </nav>
 
           {/* Right Action Tools: Language Toggle, Currency Toggle, Theme Toggle, Main Flagship Storefront CTA */}
-          <div className="flex items-center gap-2 sm:gap-2.5 lg:gap-3 shrink-0 z-20">
-            {/* Bilingual Switcher (EN / عربي) */}
-            <div className="flex items-center bg-black/40 dark:bg-white/[0.04] border border-neutral-300/80 dark:border-gold/30 rounded-full p-0.5 text-xs shadow-inner">
+          <div className="flex items-center gap-1.5 sm:gap-2.5 lg:gap-3 shrink-0 z-20">
+            {/* Bilingual Switcher (EN / عربي) - Hidden on mobile, accessible in mobile drawer */}
+            <div className="hidden md:flex items-center bg-black/40 dark:bg-white/[0.04] border border-neutral-300/80 dark:border-gold/30 rounded-full p-0.5 text-xs shadow-inner">
               <button
                 onClick={() => setLanguage('en')}
                 className={`px-2 sm:px-2.5 py-1 rounded-full text-[10px] sm:text-[11px] font-semibold tracking-wider transition-all duration-200 ${
@@ -172,8 +174,8 @@ export function Header() {
               </button>
             </div>
 
-            {/* Regional Currency Switcher */}
-            <div className="flex items-center bg-black/40 dark:bg-white/[0.04] border border-neutral-300/80 dark:border-gold/30 rounded-full p-0.5 text-xs shadow-inner">
+            {/* Regional Currency Switcher - Hidden on mobile, accessible in mobile drawer & sticky bar */}
+            <div className="hidden md:flex items-center bg-black/40 dark:bg-white/[0.04] border border-neutral-300/80 dark:border-gold/30 rounded-full p-0.5 text-xs shadow-inner">
               <button
                 onClick={() => setCurrency('AED')}
                 className={`px-2.5 sm:px-3 py-1 rounded-full text-[10px] sm:text-[11px] font-semibold tracking-wider transition-all duration-200 ${
@@ -198,8 +200,8 @@ export function Header() {
               </button>
             </div>
 
-            {/* Luxury Theme Segmented Switcher (Dark / Light) */}
-            <div className="flex items-center bg-black/40 dark:bg-white/[0.04] border border-neutral-300/80 dark:border-gold/30 rounded-full p-0.5 text-xs shadow-inner">
+            {/* Luxury Theme Segmented Switcher (Dark / Light) - Hidden on mobile, accessible in mobile drawer */}
+            <div className="hidden md:flex items-center bg-black/40 dark:bg-white/[0.04] border border-neutral-300/80 dark:border-gold/30 rounded-full p-0.5 text-xs shadow-inner">
               <button
                 onClick={() => setTheme('dark')}
                 className={`px-2 sm:px-2.5 py-1 rounded-full text-[10px] sm:text-[11px] font-semibold tracking-wider flex items-center justify-center transition-all duration-200 ${
@@ -226,23 +228,23 @@ export function Header() {
               </button>
             </div>
 
-            {/* Flagship Storefront CTA Button */}
+            {/* Flagship Storefront CTA Button - Compact on mobile */}
             <a
               href="https://omniastores.com"
               target="_blank"
               rel="noopener noreferrer"
-              className="flex items-center gap-1.5 px-3.5 sm:px-4 py-2 sm:py-2.5 rounded-full bg-gradient-to-r from-[#D4AF37] via-[#DFBF54] to-[#C49B28] text-[#0A0D14] font-bold text-[10px] sm:text-[11px] tracking-[0.14em] uppercase whitespace-nowrap shadow-[0_2px_15px_rgba(212,175,55,0.35)] hover:shadow-[0_4px_25px_rgba(212,175,55,0.6)] hover:scale-[1.02] active:scale-[0.98] transition-all duration-200 shrink-0"
+              className="flex items-center gap-1 px-2.5 sm:px-4 py-1.5 sm:py-2.5 rounded-full bg-gradient-to-r from-[#D4AF37] via-[#DFBF54] to-[#C49B28] text-[#0A0D14] font-bold text-[10px] sm:text-[11px] tracking-[0.14em] uppercase whitespace-nowrap shadow-[0_2px_15px_rgba(212,175,55,0.35)] hover:shadow-[0_4px_25px_rgba(212,175,55,0.6)] hover:scale-[1.02] active:scale-[0.98] transition-all duration-200 shrink-0"
               title="Visit official Omnia Stores boutique"
             >
               <ShoppingBag className="w-3.5 h-3.5 shrink-0" />
               <span className="hidden sm:inline">{t.shopStore}</span>
-              <span className="sm:hidden">{t.shopStore}</span>
+              <span className="sm:hidden">SHOP</span>
             </a>
 
             {/* Mobile / Tablet / Medium Laptop Hamburger Button (xl:hidden) */}
             <button
               onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-              className="xl:hidden p-2 rounded-xl text-neutral-800 dark:text-gold hover:bg-gold/10 border border-neutral-300/80 dark:border-gold/30 shrink-0 transition-colors z-20"
+              className="xl:hidden p-1.5 sm:p-2 rounded-xl text-neutral-800 dark:text-gold hover:bg-gold/10 border border-neutral-300/80 dark:border-gold/30 shrink-0 transition-colors z-20"
               aria-label="Toggle Navigation Menu"
             >
               {mobileMenuOpen ? <X className="w-5 h-5 sm:w-6 sm:h-6" /> : <Menu className="w-5 h-5 sm:w-6 sm:h-6" />}

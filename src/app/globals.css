@@ -18,6 +18,15 @@ nextjs-portal,
     --card-foreground: #f4f5f7;
   }
 
+  html,
+  body {
+    overflow-x: hidden;
+    max-width: 100vw;
+    width: 100%;
+    position: relative;
+    -webkit-text-size-adjust: 100%;
+  }
+
   body {
     background-color: var(--background);
     color: var(--foreground);

@@ -19,7 +19,18 @@ export default function TrendingEditorialHub() {
   const [activeAeoArticleId, setActiveAeoArticleId] = useState<string | null>('art-vogue-2026');
 
   const publications = ['All', 'Vogue Arabia', 'Harper\'s Bazaar Arabia', 'Gulf News', 'Khaleej Times', 'The National', 'Business Lifestyle'];
-  const categories = ['All', 'Luxury & Fashion', 'High Jewellery', 'Logistics & Tech', 'E-Commerce Trends', 'All GCC News'];
+  const categories = [
+    'All',
+    'Shopping Festivals & Deals',
+    'National Day & Sovereign Galas',
+    'Year-End & Holiday Edits',
+    'White Friday & Mega Deals',
+    "Valentine's & Romance Gifting",
+    'High Jewellery',
+    'Luxury & Fashion',
+    'E-Commerce Trends',
+    'All GCC News'
+  ];
 
   const getPubLabel = (pub: string) => {
     if (!isAr) return pub;
@@ -28,6 +39,7 @@ export default function TrendingEditorialHub() {
       'Vogue Arabia': 'فوغ العربية',
       'Harper\'s Bazaar Arabia': 'هاربرز بازار العربية',
       'Gulf News': 'جلف نيوز',
+      'Gulf News Focus': 'جلف نيوز فوكس',
       'Khaleej Times': 'خليج تايمز',
       'The National': 'ذا ناشيونال',
       'Business Lifestyle': 'بزنس لايف ستايل',
@@ -39,6 +51,11 @@ export default function TrendingEditorialHub() {
     if (!isAr) return cat;
     if (cat === 'All') return 'الكل';
     const map: Record<string, string> = {
+      'Shopping Festivals & Deals': 'عروض 11.11 والتسوق',
+      'National Day & Sovereign Galas': 'اليوم الوطني الإماراتي',
+      'Year-End & Holiday Edits': 'تخفيضات نهاية العام',
+      'White Friday & Mega Deals': 'الجمعة البيضاء',
+      "Valentine's & Romance Gifting": 'عيد الحب والرومانسية',
       'Luxury & Fashion': 'الفخامة والموضة',
       'High Jewellery': 'المجوهرات الراقية',
       'Logistics & Tech': 'اللوجستيات والتقنية',

@@ -20,7 +20,6 @@ nextjs-portal,
 
   html {
     overflow-x: hidden;
-    overflow-x: clip;
     max-width: 100%;
     width: 100%;
     -webkit-text-size-adjust: 100%;
@@ -28,16 +27,15 @@ nextjs-portal,
 
   body {
     overflow-x: hidden;
-    overflow-x: clip;
     max-width: 100%;
     width: 100%;
     position: relative;
     -webkit-text-size-adjust: 100%;
   }
 
-  main, section, header, footer {
+  main, section, footer {
     max-width: 100%;
-    overflow-x: clip;
+    overflow-x: hidden;
   }
 
   body {

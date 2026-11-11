@@ -10,8 +10,8 @@ import { OmniaSideVideoAd } from '../components/OmniaSideVideoAd';
 export const viewport: Viewport = {
   width: 'device-width',
   initialScale: 1,
-  maximumScale: 1,
-  userScalable: false,
+  maximumScale: 5,
+  userScalable: true,
   themeColor: '#0A0D14',
 };
 
@@ -53,12 +53,12 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en" className="dark overflow-x-clip overflow-hidden max-w-full w-full" suppressHydrationWarning>
-      <body className="dark antialiased min-h-screen flex flex-col bg-[#0A0D14] text-[#F4F5F8] selection:bg-gold selection:text-black overflow-x-clip overflow-hidden max-w-full w-full relative">
+    <html lang="en" className="dark w-full max-w-full overflow-x-hidden" suppressHydrationWarning>
+      <body className="dark antialiased min-h-screen flex flex-col bg-[#0A0D14] text-[#F4F5F8] selection:bg-gold selection:text-black w-full max-w-full overflow-x-hidden relative">
         <ThemeProvider>
-          <div className="flex flex-col min-h-screen pb-14 sm:pb-0 overflow-x-clip overflow-hidden max-w-full w-full relative">
+          <div className="flex flex-col min-h-screen pb-14 sm:pb-0 w-full max-w-full overflow-x-hidden relative">
             <Header />
-            <main className="flex-1 overflow-x-clip overflow-hidden max-w-full w-full">
+            <main className="flex-1 w-full max-w-full overflow-x-hidden">
               {children}
             </main>
             <Footer />

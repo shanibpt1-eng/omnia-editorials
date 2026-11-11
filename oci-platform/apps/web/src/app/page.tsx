@@ -16,6 +16,8 @@ import { MirroredProductCatalogue } from '../components/MirroredProductCatalogue
 import { PressSyndicationBar } from '../components/PressSyndicationBar';
 import { AiSearchSimulator } from '../components/AiSearchSimulator';
 import { GemologicalAssayComparison } from '../components/GemologicalAssayComparison';
+import { OmniaCinematicVideoAd } from '../components/OmniaCinematicVideoAd';
+import { OmniaHauteCoutureBillboardAd } from '../components/OmniaHauteCoutureBillboardAd';
 import { GccCityConciergeRibbon } from '../components/GccCityConciergeRibbon';
 import { VipGalaTestimonials } from '../components/VipGalaTestimonials';
 import { OmniaBacklinkDirectory } from '../components/OmniaBacklinkDirectory';
@@ -81,8 +83,14 @@ export default function LuxuryEditorialHomepage() {
       {/* 4.5 Scientific Gemological Dispersion & DCL Assay Comparison */}
       <GemologicalAssayComparison />
 
+      {/* 4.8 Official 11:11 Cinematic Video Campaign Showcase */}
+      <OmniaCinematicVideoAd />
+
       {/* 5. Interactive "Shop The Look" Magazine Spread with Pulsing Gold Pins */}
       <InteractiveShopTheLook />
+
+      {/* 5.5 Official Haute Couture Advertising Billboard (Runway Masterpieces) */}
+      <OmniaHauteCoutureBillboardAd />
 
       {/* 6. NEW: Collection Slideshows (48 Products per Category) */}
       <CollectionSlideShows />

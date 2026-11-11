@@ -34,7 +34,6 @@ body.light {
 
 html {
   overflow-x: hidden;
-  overflow-x: clip;
   max-width: 100%;
   width: 100%;
   -webkit-text-size-adjust: 100%;
@@ -42,7 +41,6 @@ html {
 
 body {
   overflow-x: hidden;
-  overflow-x: clip;
   max-width: 100%;
   width: 100%;
   position: relative;
@@ -50,9 +48,9 @@ body {
 }
 
 /* Strict Mobile Viewport Containment: Prevent animated marquees and wide children from expanding scroll width */
-main, section, header, footer {
+main, section, footer {
   max-width: 100%;
-  overflow-x: clip;
+  overflow-x: hidden;
 }
 
 body {

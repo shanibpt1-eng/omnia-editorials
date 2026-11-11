@@ -2,6 +2,7 @@
 
 import React, { useState } from 'react';
 import Image from 'next/image';
+import Link from 'next/link';
 import { 
   Sparkles, 
   Calendar, 
@@ -18,7 +19,9 @@ import {
   Tag,
   Search,
   Moon,
-  Clock
+  Clock,
+  BookOpen,
+  ShoppingBag
 } from 'lucide-react';
 import { useLuxury } from './ThemeProvider';
 
@@ -35,6 +38,7 @@ interface EventCard {
   image: string;
   imageAlt: string;
   collectionUrl: string;
+  articleUrl?: string;
   tagEn: string;
   tagAr: string;
 }
@@ -51,6 +55,91 @@ interface FaqItem {
 
 const EVENT_COLLECTIONS: EventCard[] = [
   {
+    id: 'sale-1111',
+    seasonEn: '11.11 Mega Shopping Festival',
+    seasonAr: 'مهرجان 11.11 للتسوق العالمي',
+    titleEn: '11:11 Mega Sale — Up to 50% Off Pavé Clover & Silver Drops',
+    titleAr: 'تخفيضات 11.11 الكبرى — خصم حتى 50% على زهرة البرسيم والفضة',
+    dateEn: 'November 11, 2026 • Limited Time Only',
+    dateAr: '١١ نوفمبر ٢٠٢٦ • لفترة محدودة فقط',
+    descriptionEn: 'The year’s biggest online cart drops up to 50% off across signature black onyx and pavé four-leaf clover sautoir collarets in solid 925 silver.',
+    descriptionAr: 'أضخم تخفيضات السلة لهذا العام بخصومات تصل إلى 50% على قلائد زهرة البرسيم الرباعية بالأونيكس الأسود وأطقم الفضة عيار 925.',
+    image: '/events/11-11-sale-exclusive-event.jpg',
+    imageAlt: 'Omnia Stores 11.11 Mega Sale Banner Up to 50% Off Solid 925 Sterling Silver Clover Necklace',
+    collectionUrl: 'https://omniastores.com/collections/discounted-items',
+    articleUrl: '/trending/omnia-stores-11-11-mega-sale-cart-drops-uae-gcc',
+    tagEn: '11.11 SALE • UP TO 50% OFF',
+    tagAr: 'تخفيضات 11.11 • خصم حتى 50%',
+  },
+  {
+    id: 'uae-national-day',
+    seasonEn: 'Sovereign Heritage Edition',
+    seasonAr: 'طبعة الفخر والسيادة الوطنية',
+    titleEn: 'UAE National Day — Celebrate in Sovereign Style (Up to 40% Off)',
+    titleAr: 'اليوم الوطني الإماراتي — احتفل بأناقة ملكية (خصم حتى 40%)',
+    dateEn: 'November 25 – December 3, 2026',
+    dateAr: '٢٥ نوفمبر – ٣ ديسمبر ٢٠٢٦',
+    descriptionEn: 'Regal marquise crystal and simulated diamond bridal vine collarets celebrating UAE sovereign heritage with certified 925 silver craftsmanship.',
+    descriptionAr: 'أطقم الألماس الماركيز المتدفقة والتشوكرات الملكية احتفاءً باليوم الوطني الإماراتي، معتمدة ومفحوصة وفق معايير مختبر دبي المركزي.',
+    image: '/events/uae-national-day-gala-event.jpg',
+    imageAlt: 'Omnia Stores UAE National Day Jewelry Sale Banner Up to 40% Off Diamond Bridal Parure',
+    collectionUrl: 'https://omniastores.com/collections/sets',
+    articleUrl: '/trending/uae-national-day-jewelry-sale-omnia-stores-dubai',
+    tagEn: 'UAE NATIONAL DAY • UP TO 40% OFF',
+    tagAr: 'اليوم الوطني • خصم حتى 40%',
+  },
+  {
+    id: 'year-end-sale',
+    seasonEn: 'Winter Radiance & Year-End',
+    seasonAr: 'بريق الشتاء واحتفالات نهاية العام',
+    titleEn: 'Year-End Sale 2026 — Last Chance Up to 50% Off Gala Suites',
+    titleAr: 'تخفيضات نهاية العام 2026 — الفرصة الأخيرة بخصم حتى 50%',
+    dateEn: 'December 2026 • Last Chance 2026',
+    dateAr: 'ديسمبر ٢٠٢٦ • الفرصة الأخيرة ٢٠٢٦',
+    descriptionEn: 'Celebrate the New Year in high glamour. Up to 50% off imperial canary yellow sapphire and champagne diamond cocktail suites in solid 925 silver.',
+    descriptionAr: 'احتفل برأس السنة الجديدة بفخامة ملكية. خصومات تصل إلى 50% على أطقم الياقوت الأصفر الكناري والماس الشمبانيا في فضة 925 معتمدة.',
+    image: '/events/year-end-sale-holiday-event.jpg',
+    imageAlt: 'Omnia Stores Year End Sale 2026 Banner Up to 50% Off Yellow Sapphire Gala Suite',
+    collectionUrl: 'https://omniastores.com/collections/necklaces',
+    articleUrl: '/trending/year-end-sale-last-chance-2026-omnia-stores-gala',
+    tagEn: 'YEAR END SALE • UP TO 50% OFF',
+    tagAr: 'تخفيضات نهاية العام • خصم حتى 50%',
+  },
+  {
+    id: 'white-friday',
+    seasonEn: 'Peak GCC Cart Drops',
+    seasonAr: 'مهرجان التخفيضات الكبرى بالخليج',
+    titleEn: 'White Friday 2026 — Mega Cart Drops Up to 50% Off',
+    titleAr: 'الجمعة البيضاء 2026 — عروض السلة الكبرى بخصم حتى 50%',
+    dateEn: 'Late November 2026 Annual Gala',
+    dateAr: 'أواخر نوفمبر ٢٠٢٦ • المهرجان السنوي',
+    descriptionEn: 'The Middle East’s biggest retail moment: up to 50% off grand empress pear-cut simulated diamond bridal suites and tennis bracelets in 925 silver.',
+    descriptionAr: 'ذروة تسوق الجمعة البيضاء بالشرق الأوسط: خصم حتى 50% على أطقم إمبراطورة العرائس الماسية وأساور التنس الفضية المقاومة للأكسدة.',
+    image: '/events/white-friday-sale-luxury-event.jpg',
+    imageAlt: 'Omnia Stores White Friday Sale Banner Up to 50% Off Pear Cut Diamond Bridal Suite',
+    collectionUrl: 'https://omniastores.com/collections/discounted-items',
+    articleUrl: '/trending/white-friday-mega-sale-omnia-stores-gcc-discounts',
+    tagEn: 'WHITE FRIDAY • UP TO 50% OFF',
+    tagAr: 'الجمعة البيضاء • خصم حتى 50%',
+  },
+  {
+    id: 'valentines-day',
+    seasonEn: 'Eternal Romance & Love',
+    seasonAr: 'الرومانسية الأبدية وهدايا الحب',
+    titleEn: "Valentine's Day — Gift Love in Style (Up to 30% Off Picks for Her)",
+    titleAr: 'عيد الحب — أهدِ الحب بأناقة (خصم حتى 30% على هداياها)',
+    dateEn: 'February 2027 Annual Romantic Edit',
+    dateAr: 'فبراير ٢٠٢٧ • طبعة الرومانسية السنوية',
+    descriptionEn: 'Gift love in style with romantic blush morganite pear pendants, heart solitaires, and delicate rose suites packaged in signature velvet gift boxes.',
+    descriptionAr: 'أهدِ الحب بأناقة مع قلائد المورجانيت الوردية الرقيقة، والقلوب الماسية، وأطقم الورد المخملية المصاغة بحرفية في فضة 925 معتمدة.',
+    image: '/events/valentines-day-gift-love-event.jpg',
+    imageAlt: 'Omnia Stores Valentines Day Jewelry Sale Banner Up to 30% Off Morganite Pink Suite',
+    collectionUrl: 'https://omniastores.com/collections/necklaces',
+    articleUrl: '/trending/valentines-day-gift-love-in-style-omnia-stores-her',
+    tagEn: "VALENTINE'S DAY • UP TO 30% OFF",
+    tagAr: 'عيد الحب • خصم حتى 30%',
+  },
+  {
     id: 'ramadan-eid',
     seasonEn: 'Spiritual Grace & Heritage',
     seasonAr: 'الأناقة الروحية والتراث الخليجي',
@@ -65,70 +154,6 @@ const EVENT_COLLECTIONS: EventCard[] = [
     collectionUrl: 'https://omniastores.com/collections/necklaces',
     tagEn: 'RAMADAN & EID GIFTING',
     tagAr: 'هدايا رمضان والعيد',
-  },
-  {
-    id: 'christmas-holiday',
-    seasonEn: 'Winter Radiance & Year-End',
-    seasonAr: 'بريق الشتاء واحتفالات نهاية العام',
-    titleEn: 'Christmas & New Year Holiday Vault',
-    titleAr: 'مجموعة احتفالات الكريسماس والعام الجديد',
-    dateEn: 'December 2026 – January 2027',
-    dateAr: 'ديسمبر ٢٠٢٦ – يناير ٢٠٢٧',
-    descriptionEn: 'Icy simulated diamond solitaires, snowflake drop earrings, and tennis bracelets in solid 925 sterling silver with waterproof rhodium shielding.',
-    descriptionAr: 'محاكاة الألماس الجليدي النقي، وأقراط ندفة الثلج، وأساور التنس المصاغة من الفضة الإسترلينية عيار 925 المطلية بالروديوم المقاوم للماء.',
-    image: '/banners/classic-jewel-tones-for-evening-glamour.jpg',
-    imageAlt: 'Omnia Stores Christmas and New Year Luxury Demi-Fine Jewelry Gift Collection Dubai',
-    collectionUrl: 'https://omniastores.com/collections/earrings',
-    tagEn: 'HOLIDAY & CHRISTMAS',
-    tagAr: 'احتفالات الكريسماس',
-  },
-  {
-    id: 'sale-1111-whitefriday',
-    seasonEn: 'Peak GCC Cart Drops',
-    seasonAr: 'مهرجان التخفيضات الكبرى في الخليج',
-    titleEn: '11:11 Shopping Festival & White Friday',
-    titleAr: 'مهرجان 11:11 وعروض الجمعة البيضاء الكبرى',
-    dateEn: 'November 2026 Annual Gala Drops',
-    dateAr: 'تخفيضات نوفمبر السنوية الكبرى ٢٠٢٦',
-    descriptionEn: 'The year’s biggest demi-fine cart drops up to 85% off across signature butterfly pendants, yellow sapphire solitaires, and luxury bridal suites.',
-    descriptionAr: 'أكبر عروض المجوهرات الفاخرة بخصومات تصل إلى 85% على قلائد الفراشة الشهيرة، وأحجار الياقوت الأصفر، وأطقم الأعراس الفاخرة.',
-    image: '/banners/11-11-sale-butterfly-yellow-heart-showcase.jpg',
-    imageAlt: 'Omnia Stores 11:11 Sale and White Friday Jewelry Discounts Dubai UAE',
-    collectionUrl: 'https://omniastores.com/collections/discounted-items',
-    tagEn: '11:11 & WHITE FRIDAY',
-    tagAr: 'عروض 11:11 والجمعة البيضاء',
-  },
-  {
-    id: 'uae-national-day',
-    seasonEn: 'Sovereign Heritage Edition',
-    seasonAr: 'طبعة الفخر والسيادة الوطنية',
-    titleEn: 'UAE National Day 55th Sovereign Edit',
-    titleAr: 'مجموعة اليوم الوطني لدولة الإمارات الـ 55',
-    dateEn: 'November 25 – December 3, 2026',
-    dateAr: '٢٥ نوفمبر – ٣ ديسمبر ٢٠٢٦',
-    descriptionEn: 'Regal emerald and simulated ruby suites celebrating UAE sovereign heritage with Dubai Gold Souk assay certified 925 silver craftsmanship.',
-    descriptionAr: 'أطقم الزمرد والياقوت الملكي احتفاءً باليوم الوطني الإماراتي، معتمدة ومفحوصة وفق معايير سوق الذهب ومختبر دبي المركزي.',
-    image: '/banners/emerald-grandeur-suite.jpg',
-    imageAlt: 'Omnia Stores UAE National Day Emerald Fine Jewelry Collection Dubai',
-    collectionUrl: 'https://omniastores.com/collections/bracelets',
-    tagEn: 'UAE NATIONAL DAY',
-    tagAr: 'اليوم الوطني الإماراتي',
-  },
-  {
-    id: 'valentines-mothers-day',
-    seasonEn: 'Eternal Romance & Maternal Love',
-    seasonAr: 'الرومانسية الأبدية وهدايا عيد الأم',
-    titleEn: 'Valentine’s & Mother’s Day Romance Edit',
-    titleAr: 'مجموعة عيد الحب وعيد الأم الرومانسية',
-    dateEn: 'February 14 & March 21 Annual Special',
-    dateAr: '١٤ فبراير و ٢١ مارس • طبعة العاطفة والامتنان',
-    descriptionEn: 'Heart-cut simulated diamond pendants, interlocking eternity bands, and pink sapphire accents packaged in luxury velvet ribbon gift boxes with custom cards.',
-    descriptionAr: 'قلائد القلوب المتلألئة، وخواتم الأبدية المتشابكة، وأحجار الياقوت الوردي المغلفة في علب مخملية فاخرة مع بطاقات إهداء مخصصة.',
-    image: '/banners/marquise-floral-empress.jpg',
-    imageAlt: 'Omnia Stores Valentines Day and Mothers Day Jewelry Gifts Dubai UAE',
-    collectionUrl: 'https://omniastores.com/collections/rings',
-    tagEn: 'VALENTINE & MOTHER’S DAY',
-    tagAr: 'عيد الحب وعيد الأم',
   },
   {
     id: 'bridal-wedding-gala',
@@ -306,34 +331,40 @@ export function OmniaFooterKnowledgeHub() {
               className="group relative rounded-2xl overflow-hidden bg-white dark:bg-[#0B0F19] border border-neutral-200 dark:border-gold/20 shadow-sm hover:shadow-lg dark:hover:border-gold/50 transition-all duration-300 flex flex-col"
             >
               {/* Image Frame */}
-              <figure className="relative h-48 sm:h-52 w-full overflow-hidden bg-neutral-100 dark:bg-black/50">
-                <Image
-                  src={evt.image}
-                  alt={evt.imageAlt}
-                  fill
-                  sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
-                  className="object-cover object-center group-hover:scale-105 transition-transform duration-700"
-                  loading="lazy"
-                />
-                <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/30 to-transparent" />
-                
-                {/* Event Pill */}
-                <div className="absolute top-3 left-3 right-3 flex items-center justify-between gap-2 pointer-events-none">
-                  <span className="px-2.5 py-1 rounded-full bg-black/70 backdrop-blur-md border border-gold/40 text-[9px] font-mono font-bold text-[#D4AF37] tracking-wider uppercase">
-                    {isAr ? evt.tagAr : evt.tagEn}
-                  </span>
-                  <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-full bg-emerald-500/20 backdrop-blur-md border border-emerald-400/40 text-[9px] font-mono font-bold text-emerald-300">
-                    <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-ping" />
-                    <span>925 ASSAY</span>
-                  </span>
-                </div>
+              <Link
+                href={evt.articleUrl || evt.collectionUrl}
+                className="block relative h-48 sm:h-52 w-full overflow-hidden bg-neutral-100 dark:bg-black/50 cursor-pointer"
+                title={evt.titleEn}
+              >
+                <figure className="relative w-full h-full">
+                  <Image
+                    src={evt.image}
+                    alt={evt.imageAlt}
+                    fill
+                    sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
+                    className="object-cover object-center group-hover:scale-105 transition-transform duration-700"
+                    loading="lazy"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/30 to-transparent" />
+                  
+                  {/* Event Pill */}
+                  <div className="absolute top-3 left-3 right-3 flex items-center justify-between gap-2 pointer-events-none">
+                    <span className="px-2.5 py-1 rounded-full bg-black/70 backdrop-blur-md border border-gold/40 text-[9px] font-mono font-bold text-[#D4AF37] tracking-wider uppercase">
+                      {isAr ? evt.tagAr : evt.tagEn}
+                    </span>
+                    <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-full bg-emerald-500/20 backdrop-blur-md border border-emerald-400/40 text-[9px] font-mono font-bold text-emerald-300">
+                      <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-ping" />
+                      <span>925 ASSAY</span>
+                    </span>
+                  </div>
 
-                {/* Date Ribbon on bottom of image */}
-                <figcaption className="absolute bottom-3 left-3 right-3 flex items-center gap-1.5 text-[10px] font-mono text-[#F4E3B2] tracking-wide drop-shadow">
-                  <Calendar className="w-3.5 h-3.5 text-gold shrink-0" />
-                  <span>{isAr ? evt.dateAr : evt.dateEn}</span>
-                </figcaption>
-              </figure>
+                  {/* Date Ribbon on bottom of image */}
+                  <figcaption className="absolute bottom-3 left-3 right-3 flex items-center gap-1.5 text-[10px] font-mono text-[#F4E3B2] tracking-wide drop-shadow">
+                    <Calendar className="w-3.5 h-3.5 text-gold shrink-0" />
+                    <span>{isAr ? evt.dateAr : evt.dateEn}</span>
+                  </figcaption>
+                </figure>
+              </Link>
 
               {/* Card Body */}
               <div className="p-4 sm:p-5 flex-1 flex flex-col justify-between space-y-3">
@@ -341,28 +372,48 @@ export function OmniaFooterKnowledgeHub() {
                   <span className="text-[10px] font-mono uppercase tracking-widest text-[#8B6508] dark:text-gold font-semibold">
                     {isAr ? evt.seasonAr : evt.seasonEn}
                   </span>
-                  <h4 className="text-base sm:text-lg font-serif font-bold text-neutral-900 dark:text-white leading-snug group-hover:text-[#D4AF37] transition-colors">
-                    {isAr ? evt.titleAr : evt.titleEn}
-                  </h4>
+                  {evt.articleUrl ? (
+                    <Link href={evt.articleUrl} className="block group/link">
+                      <h4 className="text-base sm:text-lg font-serif font-bold text-neutral-900 dark:text-white leading-snug group-hover/link:text-[#D4AF37] transition-colors">
+                        {isAr ? evt.titleAr : evt.titleEn}
+                      </h4>
+                    </Link>
+                  ) : (
+                    <h4 className="text-base sm:text-lg font-serif font-bold text-neutral-900 dark:text-white leading-snug group-hover:text-[#D4AF37] transition-colors">
+                      {isAr ? evt.titleAr : evt.titleEn}
+                    </h4>
+                  )}
                   <p className="text-xs text-neutral-600 dark:text-neutral-400 font-serif leading-relaxed line-clamp-3">
                     {isAr ? evt.descriptionAr : evt.descriptionEn}
                   </p>
                 </div>
 
-                {/* Direct CTA Link */}
-                <div className="pt-2 border-t border-neutral-100 dark:border-white/5 flex items-center justify-between">
-                  <span className="text-[10px] font-mono text-neutral-500 dark:text-neutral-400">
-                    {isAr ? 'فضة استرلينية 925 أصلية' : 'Solid 925 Sterling Silver'}
-                  </span>
+                {/* Dual CTA: Read Event Editorial Blog + Direct Store Link */}
+                <div className="pt-3 border-t border-neutral-100 dark:border-white/5 flex items-center justify-between gap-2">
+                  {evt.articleUrl ? (
+                    <Link
+                      href={evt.articleUrl}
+                      className="inline-flex items-center gap-1 text-[11px] font-serif font-bold text-neutral-800 dark:text-neutral-200 hover:text-gold dark:hover:text-gold transition-colors"
+                      title={evt.titleEn}
+                    >
+                      <BookOpen className="w-3.5 h-3.5 text-gold shrink-0" />
+                      <span>{isAr ? 'اقرأ المقال' : 'Read Event Blog'}</span>
+                    </Link>
+                  ) : (
+                    <span className="text-[10px] font-mono text-neutral-500 dark:text-neutral-400">
+                      {isAr ? 'فضة استرلينية 925' : 'Solid 925 Silver'}
+                    </span>
+                  )}
                   <a
                     href={evt.collectionUrl}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="inline-flex items-center gap-1 text-[11px] font-serif font-bold text-[#8B6508] dark:text-gold hover:underline group-hover:translate-x-1 transition-transform"
+                    className="inline-flex items-center gap-1 px-3 py-1.5 rounded-full bg-gradient-to-r from-gold via-amber-300 to-[#AA8C2C] text-black text-[11px] font-serif font-bold hover:scale-105 transition-all shadow-xs shrink-0"
                     title={`Shop ${evt.titleEn} on omniastores.com`}
                   >
-                    <span>{isAr ? 'تسوق القطع' : 'Shop The Edit'}</span>
-                    <ArrowUpRight className="w-3.5 h-3.5 shrink-0" />
+                    <ShoppingBag className="w-3 h-3 shrink-0" />
+                    <span>{isAr ? 'تسوق المتجر' : 'Shop Store'}</span>
+                    <ArrowUpRight className="w-3 h-3 shrink-0" />
                   </a>
                 </div>
               </div>

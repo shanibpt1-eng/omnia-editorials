@@ -47,7 +47,7 @@ export function AutoSlidingProductMarquee() {
   const marqueeItems = [...trendingPieces, ...trendingPieces];
 
   return (
-    <section className="py-16 bg-[#F8F5EE] dark:bg-[#07090E] border-y border-neutral-300 dark:border-gold/25 overflow-hidden relative">
+    <section className="py-16 bg-[#F8F5EE] dark:bg-[#07090E] border-y border-neutral-300 dark:border-gold/25 overflow-hidden max-w-full relative">
       {/* Background Ambient Glow */}
       <div className="absolute top-1/2 left-1/4 -translate-y-1/2 w-96 h-96 bg-gold/5 rounded-full blur-[100px] pointer-events-none" />
       <div className="absolute top-1/2 right-1/4 -translate-y-1/2 w-96 h-96 bg-amber-500/5 rounded-full blur-[100px] pointer-events-none" />
@@ -87,7 +87,8 @@ export function AutoSlidingProductMarquee() {
 
       {/* Infinite Auto-Sliding Marquee Track */}
       <div
-        className="relative w-full overflow-hidden"
+        className="relative w-full max-w-full overflow-hidden"
+        style={{ contain: 'paint' }}
         onMouseEnter={() => setIsPaused(true)}
         onMouseLeave={() => setIsPaused(false)}
       >

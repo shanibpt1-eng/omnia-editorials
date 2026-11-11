@@ -18,13 +18,26 @@ nextjs-portal,
     --card-foreground: #f4f5f7;
   }
 
-  html,
+  html {
+    overflow-x: hidden;
+    overflow-x: clip;
+    max-width: 100%;
+    width: 100%;
+    -webkit-text-size-adjust: 100%;
+  }
+
   body {
     overflow-x: hidden;
-    max-width: 100vw;
+    overflow-x: clip;
+    max-width: 100%;
     width: 100%;
     position: relative;
     -webkit-text-size-adjust: 100%;
+  }
+
+  main, section, header, footer {
+    max-width: 100%;
+    overflow-x: clip;
   }
 
   body {

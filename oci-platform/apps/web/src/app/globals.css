@@ -32,13 +32,27 @@ body.light {
   --border-color: rgba(184, 134, 11, 0.25);
 }
 
-html,
+html {
+  overflow-x: hidden;
+  overflow-x: clip;
+  max-width: 100%;
+  width: 100%;
+  -webkit-text-size-adjust: 100%;
+}
+
 body {
   overflow-x: hidden;
-  max-width: 100vw;
+  overflow-x: clip;
+  max-width: 100%;
   width: 100%;
   position: relative;
   -webkit-text-size-adjust: 100%;
+}
+
+/* Strict Mobile Viewport Containment: Prevent animated marquees and wide children from expanding scroll width */
+main, section, header, footer {
+  max-width: 100%;
+  overflow-x: clip;
 }
 
 body {

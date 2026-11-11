@@ -115,7 +115,7 @@ export function OmniaSideVideoAd() {
       onMouseLeave={() => setIsHovered(false)}
       className={`fixed z-40 bottom-16 sm:bottom-6 ${
         isAr ? 'left-3 sm:left-6' : 'right-3 sm:right-6'
-      } w-52 sm:w-72 md:w-80 rounded-2xl overflow-hidden bg-black/95 border-2 border-gold/60 shadow-[0_8px_35px_rgba(0,0,0,0.85),0_0_20px_rgba(212,175,55,0.35)] backdrop-blur-md transition-all duration-300 select-none`}
+      } w-44 sm:w-72 md:w-80 max-w-[calc(100vw-1.5rem)] rounded-2xl overflow-hidden bg-black/95 border-2 border-gold/60 shadow-[0_8px_35px_rgba(0,0,0,0.85),0_0_20px_rgba(212,175,55,0.35)] backdrop-blur-md transition-all duration-300 select-none`}
     >
       {/* 1. Sleek Top Bar (Floating inside video or just above) */}
       <div className="absolute top-2 left-2 right-2 z-20 flex items-center justify-between gap-1 pointer-events-none">

@@ -38,7 +38,7 @@ export function GccCurrencyTicker() {
         </div>
 
         {/* Scrolling Ticker of Currencies */}
-        <div className="flex-1 overflow-hidden relative">
+        <div className="flex-1 overflow-hidden relative max-w-full" style={{ contain: 'paint' }}>
           <div className="flex items-center gap-6 whitespace-nowrap animate-ticker pause-hover text-xs">
             {rates.concat(rates).map((item, idx) => (
               <button

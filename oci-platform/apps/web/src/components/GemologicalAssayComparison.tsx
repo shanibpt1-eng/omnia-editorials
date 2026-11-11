@@ -37,7 +37,7 @@ export function GemologicalAssayComparison() {
           </div>
 
           {/* Interactive Scientific Tabs */}
-          <div className="flex items-center gap-2 bg-black/60 p-1.5 rounded-2xl border border-gold/30 shrink-0 self-start lg:self-auto">
+          <div className="flex flex-wrap sm:flex-nowrap items-center gap-2 bg-black/60 p-1.5 rounded-2xl border border-gold/30 shrink-0 self-start lg:self-auto max-w-full">
             <button
               onClick={() => setActiveTab('dispersion')}
               className={`px-4 py-2 rounded-xl text-xs font-semibold uppercase tracking-wider transition-all flex items-center gap-1.5 ${

@@ -36,7 +36,7 @@ export function Header() {
         title="Explore 11:11 Discounted Items on omniastores.com"
         className="block w-full max-w-full bg-[#07090E] text-[#D4AF37] hover:text-white border-b border-[#D4AF37]/25 text-xs py-2 overflow-hidden relative transition-colors cursor-pointer group"
       >
-        <div className="w-full max-w-full overflow-hidden">
+        <div className="w-full max-w-full overflow-hidden" style={{ contain: 'paint' }}>
           <div className="flex items-center whitespace-nowrap animate-ticker pause-hover">
           <span className="flex items-center mx-6 gap-2">
             <span className="px-2 py-0.5 rounded bg-gradient-to-r from-red-600 via-amber-500 to-amber-600 text-white font-extrabold text-[10px] tracking-wider animate-pulse shadow-sm">

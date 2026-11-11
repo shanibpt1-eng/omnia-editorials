@@ -53,6 +53,8 @@ import { EDITORIAL_ARTICLES } from '../../data/editorial-feed';
 import { AutoSlidingProductMarquee } from '../../components/AutoSlidingProductMarquee';
 import { InteractiveShopTheLook } from '../../components/InteractiveShopTheLook';
 import { OmniaStoresSkyscraperAd } from '../../components/OmniaStoresSkyscraperAd';
+import { OmniaHauteCoutureBillboardAd } from '../../components/OmniaHauteCoutureBillboardAd';
+import { OmniaCinematicVideoAd } from '../../components/OmniaCinematicVideoAd';
 import verifiedDispatchesRaw from '../../data/verified-dispatches.json';
 import omniastoresYoutubeData from '../../data/omniastores-youtube.json';
 import omniastoresSocialHub from '../../data/omniastores-social-hub.json';
@@ -6349,6 +6351,11 @@ export default function GulfChronicleEditorialPortal() {
         </section>
 
         {/* =========================================================================
+            PANORAMIC HAUTE COUTURE RUNWAY CAMPAIGN BILLBOARD AD
+        ========================================================================== */}
+        <OmniaHauteCoutureBillboardAd />
+
+        {/* =========================================================================
             INTERACTIVE SHOP THE LOOK WITH PULSING HOTSPOTS
         ========================================================================== */}
         <section className="my-10">
@@ -6361,6 +6368,11 @@ export default function GulfChronicleEditorialPortal() {
         <section className="my-8 border-y-2 border-neutral-300 dark:border-gold/30">
           <AutoSlidingProductMarquee />
         </section>
+
+        {/* =========================================================================
+            OFFICIAL 11:11 GLOBAL SHOPPING GALA CINEMATIC VIDEO ADVERTISEMENT
+        ========================================================================== */}
+        <OmniaCinematicVideoAd />
 
         {/* =========================================================================
             ⭐ HIGH-FASHION EDITORIAL CAMPAIGN BANNERS (All 10 Masterwork Editions)

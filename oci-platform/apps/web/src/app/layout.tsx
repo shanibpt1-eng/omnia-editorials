@@ -5,6 +5,7 @@ import { Header } from '../components/Header';
 import { Footer } from '../components/Footer';
 import { VipConciergeModal } from '../components/VipConciergeModal';
 import { MobileStickyBar } from '../components/MobileStickyBar';
+import { OmniaSideVideoAd } from '../components/OmniaSideVideoAd';
 
 export const viewport: Viewport = {
   width: 'device-width',
@@ -63,6 +64,7 @@ export default function RootLayout({
             <Footer />
             <VipConciergeModal />
             <MobileStickyBar />
+            <OmniaSideVideoAd />
           </div>
         </ThemeProvider>
       </body>

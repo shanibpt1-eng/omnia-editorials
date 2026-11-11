@@ -16,8 +16,6 @@ import { MirroredProductCatalogue } from '../components/MirroredProductCatalogue
 import { PressSyndicationBar } from '../components/PressSyndicationBar';
 import { AiSearchSimulator } from '../components/AiSearchSimulator';
 import { GemologicalAssayComparison } from '../components/GemologicalAssayComparison';
-import { OmniaHauteCoutureBillboardAd } from '../components/OmniaHauteCoutureBillboardAd';
-import { OmniaCinematicVideoAd } from '../components/OmniaCinematicVideoAd';
 import { GccCityConciergeRibbon } from '../components/GccCityConciergeRibbon';
 import { VipGalaTestimonials } from '../components/VipGalaTestimonials';
 import { OmniaBacklinkDirectory } from '../components/OmniaBacklinkDirectory';
@@ -83,9 +81,6 @@ export default function LuxuryEditorialHomepage() {
       {/* 4.5 Scientific Gemological Dispersion & DCL Assay Comparison */}
       <GemologicalAssayComparison />
 
-      {/* 4.8 Panoramic Haute Couture Runway Campaign Billboard (Pearl Cascade & Chevron Diamond) */}
-      <OmniaHauteCoutureBillboardAd />
-
       {/* 5. Interactive "Shop The Look" Magazine Spread with Pulsing Gold Pins */}
       <InteractiveShopTheLook />
 
@@ -97,9 +92,6 @@ export default function LuxuryEditorialHomepage() {
 
       {/* 7.5 High-Fashion Trendy Advertisements & Campaigns Billboard */}
       <PremiumTrendyAdvertBanners />
-
-      {/* 7.8 Official 11:11 Global Shopping Gala Cinematic Video Advertisement */}
-      <OmniaCinematicVideoAd />
 
       {/* 8. Dedicated 6-Spread Luxury Brand Advertisements for Omnia Stores */}
       <OmniaStoreAdvertSpreads />

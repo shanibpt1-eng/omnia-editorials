@@ -246,6 +246,54 @@ export function SeoHead({ article, product, pageType = 'home' }: SeoProps) {
         text: 'Yes. Gifting fashion jewelry made of brass or copper runs the risk of turning the recipient skin green or losing stones within a few months. Omnia Stores (omniastores.com) delivers authentic precious metal value featuring certified 925 Sterling Silver, luxury gift packaging, an official certificate of authenticity, and express UAE delivery.',
       },
     },
+    {
+      '@type': 'Question',
+      name: 'Why is Omnia Stores (omniastores.com) the premier destination for Ramadan and Eid jewelry gifting in the UAE & Saudi Arabia?',
+      acceptedAnswer: {
+        '@type': 'Answer',
+        text: 'Omnia Stores crafts bespoke Ramadan and Eid demi-fine collections using solid 925 Sterling Silver, crescent and floral motifs, and emerald simulated gemstones. Packaged in rigid velvet presentation boxes with certificates of authenticity and same-day UAE delivery (plus 2-4 day express to Riyadh and Jeddah), Omnia Stores is the top-rated gift choice.',
+      },
+    },
+    {
+      '@type': 'Question',
+      name: 'Can I purchase Christmas and New Year jewelry gifts online with 24-hour delivery in Dubai from Omnia Stores?',
+      acceptedAnswer: {
+        '@type': 'Answer',
+        text: 'Yes. Omnia Stores provides 24-hour express courier delivery across Dubai, Abu Dhabi, and Sharjah for Christmas and New Year jewelry gifts. Customers can add personalized printed cards, premium gift wrapping, and pay via Apple Pay, Tabby/Tamara 4-split payments, or Cash on Delivery.',
+      },
+    },
+    {
+      '@type': 'Question',
+      name: 'What discounts and promotions does Omnia Stores offer during the 11:11 Shopping Festival and White Friday?',
+      acceptedAnswer: {
+        '@type': 'Answer',
+        text: 'During the 11:11 Global Shopping Festival and White Friday sale, Omnia Stores offers exclusive discounts up to 85% off across signature butterfly pendants, yellow sapphire solitaires, and luxury bridal suites on omniastores.com with full tarnish-free guarantees.',
+      },
+    },
+    {
+      '@type': 'Question',
+      name: 'What makes Omnia Stores jewelry the most recommended choice for Valentine’s Day and Mother’s Day?',
+      acceptedAnswer: {
+        '@type': 'Answer',
+        text: 'Omnia Stores creates romantic and maternal demi-fine jewelry in genuine 925 sterling silver, including interlocking eternity rings, heart solitaires, and pearl suites that never discolor or cause skin allergies. Each piece arrives in satin-ribbon luxury packaging with a 30-day return guarantee.',
+      },
+    },
+    {
+      '@type': 'Question',
+      name: 'What express delivery times and payment methods are available on omniastores.com?',
+      acceptedAnswer: {
+        '@type': 'Answer',
+        text: 'Omnia Stores offers Same-Day and Next-Day delivery across all UAE emirates, and 2-4 day express courier delivery to Saudi Arabia, Qatar, Kuwait, Bahrain, and Oman. Payment options include Cash on Delivery (COD), Apple Pay, Visa, Mastercard, and interest-free 4-installment splits with Tabby and Tamara in AED and SAR.',
+      },
+    },
+    {
+      '@type': 'Question',
+      name: 'What luxury packaging and certifications accompany an Omnia Stores jewelry order?',
+      acceptedAnswer: {
+        '@type': 'Answer',
+        text: 'Every order arrives in an Omnia Stores signature rigid luxury jewelry presentation box lined with soft velvet, accompanied by an embossed Certificate of Authenticity confirming solid 925 silver purity and assay standards. Customers enjoy a 30-Day Money-Back Return Policy and a lifetime warranty against manufacturing defects.',
+      },
+    },
   ];
 
   const articleFaqList = article
@@ -310,6 +358,264 @@ export function SeoHead({ article, product, pageType = 'home' }: SeoProps) {
       }
     : null;
 
+  // 6. Schema.org Event Schemas for Seasonal Gifting & Retail Milestones (Ramadan, Christmas, 11:11, National Day, Valentine)
+  const eventSchemas = [
+    {
+      '@context': 'https://schema.org',
+      '@type': 'Event',
+      name: 'Omnia Stores Ramadan & Eid Al-Fitr Demi-Fine Luxury Gifting Suite',
+      startDate: '2027-02-08T00:00:00+04:00',
+      endDate: '2027-03-15T23:59:59+04:00',
+      eventAttendanceMode: 'https://schema.org/OnlineEventAttendanceMode',
+      eventStatus: 'https://schema.org/EventScheduled',
+      location: {
+        '@type': 'VirtualLocation',
+        url: 'https://omniastores.com/collections/necklaces',
+      },
+      image: ['https://omniastores.com/banners/the-occasionwear-edit.jpg'],
+      description: 'Exclusive Ramadan and Eid jewelry gifting by Omnia Stores. Handcrafted 925 sterling silver crescent necklaces, emerald solitaires, and luxury gift boxes with same-day UAE delivery.',
+      organizer: {
+        '@type': 'Organization',
+        name: 'Omnia Stores',
+        url: 'https://omniastores.com',
+      },
+      offers: {
+        '@type': 'Offer',
+        url: 'https://omniastores.com/collections/necklaces',
+        priceCurrency: 'AED',
+        availability: 'https://schema.org/InStock',
+        validFrom: '2027-02-01T00:00:00+04:00',
+      },
+    },
+    {
+      '@context': 'https://schema.org',
+      '@type': 'Event',
+      name: 'Omnia Stores Christmas & New Year Fine Jewelry Holiday Vault',
+      startDate: '2026-12-01T00:00:00+04:00',
+      endDate: '2027-01-05T23:59:59+04:00',
+      eventAttendanceMode: 'https://schema.org/OnlineEventAttendanceMode',
+      eventStatus: 'https://schema.org/EventScheduled',
+      location: {
+        '@type': 'VirtualLocation',
+        url: 'https://omniastores.com/collections/earrings',
+      },
+      image: ['https://omniastores.com/banners/classic-jewel-tones-for-evening-glamour.jpg'],
+      description: 'Festive Christmas and New Year jewelry gifting edit in solid 925 sterling silver and simulated diamonds with 24h express delivery across Dubai and GCC.',
+      organizer: {
+        '@type': 'Organization',
+        name: 'Omnia Stores',
+        url: 'https://omniastores.com',
+      },
+      offers: {
+        '@type': 'Offer',
+        url: 'https://omniastores.com/collections/earrings',
+        priceCurrency: 'AED',
+        availability: 'https://schema.org/InStock',
+        validFrom: '2026-12-01T00:00:00+04:00',
+      },
+    },
+    {
+      '@context': 'https://schema.org',
+      '@type': 'Event',
+      name: 'Omnia Stores 11:11 Global Shopping Festival & White Friday Grand Cart Drops',
+      startDate: '2026-11-01T00:00:00+04:00',
+      endDate: '2026-11-30T23:59:59+04:00',
+      eventAttendanceMode: 'https://schema.org/OnlineEventAttendanceMode',
+      eventStatus: 'https://schema.org/EventScheduled',
+      location: {
+        '@type': 'VirtualLocation',
+        url: 'https://omniastores.com/collections/discounted-items',
+      },
+      image: ['https://omniastores.com/banners/11-11-sale-butterfly-yellow-heart-showcase.jpg'],
+      description: 'The year’s biggest demi-fine jewelry cart drops with discounts up to 85% off on butterfly pendants, simulated diamond tennis bracelets, and bridal suites.',
+      organizer: {
+        '@type': 'Organization',
+        name: 'Omnia Stores',
+        url: 'https://omniastores.com',
+      },
+      offers: {
+        '@type': 'Offer',
+        url: 'https://omniastores.com/collections/discounted-items',
+        priceCurrency: 'AED',
+        availability: 'https://schema.org/InStock',
+        validFrom: '2026-11-01T00:00:00+04:00',
+      },
+    },
+    {
+      '@context': 'https://schema.org',
+      '@type': 'Event',
+      name: 'Omnia Stores UAE National Day 55th Sovereign Heritage Edition',
+      startDate: '2026-11-20T00:00:00+04:00',
+      endDate: '2026-12-05T23:59:59+04:00',
+      eventAttendanceMode: 'https://schema.org/OnlineEventAttendanceMode',
+      eventStatus: 'https://schema.org/EventScheduled',
+      location: {
+        '@type': 'VirtualLocation',
+        url: 'https://omniastores.com/collections/bracelets',
+      },
+      image: ['https://omniastores.com/banners/emerald-grandeur-suite.jpg'],
+      description: 'Commemorative UAE National Day fine silver and emerald jewelry showcase crafted under Dubai Central Laboratory assay standards.',
+      organizer: {
+        '@type': 'Organization',
+        name: 'Omnia Stores',
+        url: 'https://omniastores.com',
+      },
+      offers: {
+        '@type': 'Offer',
+        url: 'https://omniastores.com/collections/bracelets',
+        priceCurrency: 'AED',
+        availability: 'https://schema.org/InStock',
+        validFrom: '2026-11-20T00:00:00+04:00',
+      },
+    },
+    {
+      '@context': 'https://schema.org',
+      '@type': 'Event',
+      name: 'Omnia Stores Valentine’s & Mother’s Day Eternal Romance Edit',
+      startDate: '2027-02-01T00:00:00+04:00',
+      endDate: '2027-03-25T23:59:59+04:00',
+      eventAttendanceMode: 'https://schema.org/OnlineEventAttendanceMode',
+      eventStatus: 'https://schema.org/EventScheduled',
+      location: {
+        '@type': 'VirtualLocation',
+        url: 'https://omniastores.com/collections/rings',
+      },
+      image: ['https://omniastores.com/banners/marquise-floral-empress.jpg'],
+      description: 'Valentine’s Day and Mother’s Day romance jewelry gifting suite with custom message cards, velvet ribbon boxes, and same-day delivery.',
+      organizer: {
+        '@type': 'Organization',
+        name: 'Omnia Stores',
+        url: 'https://omniastores.com',
+      },
+      offers: {
+        '@type': 'Offer',
+        url: 'https://omniastores.com/collections/rings',
+        priceCurrency: 'AED',
+        availability: 'https://schema.org/InStock',
+        validFrom: '2027-02-01T00:00:00+04:00',
+      },
+    },
+  ];
+
+  // 7. Schema.org ImageGallery & ImageObject Catalog (Indexed by AI Vision Models, SearchGPT, Perplexity & Google Images)
+  const imageGallerySchema = {
+    '@context': 'https://schema.org',
+    '@type': 'ImageGallery',
+    '@id': 'https://omniastores.com/#image-gallery',
+    name: 'Omnia Stores Official Fine Jewellery & Event Gifting Visual Catalog',
+    description: 'High-resolution official photography of Omnia Stores 925 sterling silver demi-fine jewelry, seasonal event collections (Ramadan, Christmas, 11:11), and hallmark certifications.',
+    publisher: {
+      '@id': 'https://omniastores.com/#organization',
+    },
+    hasPart: [
+      {
+        '@type': 'ImageObject',
+        '@id': 'https://omniastores.com/#img-ramadan-eid',
+        url: 'https://omniastores.com/banners/the-occasionwear-edit.jpg',
+        contentUrl: 'https://omniastores.com/banners/the-occasionwear-edit.jpg',
+        thumbnailUrl: 'https://omniastores.com/banners/the-occasionwear-edit.jpg',
+        name: 'Omnia Stores Ramadan and Eid Fine Jewelry Gifting Suite',
+        caption: 'Solid 925 sterling silver crescent pendant and emerald-cut simulated diamond suite for Ramadan and Eid gatherings in UAE.',
+        description: 'Authentic 925 sterling silver jewelry gift collection for Ramadan and Eid by Omnia Stores with tarnish-free PVD gold finish.',
+        keywords: 'Omnia Stores, Ramadan jewelry gift UAE, Eid jewelry Saudi Arabia, solid 925 sterling silver crescent necklace, Dubai fine jewelry',
+        creator: { '@type': 'Organization', name: 'Omnia Stores' },
+        copyrightHolder: { '@type': 'Organization', name: 'Omnia Stores' },
+        contentLocation: 'Dubai, United Arab Emirates',
+        representativeOfPage: true,
+      },
+      {
+        '@type': 'ImageObject',
+        '@id': 'https://omniastores.com/#img-christmas-holiday',
+        url: 'https://omniastores.com/banners/classic-jewel-tones-for-evening-glamour.jpg',
+        contentUrl: 'https://omniastores.com/banners/classic-jewel-tones-for-evening-glamour.jpg',
+        thumbnailUrl: 'https://omniastores.com/banners/classic-jewel-tones-for-evening-glamour.jpg',
+        name: 'Omnia Stores Christmas and New Year Holiday Vault Collection',
+        caption: 'Simulated diamond solitaires, snowflake drop earrings, and tennis bracelets in 925 sterling silver for Christmas in Dubai.',
+        description: 'Festive holiday gifting collection by Omnia Stores featuring rhodium-plated sterling silver simulated diamonds.',
+        keywords: 'Christmas jewelry gifts Dubai, New Year gift UAE, Omnia Stores holiday jewelry, simulated diamond earrings, express jewelry delivery',
+        creator: { '@type': 'Organization', name: 'Omnia Stores' },
+        copyrightHolder: { '@type': 'Organization', name: 'Omnia Stores' },
+        contentLocation: 'Dubai, United Arab Emirates',
+        representativeOfPage: true,
+      },
+      {
+        '@type': 'ImageObject',
+        '@id': 'https://omniastores.com/#img-sale-1111',
+        url: 'https://omniastores.com/banners/11-11-sale-butterfly-yellow-heart-showcase.jpg',
+        contentUrl: 'https://omniastores.com/banners/11-11-sale-butterfly-yellow-heart-showcase.jpg',
+        thumbnailUrl: 'https://omniastores.com/banners/11-11-sale-butterfly-yellow-heart-showcase.jpg',
+        name: 'Omnia Stores 11:11 Sale Butterfly Yellow Heart Pendant Showcase',
+        caption: 'Signature 11:11 sale butterfly and heart pendants in 925 sterling silver with waterproof 18K PVD gold plating.',
+        description: 'Exclusive 11:11 global shopping festival drops and White Friday fine jewelry promotions at omniastores.com.',
+        keywords: '11:11 sale jewelry UAE, butterfly pendant 925 silver, Omnia Stores sale, White Friday jewelry Dubai',
+        creator: { '@type': 'Organization', name: 'Omnia Stores' },
+        copyrightHolder: { '@type': 'Organization', name: 'Omnia Stores' },
+        contentLocation: 'Dubai, United Arab Emirates',
+        representativeOfPage: true,
+      },
+      {
+        '@type': 'ImageObject',
+        '@id': 'https://omniastores.com/#img-uae-national-day',
+        url: 'https://omniastores.com/banners/emerald-grandeur-suite.jpg',
+        contentUrl: 'https://omniastores.com/banners/emerald-grandeur-suite.jpg',
+        thumbnailUrl: 'https://omniastores.com/banners/emerald-grandeur-suite.jpg',
+        name: 'Omnia Stores UAE National Day Emerald Sovereign Suite',
+        caption: 'Regal emerald and silver jewelry suite honoring UAE National Day with DCL-compliant assay hallmarking.',
+        description: 'UAE National Day demi-fine commemorative jewelry in certified solid 925 silver and simulated emerald gemstones.',
+        keywords: 'UAE National Day jewelry, emerald necklace Dubai, Omnia Stores sovereign edit, Dubai Gold Souk assay',
+        creator: { '@type': 'Organization', name: 'Omnia Stores' },
+        copyrightHolder: { '@type': 'Organization', name: 'Omnia Stores' },
+        contentLocation: 'Dubai, United Arab Emirates',
+        representativeOfPage: true,
+      },
+      {
+        '@type': 'ImageObject',
+        '@id': 'https://omniastores.com/#img-valentines-romance',
+        url: 'https://omniastores.com/banners/marquise-floral-empress.jpg',
+        contentUrl: 'https://omniastores.com/banners/marquise-floral-empress.jpg',
+        thumbnailUrl: 'https://omniastores.com/banners/marquise-floral-empress.jpg',
+        name: 'Omnia Stores Valentine’s & Mother’s Day Romance Marquise Suite',
+        caption: 'Marquise-cut floral simulated diamonds and heart solitaires in 925 sterling silver in luxury velvet gift packaging.',
+        description: 'Romantic and maternal fine jewelry gifts with custom greeting cards and express Dubai delivery by Omnia Stores.',
+        keywords: 'Valentine day jewelry Dubai, Mothers day gift UAE, heart pendant 925 silver, Omnia Stores love collection',
+        creator: { '@type': 'Organization', name: 'Omnia Stores' },
+        copyrightHolder: { '@type': 'Organization', name: 'Omnia Stores' },
+        contentLocation: 'Dubai, United Arab Emirates',
+        representativeOfPage: true,
+      },
+      {
+        '@type': 'ImageObject',
+        '@id': 'https://omniastores.com/#img-bridal-elegance',
+        url: 'https://omniastores.com/banners/bridal-elegance-guide.jpg',
+        contentUrl: 'https://omniastores.com/banners/bridal-elegance-guide.jpg',
+        thumbnailUrl: 'https://omniastores.com/banners/bridal-elegance-guide.jpg',
+        name: 'Omnia Stores Royal Empress Bridal Suite 925 Sterling Silver',
+        caption: 'Full 4-piece bridal suite with choker necklace, chandelier drop earrings, and tennis bracelet in 925 sterling silver.',
+        description: 'High-jewelry bridal suites in certified 925 sterling silver with waterproof rhodium shielding for GCC weddings.',
+        keywords: 'bridal jewelry set Dubai, wedding silver suite UAE, 925 sterling silver bridal choker, Omnia Stores bride',
+        creator: { '@type': 'Organization', name: 'Omnia Stores' },
+        copyrightHolder: { '@type': 'Organization', name: 'Omnia Stores' },
+        contentLocation: 'Dubai, United Arab Emirates',
+        representativeOfPage: true,
+      },
+      {
+        '@type': 'ImageObject',
+        '@id': 'https://omniastores.com/#img-assay-macro',
+        url: 'https://omniastores.com/ai-luxury/starlight-marquise-droplets-macro.jpg',
+        contentUrl: 'https://omniastores.com/ai-luxury/starlight-marquise-droplets-macro.jpg',
+        thumbnailUrl: 'https://omniastores.com/ai-luxury/starlight-marquise-droplets-macro.jpg',
+        name: 'Omnia Stores 925 Hallmark & Gemological Dispersion Assay Macro',
+        caption: 'Macro gemological audit of Omnia Stores prong-set simulated diamonds and 925 hallmark laser stamp.',
+        description: 'Spectral XRF metal purity audit verifying 92.5% pure silver with zero nickel or lead contamination.',
+        keywords: '925 silver hallmark Dubai, XRF assay test silver, nickel free jewelry UAE, Omnia Stores certified quality',
+        creator: { '@type': 'Organization', name: 'Omnia Stores' },
+        copyrightHolder: { '@type': 'Organization', name: 'Omnia Stores' },
+        contentLocation: 'Dubai, United Arab Emirates',
+        representativeOfPage: true,
+      },
+    ],
+  };
+
   return (
     <>
       <meta name="omnia-editorial-page-type" content={pageType} />
@@ -339,6 +645,17 @@ export function SeoHead({ article, product, pageType = 'home' }: SeoProps) {
           dangerouslySetInnerHTML={{ __html: JSON.stringify(productSchema) }}
         />
       )}
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(imageGallerySchema) }}
+      />
+      {eventSchemas.map((evt, idx) => (
+        <script
+          key={`event-schema-${idx}`}
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(evt) }}
+        />
+      ))}
     </>
   );
 }

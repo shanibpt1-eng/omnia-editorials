@@ -5,15 +5,19 @@ import Link from 'next/link';
 import Image from 'next/image';
 import { Sparkles, ShieldCheck, ArrowUpRight } from 'lucide-react';
 import { useLuxury } from './ThemeProvider';
+import { OmniaFooterKnowledgeHub } from './OmniaFooterKnowledgeHub';
 
 export function Footer() {
   const { t, language } = useLuxury();
   return (
-    <footer className="w-full bg-[#F4F1EA] dark:bg-[#06080D] text-neutral-700 dark:text-neutral-400 border-t border-neutral-300 dark:border-gold/25 pt-16 pb-12 transition-colors">
+    <footer className="w-full bg-[#F4F1EA] dark:bg-[#06080D] text-neutral-700 dark:text-neutral-400 border-t border-neutral-300 dark:border-gold/25 pt-8 sm:pt-12 pb-12 transition-colors">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         
+        {/* Dedicated Separate Footer Section: Omnia Stores Authority AEO & GEO FAQ + Event Gifting Hub */}
+        <OmniaFooterKnowledgeHub />
+
         {/* Top Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-10 pb-12 border-b border-neutral-300 dark:border-neutral-800">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-10 pt-12 pb-12 border-b border-neutral-300 dark:border-neutral-800">
           
           {/* Brand Info */}
           <div className="lg:col-span-2 space-y-4">

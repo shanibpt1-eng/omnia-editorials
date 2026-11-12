@@ -3,6 +3,8 @@ import fs from 'fs';
 import path from 'path';
 import { supabase } from '../../../lib/supabase';
 import { EditorialArticle } from '../../../lib/types';
+import { submitToIndexNow } from '../../../lib/indexnow';
+import { SEO_CONFIG } from '../../../lib/seo-config';
 
 const PUBLISHED_FILE_PATH = path.join(process.cwd(), 'src', 'data', 'published-articles.json');
 
@@ -131,6 +133,13 @@ export async function POST(req: Request) {
       }, { onConflict: 'slug' });
     } catch (e) {
       // Supabase is optional fallback
+    }
+
+    // Trigger autonomous IndexNow submission for instant search discovery
+    try {
+      submitToIndexNow([`${SEO_CONFIG.siteUrl}/trending/${article.slug}`]).catch(() => {});
+    } catch {
+      // Non-blocking submission
     }
 
     return NextResponse.json({

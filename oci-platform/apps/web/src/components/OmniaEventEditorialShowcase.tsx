@@ -351,8 +351,12 @@ export function OmniaEventEditorialShowcase() {
                 className="group rounded-2xl overflow-hidden bg-white dark:bg-[#0E121B] border border-neutral-300 dark:border-gold/20 hover:border-gold/60 shadow-sm hover:shadow-2xl transition-all duration-300 flex flex-col justify-between"
               >
                 <div>
-                  {/* Image Frame with Aspect Ratio */}
-                  <div className="relative aspect-[16/9] w-full overflow-hidden bg-neutral-900 border-b border-neutral-200 dark:border-neutral-800">
+                  {/* Image Frame with Aspect Ratio - Single Click to Open Blog */}
+                  <Link 
+                    href={`/events/${event.slug}`}
+                    className="block relative aspect-[16/9] w-full overflow-hidden bg-neutral-900 border-b border-neutral-200 dark:border-neutral-800 cursor-pointer"
+                    title={`Open ${title}`}
+                  >
                     <Image
                       src={event.coverImage}
                       alt={title}
@@ -383,7 +387,7 @@ export function OmniaEventEditorialShowcase() {
                         {readTime}
                       </span>
                     </div>
-                  </div>
+                  </Link>
 
                   {/* Content Body */}
                   <div className="p-5 space-y-3">
@@ -392,7 +396,7 @@ export function OmniaEventEditorialShowcase() {
                       <span className="text-neutral-400 dark:text-neutral-500 font-serif italic lowercase">{collName}</span>
                     </div>
 
-                    <Link href={`/trending/${event.slug}`} className="block group/title">
+                    <Link href={`/events/${event.slug}`} className="block group/title">
                       <h3 className="font-serif font-bold text-base sm:text-lg text-neutral-950 dark:text-white leading-snug group-hover/title:text-[#B8860B] dark:group-hover/title:text-gold transition-colors line-clamp-2">
                         {title}
                       </h3>
@@ -408,7 +412,7 @@ export function OmniaEventEditorialShowcase() {
                 <div className="p-5 pt-0 border-t border-neutral-100 dark:border-neutral-800/80 mt-2">
                   <div className="pt-4 flex flex-col sm:flex-row items-stretch sm:items-center gap-2">
                     <Link
-                      href={`/trending/${event.slug}`}
+                      href={`/events/${event.slug}`}
                       className="flex-1 py-2.5 px-3 rounded-xl bg-neutral-900 text-white dark:bg-white/10 dark:text-neutral-100 hover:bg-[#B8860B] dark:hover:bg-gold dark:hover:text-black font-semibold text-xs transition-colors flex items-center justify-center gap-1.5 shadow-sm"
                       title={`Read ${title}`}
                     >

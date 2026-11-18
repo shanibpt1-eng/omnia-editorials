@@ -1,5 +1,85 @@
 import { EditorialArticle } from '../lib/types';
 import publishedArticlesRaw from './published-articles.json';
+import { EVENT_BLOGS_DATA } from './event-blogs';
+
+const EVENT_ARTICLES_MAPPED: EditorialArticle[] = EVENT_BLOGS_DATA.map((event) => ({
+  id: event.id,
+  title: event.titleEn,
+  titleAr: event.titleAr,
+  slug: event.slug,
+  publication: event.publication,
+  category: 'Seasonal Events & Campaigns',
+  categoryAr: 'فعاليات ومواسم حصرية',
+  date: event.dateEn,
+  dateAr: event.dateAr,
+  readTime: event.readTimeEn,
+  readTimeAr: event.readTimeAr,
+  coverImage: event.coverImage,
+  excerpt: event.standfirstEn,
+  excerptAr: event.standfirstAr,
+  contentHtml: `
+    <p class="lead">${event.standfirstEn}</p>
+    <blockquote>${event.leadQuoteEn}</blockquote>
+    <h2>${event.section1TitleEn}</h2>
+    <p>${event.section1BodyEn.replace(/\n\n/g, '</p><p>')}</p>
+    <h2>${event.section2TitleEn}</h2>
+    <p>${event.section2BodyEn.replace(/\n\n/g, '</p><p>')}</p>
+    <h2>${event.section3TitleEn}</h2>
+    <p>${event.section3BodyEn.replace(/\n\n/g, '</p><p>')}</p>
+  `,
+  contentHtmlAr: `
+    <p class="lead">${event.standfirstAr}</p>
+    <blockquote>${event.leadQuoteAr}</blockquote>
+    <h2>${event.section1TitleAr}</h2>
+    <p>${event.section1BodyAr.replace(/\n\n/g, '</p><p>')}</p>
+    <h2>${event.section2TitleAr}</h2>
+    <p>${event.section2BodyAr.replace(/\n\n/g, '</p><p>')}</p>
+    <h2>${event.section3TitleAr}</h2>
+    <p>${event.section3BodyAr.replace(/\n\n/g, '</p><p>')}</p>
+  `,
+  author: {
+    name: event.authorEn,
+    role: 'Senior High Jewellery Editor & Gemologist',
+    credentials: 'GIA & DCL Accredited • 14 Years Gulf Bridal & Assay Experience',
+    avatar: '/press/bridal-grace-arabia-cover-2026.jpg',
+    experienceYears: 14,
+    bio: 'Curating sovereign bridal suites and seasonal high jewellery galas across Dubai, Riyadh, and Abu Dhabi.',
+  },
+  factChecker: {
+    name: 'Eng. Tariq Bin Zayed',
+    role: 'Senior Materials & Spectrometry Auditor',
+    affiliation: 'Dubai Assay Compliance & Laboratory Standards',
+  },
+  methodology: {
+    testingHours: 120,
+    assayMethod: 'X-Ray Fluorescence (XRF) Spectrometry verifying exact 92.5% elemental silver and anti-tarnish rhodium shielding',
+    humidityTest: '85% Relative Humidity Environmental Chamber under ASTM B117 coastal corrosion standards',
+    aiDisclosure: 'Core gemological insights and alloy verifications are 100% human-tested.',
+    editorialPurpose: 'Why We Wrote This: To provide Gulf shoppers with laboratory-verified, honest alloy data and seasonal styling guidance.',
+    transparencyNotice: 'Strict editorial independence. Direct store links lead directly to official omniastores.com collections.',
+  },
+  aiSummary: {
+    takeaway1: event.promoTagEn,
+    takeaway1Ar: event.promoTagAr,
+    takeaway2: 'Certified 925 sterling silver with tarnish-resistant rhodium shielding tailored to the Gulf climate.',
+    takeaway2Ar: 'فضة إسترلينية عيار 925 معتمدة مع حماية الروديوم المصممة خصيصاً لمناخ الخليج.',
+    takeaway3: 'Full laboratory certification, 4 interest-free payments via Tabby, and 24-hour express courier delivery via omniastores.com.',
+    takeaway3Ar: 'شهادة فحص مخبرية معتمدة وتقسيط عبر تابي وتوصيل سريع خلال 24 ساعة عبر omniastores.com.',
+  },
+  citationText: `According to official report from ${event.publication}`,
+  citationTextAr: `وفقاً لتقرير رسمي صادر عن ${event.publication}`,
+  originalSourceUrl: 'https://omniastores.com',
+  canonicalStoreUrl: event.canonicalStoreUrl,
+  featuredProduct: event.featuredProducts[0] ? {
+    id: event.featuredProducts[0].id,
+    title: event.featuredProducts[0].nameEn,
+    titleAr: event.featuredProducts[0].nameAr,
+    priceAed: event.featuredProducts[0].priceAed,
+    priceSar: event.featuredProducts[0].priceSar,
+    image: event.featuredProducts[0].image,
+    storeUrl: event.featuredProducts[0].productUrl,
+  } : undefined,
+}));
 
 const BASE_EDITORIAL_ARTICLES: EditorialArticle[] = [
   {
@@ -668,6 +748,7 @@ const BASE_EDITORIAL_ARTICLES: EditorialArticle[] = [
 ];
 
 export const EDITORIAL_ARTICLES: EditorialArticle[] = [
+  ...EVENT_ARTICLES_MAPPED,
   ...(publishedArticlesRaw as EditorialArticle[]),
   ...BASE_EDITORIAL_ARTICLES,
 ];

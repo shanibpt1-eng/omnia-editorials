@@ -3,8 +3,10 @@
 import React, { use, useState, useEffect } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
+import { useRouter } from 'next/navigation';
 import { Bot, ShieldCheck, ArrowLeft, ArrowRight, ExternalLink, Calendar, Clock, ShoppingBag, CheckCircle2, Sparkles } from 'lucide-react';
 import { EDITORIAL_ARTICLES } from '../../../data/editorial-feed';
+import { getEventBlogBySlug } from '../../../data/event-blogs';
 import { autoInjectAffiliateLinks, generateAffiliateUrl } from '../../../lib/affiliateEngine';
 import { AuthorBylineBox } from '../../../components/AuthorBylineBox';
 import { EeatDisclosurePanel } from '../../../components/EeatDisclosurePanel';
@@ -14,14 +16,22 @@ import { getPublicationLabel } from '../../../lib/productLocalization';
 
 export default function SingleArticlePage({ params }: { params: Promise<{ slug: string }> }) {
   const resolvedParams = use(params);
+  const router = useRouter();
   const { formatPrice, language } = useLuxury();
   const isAr = language === 'ar';
 
   const initialArticle = EDITORIAL_ARTICLES.find((a) => a.slug === resolvedParams.slug);
+  const eventBlog = getEventBlogBySlug(resolvedParams.slug);
+
   const [article, setArticle] = useState(initialArticle);
-  const [isLoading, setIsLoading] = useState(!initialArticle);
+  const [isLoading, setIsLoading] = useState(!initialArticle && !eventBlog);
 
   useEffect(() => {
+    if (eventBlog) {
+      router.replace(`/events/${resolvedParams.slug}`);
+      return;
+    }
+
     fetch(`/api/articles?slug=${encodeURIComponent(resolvedParams.slug)}`)
       .then((res) => res.json())
       .then((data) => {

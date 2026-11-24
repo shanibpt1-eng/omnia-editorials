@@ -12,6 +12,14 @@ export interface EventBlogProduct {
   sku: string;
   metal: string;
   gem: string;
+  tagEn?: string;
+  tagAr?: string;
+  badgeEn?: string;
+  badgeAr?: string;
+  descEn?: string;
+  descAr?: string;
+  highlightsEn?: string[];
+  highlightsAr?: string[];
 }
 
 export interface EventBlogFaq {
@@ -58,6 +66,14 @@ export interface EventBlogDetail {
   section3TitleAr: string;
   section3BodyEn: string;
   section3BodyAr: string;
+  videoSrc?: string;
+  videoTitleEn?: string;
+  videoTitleAr?: string;
+  videoBadgeEn?: string;
+  videoBadgeAr?: string;
+  videoCtaUrl?: string;
+  videoCtaTextEn?: string;
+  videoCtaTextAr?: string;
   featuredProducts: EventBlogProduct[];
   faqs: EventBlogFaq[];
   editorialBacklinks: {
@@ -119,36 +135,80 @@ Furthermore, GCC shoppers can split their purchases into 4 interest-free install
     section3BodyAr: `تزيل أمنية ستورز العوائق التقليدية لامتلاك المجوهرات الراقية. تصل كل مجموعة مغلفة بعناية فائقة في صندوق مخملي فاخر يحمل شهادة الفحص المخبري التسلسلية وإرشادات العناية.
 
 إضافة إلى ذلك، يمكن لعملاء الخليج تقسيط مشترياتهم على 4 دفعات بدون فوائد أو رسوم عبر تابي، مع توصيل سريع خلال 24 ساعة في دبي وأبوظبي. يمكنك الطلب الفوري عبر [المتجر الرسمي omniastores.com](https://omniastores.com).`,
+    videoSrc: '/advertising/11-11-marketing-campaign.mp4',
+    videoTitleEn: 'The Main Event Official Gala Runway Film',
+    videoTitleAr: 'فيلم منصة العرض الرسمي لفعالية الحدث الرئيسي',
+    videoBadgeEn: 'Main Event Runway Gala',
+    videoBadgeAr: 'غالا الحدث الرئيسي',
+    videoCtaUrl: 'https://omniastores.com/collections/sets',
+    videoCtaTextEn: 'SHOP GALA SUITES ↗',
+    videoCtaTextAr: 'تسوق أطقم الغالا ↗',
     featuredProducts: [
       {
-        id: 'prod-main-event-parure-01',
-        nameEn: 'The Sovereign Gala Marquise Diamond Full Suite',
-        nameAr: 'طقم الغالا السيادي الماسي الكامل بأحجار الماركيز',
+        id: 'prod-main-event-pearl-cascade',
+        nameEn: 'The Royal Empress Pearl Cascade & Pavé Diamond Bow',
+        nameAr: 'طقم إمبراطورة اللؤلؤ الباروكي المتدفق وفيونكة الألماس',
+        tagEn: 'HAUTE COUTURE PEARL SUITE',
+        tagAr: 'طقم اللؤلؤ الإمبراطوري الفاخر',
+        badgeEn: 'EXCLUSIVE RUNWAY MASTERPIECE',
+        badgeAr: 'قطعة حصرية من منصة العرض',
+        descEn: 'Hand-selected baroque freshwater pearls cascading into an articulated pavé simulated diamond bow brooch with matching waterfall earrings.',
+        descAr: 'حبات لؤلؤ المياه العذبة الباروكية النقية المتدفقة في فيونكة مرصعة بألماس المحاكاة الفاخر مع أقراط الشلال المتدلية المطابقة.',
         priceAed: 1450,
-        priceSar: 1479,
-        originalPriceAed: 2900,
-        originalPriceSar: 2958,
-        discountPercentage: 50,
-        image: '/events/main-event-luxury-gala.jpg',
-        productUrl: 'https://omniastores.com/collections/sets',
-        sku: 'OMN-ME-01',
-        metal: 'Certified 925 Sterling Silver • Rhodium Coated',
-        gem: 'Premium 5A Simulated Diamonds (Marquise & Brilliant Cut)'
+        priceSar: 1480,
+        originalPriceAed: 2450,
+        originalPriceSar: 2490,
+        discountPercentage: 40,
+        image: '/advertising/pearl-cascade-couture-ad.jpg',
+        productUrl: 'https://omniastores.com/collections/necklaces',
+        sku: 'OMN-PRL-01',
+        metal: 'Solid 925 Sterling Silver • Anti-Tarnish Rhodium Barrier',
+        gem: 'Grade-AAA Baroque Freshwater Pearls & 5A Pavé Diamonds',
+        highlightsEn: [
+          'Solid 925 Sterling Silver core with electrolytic anti-tarnish rhodium barrier',
+          'Lustrous Grade-AAA hand-threaded Arabian Gulf & Mediterranean pearl drop tassels',
+          'Micro-claw pavé setting with maximum diamond dispersion and zero-glue architecture',
+          'Guaranteed 24-hour express courier delivery across Dubai, Abu Dhabi, & GCC'
+        ],
+        highlightsAr: [
+          'فضة إسترلينية أصلية عيار 925 مع طبقة روديوم كهربائية عازلة للأكسدة والرطوبة',
+          'لؤلؤ طبيعي فائق البريق منتقى يدوياً بجودة AAA مع شراشيب متدفقة ساحرة',
+          'ترصيع إيطالي بالمخالب الدقيقة لأحجار محاكاة الألماس بدون أي مواد لاصقة',
+          'توصيل سريع ومضمون خلال 24 ساعة في دبي وأبوظبي وكافة دول الخليج'
+        ]
       },
       {
-        id: 'prod-main-event-collaret-02',
-        nameEn: 'Omnia Thea Royal Cascading Bridal Necklace',
-        nameAr: 'قلادة أمنية ثيا الملكية المتدفقة للعرائس',
-        priceAed: 890,
-        priceSar: 908,
-        originalPriceAed: 1550,
-        originalPriceSar: 1581,
-        discountPercentage: 42,
-        image: '/events/11-11-sale-infinity-gold-suite.jpg',
+        id: 'prod-main-event-chevron-diamond',
+        nameEn: 'The Sovereign Chevron Diamond Collar & Winged Earrings',
+        nameAr: 'طوق الشيفون الملكي المزدوج وأقراط الأجنحة المتلألئة',
+        tagEn: 'SOVEREIGN HIGH JEWELLERY',
+        tagAr: 'مجوهرات السيادة الراقية',
+        badgeEn: 'ROYAL GALA EDITION',
+        badgeAr: 'طبعة حفلات الغالا الملكية',
+        descEn: 'Double-tier articulated chevron diamond choker designed with an ergonomic open-collar tension frame, paired with sculptural winged chandelier ear crawlers.',
+        descAr: 'طوق شيفون مزدوج مرصع بألماس محاكاة فائق البريق بتصميم مفتوح ومريح، متناغم مع أقراط الأجنحة المتدلية الساحرة.',
+        priceAed: 1850,
+        priceSar: 1890,
+        originalPriceAed: 3100,
+        originalPriceSar: 3150,
+        discountPercentage: 40,
+        image: '/advertising/chevron-diamond-sovereign-ad.jpg',
         productUrl: 'https://omniastores.com/collections/bridal-collection',
-        sku: 'OMN-TH-02',
-        metal: 'Solid 925 Silver • Anti-Tarnish Finish',
-        gem: 'Flawless Simulated Diamonds'
+        sku: 'OMN-CHV-02',
+        metal: 'Precious Solid 925 Silver • 100% Nickel & Lead Free',
+        gem: 'High-Refractive Simulated Diamonds (RI 2.65)',
+        highlightsEn: [
+          'High-refractive simulated diamonds (RI 2.65) cut to ideal round and pear proportions',
+          'Flexible anatomical open-choker setting that rests naturally against the collarbone',
+          'Hypoallergenic, 100% nickel-free and lead-free precious silver construction',
+          'Delivered in an Omnia Stores signature velvet presentation case with authenticity dossier'
+        ],
+        highlightsAr: [
+          'أحجار محاكاة الألماس ذات معامل انكسار ضوئي 2.65 بقطع كمثري ودائري مثالي',
+          'هيكل طوق مفتوح مصمم هندسياً ليستقر بمرونة وانسيابية على عظام الترقوة',
+          'مضاد تماماً للحساسية وخالٍ 100% من النيكل والرصاص المسبب لتصبغ البشرة',
+          'يصل في علبة مخملية فاخرة مع ملف شهادة الفحص والأصالة المعتمدة'
+        ]
       }
     ],
     faqs: [
@@ -238,19 +298,70 @@ Designed with articulated links that drape fluidly over the decolletage, these p
     section3BodyAr: `مع اقتراب احتفالات نهاية العام، تشكل دقة التوصيل عاملاً حاسماً. توفر أمنية ستورز مراكز لوجستية متطورة في دبي والرياض، تضمن وصول مجوهرات رأس السنة بعلبها الفاخرة في وقت كافٍ قبل 31 ديسمبر عبر [omniastores.com](https://omniastores.com).`,
     featuredProducts: [
       {
-        id: 'prod-ny-2027-parure-01',
-        nameEn: 'Omnia Midnight Chandelier 2027 Gala Suite',
-        nameAr: 'طقم ثريا منتصف الليل لغالا 2027 الفاخر',
-        priceAed: 1290,
-        priceSar: 1315,
-        originalPriceAed: 2580,
-        originalPriceSar: 2631,
-        discountPercentage: 50,
-        image: '/events/new-year-sale-2027-event.jpg',
-        productUrl: 'https://omniastores.com/collections/discounted-items',
-        sku: 'OMN-NY-01',
-        metal: 'Certified 925 Silver • Heavy Rhodium Plating',
-        gem: 'Multi-Tiered Brilliant Simulated Diamonds'
+        id: 'prod-ny-geometric-pearl',
+        nameEn: 'The Royal Sovereign Geometric Diamond Collar & South Sea Pearl',
+        nameAr: 'طوق السيادة الملكي الهندسي المرصع بالألماس ولؤلؤة بحر الجنوب',
+        tagEn: 'AVANT-GARDE ARCHITECTURAL JEWELLERY',
+        tagAr: 'مجوهرات معمارية هندسية مبتكرة',
+        badgeEn: 'NEW YEAR 2027 RED CARPET HIGHLIGHT',
+        badgeAr: 'نجمة السجادة الحمراء لرأس السنة 2027',
+        descEn: 'Articulated openwork geometric collar featuring repeating chevron and pavé motifs, suspending a lustrous 14mm simulated South Sea pearl drop with matching earrings.',
+        descAr: 'طوق هندسي مفرغ بتصميم شيفرون بافيه متكرر يعانق الرقبة بأناقة، تتدلى منه لؤلؤة بحر الجنوب الفاخرة بقطر 14 مم مع أقراط مطابقة.',
+        priceAed: 1750,
+        priceSar: 1785,
+        originalPriceAed: 2950,
+        originalPriceSar: 3009,
+        discountPercentage: 40,
+        image: '/editorial-looks/geometric-diamond-south-sea-pearl.jpg',
+        productUrl: 'https://omniastores.com/collections/bridal-collection',
+        sku: 'OMN-GEO-07',
+        metal: 'Solid 925 Sterling Silver • Engineered Anatomical Frame',
+        gem: '14mm Lustrous South Sea Pearl & 5A Pavé Diamonds',
+        highlightsEn: [
+          'Solid 925 Sterling Silver frame engineered for ergonomic neck contouring',
+          'High-density micro-claw pavé diamonds with zero adhesive architecture',
+          'Flawless 14mm teardrop pearl with deep orient and satin surface quality',
+          'Express same-day courier dispatch in Dubai and Abu Dhabi with Tabby 4 Pay'
+        ],
+        highlightsAr: [
+          'هيكل فضة إسترلينية 925 مصمم هندسياً ليستقر بمرونة على الرقبة',
+          'ترصيع بافيه عالي الكثافة لألماس المحاكاة بدون أي غراء أو مواد لاصقة',
+          'لؤلؤة كمثرية نقية مقاس 14 مم ببريق ساتاني عميق يأسر القلوب',
+          'شحن سريع في نفس اليوم بدبي وأبوظبي مع تقسيط مريح عبر تابي'
+        ]
+      },
+      {
+        id: 'prod-ny-pearl-cascade',
+        nameEn: 'The Royal Empress Pearl Cascade & Pavé Diamond Bow',
+        nameAr: 'طقم إمبراطورة اللؤلؤ الباروكي المتدفق وفيونكة الألماس',
+        tagEn: 'HAUTE COUTURE PEARL SUITE',
+        tagAr: 'طقم اللؤلؤ الإمبراطوري الفاخر',
+        badgeEn: 'EXCLUSIVE RUNWAY MASTERPIECE',
+        badgeAr: 'قطعة حصرية من منصة العرض',
+        descEn: 'Hand-selected baroque freshwater pearls cascading into an articulated pavé simulated diamond bow brooch with matching waterfall earrings.',
+        descAr: 'حبات لؤلؤ المياه العذبة الباروكية النقية المتدفقة في فيونكة مرصعة بألماس المحاكاة الفاخر مع أقراط الشلال المتدلية المطابقة.',
+        priceAed: 1450,
+        priceSar: 1480,
+        originalPriceAed: 2450,
+        originalPriceSar: 2490,
+        discountPercentage: 40,
+        image: '/advertising/pearl-cascade-couture-ad.jpg',
+        productUrl: 'https://omniastores.com/collections/necklaces',
+        sku: 'OMN-PRL-NY27',
+        metal: 'Solid 925 Sterling Silver • Anti-Tarnish Rhodium Barrier',
+        gem: 'Grade-AAA Baroque Freshwater Pearls & 5A Pavé Diamonds',
+        highlightsEn: [
+          'Solid 925 Sterling Silver core with electrolytic anti-tarnish rhodium barrier',
+          'Lustrous Grade-AAA hand-threaded Arabian Gulf & Mediterranean pearl drop tassels',
+          'Micro-claw pavé setting with maximum diamond dispersion and zero-glue architecture',
+          'Guaranteed 24-hour express courier delivery across Dubai, Abu Dhabi, & GCC'
+        ],
+        highlightsAr: [
+          'فضة إسترلينية أصلية عيار 925 مع طبقة روديوم كهربائية عازلة للأكسدة والرطوبة',
+          'لؤلؤ طبيعي فائق البريق منتقى يدوياً بجودة AAA مع شراشيب متدفقة ساحرة',
+          'ترصيع إيطالي بالمخالب الدقيقة لأحجار محاكاة الألماس بدون أي مواد لاصقة',
+          'توصيل سريع ومضمون خلال 24 ساعة في دبي وأبوظبي وكافة دول الخليج'
+        ]
       }
     ],
     faqs: [
@@ -321,19 +432,70 @@ Every set is crafted from certified 925 silver and rhodium electroplated to ensu
     section3BodyAr: `لضمان وصول الهدايا في الوقت المناسب، يُرجى تأكيد الطلب قبل 22 ديسمبر لدول الخليج وقبل 18 ديسمبر للطلبات الدولية عبر DHL Express من خلال [omniastores.com](https://omniastores.com).`,
     featuredProducts: [
       {
-        id: 'prod-xmas-2026-parure-01',
-        nameEn: 'Omnia Festive Royale Fringe Diamond Parure',
-        nameAr: 'طقم رويال الهامشي الماسي لموسم الأعياد',
-        priceAed: 1150,
-        priceSar: 1173,
-        originalPriceAed: 1915,
-        originalPriceSar: 1953,
+        id: 'prod-xmas-ruby-gala',
+        nameEn: 'The Royal Crimson Ruby & Marquise Diamond Gala Suite',
+        nameAr: 'طقم الياقوت القرمزي الملكي والماركيز الماسي لحفلات الغالا',
+        tagEn: 'HAUTE JOAILLERIE RUBY SUITE',
+        tagAr: 'طقم الياقوت الملكي الفاخر',
+        badgeEn: 'ROYAL GALA RED CARPET EDITION',
+        badgeAr: 'طبعة السجادة الحمراء لحفلات الغالا',
+        descEn: 'Articulated cascading collar composed of graduated pigeon-blood simulated rubies bordered by precision-faceted marquise diamonds, with matching drop earrings and gala cuff.',
+        descAr: 'طوق متدفق فاخر يتألف من أحجار ياقوت دم الحمام المحاكية المتدرجة والمحاطة بألماس الماركيز الدقيق، مع أقراط متدلية مطابقة وسوار عريض للسهرات.',
+        priceAed: 1650,
+        priceSar: 1683,
+        originalPriceAed: 2750,
+        originalPriceSar: 2805,
         discountPercentage: 40,
-        image: '/events/christmas-sale-holiday-event.jpg',
+        image: '/editorial-looks/ruby-gala-parure.jpg',
         productUrl: 'https://omniastores.com/collections/sets',
-        sku: 'OMN-XM-01',
-        metal: 'Solid 925 Silver • Triple Rhodium Coat',
-        gem: 'Flawless Simulated Diamonds (Pear & Baguette Cuts)'
+        sku: 'OMN-RBY-01',
+        metal: 'Certified 925 Sterling Silver • Rhodium Mirror Finish',
+        gem: '5A Simulated Pigeon-Blood Rubies & Marquise Diamonds',
+        highlightsEn: [
+          'Solid 925 Sterling Silver hallmarked under Dubai Central Laboratory assay',
+          'Precision-cut 5A simulated pigeon-blood rubies with vivid red saturation',
+          'Anti-tarnish electrolytic mirror rhodium coating resistant to Gulf humidity',
+          'Delivered in velvet boutique chest with serial certification & 24h courier'
+        ],
+        highlightsAr: [
+          'فضة إسترلينية أصلية عيار 925 مختومة ومفحوصة لدى مختبر دبي المركزي',
+          'أحجار ياقوت دم الحمام درجة 5A ذات لون أحمر قرمزي ملكي وبريق مشع',
+          'طلاء روديوم عاكس كالمرايا معالج كيميائياً لمقاومة الرطوبة والأكسدة',
+          'يصل في صندوق مخملي فاخر مع شهادة الفحص المعتمدة وتوصيل خلال 24 ساعة'
+        ]
+      },
+      {
+        id: 'prod-xmas-crimson-teardrop',
+        nameEn: 'The Empress Teardrop Ruby & Solitaire Diamond Rivière',
+        nameAr: 'عقد ريفيير الياقوت الإمبراطوري الكمثري وأقراط القطرة',
+        tagEn: 'ROYAL RUBY RIVIÈRE',
+        tagAr: 'طقم ريفيير الياقوت الملكي',
+        badgeEn: 'LIMITED HOLIDAY EDITION',
+        badgeAr: 'طبعة الأعياد المحدودة',
+        descEn: 'Graduated teardrop simulated pigeon-blood rubies set in alternating bezel diamond links, culminating in a monumental pear-cut ruby focal pendant.',
+        descAr: 'أحجار ياقوت كمثرية متدرجة ذات بريق أحمر ساحر تتناوب مع حلقات الألماس لتنتهي بحجر ياقوت كمثري ضخم متدفق.',
+        priceAed: 1380,
+        priceSar: 1408,
+        originalPriceAed: 2300,
+        originalPriceSar: 2346,
+        discountPercentage: 40,
+        image: '/editorial-looks/crimson-teardrop-ruby-suite.jpg',
+        productUrl: 'https://omniastores.com/collections/sets',
+        sku: 'OMN-RBY-04',
+        metal: 'Certified 925 Silver • Electrolytic Rhodium Protective Barrier',
+        gem: '5A Pear-Cut Simulated Rubies & Round Brilliant Diamonds',
+        highlightsEn: [
+          'Solid 925 Sterling Silver core with protective electrolytic rhodium barrier',
+          'Flawless teardrop simulated rubies with intense optical clarity and brilliance',
+          'Hypoallergenic, 100% lead and nickel-free certified precious construction',
+          'Express courier fulfillment with insured delivery across UAE & Saudi Arabia'
+        ],
+        highlightsAr: [
+          'هيكل فضة إسترلينية 925 مع طبقة روديوم كهربائية عازلة للأكسدة',
+          'أحجار ياقوت كمثرية فائقة النقاء تمنحك إطلالة ملكية في المناسبات الكبرى',
+          'خالٍ تماماً 100% من النيكل والرصاص المسبب لتحسس البشرة',
+          'شحن سريع مؤمن وتوصيل مباشر خلال 24 ساعة في الإمارات والسعودية'
+        ]
       }
     ],
     faqs: [
@@ -404,19 +566,70 @@ These designs sit gracefully on high-neck abayas and embellished kaftans without
     section3BodyAr: `بروح العطاء والشهر الكريم، تُغلّف جميع الطلبات في علب زرقاء داكنة مزينة بنقوش ذهبية. يمكنك الطلب بالتقسيط عبر تابي من خلال [omniastores.com](https://omniastores.com).`,
     featuredProducts: [
       {
-        id: 'prod-ramadan-2027-choker-01',
-        nameEn: 'Omnia Crescent Blossom Vine Choker Suite',
-        nameAr: 'طوق زهر الهلال والأغصان الرمضاني الفاخر',
-        priceAed: 780,
-        priceSar: 795,
-        originalPriceAed: 1200,
-        originalPriceSar: 1224,
-        discountPercentage: 35,
-        image: '/events/ramadan-sale-festive-event.jpg',
-        productUrl: 'https://omniastores.com/collections/chokers-collection',
-        sku: 'OMN-RAM-01',
-        metal: 'Certified 925 Sterling Silver • Rhodium Finish',
-        gem: 'Fine 5A Simulated Diamond Pavé & Baguette Crystals'
+        id: 'prod-ram-baroque-pearl',
+        nameEn: 'The Sovereign Baroque Pearl Drop & Diamond Flora Suite',
+        nameAr: 'طقم لؤلؤ الباروك المتدلي مع زهرة الألماس الملكية',
+        tagEn: 'NATURAL FRESHWATER PEARL SUITE',
+        tagAr: 'طقم اللؤلؤ الطبيعي الفاخر',
+        badgeEn: 'CERTIFIED 925 BRIDAL MASTERPIECE',
+        badgeAr: 'تحفة العرائس المعتمدة من الفضة 925',
+        descEn: 'Hand-selected baroque freshwater pearl pendant suspended from an articulated marquise diamond flower, paired with matching statement pearl drop earrings.',
+        descAr: 'قطرة لؤلؤ مياه عذبة باروكية منتقاة يدوياً تتدلى من زهرة ألماس الماركيز المتلألئة، متناغمة مع أقراط لؤلؤ متدلية متطابقة.',
+        priceAed: 1190,
+        priceSar: 1214,
+        originalPriceAed: 1980,
+        originalPriceSar: 2020,
+        discountPercentage: 40,
+        image: '/editorial-looks/baroque-pearl-cascade.jpg',
+        productUrl: 'https://omniastores.com/collections/pearl-sets',
+        sku: 'OMN-BPRL-03',
+        metal: 'Solid 925 Sterling Silver • Hypoallergenic Rhodium Plated',
+        gem: 'Grade-AAA Baroque Freshwater Pearls & 5A Marquise Diamonds',
+        highlightsEn: [
+          'Grade-AAA lustrous hand-threaded baroque freshwater pearls with iridescent sheen',
+          'Solid 925 Sterling Silver hallmarked under Dubai Central Laboratories (DCL)',
+          'Micro-prong diamond cluster setting designed to capture and disperse ambient light',
+          'Backed by Tabby 4 interest-free split payments and luxury gift packaging'
+        ],
+        highlightsAr: [
+          'لؤلؤ باروكي طبيعي فائق البريق جودة AAA منتقى يدوياً بلون أبيض ناصع',
+          'فضة إسترلينية أصلية عيار 925 معتمدة من مختبر دبي المركزي',
+          'ترصيع عنقودي لألماس المحاكاة مصمم ليعكس الضوء بانعكاسات ساحرة',
+          'متاح للتقسيط على 4 دفعات بدون فوائد عبر تابي مع تغليف هدايا فاخر'
+        ]
+      },
+      {
+        id: 'prod-ram-butterfly',
+        nameEn: 'The Monarch Canary Yellow Pavé Diamond Butterfly Pendant',
+        nameAr: 'قلادة الفراشة الماسية الصفراء بأحجار البافيه الكنارية',
+        tagEn: 'WHIMSICAL NATURE HIGH JEWELLERY',
+        tagAr: 'مجوهرات الطبيعة الساحرة الراقية',
+        badgeEn: 'EXCLUSIVE SPRING RUNWAY EDITION',
+        badgeAr: 'طبعة ربيع حصرية من منصة العرض',
+        descEn: 'Dimensional butterfly silhouette pavé-set with canary yellow simulated sapphires and white brilliant-cut diamond accents on a delicate station chain.',
+        descAr: 'تصميم فراشة ثلاثي الأبعاد مرصع بأحجار الياقوت الأصفر الكناري المحاكية مع لمسات من الألماس البافيه المتلألئ على سلسلة أنيقة.',
+        priceAed: 690,
+        priceSar: 704,
+        originalPriceAed: 1150,
+        originalPriceSar: 1173,
+        discountPercentage: 40,
+        image: '/editorial-looks/canary-butterfly-pendant.jpg',
+        productUrl: 'https://omniastores.com/collections/necklaces',
+        sku: 'OMN-BTF-RAM',
+        metal: 'Solid 925 Sterling Silver • Dual 18K Yellow Gold & Rhodium Plating',
+        gem: 'Simulated Canary Yellow Sapphires & Brilliant Diamonds',
+        highlightsEn: [
+          'Solid 925 Sterling Silver core with dual 18K yellow gold and rhodium immersion',
+          'High-refractive simulated canary sapphires with micro-claw pavé setting',
+          'Delicate adjustable cable chain accented with bezel-set solitaire diamonds',
+          'Guaranteed 24-hour courier delivery across Dubai, Abu Dhabi & Riyadh'
+        ],
+        highlightsAr: [
+          'هيكل من الفضة الإسترلينية 925 مع طلاء مزدوج بالذهب الأصفر عيار 18 والروديوم',
+          'أحجار ياقوت كناري أصفر ذات بريق عالي وترصيع إيطالي بالمخالب الدقيقة',
+          'سلسلة قابلة لتعديل الطول مزينة بألماسات محاكاة ذات إطار كلاسيكي فاخر',
+          'توصيل سريع ومضمون خلال 24 ساعة في دبي وأبوظبي والرياض'
+        ]
       }
     ],
     faqs: [
@@ -487,19 +700,70 @@ Every piece is designed to be cherished for generations, set in certified 925 st
     section3BodyAr: `لا داعي للقلق بشأن مواعيد التوصيل: تمتع بخدمة التوصيل خلال 24 ساعة في دبي والشحن السريع إلى الرياض وأبوظبي وجدة عبر [omniastores.com](https://omniastores.com).`,
     featuredProducts: [
       {
-        id: 'prod-mothers-day-pendant-01',
-        nameEn: 'Omnia Eternal Grace Bloom Diamond Necklace',
-        nameAr: 'قلادة زهرة النعمة الأبدية الماسية لعيد الأم',
-        priceAed: 650,
-        priceSar: 663,
-        originalPriceAed: 928,
-        originalPriceSar: 947,
-        discountPercentage: 30,
-        image: '/events/mothers-day-sale-gifting-event.jpg',
+        id: 'prod-md-butterfly-pendant',
+        nameEn: 'The Monarch Canary Yellow Pavé Diamond Butterfly Pendant',
+        nameAr: 'قلادة الفراشة الماسية الصفراء بأحجار البافيه الكنارية',
+        tagEn: 'WHIMSICAL NATURE HIGH JEWELLERY',
+        tagAr: 'مجوهرات الطبيعة الساحرة الراقية',
+        badgeEn: 'EXCLUSIVE SPRING RUNWAY EDITION',
+        badgeAr: 'طبعة ربيع حصرية من منصة العرض',
+        descEn: 'Dimensional butterfly silhouette pavé-set with canary yellow simulated sapphires and white brilliant-cut diamond accents on a delicate station chain.',
+        descAr: 'تصميم فراشة ثلاثي الأبعاد مرصع بأحجار الياقوت الأصفر الكناري المحاكية مع لمسات من الألماس البافيه المتلألئ على سلسلة أنيقة.',
+        priceAed: 690,
+        priceSar: 704,
+        originalPriceAed: 1150,
+        originalPriceSar: 1173,
+        discountPercentage: 40,
+        image: '/editorial-looks/canary-butterfly-pendant.jpg',
         productUrl: 'https://omniastores.com/collections/necklaces',
-        sku: 'OMN-MD-01',
-        metal: 'Certified 925 Silver • 18K White Gold Plating',
-        gem: 'Flawless Simulated Diamonds'
+        sku: 'OMN-BTF-02',
+        metal: 'Solid 925 Sterling Silver • Dual 18K Yellow Gold & Rhodium Plating',
+        gem: 'Simulated Canary Yellow Sapphires & Brilliant Diamonds',
+        highlightsEn: [
+          'Solid 925 Sterling Silver core with dual 18K yellow gold and rhodium immersion',
+          'High-refractive simulated canary sapphires with micro-claw pavé setting',
+          'Delicate adjustable cable chain accented with bezel-set solitaire diamonds',
+          'Guaranteed 24-hour courier delivery across Dubai, Abu Dhabi & Riyadh'
+        ],
+        highlightsAr: [
+          'هيكل من الفضة الإسترلينية 925 مع طلاء مزدوج بالذهب الأصفر عيار 18 والروديوم',
+          'أحجار ياقوت كناري أصفر ذات بريق عالي وترصيع إيطالي بالمخالب الدقيقة',
+          'سلسلة قابلة لتعديل الطول مزينة بألماسات محاكاة ذات إطار كلاسيكي فاخر',
+          'توصيل سريع ومضمون خلال 24 ساعة في دبي وأبوظبي والرياض'
+        ]
+      },
+      {
+        id: 'prod-md-pink-sapphire',
+        nameEn: 'The Rose Princess Oval Pink Sapphire & Diamond Halo Pendant',
+        nameAr: 'قلادة الأميرة روز البيضاوية بالياقوت الوردي وهالة الألماس',
+        tagEn: 'DEMI-FINE PASTEL JEWELLERY',
+        tagAr: 'مجوهرات الباستيل الراقية',
+        badgeEn: 'VALENTINE VIP EXCLUSIVE',
+        badgeAr: 'حصري لمناسبات الإهداء الراقية',
+        descEn: 'Centerpiece oval-cut simulated pink sapphire surrounded by an articulated scalloped halo of brilliant-cut diamonds on a delicate station chain.',
+        descAr: 'حجر ياقوت وردي بيضاوي ناعم محاط بهالة مموجة ساحرة من أحجار الألماس البافيه على سلسلة ناعمة مرصعة بالمحطات الماسية.',
+        priceAed: 590,
+        priceSar: 602,
+        originalPriceAed: 990,
+        originalPriceSar: 1010,
+        discountPercentage: 40,
+        image: '/editorial-looks/pink-sapphire-halo-pendant.jpg',
+        productUrl: 'https://omniastores.com/collections/necklaces',
+        sku: 'OMN-PNK-05',
+        metal: 'Solid 925 Sterling Silver • Multi-Layer Rhodium Polish',
+        gem: 'Simulated Oval Pink Sapphire & Round Brilliant Diamonds',
+        highlightsEn: [
+          'Solid 925 Sterling Silver finished with multi-layer mirror rhodium polish',
+          'High-clarity simulated pink sapphire with soft romantic hue and maximum fire',
+          'Scalloped vintage-inspired micro-prong basket setting ensuring total stone security',
+          'Available on Tabby 4 installments with complimentary velvet gift presentation'
+        ],
+        highlightsAr: [
+          'فضة إسترلينية نقية عيار 925 مصقولة بطبقات الروديوم العاكس كالمرايا',
+          'حجر ياقوت وردي محاكي فائق النقاوة يفيض بالرقة والأنوثة والبريق',
+          'ترصيع تاجي كلاسيكي دقيق يثبت الأحجار بأمان تام دون أي مواد لاصقة',
+          'إمكانية التقسيط على 4 دفعات مريحة عبر تابي مع علبة هدايا مخملية مجانية'
+        ]
       }
     ],
     faqs: [
@@ -568,11 +832,91 @@ Shoppers can apply promotional code **OMNIA1111** for additional savings. Visit 
     section3TitleAr: 'دفع فوري مرن عبر تابي وآبل باي',
     section3BodyEn: `Enjoy frictionless checkout using Apple Pay, credit cards, or split your purchase across 4 interest-free payments via Tabby on [omniastores.com](https://omniastores.com).`,
     section3BodyAr: `استمتع بتجربة دفع فائقة السلاسة عبر آبل باي أو البطاقات الائتمانية أو تقسيط السلة على 4 دفعات بدون فوائد عبر تابي من خلال [omniastores.com](https://omniastores.com).`,
+    videoSrc: '/advertising/11-11-sale-reveal.mp4',
+    videoTitleEn: '11:11 Official Sale Reveal',
+    videoTitleAr: 'الإعلان الرسمي لتخفيضات 11:11 الكبرى',
+    videoBadgeEn: '11:11 Official Sale Reveal',
+    videoBadgeAr: 'كشف عروض 11:11',
+    videoCtaUrl: 'https://omniastores.com/collections/discounted-items',
+    videoCtaTextEn: '11:11 DIRECT DEALS ↗',
+    videoCtaTextAr: 'صفقات 11:11 المباشرة ↗',
     featuredProducts: [
+      {
+        id: 'prod-11-11-chevron-diamond',
+        nameEn: 'The Sovereign Chevron Diamond Collar & Winged Earrings',
+        nameAr: 'طوق الشيفون الملكي المزدوج وأقراط الأجنحة المتلألئة',
+        tagEn: 'SOVEREIGN HIGH JEWELLERY',
+        tagAr: 'مجوهرات السيادة الراقية',
+        badgeEn: 'ROYAL GALA EDITION',
+        badgeAr: 'طبعة حفلات الغالا الملكية',
+        descEn: 'Double-tier articulated chevron diamond choker designed with an ergonomic open-collar tension frame, paired with sculptural winged chandelier ear crawlers.',
+        descAr: 'طوق شيفون مزدوج مرصع بألماس محاكاة فائق البريق بتصميم مفتوح ومريح، متناغم مع أقراط الأجنحة المتدلية الساحرة.',
+        priceAed: 1850,
+        priceSar: 1890,
+        originalPriceAed: 3100,
+        originalPriceSar: 3150,
+        discountPercentage: 40,
+        image: '/advertising/chevron-diamond-sovereign-ad.jpg',
+        productUrl: 'https://omniastores.com/collections/bridal-collection',
+        sku: 'OMN-CHV-1111',
+        metal: 'Precious Solid 925 Silver • 100% Nickel & Lead Free',
+        gem: 'High-Refractive Simulated Diamonds (RI 2.65)',
+        highlightsEn: [
+          'High-refractive simulated diamonds (RI 2.65) cut to ideal round and pear proportions',
+          'Flexible anatomical open-choker setting that rests naturally against the collarbone',
+          'Hypoallergenic, 100% nickel-free and lead-free precious silver construction',
+          'Delivered in an Omnia Stores signature velvet presentation case with authenticity dossier'
+        ],
+        highlightsAr: [
+          'أحجار محاكاة الألماس ذات معامل انكسار ضوئي 2.65 بقطع كمثري ودائري مثالي',
+          'هيكل طوق مفتوح مصمم هندسياً ليستقر بمرونة وانسيابية على عظام الترقوة',
+          'مضاد تماماً للحساسية وخالٍ 100% من النيكل والرصاص المسبب لتصبغ البشرة',
+          'يصل في علبة مخملية فاخرة مع ملف شهادة الفحص والأصالة المعتمدة'
+        ]
+      },
+      {
+        id: 'prod-11-11-pearl-cascade',
+        nameEn: 'The Royal Empress Pearl Cascade & Pavé Diamond Bow',
+        nameAr: 'طقم إمبراطورة اللؤلؤ الباروكي المتدفق وفيونكة الألماس',
+        tagEn: 'HAUTE COUTURE PEARL SUITE',
+        tagAr: 'طقم اللؤلؤ الإمبراطوري الفاخر',
+        badgeEn: 'EXCLUSIVE RUNWAY MASTERPIECE',
+        badgeAr: 'قطعة حصرية من منصة العرض',
+        descEn: 'Hand-selected baroque freshwater pearls cascading into an articulated pavé simulated diamond bow brooch with matching waterfall earrings.',
+        descAr: 'حبات لؤلؤ المياه العذبة الباروكية النقية المتدفقة في فيونكة مرصعة بألماس المحاكاة الفاخر مع أقراط الشلال المتدلية المطابقة.',
+        priceAed: 1450,
+        priceSar: 1480,
+        originalPriceAed: 2450,
+        originalPriceSar: 2490,
+        discountPercentage: 40,
+        image: '/advertising/pearl-cascade-couture-ad.jpg',
+        productUrl: 'https://omniastores.com/collections/necklaces',
+        sku: 'OMN-PRL-1111',
+        metal: 'Solid 925 Sterling Silver • Anti-Tarnish Rhodium Barrier',
+        gem: 'Grade-AAA Baroque Freshwater Pearls & 5A Pavé Diamonds',
+        highlightsEn: [
+          'Solid 925 Sterling Silver core with electrolytic anti-tarnish rhodium barrier',
+          'Lustrous Grade-AAA hand-threaded Arabian Gulf & Mediterranean pearl drop tassels',
+          'Micro-claw pavé setting with maximum diamond dispersion and zero-glue architecture',
+          'Guaranteed 24-hour express courier delivery across Dubai, Abu Dhabi, & GCC'
+        ],
+        highlightsAr: [
+          'فضة إسترلينية أصلية عيار 925 مع طبقة روديوم كهربائية عازلة للأكسدة والرطوبة',
+          'لؤلؤ طبيعي فائق البريق منتقى يدوياً بجودة AAA مع شراشيب متدفقة ساحرة',
+          'ترصيع إيطالي بالمخالب الدقيقة لأحجار محاكاة الألماس بدون أي مواد لاصقة',
+          'توصيل سريع ومضمون خلال 24 ساعة في دبي وأبوظبي وكافة دول الخليج'
+        ]
+      },
       {
         id: 'prod-11-11-clover-01',
         nameEn: 'Omnia 11.11 Pavé Lucky Clover Diamond & Onyx Suite',
         nameAr: 'طقم زهرة البرسيم الماسي مع الأونيكس لعروض 11.11',
+        tagEn: '11.11 ICONIC BESTSELLER',
+        tagAr: 'الأكثر مبيعاً في 11.11',
+        badgeEn: 'MEGA SALE VIRAL DROP',
+        badgeAr: 'عرض 11.11 الفيروسي',
+        descEn: 'The four-leaf clover motif crafted with natural jet-black onyx bordered by micro-pavé simulated diamonds in lustrous 925 silver.',
+        descAr: 'أيقونة زهرة البرسيم الرباعية المصنوعة من الأونيكس الأسود الطبيعي المحاط بألماس البافيه المتلألئ والفضة عيار 925.',
         priceAed: 790,
         priceSar: 806,
         originalPriceAed: 1580,
@@ -582,7 +926,19 @@ Shoppers can apply promotional code **OMNIA1111** for additional savings. Visit 
         productUrl: 'https://omniastores.com/collections/discounted-items',
         sku: 'OMN-1111-01',
         metal: 'Certified 925 Sterling Silver • Yellow Gold / Rhodium',
-        gem: 'Natural Black Onyx & 5A Simulated Diamond Pavé'
+        gem: 'Natural Black Onyx & 5A Simulated Diamond Pavé',
+        highlightsEn: [
+          'Solid 925 Sterling Silver core assayed by Dubai Central Laboratory',
+          'Genuine deep-black onyx stones paired with optical-clarity simulated diamonds',
+          'Four-leaf clover lucky emblem designed for gala evenings and everyday luxury',
+          'Eligible for 4 interest-free Tabby payments and express GCC courier'
+        ],
+        highlightsAr: [
+          'فضة إسترلينية أصلية عيار 925 مفحوصة لدى مختبر دبي المركزي',
+          'أحجار أونيكس سوداء طبيعية مع ترصيع ألماس المحاكاة فائق النقاوة',
+          'رمز زهرة البرسيم الرباعية الجالب للحظ والأناقة للمناسبات واليوميات',
+          'متاح للتقسيط على 4 دفعات بدون فوائد عبر تابي وشحن سريع بالخليج'
+        ]
       }
     ],
     faqs: [
@@ -653,19 +1009,70 @@ Crafted with brilliant crystal marquise cuts set in heavy 925 silver, these piec
     section3BodyAr: `تصل الطلبات داخل دبي وأبوظبي خلال 24 ساعة عبر مندوبي التوصيل الفاخر. اطلبي الآن عبر [omniastores.com](https://omniastores.com).`,
     featuredProducts: [
       {
-        id: 'prod-uae-national-parure-01',
-        nameEn: 'Omnia Sovereign Union Marquise Diamond Parure',
-        nameAr: 'طقم اتحاد السيادة الماسي بأحجار الماركيز',
-        priceAed: 1380,
-        priceSar: 1407,
-        originalPriceAed: 2300,
-        originalPriceSar: 2346,
+        id: 'prod-uae-emerald-choker',
+        nameEn: 'The Imperial Heritage 4-Strand Pearl & Colombian Emerald Choker',
+        nameAr: 'طوق التراث الإمبراطوري رباعي صفوف اللؤلؤ والزمرد الكولومبي',
+        tagEn: 'NATIONAL HERITAGE HIGH JEWELLERY',
+        tagAr: 'مجوهرات التراث الوطني الراقية',
+        badgeEn: 'UAE NATIONAL DAY SIGNATURE SUITE',
+        badgeAr: 'طقم اليوم الوطني لدولة الإمارات الحصري',
+        descEn: 'Four uniform strands of lustrous freshwater pearls anchored by three floral diamond motif plaques suspending smooth cabochon emerald drops.',
+        descAr: 'أربعة صفوف متناغمة من لؤلؤ المياه العذبة فائق اللمعان ترتبط بثلاثة أزهار ماسية ساحرة تتدلى منها قطرات الزمرد الكولومبي الناعمة.',
+        priceAed: 1890,
+        priceSar: 1928,
+        originalPriceAed: 3150,
+        originalPriceSar: 3213,
         discountPercentage: 40,
-        image: '/events/uae-national-day-gala-event.jpg',
-        productUrl: 'https://omniastores.com/collections/sets',
-        sku: 'OMN-UAE-01',
-        metal: 'Certified 925 Sterling Silver • DCL Assayed',
-        gem: '5A Brilliant & Marquise Cut Simulated Diamonds'
+        image: '/editorial-looks/imperial-emerald-pearl-choker.jpg',
+        productUrl: 'https://omniastores.com/collections/chokers-collection',
+        sku: 'OMN-EMR-06',
+        metal: 'Solid 925 Sterling Silver • Anti-Tarnish Rhodium Barrier',
+        gem: 'Natural Luminous Pearls & Simulated Colombian Emeralds',
+        highlightsEn: [
+          'Over 180 hand-strung, hand-knotted luminous freshwater pearls with mirror luster',
+          'Simulated Colombian emerald teardrops with rich verdant green saturation',
+          'Heavy solid 925 silver clasp with dual safety catch and anti-tarnish rhodium',
+          'Commemorative UAE National Day collector’s edition certificate from Omnia Stores'
+        ],
+        highlightsAr: [
+          'أكثر من 180 حبة لؤلؤ مياه عذبة منتقاة ومعقودة يدوياً ببريق لؤلؤي أخّاذ',
+          'قطرات زمرد كولومبي محاكاة بلون أخضر زمردي عميق تحاكي المجوهرات الملكية',
+          'مشبك فضة عيار 925 متين مع قفل أمان مزدوج وطبقة عازلة للأكسدة',
+          'شهادة إصدار تذكاري خاص لليوم الوطني الإماراتي من أمنية ستورز'
+        ]
+      },
+      {
+        id: 'prod-uae-national-day-suite',
+        nameEn: 'The Sovereign Chevron Diamond Collar & Winged Earrings',
+        nameAr: 'طوق الشيفون الملكي المزدوج وأقراط الأجنحة المتلألئة',
+        tagEn: 'SOVEREIGN HIGH JEWELLERY',
+        tagAr: 'مجوهرات السيادة الراقية',
+        badgeEn: 'ROYAL GALA EDITION',
+        badgeAr: 'طبعة حفلات الغالا الملكية',
+        descEn: 'Double-tier articulated chevron diamond choker designed with an ergonomic open-collar tension frame, paired with sculptural winged chandelier ear crawlers.',
+        descAr: 'طوق شيفون مزدوج مرصع بألماس محاكاة فائق البريق بتصميم مفتوح ومريح، متناغم مع أقراط الأجنحة المتدلية الساحرة.',
+        priceAed: 1850,
+        priceSar: 1890,
+        originalPriceAed: 3100,
+        originalPriceSar: 3150,
+        discountPercentage: 40,
+        image: '/advertising/chevron-diamond-sovereign-ad.jpg',
+        productUrl: 'https://omniastores.com/collections/bridal-collection',
+        sku: 'OMN-CHV-UAE',
+        metal: 'Precious Solid 925 Silver • 100% Nickel & Lead Free',
+        gem: 'High-Refractive Simulated Diamonds (RI 2.65)',
+        highlightsEn: [
+          'High-refractive simulated diamonds (RI 2.65) cut to ideal round and pear proportions',
+          'Flexible anatomical open-choker setting that rests naturally against the collarbone',
+          'Hypoallergenic, 100% nickel-free and lead-free precious silver construction',
+          'Delivered in an Omnia Stores signature velvet presentation case with authenticity dossier'
+        ],
+        highlightsAr: [
+          'أحجار محاكاة الألماس ذات معامل انكسار ضوئي 2.65 بقطع كمثري ودائري مثالي',
+          'هيكل طوق مفتوح مصمم هندسياً ليستقر بمرونة وانسيابية على عظام الترقوة',
+          'مضاد تماماً للحساسية وخالٍ 100% من النيكل والرصاص المسبب لتصبغ البشرة',
+          'يصل في علبة مخملية فاخرة مع ملف شهادة الفحص والأصالة المعتمدة'
+        ]
       }
     ],
     faqs: [
@@ -902,19 +1309,70 @@ Set in certified 925 sterling silver with tarnish-proof rhodium and rose gold co
     section3BodyAr: `هل تخطط لمفاجأة رومانسية؟ توفر أمنية ستورز تغليف شحن خارجي سري ومحايد لا يكشف المحتوى، بينما يحمل الصندوق الداخلي علبة مخملية حمراء فاخرة مختومة بالشمع عبر [omniastores.com](https://omniastores.com).`,
     featuredProducts: [
       {
-        id: 'prod-val-morganite-01',
-        nameEn: 'Omnia Sweet Devotion Blush Morganite & Diamond Suite',
-        nameAr: 'طقم وفاء المورجانيت الوردي الماسي لعيد الحب',
-        priceAed: 720,
-        priceSar: 734,
-        originalPriceAed: 1028,
-        originalPriceSar: 1048,
-        discountPercentage: 30,
-        image: '/events/valentines-day-gift-love-event.jpg',
+        id: 'prod-val-pink-sapphire',
+        nameEn: 'The Rose Princess Oval Pink Sapphire & Diamond Halo Pendant',
+        nameAr: 'قلادة الأميرة روز البيضاوية بالياقوت الوردي وهالة الألماس',
+        tagEn: 'DEMI-FINE PASTEL JEWELLERY',
+        tagAr: 'مجوهرات الباستيل الراقية',
+        badgeEn: 'VALENTINE VIP EXCLUSIVE',
+        badgeAr: 'حصري لعيد الحب والمناسبات الرومانسية',
+        descEn: 'Centerpiece oval-cut simulated pink sapphire surrounded by an articulated scalloped halo of brilliant-cut diamonds on a delicate station chain.',
+        descAr: 'حجر ياقوت وردي بيضاوي ناعم محاط بهالة مموجة ساحرة من أحجار الألماس البافيه على سلسلة ناعمة مرصعة بالمحطات الماسية.',
+        priceAed: 590,
+        priceSar: 602,
+        originalPriceAed: 990,
+        originalPriceSar: 1010,
+        discountPercentage: 40,
+        image: '/editorial-looks/pink-sapphire-halo-pendant.jpg',
         productUrl: 'https://omniastores.com/collections/necklaces',
-        sku: 'OMN-VAL-01',
-        metal: 'Certified 925 Silver • Rose Gold Accent',
-        gem: 'Blush Peach Simulated Morganite & 5A Diamond Pavé'
+        sku: 'OMN-PNK-05',
+        metal: 'Solid 925 Sterling Silver • Multi-Layer Rhodium Polish',
+        gem: 'Simulated Oval Pink Sapphire & Round Brilliant Diamonds',
+        highlightsEn: [
+          'Solid 925 Sterling Silver finished with multi-layer mirror rhodium polish',
+          'High-clarity simulated pink sapphire with soft romantic hue and maximum fire',
+          'Scalloped vintage-inspired micro-prong basket setting ensuring total stone security',
+          'Available on Tabby 4 installments with complimentary velvet gift presentation'
+        ],
+        highlightsAr: [
+          'فضة إسترلينية نقية عيار 925 مصقولة بطبقات الروديوم العاكس كالمرايا',
+          'حجر ياقوت وردي محاكي فائق النقاوة يفيض بالرقة والأنوثة والبريق',
+          'ترصيع تاجي كلاسيكي دقيق يثبت الأحجار بأمان تام دون أي مواد لاصقة',
+          'إمكانية التقسيط على 4 دفعات مريحة عبر تابي مع علبة هدايا مخملية مجانية'
+        ]
+      },
+      {
+        id: 'prod-val-ruby-suite',
+        nameEn: 'The Empress Teardrop Ruby & Solitaire Diamond Rivière',
+        nameAr: 'عقد ريفيير الياقوت الإمبراطوري الكمثري وأقراط القطرة',
+        tagEn: 'ROYAL RUBY RIVIÈRE',
+        tagAr: 'طقم ريفيير الياقوت الملكي',
+        badgeEn: 'LIMITED HOLIDAY EDITION',
+        badgeAr: 'طبعة الأعياد المحدودة',
+        descEn: 'Graduated teardrop simulated pigeon-blood rubies set in alternating bezel diamond links, culminating in a monumental pear-cut ruby focal pendant.',
+        descAr: 'أحجار ياقوت كمثرية متدرجة ذات بريق أحمر ساحر تتناوب مع حلقات الألماس لتنتهي بحجر ياقوت كمثري ضخم متدفق.',
+        priceAed: 1380,
+        priceSar: 1408,
+        originalPriceAed: 2300,
+        originalPriceSar: 2346,
+        discountPercentage: 40,
+        image: '/editorial-looks/crimson-teardrop-ruby-suite.jpg',
+        productUrl: 'https://omniastores.com/collections/sets',
+        sku: 'OMN-RBY-VAL',
+        metal: 'Certified 925 Silver • Electrolytic Rhodium Protective Barrier',
+        gem: '5A Pear-Cut Simulated Rubies & Round Brilliant Diamonds',
+        highlightsEn: [
+          'Solid 925 Sterling Silver core with protective electrolytic rhodium barrier',
+          'Flawless teardrop simulated rubies with intense optical clarity and brilliance',
+          'Hypoallergenic, 100% lead and nickel-free certified precious construction',
+          'Express courier fulfillment with insured delivery across UAE & Saudi Arabia'
+        ],
+        highlightsAr: [
+          'هيكل فضة إسترلينية 925 مع طبقة روديوم كهربائية عازلة للأكسدة',
+          'أحجار ياقوت كمثرية فائقة النقاء تمنحك إطلالة ملكية في المناسبات الكبرى',
+          'خالٍ تماماً 100% من النيكل والرصاص المسبب لتحسس البشرة',
+          'شحن سريع مؤمن وتوصيل مباشر خلال 24 ساعة في الإمارات والسعودية'
+        ]
       }
     ],
     faqs: [

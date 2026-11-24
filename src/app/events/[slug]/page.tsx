@@ -1,6 +1,6 @@
 'use client';
 
-import React, { use, useState, useEffect } from 'react';
+import React, { use, useState, useEffect, useRef } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
 import { 
@@ -23,7 +23,12 @@ import {
   Truck,
   CreditCard,
   Award,
-  BookOpen
+  BookOpen,
+  CheckCircle2,
+  ArrowUpRight,
+  Play,
+  Pause,
+  Film
 } from 'lucide-react';
 import { useLuxury } from '../../../components/ThemeProvider';
 import { SeoHead } from '../../../components/SeoHead';
@@ -41,6 +46,29 @@ export default function EventBlogPage({ params }: { params: Promise<{ slug: stri
   const [isPlayingAudio, setIsPlayingAudio] = useState(false);
   const [copiedLink, setCopiedLink] = useState(false);
   const [openFaqIndex, setOpenFaqIndex] = useState<number | null>(0);
+
+  // Video playback state
+  const [isPlayingVideo, setIsPlayingVideo] = useState(true);
+  const [isMutedVideo, setIsMutedVideo] = useState(true);
+  const videoRef = useRef<HTMLVideoElement>(null);
+
+  const togglePlayVideo = () => {
+    if (!videoRef.current) return;
+    if (videoRef.current.paused) {
+      videoRef.current.play().catch(() => {});
+      setIsPlayingVideo(true);
+    } else {
+      videoRef.current.pause();
+      setIsPlayingVideo(false);
+    }
+  };
+
+  const toggleMuteVideo = () => {
+    if (!videoRef.current) return;
+    const nextState = !isMutedVideo;
+    videoRef.current.muted = nextState;
+    setIsMutedVideo(nextState);
+  };
 
   // Audio speech synthesis simulation
   useEffect(() => {
@@ -542,6 +570,92 @@ export default function EventBlogPage({ params }: { params: Promise<{ slug: stri
             </div>
           </div>
 
+          {/* Interactive Luxury Video Player Card (Matching User Reference Preview) */}
+          {eventBlog.videoSrc && (
+            <div className="my-10 space-y-3">
+              <div className="flex items-center justify-between border-b border-gold/30 pb-2.5">
+                <div className="flex items-center gap-2">
+                  <Film className="w-4 h-4 text-gold" />
+                  <span className="text-[10px] font-mono uppercase tracking-widest text-[#8B6508] dark:text-gold font-bold">
+                    {isAr ? 'البث السينمائي المباشر للفعالية' : 'CINEMATIC EVENT BROADCAST'}
+                  </span>
+                </div>
+                <span className="px-2.5 py-0.5 rounded-full bg-red-600/20 text-red-500 font-mono text-[9px] font-bold border border-red-500/40 animate-pulse">
+                  OFFICIAL VIDEO REVEAL
+                </span>
+              </div>
+
+              <div className="relative rounded-3xl overflow-hidden bg-black border border-gold/40 shadow-2xl aspect-[16/9] w-full group">
+                <video
+                  ref={videoRef}
+                  src={eventBlog.videoSrc}
+                  muted={isMutedVideo}
+                  autoPlay
+                  loop
+                  playsInline
+                  className="w-full h-full object-cover"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-black/20 pointer-events-none" />
+
+                {/* Top Overlay Badges */}
+                <div className="absolute top-4 left-4 right-4 flex items-center justify-between gap-2 z-20">
+                  <span className="px-3 py-1 rounded-lg bg-black/80 backdrop-blur-md border border-gold/60 text-gold text-[10px] font-mono font-bold tracking-wider">
+                    {isAr ? (eventBlog.videoBadgeAr || 'كشف عروض الفعالية') : (eventBlog.videoBadgeEn || '11:11 Official Sale Reveal')}
+                  </span>
+                  <span className="px-2.5 py-1 rounded-md bg-red-600 text-white text-[10px] font-mono font-black tracking-widest shadow animate-pulse">
+                    REC
+                  </span>
+                </div>
+
+                {/* Center Big Play/Pause Button on Hover/Tap */}
+                <div className="absolute inset-0 flex items-center justify-center z-10 pointer-events-none">
+                  <button
+                    type="button"
+                    onClick={togglePlayVideo}
+                    className="pointer-events-auto w-14 h-14 rounded-full bg-black/60 backdrop-blur-md border border-gold/60 text-gold flex items-center justify-center hover:scale-110 active:scale-95 transition-all shadow-xl"
+                    aria-label={isPlayingVideo ? 'Pause Video' : 'Play Video'}
+                  >
+                    {isPlayingVideo ? <Pause className="w-6 h-6" /> : <Play className="w-6 h-6 ml-1" />}
+                  </button>
+                </div>
+
+                {/* Bottom Controls & Direct Deals CTA */}
+                <div className="absolute bottom-4 inset-x-4 flex flex-wrap items-center justify-between gap-3 z-20">
+                  <div className="flex items-center gap-2.5 bg-black/70 backdrop-blur-md py-1.5 px-3 rounded-full border border-white/10">
+                    <button
+                      type="button"
+                      onClick={togglePlayVideo}
+                      className="text-white hover:text-gold transition-colors"
+                      title={isPlayingVideo ? 'Pause' : 'Play'}
+                    >
+                      {isPlayingVideo ? <Pause className="w-4 h-4" /> : <Play className="w-4 h-4" />}
+                    </button>
+                    <span className="text-white/40">|</span>
+                    <button
+                      type="button"
+                      onClick={toggleMuteVideo}
+                      className="flex items-center gap-1.5 text-xs font-mono text-white hover:text-gold transition-colors"
+                      title={isMutedVideo ? 'Unmute' : 'Mute'}
+                    >
+                      {isMutedVideo ? <VolumeX className="w-4 h-4 text-neutral-400" /> : <Volume2 className="w-4 h-4 text-gold" />}
+                      <span className="text-[11px]">{isMutedVideo ? 'Click for Audio' : 'Audio On'}</span>
+                    </button>
+                  </div>
+
+                  <a
+                    href={eventBlog.videoCtaUrl || eventBlog.canonicalStoreUrl}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="px-5 py-2.5 rounded-full bg-gradient-to-r from-[#DFB743] via-[#FCEAA5] to-[#C99E32] text-black font-serif font-black text-xs uppercase tracking-wider shadow-[0_4px_20px_rgba(212,175,55,0.4)] hover:shadow-[0_6px_28px_rgba(212,175,55,0.6)] hover:scale-[1.02] active:scale-95 transition-all flex items-center gap-1.5"
+                  >
+                    <span>{isAr ? (eventBlog.videoCtaTextAr || 'صفقات الفعالية المباشرة') : (eventBlog.videoCtaTextEn || '11:11 DIRECT DEALS')}</span>
+                    <ArrowUpRight className="w-4 h-4" />
+                  </a>
+                </div>
+              </div>
+            </div>
+          )}
+
           {/* Section 2: Styling & Red Carpet Protocols */}
           <section className="space-y-4 mb-10">
             <h2 className="font-serif font-bold text-2xl sm:text-3xl text-neutral-950 dark:text-white pt-2 border-b border-neutral-200 dark:border-neutral-800 pb-3">
@@ -554,15 +668,15 @@ export default function EventBlogPage({ params }: { params: Promise<{ slug: stri
             </div>
           </section>
 
-          {/* Featured Product Recommendation Cards */}
-          <div className="my-10 space-y-6">
+          {/* Featured Product Recommendation Cards (Matching User Reference Image 4) */}
+          <div className="my-12 space-y-6">
             <div className="flex items-center justify-between border-b border-gold/30 pb-3">
               <div className="space-y-0.5">
-                <span className="text-[10px] font-mono uppercase tracking-widest text-gold font-bold">
-                  {isAr ? 'القطع المختارة حصرياً' : 'OFFICIAL CATALOGUE HIGHLIGHT'}
+                <span className="text-[10px] font-mono uppercase tracking-widest text-[#8B6508] dark:text-gold font-bold">
+                  {isAr ? 'القطع المختارة من منصة العرض' : 'OFFICIAL CATALOGUE HIGHLIGHT'}
                 </span>
-                <h3 className="font-serif font-bold text-xl text-neutral-950 dark:text-white">
-                  {isAr ? 'تسوق القطع المميزة مع شهادة الضمان' : 'Featured Event Masterpieces & Pricing'}
+                <h3 className="font-serif font-bold text-xl sm:text-2xl text-neutral-950 dark:text-white">
+                  {isAr ? 'روائع المجوهرات المختارة مع شهادة الضمان' : 'Featured Event Masterpieces & Pricing'}
                 </h3>
               </div>
               <span className="text-xs font-mono text-neutral-500">
@@ -570,72 +684,120 @@ export default function EventBlogPage({ params }: { params: Promise<{ slug: stri
               </span>
             </div>
 
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-4 sm:gap-6">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6 sm:gap-8">
               {eventBlog.featuredProducts.map((prod) => {
                 const price = currency === 'SAR' ? prod.priceSar : prod.priceAed;
                 const origPrice = currency === 'SAR' ? prod.originalPriceSar : prod.originalPriceAed;
+                const currencyLabel = currency === 'SAR' ? (isAr ? 'ر.س' : 'SAR') : (isAr ? 'د.إ' : 'AED');
                 const prodName = isAr ? prod.nameAr : prod.nameEn;
+                const prodTag = isAr ? (prod.tagAr || prod.metal) : (prod.tagEn || prod.metal);
+                const prodBadge = isAr ? (prod.badgeAr || 'قطعة حصرية من منصة العرض') : (prod.badgeEn || 'EXCLUSIVE RUNWAY MASTERPIECE');
+                const prodDesc = isAr ? prod.descAr : prod.descEn;
+                const highlights = isAr 
+                  ? (prod.highlightsAr || [
+                      `${prod.metal} - مع فحص مختبر دبي المركزي`,
+                      `${prod.gem} - نقاء فائق وبريق استثنائي`,
+                      'ترصيع إيطالي بالمخالب الدقيقة بدون أي مواد لاصقة',
+                      'توصيل سريع ومضمون خلال 24 ساعة في كافة مدن الخليج'
+                    ])
+                  : (prod.highlightsEn || [
+                      `${prod.metal} with electrolytic anti-tarnish rhodium barrier`,
+                      `${prod.gem} cut to ideal round and pear proportions`,
+                      'Micro-claw pavé setting with maximum diamond dispersion and zero-glue architecture',
+                      'Guaranteed 24-hour express courier delivery across Dubai, Abu Dhabi, & GCC'
+                    ]);
 
                 return (
-                  <div
+                  <article
                     key={prod.id}
-                    className="group rounded-2xl overflow-hidden bg-white dark:bg-[#0E131F] border border-neutral-300 dark:border-gold/30 hover:border-gold shadow-md hover:shadow-xl transition-all duration-300 flex flex-col justify-between"
+                    className="group relative rounded-3xl overflow-hidden bg-white dark:bg-[#0A0D15] border border-neutral-300 dark:border-gold/30 shadow-xl hover:shadow-2xl transition-all duration-500 flex flex-col w-full max-w-full justify-between"
                   >
                     <div>
-                      {/* Product Image Frame */}
-                      <div className="relative aspect-[16/9] w-full overflow-hidden bg-neutral-900">
+                      {/* Image Frame with Aspect Ratio */}
+                      <div className="relative w-full aspect-[4/3] sm:aspect-[16/10] overflow-hidden bg-neutral-900">
                         <Image
                           src={prod.image}
                           alt={prodName}
                           fill
-                          sizes="(max-width: 768px) 100vw, 450px"
-                          className="object-cover group-hover:scale-105 transition-transform duration-700"
+                          sizes="(max-width: 768px) 100vw, 600px"
+                          className="object-cover object-top sm:object-center group-hover:scale-105 transition-transform duration-1000 ease-out"
+                          priority
                         />
-                        <div className="absolute top-3 left-3 px-2 py-0.5 rounded-full bg-red-600 text-white font-mono text-[10px] font-bold shadow">
-                          -{prod.discountPercentage}% OFF
+                        <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-black/25 to-transparent pointer-events-none" />
+
+                        {/* Top Badges Overlay */}
+                        <div className="absolute top-3 sm:top-4 left-3 sm:left-4 right-3 sm:right-4 flex items-center justify-between gap-2 pointer-events-none">
+                          <span className="px-2.5 sm:px-3 py-1 rounded-full bg-black/75 backdrop-blur-md border border-gold/40 text-[9px] sm:text-[10px] font-mono font-bold text-[#D4AF37] tracking-wider uppercase shadow-md truncate">
+                            {prodBadge}
+                          </span>
+                          <span className="px-2.5 py-1 rounded-full bg-red-600/90 text-white font-mono text-[9px] sm:text-[10px] font-extrabold uppercase tracking-widest shadow-md shrink-0">
+                            {prod.discountPercentage}% OFF
+                          </span>
                         </div>
-                        <div className="absolute top-3 right-3 px-2 py-0.5 rounded-full bg-black/80 border border-gold/50 text-gold font-mono text-[9px] font-bold shadow">
-                          {prod.sku}
+
+                        {/* Bottom Photo Title Overlay */}
+                        <div className="absolute bottom-3 sm:bottom-4 left-3 sm:left-4 right-3 sm:right-4 text-white drop-shadow">
+                          <span className="text-[9px] sm:text-[10px] font-mono uppercase tracking-[0.2em] text-[#F9E8B8] block mb-1">
+                            {prodTag}
+                          </span>
+                          <h4 className="text-base sm:text-xl font-serif font-black leading-tight text-white group-hover:text-[#FCEAA5] transition-colors">
+                            {prodName}
+                          </h4>
                         </div>
                       </div>
 
-                      {/* Product Info */}
-                      <div className="p-4 sm:p-5 space-y-2">
-                        <h4 className="font-serif font-bold text-base text-neutral-950 dark:text-white group-hover:text-gold transition-colors line-clamp-2">
-                          {prodName}
-                        </h4>
-                        <div className="text-[11px] font-mono text-neutral-500 dark:text-neutral-400 space-y-0.5">
-                          <p>• {prod.metal}</p>
-                          <p>• {prod.gem}</p>
+                      {/* Product Body */}
+                      <div className="p-5 sm:p-6 space-y-4">
+                        {prodDesc && (
+                          <p className="text-xs sm:text-sm text-neutral-600 dark:text-neutral-300 font-serif leading-relaxed">
+                            {prodDesc}
+                          </p>
+                        )}
+
+                        {/* Bullet Highlights with Emerald Checkmarks */}
+                        <div className="space-y-2 py-2 border-y border-neutral-100 dark:border-white/5">
+                          {highlights.map((hl, i) => (
+                            <div key={i} className="flex items-start gap-2 text-xs font-serif text-neutral-700 dark:text-neutral-300">
+                              <CheckCircle2 className="w-4 h-4 text-emerald-500 shrink-0 mt-0.5" />
+                              <span>{hl}</span>
+                            </div>
+                          ))}
                         </div>
                       </div>
                     </div>
 
-                    {/* Price & Single-Click Purchase Button */}
-                    <div className="p-4 sm:p-5 pt-0 border-t border-neutral-100 dark:border-neutral-800/80 mt-2">
-                      <div className="pt-3 flex items-center justify-between gap-3">
+                    {/* Price & Direct Boutique Purchase CTA */}
+                    <div className="p-5 sm:p-6 pt-0 border-t border-neutral-100 dark:border-white/5 mt-2">
+                      <div className="pt-3 flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-4">
                         <div>
-                          <div className="text-[10px] font-mono text-neutral-400 line-through">
-                            {currency} {origPrice.toLocaleString()}
+                          <div className="text-[10px] font-mono text-neutral-400 uppercase tracking-widest">
+                            {isAr ? 'السعر الحصري المباشر:' : 'DIRECT BOUTIQUE PRICE:'}
                           </div>
-                          <div className="text-lg font-serif font-bold text-[#8B6508] dark:text-gold">
-                            {currency} {price.toLocaleString()}
+                          <div className="flex items-baseline gap-2">
+                            <span className="text-2xl sm:text-3xl font-serif font-black text-neutral-900 dark:text-[#D4AF37]">
+                              {currencyLabel} {price.toLocaleString()}
+                            </span>
+                            <span className="text-xs sm:text-sm font-mono text-neutral-400 line-through">
+                              {currencyLabel} {origPrice.toLocaleString()}
+                            </span>
                           </div>
                         </div>
 
+                        {/* Direct Shop on omniastores.com Button */}
                         <a
                           href={prod.productUrl}
                           target="_blank"
                           rel="noopener noreferrer"
-                          className="py-2.5 px-4 rounded-xl bg-gradient-to-r from-[#B8860B] via-[#D4AF37] to-[#AA8C2C] text-black font-serif font-bold text-xs flex items-center gap-1.5 shadow hover:brightness-110 transition-all shrink-0"
-                          title={`Buy ${prodName} on omniastores.com`}
+                          className="relative inline-flex items-center justify-center gap-2 px-5 sm:px-6 py-3 rounded-full bg-gradient-to-r from-[#DFB743] via-[#FCEAA5] to-[#C99E32] text-black font-serif font-black text-xs uppercase tracking-wider shadow-[0_4px_20px_rgba(212,175,55,0.4)] hover:shadow-[0_6px_28px_rgba(212,175,55,0.6)] hover:scale-[1.02] active:scale-95 transition-all duration-300 group/btn shrink-0"
+                          title={`Shop ${prodName} on omniastores.com`}
                         >
-                          <ShoppingBag className="w-3.5 h-3.5" />
-                          <span>{isAr ? 'شراء الآن ↗' : 'Buy on Omnia ↗'}</span>
+                          <ShoppingBag className="w-4 h-4 text-black group-hover/btn:rotate-12 transition-transform shrink-0" />
+                          <span>{isAr ? 'تسوق من المتجر الرسمي' : 'SHOP ON OMNIASTORES.COM'}</span>
+                          <ArrowUpRight className="w-4 h-4 shrink-0" />
                         </a>
                       </div>
                     </div>
-                  </div>
+                  </article>
                 );
               })}
             </div>

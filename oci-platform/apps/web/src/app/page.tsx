@@ -21,6 +21,7 @@ import { OmniaHauteCoutureBillboardAd } from '../components/OmniaHauteCoutureBil
 import { GccCityConciergeRibbon } from '../components/GccCityConciergeRibbon';
 import { VipGalaTestimonials } from '../components/VipGalaTestimonials';
 import { OmniaBacklinkDirectory } from '../components/OmniaBacklinkDirectory';
+import { OmniaEventEditorialShowcase } from '../components/OmniaEventEditorialShowcase';
 import { SeoHead } from '../components/SeoHead';
 import { useLuxury } from '../components/ThemeProvider';
 import { ArrowRight } from 'lucide-react';
@@ -47,6 +48,9 @@ export default function LuxuryEditorialHomepage() {
 
       {/* 4. Top Trending Wire & Grid with Embedded AEO AI Direct Answer */}
       <TrendingGrid />
+
+      {/* 4.2 Official Omnia Seasonal Events & Dedicated Editorial Blogs Showcase (10 Campaigns) */}
+      <OmniaEventEditorialShowcase />
 
       {/* Featured High-Visibility AEO Answer Box */}
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">

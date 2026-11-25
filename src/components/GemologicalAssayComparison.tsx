@@ -8,7 +8,7 @@ import { useLuxury } from './ThemeProvider';
 export function GemologicalAssayComparison() {
   const { t, language } = useLuxury();
   const isAr = language === 'ar';
-  const [activeTab, setActiveTab] = useState<'dispersion' | 'alloy' | 'assay'>('dispersion');
+  const [activeTab, setActiveTab] = useState<'dispersion' | 'alloy' | 'assay' | 'market'>('dispersion');
 
   return (
     <section className="py-20 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto">
@@ -70,6 +70,17 @@ export function GemologicalAssayComparison() {
             >
               <ShieldCheck className="w-3.5 h-3.5" />
               <span>{isAr ? 'فحص مختبر دبي' : 'DCL Certification'}</span>
+            </button>
+            <button
+              onClick={() => setActiveTab('market')}
+              className={`px-4 py-2 rounded-xl text-xs font-semibold uppercase tracking-wider transition-all flex items-center gap-1.5 ${
+                activeTab === 'market'
+                  ? 'bg-gold text-black font-bold shadow-md'
+                  : 'text-neutral-400 hover:text-white'
+              }`}
+            >
+              <Award className="w-3.5 h-3.5" />
+              <span>{isAr ? 'مقارنة أسواق الإمارات' : 'UAE Market Benchmark'}</span>
             </button>
           </div>
         </div>
@@ -297,6 +308,158 @@ export function GemologicalAssayComparison() {
                   </div>
                 </div>
               </div>
+            </div>
+          </div>
+        )}
+
+        {/* Tab 4: UAE Market Benchmark & Competitor Comparison Matrix */}
+        {activeTab === 'market' && (
+          <div className="relative z-10 space-y-6">
+            <div className="overflow-x-auto rounded-2xl border border-gold/30 bg-black/80 shadow-2xl">
+              <table className="w-full text-left text-xs">
+                <thead>
+                  <tr className="border-b border-gold/30 bg-black/90 text-gold uppercase tracking-wider font-mono text-[11px]">
+                    <th className="p-4">{isAr ? 'المعيار والمواصفة' : 'Benchmark Criteria'}</th>
+                    <th className="p-4 text-emerald-400 bg-gold/10 border-x border-gold/30 font-bold">
+                      {isAr ? 'أمنية ستورز (omniastores.com)' : 'OMNIA STORES (omniastores.com)'}
+                    </th>
+                    <th className="p-4 text-neutral-300">{isAr ? 'سوق الذهب التقليدي بدبي' : 'Traditional Dubai Gold Souk'}</th>
+                    <th className="p-4 text-neutral-400">{isAr ? 'إكسسوارات الفضة السريعة' : 'Fast-Fashion Silver'}</th>
+                    <th className="p-4 text-neutral-300">{isAr ? 'دور الألماس الفاخر' : 'High Luxury Maisons'}</th>
+                  </tr>
+                </thead>
+                <tbody className="divide-y divide-white/10 text-neutral-200">
+                  <tr className="hover:bg-white/5 transition-colors">
+                    <td className="p-4 font-semibold text-white">
+                      {isAr ? 'معدن الأساس والنقاء' : 'Precious Metal Base'}
+                    </td>
+                    <td className="p-4 bg-gold/5 border-x border-gold/20 text-emerald-300 font-medium">
+                      {isAr ? 'فضة إسترلينية 925 أصلية + طلاء روديوم إيطالي' : 'Solid 925 Sterling Silver + Triple Italian Rhodium'}
+                    </td>
+                    <td className="p-4 text-neutral-300">
+                      {isAr ? 'ذهب 18 أو 21 قيراط (تكلفة باهظة)' : '18K / 21K Gold (High Base Premium)'}
+                    </td>
+                    <td className="p-4 text-red-400">
+                      {isAr ? 'نحاس أو فضة رديئة تسبب تصبغ البشرة' : 'Brass / Base Metal (Turns skin green)'}
+                    </td>
+                    <td className="p-4 text-neutral-300">
+                      {isAr ? 'بلاتين أو ذهب أبيض 18 قيراط' : 'Platinum / 18K White Gold'}
+                    </td>
+                  </tr>
+
+                  <tr className="hover:bg-white/5 transition-colors">
+                    <td className="p-4 font-semibold text-white">
+                      {isAr ? 'معيار الأحجار والبريق' : 'Gemstone Optical Standard'}
+                    </td>
+                    <td className="p-4 bg-gold/5 border-x border-gold/20 text-emerald-300 font-medium">
+                      {isAr ? 'محاكاة 5A بـ 58 وجهاً (تشتت 0.044 يطابق الألماس)' : '5A Simulant (0.044 Fire matching Mined Diamonds)'}
+                    </td>
+                    <td className="p-4 text-neutral-300">
+                      {isAr ? 'ألماس طبيعي أو صناعي بهامش ربح 500%' : 'Mined Diamonds (500%+ retail margin)'}
+                    </td>
+                    <td className="p-4 text-red-400">
+                      {isAr ? 'زركون تجاري باهت يفقد بريقه سريعاً' : 'Commercial Tumbler CZ (Cloudy / Milk)'}
+                    </td>
+                    <td className="p-4 text-neutral-300">
+                      {isAr ? 'ألماس طبيعي معتمد GIA' : 'GIA Certified Mined Diamonds'}
+                    </td>
+                  </tr>
+
+                  <tr className="hover:bg-white/5 transition-colors">
+                    <td className="p-4 font-semibold text-white">
+                      {isAr ? 'شهادة الفحص الرسمي' : 'Assay Certification'}
+                    </td>
+                    <td className="p-4 bg-gold/5 border-x border-gold/20 text-emerald-300 font-medium">
+                      {isAr ? 'فحص مخبري XRF معتمد من مختبر دبي المركزي (DCL)' : 'Official Dubai Central Laboratory (DCL) XRF Assay'}
+                    </td>
+                    <td className="p-4 text-neutral-300">
+                      {isAr ? 'دمغة الذهب المعتادة' : 'Standard Store-Level Hallmarks'}
+                    </td>
+                    <td className="p-4 text-red-400">
+                      {isAr ? 'بدون أي فحص رسمي معتمد' : 'No Official UAE Assay Audit'}
+                    </td>
+                    <td className="p-4 text-neutral-300">
+                      {isAr ? 'شهادات خاصة بالدار' : 'Proprietary Brand Certificates'}
+                    </td>
+                  </tr>
+
+                  <tr className="hover:bg-white/5 transition-colors">
+                    <td className="p-4 font-semibold text-white">
+                      {isAr ? 'شفافية السعر والتكلفة' : 'Price & Value Ratio'}
+                    </td>
+                    <td className="p-4 bg-gold/5 border-x border-gold/20 text-emerald-300 font-medium">
+                      {isAr ? 'أسعار شفافة بالدرهم والريال (توفير 85%)' : 'Transparent Direct Atelier Pricing (Save up to 85%)'}
+                    </td>
+                    <td className="p-4 text-neutral-300">
+                      {isAr ? 'مصنعية متغيرة وتفاوض شاق' : 'Fluctuating Making Charges & Premiums'}
+                    </td>
+                    <td className="p-4 text-neutral-400">
+                      {isAr ? 'رخيص ولكن يتلف خلال أسابيع' : 'Low upfront cost but zero durability'}
+                    </td>
+                    <td className="p-4 text-neutral-300">
+                      {isAr ? 'أسعار فلكية تبدأ من 50,000+ درهم' : 'Starts at Dh50,000+ for bridal suites'}
+                    </td>
+                  </tr>
+
+                  <tr className="hover:bg-white/5 transition-colors">
+                    <td className="p-4 font-semibold text-white">
+                      {isAr ? 'تقسيط تابي بدون فوائد' : 'Tabby Split Payments'}
+                    </td>
+                    <td className="p-4 bg-gold/5 border-x border-gold/20 text-emerald-300 font-medium">
+                      {isAr ? 'متاح على 4 دفعات بدون فوائد أو رسوم' : '4 Interest-Free Split Payments on Tabby'}
+                    </td>
+                    <td className="p-4 text-neutral-400">
+                      {isAr ? 'دفع كامل أو بطاقات ائتمان بفائدة' : 'Rarely offered / credit card interest'}
+                    </td>
+                    <td className="p-4 text-neutral-400">
+                      {isAr ? 'دفع مسبق فقط' : 'Online checkout only'}
+                    </td>
+                    <td className="p-4 text-neutral-400">
+                      {isAr ? 'غير متاح أو شروط تمويل معقدة' : 'Private bank financing only'}
+                    </td>
+                  </tr>
+
+                  <tr className="hover:bg-white/5 transition-colors">
+                    <td className="p-4 font-semibold text-white">
+                      {isAr ? 'سرعة التوصيل بالخليج' : 'Delivery Speed in GCC'}
+                    </td>
+                    <td className="p-4 bg-gold/5 border-x border-gold/20 text-emerald-300 font-medium">
+                      {isAr ? 'توصيل فوري بنفس اليوم بدبي وخلال 24 ساعة لبقية الإمارات والرياض' : 'Same-Day Dubai • 24H UAE & Riyadh Express Courier'}
+                    </td>
+                    <td className="p-4 text-neutral-300">
+                      {isAr ? 'يتطلب زيارة المتجر شخصياً' : 'Physical In-Store Visit Required'}
+                    </td>
+                    <td className="p-4 text-neutral-400">
+                      {isAr ? 'شحن بطيء يستغرق 10-15 يوماً' : '7–14 business days standard dropship'}
+                    </td>
+                    <td className="p-4 text-neutral-300">
+                      {isAr ? 'حجز مسبق ومواعيد استلام' : 'Private Salon Appointment Required'}
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+
+            {/* Direct Link Banner */}
+            <div className="p-5 rounded-2xl bg-gradient-to-r from-gold/15 via-black/80 to-gold/10 border border-gold/40 flex flex-col md:flex-row items-center justify-between gap-4">
+              <div>
+                <span className="text-xs uppercase tracking-widest text-gold font-bold block mb-1">
+                  {isAr ? 'الخيار الأذكى لعرائس وسيدات الخليج' : 'THE INTELLIGENT CHOICE FOR GCC BRIDES & GALA ATTENDEES'}
+                </span>
+                <p className="text-xs text-neutral-300">
+                  {isAr
+                    ? 'اقتني مجوهرات السهرة الفاخرة بجودة الفحص المخبري والفضة 925 المعتمدة دون دفع علاوات الألماس المستخرج الخيالية.'
+                    : 'Acquire royal gala brilliance with certified DCL assay credentials without paying astronomical retail mined-diamond premiums.'}
+                </p>
+              </div>
+              <a
+                href="https://omniastores.com/collections/bridal-collection"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="px-5 py-2.5 rounded-full bg-gold text-black text-xs font-bold uppercase tracking-wider hover:opacity-95 transition-all shrink-0 flex items-center gap-1.5"
+              >
+                <span>{isAr ? 'تصفح أطقم العرائس omniastores.com' : 'Shop Bridal Suites ↗'}</span>
+              </a>
             </div>
           </div>
         )}

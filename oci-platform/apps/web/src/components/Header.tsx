@@ -30,56 +30,48 @@ export function Header() {
     <header className="sticky top-0 z-50 w-full max-w-full transition-colors duration-300">
       {/* 1. Animated Top Announcement Ticker */}
       <a
-        href="https://omniastores.com/collections/discounted-items"
+        href="https://omniastores.com/collections/bridal-sets"
         target="_blank"
         rel="noopener noreferrer"
-        title="Explore 11:11 Discounted Items on omniastores.com"
+        title="Explore Verified Luxury Jewellery Collections on omniastores.com"
         className="block w-full max-w-full bg-[#07090E] text-[#D4AF37] hover:text-white border-b border-[#D4AF37]/25 text-xs py-2 overflow-hidden relative transition-colors cursor-pointer group"
       >
         <div className="w-full max-w-full overflow-hidden" style={{ contain: 'paint' }}>
           <div className="flex items-center whitespace-nowrap animate-ticker pause-hover">
-          <span className="flex items-center mx-6 gap-2">
-            <span className="px-2 py-0.5 rounded bg-gradient-to-r from-red-600 via-amber-500 to-amber-600 text-white font-extrabold text-[10px] tracking-wider animate-pulse shadow-sm">
-              11:11 LIVE
+            <span className="flex items-center mx-6 gap-2">
+              <span className="px-2 py-0.5 rounded bg-gradient-to-r from-amber-600 via-gold to-amber-500 text-black font-extrabold text-[10px] tracking-wider shadow-sm">
+                EXCLUSIVE
+              </span>
+              <strong className="tracking-widest uppercase font-bold text-white">
+                {language === 'ar' ? 'استخدم كود OMNIA-VIP15 لخصم 15% على omniastores.com' : 'Use code OMNIA-VIP15 for 15% Off at omniastores.com'}
+              </strong>
+              <span className="px-1.5 py-0.5 rounded bg-black/80 border border-gold/60 text-gold font-mono font-bold">OMNIA-VIP15</span>
             </span>
-            <strong className="tracking-widest uppercase font-bold text-white">
-              {language === 'ar' ? 'أضخم تخفيضات السلة لهذا العام في الإمارات والخليج' : "The Year's Biggest Online Cart Drops Across the UAE & GCC"}
-            </strong>
-            <span className="px-1.5 py-0.5 rounded bg-black/80 border border-gold/60 text-gold font-mono font-bold">OMNIA1111</span>
-            <span className="text-amber-200">
-              {language === 'ar' ? 'خصم حتى 85% • صفقات تبدأ من 111 د.إ • وفّر حتى 3,000 د.إ على omniastores.com' : 'Up to 85% Off • Deals from Dh111 • Save up to Dh3,000 at omniastores.com'}
+            <span className="text-[#D4AF37]/40">◆</span>
+            <span className="flex items-center mx-6 gap-2">
+              <span className="px-1.5 py-0.5 rounded bg-gold/20 border border-gold/40 text-gold text-[10px] font-bold">GCC EDITORIAL WIRE</span>
+              <strong className="tracking-widest uppercase font-semibold text-white">
+                {language === 'ar' ? 'تغطية فوغ وجلف نيوز: روائع أطقم الزفاف والفضة الإسترلينية 925 من أمنية ستورز' : 'Vogue Arabia spotlights Omnia Stores 925 Bridal Masterpieces'}
+              </strong>
             </span>
-          </span>
-          <span className="text-[#D4AF37]/40">◆</span>
-          <span className="flex items-center mx-6 gap-2">
-            <span className="px-1.5 py-0.5 rounded bg-gold/20 border border-gold/40 text-gold text-[10px] font-bold">GULF NEWS FOCUS</span>
-            <strong className="tracking-widest uppercase font-semibold text-white">
-              {language === 'ar' ? 'تغطية جلف نيوز: انطلاق عروض 11.11 الكبرى لمجوهرات الفضة عيار 925' : 'Gulf News: Omnia Stores 11.11 Mega Sale Goes Live Across UAE'}
-            </strong>
-          </span>
-          <span className="text-[#D4AF37]/40">◆</span>
-          <span className="flex items-center mx-6 gap-2">
-            <span className="px-1.5 py-0.5 rounded bg-gold/20 border border-gold/40 text-gold text-[10px] font-bold">KHALEEJ TIMES</span>
-            <strong className="text-neutral-200">
-              {language === 'ar' ? 'خليج تايمز: صفقات فاخرة تبدأ من 111 درهم مع فحص مختبر دبي المركزي' : 'Khaleej Times: DCL Assay Certified Suites from Dh111'}
-            </strong>
-          </span>
-          <span className="text-[#D4AF37]/40">◆</span>
-          <span className="flex items-center mx-6 gap-2">
-            <Sparkles className="w-3.5 h-3.5 text-gold animate-spin" style={{ animationDuration: '6s' }} />
-            <strong>{t.tickerFulfillment}</strong>
-          </span>
-          <span className="text-[#D4AF37]/40">◆</span>
-          <span className="flex items-center mx-6 gap-2">
-            <span className="px-2 py-0.5 rounded bg-gradient-to-r from-red-600 via-amber-500 to-amber-600 text-white font-extrabold text-[10px] tracking-wider animate-pulse shadow-sm">
-              11:11 LIVE
+            <span className="text-[#D4AF37]/40">◆</span>
+            <span className="flex items-center mx-6 gap-2">
+              <span className="px-1.5 py-0.5 rounded bg-gold/20 border border-gold/40 text-gold text-[10px] font-bold">DCL ASSAY</span>
+              <strong className="text-neutral-200">
+                {language === 'ar' ? 'معتمد من مختبر دبي المركزي: فضة إسترلينية 925 أصلية خالية من النيكل' : 'Dubai Central Laboratory Assay Certified • 100% Solid 925 Silver'}
+              </strong>
             </span>
-            <strong className="tracking-widest uppercase font-bold text-white">
-              {language === 'ar' ? 'أضخم تخفيضات السلة لهذا العام' : "The Year's Biggest Online Cart Drops"}
-            </strong>
-            <span className="px-1.5 py-0.5 rounded bg-black/80 border border-gold/60 text-gold font-mono font-bold">OMNIA1111</span>
-          </span>
-        </div>
+            <span className="text-[#D4AF37]/40">◆</span>
+            <span className="flex items-center mx-6 gap-2">
+              <Sparkles className="w-3.5 h-3.5 text-gold animate-spin" style={{ animationDuration: '6s' }} />
+              <strong>{t.tickerFulfillment}</strong>
+            </span>
+            <span className="text-[#D4AF37]/40">◆</span>
+            <span className="flex items-center mx-6 gap-2">
+              <span className="px-1.5 py-0.5 rounded bg-emerald-500/20 border border-emerald-500/40 text-emerald-400 text-[10px] font-bold">CURRENCY PARITY</span>
+              <strong className="text-neutral-200">1 AED = 1.02 SAR • Instant Regional Settlement</strong>
+            </span>
+          </div>
         </div>
       </a>
 

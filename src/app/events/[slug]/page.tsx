@@ -227,17 +227,26 @@ export default function EventBlogPage({ params }: { params: Promise<{ slug: stri
         <header className="sticky top-0 z-40 bg-[#FAF7F0]/95 dark:bg-[#070A10]/95 backdrop-blur-xl border-b border-neutral-200 dark:border-gold/25 transition-colors">
           <div className="max-w-[1780px] mx-auto px-4 sm:px-6 lg:px-8 py-3.5 flex items-center justify-between gap-4">
             
-            {/* Brand Logo & Tagline */}
-            <div className="flex items-center gap-3 shrink-0">
-              <Link href="/" className="flex items-center gap-2 group">
-                <span className="font-serif font-black tracking-widest text-xl sm:text-2xl text-neutral-950 dark:text-white uppercase group-hover:text-[#B8860B] dark:group-hover:text-gold transition-colors">
-                  OMNIA
-                </span>
+            {/* Official THE VOGUE NEWS Wordmark Logo */}
+            <div className="flex items-center shrink-0">
+              <Link href="/" className="flex items-center group py-1 shrink-0" aria-label="The Vogue News Home">
+                <Image
+                  src="/the-vogue-news-white.png"
+                  alt="THE VOGUE NEWS"
+                  width={210}
+                  height={32}
+                  className="h-5 sm:h-7 md:h-8 w-auto object-contain hidden dark:block transition-all duration-300 group-hover:opacity-90 group-hover:drop-shadow-[0_0_12px_rgba(212,175,55,0.4)]"
+                  priority
+                />
+                <Image
+                  src="/the-vogue-news-black.png"
+                  alt="THE VOGUE NEWS"
+                  width={210}
+                  height={32}
+                  className="h-5 sm:h-7 md:h-8 w-auto object-contain block dark:hidden transition-all duration-300 group-hover:opacity-80"
+                  priority
+                />
               </Link>
-              <span className="hidden sm:inline-block w-px h-5 bg-neutral-300 dark:bg-gold/40" />
-              <span className="hidden sm:inline-block text-[10px] font-mono tracking-widest uppercase text-neutral-500 dark:text-neutral-400 font-bold">
-                EDITORIAL BUREAU
-              </span>
             </div>
 
             {/* Navigation Links */}

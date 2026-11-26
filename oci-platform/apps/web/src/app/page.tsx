@@ -119,9 +119,6 @@ export default function LuxuryEditorialHomepage() {
         />
       </div>
 
-      {/* 4.8 Official 11:11 Cinematic Video Campaign Showcase */}
-      <OmniaCinematicVideoAd />
-
       {/* 5. Interactive "Shop The Look" Magazine Spread with Pulsing Gold Pins */}
       <InteractiveShopTheLook />
 

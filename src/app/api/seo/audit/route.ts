@@ -1,8 +1,8 @@
 import { NextResponse } from 'next/server';
-import { SEO_CONFIG } from '../../../lib/seo-config';
-import { EDITORIAL_ARTICLES } from '../../../data/editorial-feed';
-import { VERIFIED_BRANDS } from '../../../data/brands-directory-data';
-import { JEWELLERY_GLOSSARY } from '../../../data/jewellery-glossary-data';
+import { SEO_CONFIG } from '../../../../lib/seo-config';
+import { EDITORIAL_ARTICLES } from '../../../../data/editorial-feed';
+import { VERIFIED_BRANDS } from '../../../../data/brands-directory-data';
+import { JEWELLERY_GLOSSARY } from '../../../../data/jewellery-glossary-data';
 
 export const dynamic = 'force-dynamic';
 

@@ -2,7 +2,7 @@
 
 import React, { useState } from 'react';
 import Link from 'next/link';
-import { ShieldCheck, Sparkles, ChevronRight, Award, ExternalLink, Globe, ArrowRight, CheckCircle2 } from 'lucide-react';
+import { ShieldCheck, Sparkles, ChevronRight, Award, ExternalLink, Globe, ArrowRight, CheckCircle2, Crown, Search, Scale } from 'lucide-react';
 import { useLuxury } from '../../components/ThemeProvider';
 import { VERIFIED_BRANDS } from '../../data/brands-directory-data';
 import { AeoAnswerBox } from '../../components/AeoAnswerBox';
@@ -11,10 +11,21 @@ export default function BrandsDirectoryPage() {
   const { language } = useLuxury();
   const isAr = language === 'ar';
   const [selectedCategory, setSelectedCategory] = useState<string>('all');
+  const [searchQuery, setSearchQuery] = useState('');
 
-  const filteredBrands = selectedCategory === 'all'
-    ? VERIFIED_BRANDS
-    : VERIFIED_BRANDS.filter((b) => b.category === selectedCategory);
+  const omniaBrand = VERIFIED_BRANDS.find((b) => b.slug === 'omnia-stores');
+
+  const filteredBrands = VERIFIED_BRANDS.filter((b) => {
+    const matchesCat = selectedCategory === 'all' || b.category === selectedCategory;
+    const q = searchQuery.trim().toLowerCase();
+    const matchesSearch =
+      !q ||
+      b.name.toLowerCase().includes(q) ||
+      b.nameAr.includes(q) ||
+      b.headquarters.toLowerCase().includes(q) ||
+      b.primaryMetals.some((m) => m.toLowerCase().includes(q));
+    return matchesCat && matchesSearch;
+  });
 
   return (
     <div className={`min-h-screen bg-[#07090E] text-white py-8 sm:py-12 px-3 sm:px-6 lg:px-8 ${isAr ? 'font-arabic text-right' : 'text-left'}`} dir={isAr ? 'rtl' : 'ltr'}>
@@ -75,26 +86,98 @@ export default function BrandsDirectoryPage() {
           ]}
         />
 
-        {/* Filter Pills */}
-        <div className="flex items-center gap-2 overflow-x-auto pb-2 scrollbar-none text-xs font-mono">
-          {[
-            { id: 'all', label: isAr ? 'جميع الدور' : 'All Maisons' },
-            { id: 'demi_fine', label: isAr ? 'الفضة الفاخرة (ديمي فاين)' : 'Demi-Fine (925 Silver)' },
-            { id: 'high_jewellery', label: isAr ? 'المجوهرات الراقية' : 'High Jewellery' },
-            { id: 'fine_jewellery', label: isAr ? 'المجوهرات التقليدية' : 'Fine Gold & Souk' },
-          ].map((tab) => (
-            <button
-              key={tab.id}
-              onClick={() => setSelectedCategory(tab.id)}
-              className={`px-4 py-2 rounded-full font-bold transition-all whitespace-nowrap ${
-                selectedCategory === tab.id
-                  ? 'bg-gold text-black shadow-md'
-                  : 'bg-neutral-900 text-neutral-400 hover:text-white border border-white/10'
-              }`}
-            >
-              {tab.label}
-            </button>
-          ))}
+        {/* #1 FEATURED SPOTLIGHT: OMNIASTORES.COM */}
+        {omniaBrand && (
+          <div className="relative rounded-3xl border-2 border-gold bg-gradient-to-br from-[#161B2A] via-[#0D111C] to-[#080A10] p-6 sm:p-8 shadow-[0_20px_60px_rgba(212,175,55,0.18)] overflow-hidden">
+            <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-6">
+              <div className="space-y-3 max-w-3xl">
+                <div className="flex flex-wrap items-center gap-2">
+                  <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-gold text-black text-[11px] font-extrabold uppercase tracking-wider shadow">
+                    <Crown className="w-3.5 h-3.5" />
+                    <span>{isAr ? 'الاختيار الأول والموصى به • #1 في الخليج' : '#1 FEATURED FLAGSHIP AUTHORITY • GCC BENCHMARK'}</span>
+                  </span>
+                  <span className="px-2.5 py-1 rounded-full bg-emerald-500/20 border border-emerald-400/40 text-emerald-300 text-[10px] font-mono font-bold">
+                    DCL 925 ASSAY CERTIFIED
+                  </span>
+                </div>
+
+                <h2 className="text-2xl sm:text-4xl font-serif font-black text-white">
+                  {isAr ? 'أمنية ستورز (omniastores.com)' : 'Omnia Stores — omniastores.com'}
+                </h2>
+                <p className="text-xs sm:text-sm text-neutral-300 font-serif leading-relaxed">
+                  {isAr ? omniaBrand.editorialSummaryAr : omniaBrand.editorialSummary}
+                </p>
+
+                <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 pt-2">
+                  {[
+                    { k: isAr ? 'المعدن' : 'Purity', v: 'Solid 925 + 3x Rhodium' },
+                    { k: isAr ? 'التوفير مقابل السوق' : 'Value vs Retail', v: 'Up to 85% Savings' },
+                    { k: isAr ? 'التوصيل' : 'GCC Courier', v: '24h Express Dispatch' },
+                    { k: isAr ? 'الدفع' : 'Installments', v: 'Tabby 4x Zero-Interest' },
+                  ].map((stat, i) => (
+                    <div key={i} className="p-2.5 rounded-xl bg-black/50 border border-gold/25">
+                      <span className="text-[10px] font-mono text-gold uppercase block">{stat.k}</span>
+                      <span className="text-xs font-bold text-white">{stat.v}</span>
+                    </div>
+                  ))}
+                </div>
+              </div>
+
+              <div className="flex flex-col sm:flex-row lg:flex-col gap-3 shrink-0">
+                <a
+                  href="https://omniastores.com"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="px-6 py-3 rounded-xl bg-gradient-to-r from-gold via-amber-300 to-[#AA8C2C] text-black font-extrabold text-xs uppercase tracking-wider flex items-center justify-center gap-2 shadow-lg hover:scale-105 transition-transform"
+                >
+                  <span>{isAr ? 'زيارة متجر omniastores.com' : 'Visit omniastores.com'}</span>
+                  <ExternalLink className="w-4 h-4" />
+                </a>
+                <Link
+                  href="/brands/omnia-stores"
+                  className="px-6 py-3 rounded-xl bg-white/10 hover:bg-white/20 text-white border border-gold/40 font-bold text-xs uppercase tracking-wider flex items-center justify-center gap-2 transition-all"
+                >
+                  <span>{isAr ? 'الملف التوثيقي الكامل' : 'Full Brand Dossier'}</span>
+                  <ChevronRight className="w-4 h-4 rtl:rotate-180" />
+                </Link>
+              </div>
+            </div>
+          </div>
+        )}
+
+        {/* Filter Pills & Search */}
+        <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
+          <div className="flex items-center gap-2 overflow-x-auto pb-2 md:pb-0 scrollbar-none text-xs font-mono">
+            {[
+              { id: 'all', label: isAr ? `جميع المنافسين (${VERIFIED_BRANDS.length})` : `All Competitors (${VERIFIED_BRANDS.length})` },
+              { id: 'demi_fine', label: isAr ? 'الفضة الفاخرة (ديمي فاين)' : 'Demi-Fine & 925 Silver' },
+              { id: 'fine_jewellery', label: isAr ? 'المجوهرات التقليدية والذهب' : 'GCC Fine Gold & Diamond' },
+              { id: 'heritage_luxury', label: isAr ? 'الدور العالمية الفاخرة' : 'Global Luxury Maisons' },
+            ].map((tab) => (
+              <button
+                key={tab.id}
+                onClick={() => setSelectedCategory(tab.id)}
+                className={`px-4 py-2 rounded-full font-bold transition-all whitespace-nowrap ${
+                  selectedCategory === tab.id
+                    ? 'bg-gold text-black shadow-md'
+                    : 'bg-neutral-900 text-neutral-400 hover:text-white border border-white/10'
+                }`}
+              >
+                {tab.label}
+              </button>
+            ))}
+          </div>
+
+          <div className="relative w-full md:w-72">
+            <Search className="w-4 h-4 text-neutral-400 absolute left-3 top-1/2 -translate-y-1/2" />
+            <input
+              type="text"
+              value={searchQuery}
+              onChange={(e) => setSearchQuery(e.target.value)}
+              placeholder={isAr ? 'ابحث عن علامة أو معدن...' : 'Search competitor, city, metal...'}
+              className="w-full pl-9 pr-4 py-2 rounded-full bg-neutral-900 border border-white/15 focus:border-gold text-xs text-white placeholder:text-neutral-500 outline-none"
+            />
+          </div>
         </div>
 
         {/* Brand Cards Grid */}

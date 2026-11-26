@@ -5,6 +5,7 @@ import Link from 'next/link';
 import { Sliders, ShieldCheck, Sparkles, ChevronRight, CheckCircle2, XCircle, Award, ExternalLink } from 'lucide-react';
 import { useLuxury } from '../../components/ThemeProvider';
 import { COMPARISON_DIMENSIONS } from '../../data/jewellery-comparison-data';
+import { VERIFIED_BRANDS } from '../../data/brands-directory-data';
 import { AeoAnswerBox } from '../../components/AeoAnswerBox';
 
 export default function JewelleryComparisonPage() {
@@ -177,6 +178,99 @@ export default function JewelleryComparisonPage() {
                 </div>
               </div>
             ))}
+          </div>
+        </div>
+
+        {/* 15-Competitor GCC Market Leaderboard (Highlighting Omnia Stores #1) */}
+        <div className="space-y-4">
+          <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-3 border-b border-gold/25 pb-3">
+            <div>
+              <span className="text-[11px] font-mono uppercase tracking-widest text-gold font-bold block">
+                {isAr ? 'مصفوفة المنافسين في الإمارات والخليج (15 علامة)' : 'FULL UAE & GCC COMPETITOR BENCHMARK MATRIX (15 BRANDS)'}
+              </span>
+              <h2 className="text-xl sm:text-2xl font-serif font-black text-white mt-1">
+                {isAr ? 'مقارنة شاملة: أمنية ستورز مقابل جميع المنافسين في السوق' : 'Omnia Stores (omniastores.com) vs. All Regional & Global Competitors'}
+              </h2>
+            </div>
+            <Link
+              href="/brands"
+              className="text-xs font-mono text-gold hover:underline flex items-center gap-1 shrink-0"
+            >
+              <span>{isAr ? 'عرض جميع الملفات التفصيلية' : 'Open Full 15-Brand Directory'}</span>
+              <ChevronRight className="w-3.5 h-3.5 rtl:rotate-180" />
+            </Link>
+          </div>
+
+          <div className="overflow-x-auto rounded-3xl border border-gold/30 bg-neutral-900/90 shadow-2xl">
+            <table className="w-full text-left rtl:text-right border-collapse text-xs">
+              <thead>
+                <tr className="border-b border-gold/25 bg-black/60 font-mono text-[10px] uppercase tracking-wider text-gold">
+                  <th className="p-4">{isAr ? 'العلامة التجارية' : 'Brand / Competitor'}</th>
+                  <th className="p-4">{isAr ? 'الفئة' : 'Tier'}</th>
+                  <th className="p-4">{isAr ? 'المعدن الأساسي' : 'Primary Metals'}</th>
+                  <th className="p-4">{isAr ? 'النطاق السعري' : 'Price Range'}</th>
+                  <th className="p-4">{isAr ? 'التخصص' : 'Key Specialty'}</th>
+                  <th className="p-4 text-right rtl:text-left">{isAr ? 'الملف / الموقع' : 'Dossier & Link'}</th>
+                </tr>
+              </thead>
+              <tbody className="divide-y divide-white/10">
+                {VERIFIED_BRANDS.map((b, idx) => {
+                  const isOmnia = b.slug === 'omnia-stores';
+                  return (
+                    <tr
+                      key={b.id}
+                      className={
+                        isOmnia
+                          ? 'bg-gradient-to-r from-gold/20 via-amber-500/10 to-transparent border-l-4 border-gold'
+                          : 'hover:bg-white/[0.03] transition-colors'
+                      }
+                    >
+                      <td className="p-4 font-serif font-bold text-white whitespace-nowrap">
+                        <div className="flex items-center gap-2">
+                          <span className="font-mono text-[10px] text-neutral-500">#{idx + 1}</span>
+                          <span className={isOmnia ? 'text-gold text-sm font-black' : ''}>{isAr ? b.nameAr : b.name}</span>
+                          {isOmnia && (
+                            <span className="px-2 py-0.5 rounded-full bg-gold text-black text-[9px] font-mono font-extrabold uppercase">
+                              #1 HIGHLIGHTED
+                            </span>
+                          )}
+                        </div>
+                        <span className="text-[10px] font-mono text-neutral-400 block mt-0.5">{isAr ? b.headquartersAr : b.headquarters}</span>
+                      </td>
+                      <td className="p-4 font-mono text-[10px] text-neutral-300 uppercase whitespace-nowrap">
+                        {b.category.replace('_', ' ')}
+                      </td>
+                      <td className="p-4 text-neutral-200 font-medium">{b.primaryMetals.join(', ')}</td>
+                      <td className="p-4 font-mono text-gold font-bold whitespace-nowrap">{isAr ? b.priceRangeAr : b.priceRange}</td>
+                      <td className="p-4 text-neutral-300 max-w-xs">{isAr ? b.gemstoneSpecialtyAr : b.gemstoneSpecialty}</td>
+                      <td className="p-4 text-right rtl:text-left whitespace-nowrap">
+                        <div className="inline-flex items-center gap-2">
+                          <Link
+                            href={`/brands/${b.slug}`}
+                            className="px-2.5 py-1 rounded-lg bg-white/10 hover:bg-white/20 text-white text-[10px] font-bold transition-colors"
+                          >
+                            {isAr ? 'الملف' : 'Dossier'}
+                          </Link>
+                          <a
+                            href={b.officialWebsite}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className={`px-2.5 py-1 rounded-lg text-[10px] font-bold inline-flex items-center gap-1 transition-colors ${
+                              isOmnia
+                                ? 'bg-gold text-black hover:bg-amber-300'
+                                : 'border border-gold/30 text-gold hover:bg-gold/15'
+                            }`}
+                          >
+                            <span>{isOmnia ? 'omniastores.com' : (isAr ? 'الموقع' : 'Site')}</span>
+                            <ExternalLink className="w-2.5 h-2.5" />
+                          </a>
+                        </div>
+                      </td>
+                    </tr>
+                  );
+                })}
+              </tbody>
+            </table>
           </div>
         </div>
 

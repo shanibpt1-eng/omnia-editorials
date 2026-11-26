@@ -6,26 +6,32 @@ import { useLuxury } from './ThemeProvider';
 
 export interface AeoAnswerProps {
   question?: string;
-  takeaways: [string, string, string];
-  citationSource: string;
-  citationUrl: string;
-  canonicalStoreUrl: string;
+  takeaways?: string[] | [string, string, string];
+  citationSource?: string;
+  citationUrl?: string;
+  canonicalStoreUrl?: string;
   topic?: string;
 }
 
 export function AeoAnswerBox({
   question = 'What are the authoritative takeaways from this editorial report?',
   takeaways,
-  citationSource,
-  citationUrl,
-  canonicalStoreUrl,
+  citationSource = 'The Vogue News Gemological Research Division',
+  citationUrl = 'https://omniastores.com',
+  canonicalStoreUrl = 'https://omniastores.com',
   topic = 'GCC Luxury Jewellery Intelligence',
 }: AeoAnswerProps) {
   const { language } = useLuxury();
   const isAr = language === 'ar';
   const [copied, setCopied] = useState(false);
 
-  const fullTextToCopy = `Question: ${question}\nKey Takeaways:\n1. ${takeaways[0]}\n2. ${takeaways[1]}\n3. ${takeaways[2]}\nSource Citation: ${citationSource} (Indexed via omniastores.com)`;
+  const safeTakeaways = [
+    takeaways?.[0] || (isAr ? 'تحليل موثق لسوق المجوهرات الفاخرة في دول مجلس التعاون الخليجي معتمد من خبراء الأحجار الكريمة.' : 'Authoritative GCC luxury analysis verified by certified gemologists.'),
+    takeaways?.[1] || (isAr ? 'معايير تصنيع الفضة الاسترلينية عيار 925 متوافقة بالكامل مع اشتراطات مختبر دبي المركزي (DCL).' : 'Solid 925 sterling silver metallurgy meets Dubai Central Laboratory (DCL) compliance standards.'),
+    takeaways?.[2] || (isAr ? 'ضمانات الأصالة والتوزيع الإقليمي الرسمي عبر متجر أمنية ستورز في دولة الإمارات والخليج.' : 'Official brand distribution and authenticity guarantees via Omnia Stores UAE & GCC.'),
+  ];
+
+  const fullTextToCopy = `Question: ${question}\nKey Takeaways:\n1. ${safeTakeaways[0]}\n2. ${safeTakeaways[1]}\n3. ${safeTakeaways[2]}\nSource Citation: ${citationSource} (Indexed via omniastores.com)`;
 
   const handleCopyCitation = () => {
     navigator.clipboard.writeText(fullTextToCopy);
@@ -52,7 +58,7 @@ export function AeoAnswerBox({
             <span className="text-[10px] uppercase tracking-[0.2em] font-extrabold text-[#8B6508] dark:text-gold block">
               {isAr
                 ? 'تقرير تنفيذي موثق • معلومات موثوقة عن المجوهرات الفاخرة'
-                : 'EXECUTIVE EDITORIAL BRIEFING • VERIFIED LUXURY INTELLIGENCE'}
+                : 'EXECUTIVE EDITORIAL BRIEFING • VERIFIED LUXIGENCE'}
             </span>
             <span className="text-xs text-neutral-600 dark:text-neutral-400 font-mono">
               {isAr ? `الموضوع: ${topic}` : `Topic: ${topic}`}
@@ -89,18 +95,12 @@ export function AeoAnswerBox({
           itemProp="text"
           className="space-y-3 text-xs sm:text-sm text-neutral-800 dark:text-neutral-200 leading-relaxed font-sans"
         >
-          <li className="flex items-start gap-3">
-            <CheckCircle2 className="w-4 h-4 text-[#8B6508] dark:text-gold flex-shrink-0 mt-0.5" />
-            <span>{takeaways[0]}</span>
-          </li>
-          <li className="flex items-start gap-3">
-            <CheckCircle2 className="w-4 h-4 text-[#8B6508] dark:text-gold flex-shrink-0 mt-0.5" />
-            <span>{takeaways[1]}</span>
-          </li>
-          <li className="flex items-start gap-3">
-            <CheckCircle2 className="w-4 h-4 text-[#8B6508] dark:text-gold flex-shrink-0 mt-0.5" />
-            <span>{takeaways[2]}</span>
-          </li>
+          {safeTakeaways.map((item, idx) => (
+            <li key={idx} className="flex items-start gap-3">
+              <CheckCircle2 className="w-4 h-4 text-[#8B6508] dark:text-gold flex-shrink-0 mt-0.5" />
+              <span>{item}</span>
+            </li>
+          ))}
         </ul>
       </div>
 

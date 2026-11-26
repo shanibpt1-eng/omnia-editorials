@@ -4,15 +4,16 @@ import React, { useState } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 import { usePathname } from 'next/navigation';
-import { Sun, Moon, Sparkles, ShoppingBag, ArrowUpRight, Menu, X } from 'lucide-react';
+import { Sun, Moon, Sparkles, ShoppingBag, ArrowUpRight, Menu, X, ChevronDown, Compass, BookOpen, Scale, Award, Calendar, Newspaper, Mic, FileText } from 'lucide-react';
 import { useLuxury } from './ThemeProvider';
 
 export function Header() {
   const pathname = usePathname();
   const { theme, setTheme, currency, setCurrency, language, setLanguage, t } = useLuxury();
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const [intelligenceOpen, setIntelligenceOpen] = useState(false);
 
-  // Core 5 consumer links for desktop navigation
+  // Core consumer links for desktop navigation
   const desktopNavLinks = [
     { label: t.navHome, href: '/' },
     { label: t.navTrending, href: '/trending' },
@@ -21,9 +22,17 @@ export function Header() {
     { label: t.navAbout, href: '/about' },
   ];
 
-  // Consumer links for mobile drawer
-  const mobileNavLinks = [
-    ...desktopNavLinks,
+  const intelligenceLinks = [
+    { label: language === 'ar' ? 'مركز معلومات الأزياء' : 'Fashion Intelligence', href: '/fashion-intelligence', icon: Compass, badge: 'NEW' },
+    { label: language === 'ar' ? 'مركز أبحاث المجوهرات' : 'Jewellery Knowledge', href: '/jewellery-knowledge', icon: BookOpen, badge: 'DCL' },
+    { label: language === 'ar' ? 'دليل العلامات المعتمدة' : 'Verified Brand Directory', href: '/brands', icon: Award, badge: 'VERIFIED' },
+    { label: language === 'ar' ? 'محرك مقارنة المجوهرات' : 'Comparison Engine', href: '/jewellery-comparison', icon: Scale, badge: 'BENCHMARK' },
+    { label: language === 'ar' ? 'غرفة الأخبار التحريرية' : 'Editorial Newsroom', href: '/newsroom', icon: Newspaper, badge: 'LIVE' },
+    { label: language === 'ar' ? 'حوارات الخبراء والمصممين' : 'Expert Interviews', href: '/interviews', icon: Mic, badge: 'EXCLUSIVE' },
+    { label: language === 'ar' ? 'أجندة فعاليات الموضة' : 'GCC Event Calendar', href: '/event-calendar', icon: Calendar, badge: '2025' },
+    { label: language === 'ar' ? 'مكتبة التقارير والأبحاث' : 'Research Reports', href: '/research-reports', icon: FileText, badge: 'PDF' },
+    { label: language === 'ar' ? 'معجم صياغة المجوهرات' : 'Jewellery Glossary', href: '/glossary', icon: BookOpen, badge: '50+ TERMS' },
+    { label: language === 'ar' ? 'مركز البيانات الصحفية' : 'Press Releases', href: '/press-releases', icon: FileText, badge: 'WIRE' },
   ];
 
   return (
@@ -122,6 +131,64 @@ export function Header() {
                 </Link>
               );
             })}
+
+            {/* Intelligence & Knowledge Mega Dropdown */}
+            <div
+              className="relative"
+              onMouseEnter={() => setIntelligenceOpen(true)}
+              onMouseLeave={() => setIntelligenceOpen(false)}
+            >
+              <button
+                onClick={() => setIntelligenceOpen(!intelligenceOpen)}
+                className={`relative py-1 text-xs tracking-[0.12em] 2xl:tracking-[0.18em] uppercase transition-all duration-200 whitespace-nowrap flex items-center gap-1 font-semibold dark:font-medium ${
+                  intelligenceOpen || pathname.startsWith('/fashion-intelligence') || pathname.startsWith('/jewellery-') || pathname.startsWith('/brands') || pathname.startsWith('/newsroom') || pathname.startsWith('/interviews') || pathname.startsWith('/event-calendar') || pathname.startsWith('/research-reports') || pathname.startsWith('/glossary') || pathname.startsWith('/press-releases')
+                    ? 'text-[#B8860B] dark:text-[#D4AF37] font-bold'
+                    : 'text-neutral-900 dark:text-neutral-300 hover:text-black dark:hover:text-white'
+                }`}
+              >
+                <span>{language === 'ar' ? 'مركز التحليلات' : 'Intelligence'}</span>
+                <ChevronDown className={`w-3.5 h-3.5 transition-transform duration-200 ${intelligenceOpen ? 'rotate-180' : ''}`} />
+              </button>
+
+              {intelligenceOpen && (
+                <div className="absolute top-full -left-20 w-[420px] pt-2 z-50 animate-fadeIn">
+                  <div className="p-4 rounded-2xl bg-white/95 dark:bg-[#0A0D14]/98 border border-neutral-200 dark:border-gold/30 shadow-2xl backdrop-blur-xl">
+                    <div className="text-[10px] uppercase font-bold tracking-widest text-[#8B6508] dark:text-gold mb-3 pb-2 border-b border-neutral-100 dark:border-gold/15 flex items-center justify-between">
+                      <span>{language === 'ar' ? 'منظومة المعرفة والتحليلات' : 'Editorial & Industry Intelligence'}</span>
+                      <span className="px-1.5 py-0.5 rounded bg-gold/15 text-gold text-[9px] font-mono">10 HUBS</span>
+                    </div>
+                    <div className="grid grid-cols-2 gap-2">
+                      {intelligenceLinks.map((hub) => {
+                        const Icon = hub.icon;
+                        const isCurrent = pathname === hub.href;
+                        return (
+                          <Link
+                            key={hub.href}
+                            href={hub.href}
+                            onClick={() => setIntelligenceOpen(false)}
+                            className={`p-2 rounded-xl flex items-start gap-2.5 transition-all text-left ${
+                              isCurrent
+                                ? 'bg-gold/20 text-[#8B6508] dark:text-gold font-bold'
+                                : 'hover:bg-neutral-100 dark:hover:bg-white/[0.04] text-neutral-800 dark:text-neutral-200'
+                            }`}
+                          >
+                            <div className="p-1.5 rounded-lg bg-gold/10 text-[#8B6508] dark:text-gold shrink-0 mt-0.5">
+                              <Icon className="w-3.5 h-3.5" />
+                            </div>
+                            <div className="min-w-0">
+                              <div className="flex items-center gap-1.5">
+                                <span className="text-xs font-semibold truncate block leading-tight">{hub.label}</span>
+                              </div>
+                              <span className="text-[9px] text-[#8B6508] dark:text-gold/80 font-mono uppercase tracking-wider">{hub.badge}</span>
+                            </div>
+                          </Link>
+                        );
+                      })}
+                    </div>
+                  </div>
+                </div>
+              )}
+            </div>
 
             {/* KSA Flagship Link */}
             <a
@@ -315,6 +382,29 @@ export function Header() {
                 {link.label}
               </Link>
             ))}
+
+            {/* Mobile Intelligence Hubs Section */}
+            <div className="border-t border-neutral-200 dark:border-gold/15 pt-3 my-1">
+              <span className="text-[11px] uppercase tracking-wider text-[#8B6508] dark:text-gold font-bold block mb-2">
+                {language === 'ar' ? 'مراكز التحليلات والمعرفة' : 'Intelligence & Research Hubs'}
+              </span>
+              <div className="grid grid-cols-2 gap-1.5">
+                {intelligenceLinks.map((hub) => (
+                  <Link
+                    key={hub.href}
+                    href={hub.href}
+                    onClick={() => setMobileMenuOpen(false)}
+                    className={`p-2 rounded-lg text-[10px] font-medium transition-colors ${
+                      pathname === hub.href
+                        ? 'bg-gold/20 text-[#8B6508] dark:text-gold font-bold'
+                        : 'bg-neutral-100 dark:bg-white/[0.04] text-neutral-800 dark:text-neutral-300 hover:text-black dark:hover:text-white'
+                    }`}
+                  >
+                    {hub.label}
+                  </Link>
+                ))}
+              </div>
+            </div>
 
             {/* KSA Flagship Link in Mobile Drawer */}
             <a

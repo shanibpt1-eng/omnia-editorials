@@ -116,6 +116,31 @@ function loadLogs(): BotLogEntry[] {
 }
 
 /**
+ * Official Crawler Identity Verification via Hostname / Reverse DNS checks
+ * Validates Googlebot (*.googlebot.com, *.google.com) and Bingbot (*.search.msn.com)
+ */
+export function verifyCrawlerHost(hostname: string, botName: string): boolean {
+  if (!hostname) return false;
+  const h = hostname.toLowerCase();
+  if (botName === 'Googlebot' || botName.includes('Google')) {
+    return h.endsWith('.googlebot.com') || h.endsWith('.google.com');
+  }
+  if (botName === 'Bingbot' || botName.includes('Bing')) {
+    return h.endsWith('.search.msn.com');
+  }
+  if (botName === 'OAI-SearchBot' || botName === 'ChatGPT-User' || botName === 'GPTBot') {
+    return h.includes('openai.com');
+  }
+  if (botName === 'PerplexityBot') {
+    return h.includes('perplexity.ai');
+  }
+  if (botName === 'Applebot') {
+    return h.endsWith('.applebot.apple.com');
+  }
+  return false;
+}
+
+/**
  * Identify bot from User-Agent string
  */
 export function identifyBot(userAgent: string): { name: string; category: BotCategory } {

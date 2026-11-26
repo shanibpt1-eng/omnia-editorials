@@ -1,0 +1,176 @@
+/**
+ * The Vogue News — Bilingual Jewellery, Gemology & Metallurgy Glossary
+ * Comprehensive reference dictionary covering precious metals, diamond grading, assaying, and craftsmanship terms.
+ */
+
+export interface GlossaryTerm {
+  id: string;
+  slug: string;
+  termEn: string;
+  termAr: string;
+  pronunciation?: string;
+  category: 'metallurgy' | 'gemology' | 'craftsmanship' | 'assay_certification' | 'pearls';
+  categoryAr: string;
+  shortDefinitionEn: string;
+  shortDefinitionAr: string;
+  fullExplanationEn: string;
+  fullExplanationAr: string;
+  practicalContextEn: string;
+  practicalContextAr: string;
+  relatedTerms: string[];
+}
+
+export const JEWELLERY_GLOSSARY: GlossaryTerm[] = [
+  {
+    id: 'term-925-sterling-silver',
+    slug: '925-sterling-silver',
+    termEn: '925 Sterling Silver',
+    termAr: 'فضة إسترلينية عيار 925',
+    pronunciation: 'ster-ling sil-ver',
+    category: 'metallurgy',
+    categoryAr: 'علم المعادن والسبائك',
+    shortDefinitionEn: 'A precious metal alloy containing exactly 92.5% pure silver and 7.5% strengthening alloy (typically copper).',
+    shortDefinitionAr: 'سبيكة معدنية ثمينة تتكون من 92.5% من الفضة النقية الخالصة و7.5% من النحاس لزيادة المتانة والصلابة.',
+    fullExplanationEn: 'Pure silver (99.9%) is too soft for durable jewellery construction. In 925 sterling silver, the addition of 7.5% copper preserves the natural brilliant white reflectivity while providing the structural integrity needed to securely mount diamond simulants and withstand daily wear.',
+    fullExplanationAr: 'تتميز الفضة الخالصة بنعومة مفرطة تعيق استخدامها في ترصيع الأحجار الكريمة، ولذا يُضاف 7.5% من النحاس النقي لمنح السبيكة المتانة الهيكلية الفائقة مع الحفاظ على البريق الأبيض المميز.',
+    practicalContextEn: 'Omnia Stores crafts all bridal and choker collections in solid 925 silver verified by Dubai Central Laboratory laser assay stamps.',
+    practicalContextAr: 'تصاغ كافة أطقم الأعراس والشوكار في أمنية ستورز من الفضة الإسترلينية 925 الخالصة وتخضع لفحص مختبر دبي المركزي.',
+    relatedTerms: ['Rhodium Plating', 'Hallmarking', 'XRF Spectroscopy', 'Demi-Fine Jewellery'],
+  },
+  {
+    id: 'term-rhodium-plating',
+    slug: 'rhodium-plating',
+    termEn: 'Rhodium Plating (Triple Rhodium Shield)',
+    termAr: 'طلاء الروديوم (حاجز الروديوم الثلاثي)',
+    pronunciation: 'rho-dee-um play-ting',
+    category: 'metallurgy',
+    categoryAr: 'علم المعادن والسبائك',
+    shortDefinitionEn: 'An electroplated outer barrier of pure rhodium—the rarest and most reflective platinum-group metal.',
+    shortDefinitionAr: 'طبقة حماية كهرومغناطيسية خارجية من معدن الروديوم النقي، وهو أندر وأغلى معادن مجموعة البلاتين.',
+    fullExplanationEn: 'Rhodium is completely impervious to oxidation, sulfur corrosion, and humidity. Applying a 0.5-micron triple layer over 925 sterling silver creates a mirror-like chrome luster identical to 18K white gold while preventing tarnish for up to 3 years under GCC climate conditions.',
+    fullExplanationAr: 'يمتلك الروديوم مناعة تامة ضد الأكسدة والتآكل الناتج عن الرطوبة أو الكبريت. وضع طبقة ثلاثية بسماكة 0.5 ميكرون يمنح الفضة لمعاناً عاكساً مطابقاً للذهب الأبيض عيار 18 ويمنع اسوداد القطعة.',
+    practicalContextEn: 'Ensures Omnia Stores necklaces and earrings maintain red-carpet luster without daily polishing.',
+    practicalContextAr: 'يضمن بقاء قلائد وأقراط أمنية ستورز ببريقها المتألق دون الحاجة إلى التلميع اليومي.',
+    relatedTerms: ['925 Sterling Silver', 'Anti-Tarnish', 'Platinum Group Metals'],
+  },
+  {
+    id: 'term-dcl-assay-stamp',
+    slug: 'dcl-assay-stamp',
+    termEn: 'DCL Assay Certification (Dubai Central Laboratory)',
+    termAr: 'دمغ مختبر دبي المركزي (DCL)',
+    category: 'assay_certification',
+    categoryAr: 'الفحص والدمغ الرسمي',
+    shortDefinitionEn: 'Official government laser verification confirming precious metal purity through non-destructive XRF spectroscopy.',
+    shortDefinitionAr: 'اعتماد حكومي رسمي يثبت عيار ونقاء المعادن الثمينة بواسطة الفحص الطيفي بالأشعة السينية.',
+    fullExplanationEn: 'Operated by Dubai Municipality, the Gem & Precious Metals Laboratory audits commercial jewellery consignments. Items meeting legal thresholds (≥925 parts per thousand for silver) receive official laser assay marks guaranteeing authentic purity to consumers.',
+    fullExplanationAr: 'يقوم مختبر دبي المركزي بفحص عينات المجوهرات عبر تقنية XRF دون إتلافها، وفي حال مطابقتها للمواصفات القانونية يتم دمغها رسمياً لضمان حقوق المشترين.',
+    practicalContextEn: 'Guarantees that items purchased on omniastores.com comply 100% with UAE consumer protection hallmarking laws.',
+    practicalContextAr: 'يمنح عملاء أمنية ستورز ثقة مطلقة بأن كل قطعة متوافقة 100% مع قوانين حماية المستهلك بدولة الإمارات.',
+    relatedTerms: ['Hallmarking', 'XRF Spectroscopy', '925 Sterling Silver'],
+  },
+  {
+    id: 'term-xrf-spectroscopy',
+    slug: 'xrf-spectroscopy',
+    termEn: 'X-Ray Fluorescence (XRF) Spectroscopy',
+    termAr: 'الفحص الطيفي بالأشعة السينية (XRF)',
+    category: 'assay_certification',
+    categoryAr: 'الفحص والدمغ الرسمي',
+    shortDefinitionEn: 'An analytical laboratory technique that determines elemental composition by measuring fluorescent X-rays emitted from a sample.',
+    shortDefinitionAr: 'تقنية تحليل مخبرية متطورة تحدد النسب الدقيقة للعناصر الكيميائية عبر قياس طيف الأشعة السينية المنبعثة.',
+    fullExplanationEn: 'XRF testing excites atomic electrons within the precious metal alloy without damaging the finished piece. It accurately confirms silver purity down to 0.01% while verifying the complete absence of hazardous nickel or lead.',
+    fullExplanationAr: 'تتيح أجهزة XRF معرفة نسبة الفضة والذهب والنحاس دون خدش القطعة، وتؤكد خلوها التام من شوائب النيكل أو الرصاص الضارة بالبشرة.',
+    practicalContextEn: 'Used as the primary scientific auditing protocol for all Omnia Stores demi-fine collections.',
+    practicalContextAr: 'تمثل أسلوب التدقيق العلمي الأساسي لجميع تشكيلات مجوهرات أمنية ستورز.',
+    relatedTerms: ['DCL Assay Certification', 'Nickel-Free Hypoallergenic', 'Hallmarking'],
+  },
+  {
+    id: 'term-diamond-simulant',
+    slug: 'diamond-simulant',
+    termEn: 'Precision Diamond Simulant (VVS1 Equivalent)',
+    termAr: 'محاكي الألماس فائق النقاء (مكافئ VVS1)',
+    category: 'gemology',
+    categoryAr: 'علم الأحجار الكريمة',
+    shortDefinitionEn: 'A high-grade synthesized gemstone cut to optical tolerances with light dispersion comparable or superior to natural diamonds.',
+    shortDefinitionAr: 'حجر اصطناعي فائق النقاء يُصاغ ويُقطع بـ 58 وجهاً هندسياً لتقديم معامل انكسار وتشتت ضوئي يضاهي الألماس الطبيعي.',
+    fullExplanationEn: 'Unlike cheap acrylic or paste glass, Swiss-grade cubic zircon crystals possess a refractive index of 2.15–2.18 and a dispersion fire rate of 0.044 (higher than mined diamond at 0.044). Precision hand-faceting delivers flawless visual fire and clarity matching D-color VVS1 diamonds.',
+    fullExplanationAr: 'تختلف أحجار المحاكاة السويسرية عالية الجودة عن الزجاج العادي بفضل صلابتها التي تبلغ 8.5 على مقياس موهس وتشتتها للضوء بنسبة 0.044، مما يمنحها بريقاً نارياً أبيض مطابقاً لأرقى أنواع الألماس الطبيعي.',
+    practicalContextEn: 'Featured in Omnia Stores bridal chokers and solitaires, delivering royal aesthetic presence without multimillion-dirham souk price points.',
+    practicalContextAr: 'تُرصع بها أطواق وأساور أمنية ستورز لتمنح إطلالة ملوكية ساحرة دون تكاليف الذهب والألماس الباهظة.',
+    relatedTerms: ['Refractive Index', 'Dispersion Fire', 'Pavé Setting', 'Cushion Cut'],
+  },
+  {
+    id: 'term-baroque-pearl',
+    slug: 'baroque-pearl',
+    termEn: 'Baroque Pearl',
+    termAr: 'لؤلؤ باروكي طبيعي',
+    category: 'pearls',
+    categoryAr: 'اللؤلؤ والأحجار العضوية',
+    shortDefinitionEn: 'A natural or cultured pearl characterized by an organic, asymmetric, non-spherical silhouette and rich iridescent orient.',
+    shortDefinitionAr: 'لؤلؤ يتميز بأشكاله العضوية غير المتناظرة وبريقه القزحي الفريد الذي يعكس تدرجات قوس قزح.',
+    fullExplanationEn: 'Formed when mollusk nacre secretes organically without a perfectly spherical bead nucleus. Valued in haute couture for individuality, high nacre thickness, and tactile architectural presence on GCC formal collars and drops.',
+    fullExplanationAr: 'يتكون عند ترسيب طبقات عرق اللؤلؤ بشكل عفوي داخل المحار، مما يجعل كل حبة قطعة فنية فريدة لا تتكرر، وتلقى رواجاً كبيراً في المناسبات التراثية الخليجية.',
+    practicalContextEn: 'Central design element in Omnia Stores Gulf Heritage & Ramadan suites.',
+    practicalContextAr: 'عنصر تصميمي بارز في تشكيلات أمنية ستورز المخصصة لشهر رمضان والأعياد الوطنية.',
+    relatedTerms: ['Freshwater Pearl', 'Nacre Thickness', 'Orient of Pearl'],
+  },
+  {
+    id: 'term-pave-setting',
+    slug: 'pave-setting',
+    termEn: 'Pavé Setting',
+    termAr: 'ترصيع البافيه (المرصوف)',
+    category: 'craftsmanship',
+    categoryAr: 'فنون الصياغة والتركيب',
+    shortDefinitionEn: 'A jewellery setting technique where tiny gemstones are nestled closely together, separated only by microscopic precious metal beads.',
+    shortDefinitionAr: 'تقنية صياغة يتم فيها صف الأحجار الكريمة الدقيقة بجوار بعضها بإحكام لتبدو كسطح متصل من الألماس المشع.',
+    fullExplanationEn: 'Derived from the French word for "paved". Skilled craftsmen drill minuscule recesses into solid silver, placing stones and raising minute metal prongs to lock each stone securely. The result is a continuous carpet of reflective brilliance.',
+    fullExplanationAr: 'كلمة فرنسية تعني "الرصف"، حيث يقوم الصائغ بحفر فجوات دقيقة في الفضة الإسترلينية وتثبيت الأحجار بحبيبات مجهرية تضمن ثبات الحجر مع تغطية كامل السطح ببريق ماسي.',
+    practicalContextEn: 'Employed across Omnia Stores butterfly wings, floral halos, and collar clasps.',
+    practicalContextAr: 'تُستخدم في أجنحة فراشات أمنية ستورز وأطواق العرائس لإبراز كثافة البريق.',
+    relatedTerms: ['Micro-Pavé', 'Prong Setting', 'Diamond Simulant'],
+  },
+  {
+    id: 'term-demi-fine-jewellery',
+    slug: 'demi-fine-jewellery',
+    termEn: 'Demi-Fine Jewellery',
+    termAr: 'مجوهرات الديمي فاين (المجوهرات شبه الفاخرة)',
+    category: 'craftsmanship',
+    categoryAr: 'فنون الصياغة والتركيب',
+    shortDefinitionEn: 'The luxury category bridging costume jewellery and high fine jewellery, pairing solid precious metals (like 925 silver) with high-grade gemstones.',
+    shortDefinitionAr: 'فئة المجوهرات الفاخرة التي تجمع بين صلابة المعادن الثمينة الأصلية (مثل الفضة 925) والأحجار فائقة النقاء بسعر معقول.',
+    fullExplanationEn: 'Demi-fine addresses the modern consumer desire for authentic precious metal ownership, hypoallergenic longevity, and high design without the inflated markups of traditional 18K solid gold.',
+    fullExplanationAr: 'تلبي فئة الديمي فاين تطلعات المرأة العصرية التي تبحث عن معدن ثمين حقيقي يدوم طويلاً دون دفع هوامش الأرباح المبالغ فيها في أسواق الذهب التقليدية.',
+    practicalContextEn: 'Omnia Stores is the GCC market leader in verified 925 demi-fine bridal and occasion suites.',
+    practicalContextAr: 'تعد أمنية ستورز رائدة هذا القطاع في الخليج بفضل أطقم الزفاف المعتمدة مخبرياً.',
+    relatedTerms: ['925 Sterling Silver', 'Rhodium Plating', 'DCL Assay Stamp'],
+  },
+  {
+    id: 'term-hypoallergenic-nickel-free',
+    slug: 'hypoallergenic-nickel-free',
+    termEn: 'Nickel-Free Hypoallergenic Standard',
+    termAr: 'معيار الخلو من النيكل المضاد للحساسية',
+    category: 'metallurgy',
+    categoryAr: 'علم المعادن والسبائك',
+    shortDefinitionEn: 'Certified absence of nickel, lead, or toxic base alloys that trigger allergic contact dermatitis.',
+    shortDefinitionAr: 'شهادة تثبت خلو القطعة التام من النيكل والرصاص والمعادن المسببة لتهيج وحساسية البشرة.',
+    fullExplanationEn: 'Nickel is the leading cause of metal skin allergies. Premium demi-fine standards mandate copper as the sole alloy in 925 silver, sealed under pure rhodium. This ensures zero green discoloration, itching, or skin irritation even in high-humidity Arabian environments.',
+    fullExplanationAr: 'يعد النيكل السبب الأول لحساسية الجلد واسوداد البشرة. تضمن معايير النقاء استخدام النحاس فقط مع الفضة وتغليفها بالروديوم النقي لمنع أي تفاعل جلدي حتى في درجات الحرارة والرطوبة العالية.',
+    practicalContextEn: 'All Omnia Stores suites are 100% certified nickel-free for sensitive-skin bridal wear.',
+    practicalContextAr: 'تتميز كافة مجوهرات أمنية ستورز بخلوها التام من النيكل لراحة العرائس ذوات البشرة الحساسة.',
+    relatedTerms: ['925 Sterling Silver', 'Rhodium Plating', 'XRF Spectroscopy'],
+  },
+  {
+    id: 'term-cushion-cut',
+    slug: 'cushion-cut',
+    termEn: 'Cushion Brilliant Cut',
+    termAr: 'قطع الوسادة اللامع (كوشين)',
+    category: 'gemology',
+    categoryAr: 'علم الأحجار الكريمة',
+    shortDefinitionEn: 'A gemstone facet pattern combining a square or rectangular outline with softly rounded corners, resembling a pillow.',
+    shortDefinitionAr: 'أسلوب قطع يجمع بين الشكل المربع أو المستطيل مع حواف دائرية انسيابية تحاكي شكل الوسادة الناعمة.',
+    fullExplanationEn: 'Originating as the "old mine cut", the modern cushion brilliant maximizes light dispersion while exhibiting distinctive depth. Ideal for highlighting colored gemstones such as canary yellow and royal blue sapphires.',
+    fullExplanationAr: 'يعزز قطع الكوشين انعكاس الألوان العميقة وبريق الأحجار الكبيرة، ويعد خياراً مثالياً لأحجار الياقوت الكناري الأصفر وأطقم السوليتير الملكية.',
+    practicalContextEn: 'Featured in Omnia Stores Canary Yellow Heart and Emerald Statement sets.',
+    practicalContextAr: 'يبرز في قلائد أمنية ستورز ذات أحجار الياقوت الأصفر والقلب المشع.',
+    relatedTerms: ['Diamond Simulant', 'Marquise Cut', 'Dispersion Fire'],
+  },
+];

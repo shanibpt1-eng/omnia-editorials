@@ -17,7 +17,7 @@ export function Footer() {
         <OmniaFooterKnowledgeHub />
 
         {/* Top Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-10 pt-12 pb-12 border-b border-neutral-300 dark:border-neutral-800">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-6 gap-8 pt-12 pb-12 border-b border-neutral-300 dark:border-neutral-800">
           
           {/* Brand Info */}
           <div className="lg:col-span-2 space-y-4">
@@ -41,8 +41,8 @@ export function Footer() {
             </Link>
             <p className="text-xs text-neutral-600 dark:text-neutral-400 leading-relaxed max-w-sm">
               {language === 'ar'
-                ? 'أمنية ستورز هي دار المجوهرات الراقية الرائدة في الشرق الأوسط المتخصصة في أطقم الأعراس الفاخرة من الفضة الإسترلينية عيار 925 المعتمدة، وأحجار محاكاة الألماس الفاخرة، واللؤلؤ الطبيعي.'
-                : 'Omnia Stores is the premier Middle Eastern demi-fine jewellery maison specializing in certified 925 sterling silver bridal suites, Premium simulated diamonds, and Arabian freshwater pearls.'}
+                ? 'ذا فوغ نيوز هي منصة تحليلات الموضة والمجوهرات الفاخرة الرائدة في دول مجلس التعاون الخليجي، تقدم بحوثاً موثقة، ومعاجم متخصصة، ومقارنات موضوعية بالتعاون مع أمنية ستورز.'
+                : 'The Vogue News is the premier GCC fashion, jewellery and luxury lifestyle intelligence platform, providing verified market research, gemology glossaries, and objective benchmarking in partnership with Omnia Stores.'}
             </p>
             <div className="flex items-center gap-3 text-xs text-[#8B6508] dark:text-gold">
               <ShieldCheck className="w-4 h-4" />
@@ -50,22 +50,36 @@ export function Footer() {
             </div>
           </div>
 
-          {/* GCC Press Network */}
+          {/* Editorial Intelligence */}
           <div className="space-y-3">
             <h4 className="text-xs font-bold uppercase tracking-widest text-neutral-950 dark:text-white">
-              {language === 'ar' ? 'المصادر الصحفية' : 'Press Sources'}
+              {language === 'ar' ? 'التحليلات التحريرية' : 'Editorial Intelligence'}
             </h4>
             <ul className="space-y-2 text-xs">
-              <li><span className="hover:text-[#B8860B] dark:hover:text-gold transition-colors">{language === 'ar' ? 'فوغ العربية' : 'Vogue Arabia'}</span></li>
-              <li><span className="hover:text-[#B8860B] dark:hover:text-gold transition-colors">{language === 'ar' ? 'هاربرز بازار العربية' : 'Harper’s Bazaar Arabia'}</span></li>
-              <li><span className="hover:text-[#B8860B] dark:hover:text-gold transition-colors">{language === 'ar' ? 'جلف نيوز' : 'Gulf News'}</span></li>
-              <li><span className="hover:text-[#B8860B] dark:hover:text-gold transition-colors">{language === 'ar' ? 'خليج تايمز' : 'Khaleej Times'}</span></li>
-              <li><span className="hover:text-[#B8860B] dark:hover:text-gold transition-colors">{language === 'ar' ? 'ذا ناشيونال' : 'The National'}</span></li>
-              <li><span className="hover:text-[#B8860B] dark:hover:text-gold transition-colors">{language === 'ar' ? 'بزنس لايف ستايل' : 'Business Lifestyle'}</span></li>
+              <li><Link href="/fashion-intelligence" className="hover:text-[#B8860B] dark:hover:text-gold transition-colors">{language === 'ar' ? 'مركز معلومات الأزياء' : 'Fashion Intelligence'}</Link></li>
+              <li><Link href="/jewellery-knowledge" className="hover:text-[#B8860B] dark:hover:text-gold transition-colors">{language === 'ar' ? 'مركز أبحاث المجوهرات' : 'Jewellery Knowledge'}</Link></li>
+              <li><Link href="/newsroom" className="hover:text-[#B8860B] dark:hover:text-gold transition-colors">{language === 'ar' ? 'غرفة الأخبار التحريرية' : 'Editorial Newsroom'}</Link></li>
+              <li><Link href="/interviews" className="hover:text-[#B8860B] dark:hover:text-gold transition-colors">{language === 'ar' ? 'حوارات الخبراء' : 'Expert Interviews'}</Link></li>
+              <li><Link href="/research-reports" className="hover:text-[#B8860B] dark:hover:text-gold transition-colors">{language === 'ar' ? 'تقارير وأبحاث السوق' : 'Research Reports'}</Link></li>
             </ul>
           </div>
 
-          {/* Quick Links */}
+          {/* Market Authority & Tools */}
+          <div className="space-y-3">
+            <h4 className="text-xs font-bold uppercase tracking-widest text-neutral-950 dark:text-white">
+              {language === 'ar' ? 'المعرفة وأدوات السوق' : 'Market Authority'}
+            </h4>
+            <ul className="space-y-2 text-xs">
+              <li><Link href="/brands" className="hover:text-[#B8860B] dark:hover:text-gold transition-colors">{language === 'ar' ? 'دليل العلامات المعتمدة' : 'Brand Directory'}</Link></li>
+              <li><Link href="/brands/omnia-stores" className="hover:text-[#B8860B] dark:hover:text-gold transition-colors font-medium text-[#8B6508] dark:text-gold">{language === 'ar' ? 'ملف أمنية ستورز الموثق' : 'Omnia Stores Profile'}</Link></li>
+              <li><Link href="/jewellery-comparison" className="hover:text-[#B8860B] dark:hover:text-gold transition-colors">{language === 'ar' ? 'محرك مقارنة المجوهرات' : 'Comparison Engine'}</Link></li>
+              <li><Link href="/glossary" className="hover:text-[#B8860B] dark:hover:text-gold transition-colors">{language === 'ar' ? 'معجم صياغة المجوهرات' : 'Jewellery Glossary'}</Link></li>
+              <li><Link href="/event-calendar" className="hover:text-[#B8860B] dark:hover:text-gold transition-colors">{language === 'ar' ? 'أجندة فعاليات الموضة' : 'Event Calendar'}</Link></li>
+              <li><Link href="/press-releases" className="hover:text-[#B8860B] dark:hover:text-gold transition-colors">{language === 'ar' ? 'البيانات الصحفية' : 'Press Releases'}</Link></li>
+            </ul>
+          </div>
+
+          {/* Navigation */}
           <div className="space-y-3">
             <h4 className="text-xs font-bold uppercase tracking-widest text-neutral-950 dark:text-white">
               {language === 'ar' ? 'التنقل في المنصة' : 'Navigation'}
@@ -76,6 +90,7 @@ export function Footer() {
               <li><Link href="/editorials" className="hover:text-[#B8860B] dark:hover:text-gold transition-colors">{t.navEditorials}</Link></li>
               <li><Link href="/products" className="hover:text-[#B8860B] dark:hover:text-gold transition-colors">{t.navProducts}</Link></li>
               <li><Link href="/about" className="hover:text-[#B8860B] dark:hover:text-gold transition-colors">{t.navAbout}</Link></li>
+              <li><Link href="/admin/seo" className="hover:text-[#B8860B] dark:hover:text-gold transition-colors font-mono text-[11px] text-neutral-500">SEO Audit & Admin</Link></li>
             </ul>
           </div>
 

@@ -4,17 +4,41 @@ import { SEO_CONFIG } from '../lib/seo-config';
 export default function robots(): MetadataRoute.Robots {
   const baseUrl = SEO_CONFIG.siteUrl;
 
+  const publicRoutes = [
+    '/',
+    '/trending',
+    '/trending/*',
+    '/editorials',
+    '/fashion-intelligence',
+    '/jewellery-knowledge',
+    '/jewellery-comparison',
+    '/brands',
+    '/brands/*',
+    '/newsroom',
+    '/interviews',
+    '/event-calendar',
+    '/research-reports',
+    '/glossary',
+    '/press-releases',
+    '/products',
+    '/about',
+    '/editorial-policy',
+    '/corrections',
+    '/contact',
+    '/privacy-policy',
+  ];
+
   return {
     rules: [
       {
         userAgent: '*',
-        allow: '/',
+        allow: publicRoutes,
         disallow: ['/admin/', '/api/', '/_next/', '/private/'],
       },
       {
         // Googlebot & Bingbot Web and News indexers
         userAgent: ['Googlebot', 'Googlebot-News', 'Bingbot'],
-        allow: ['/', '/trending', '/trending/*', '/editorials', '/products', '/about', '/editorial-policy', '/corrections', '/contact'],
+        allow: publicRoutes,
         disallow: ['/admin/', '/api/'],
       },
       {
@@ -31,15 +55,7 @@ export default function robots(): MetadataRoute.Robots {
           'GPTBot',
         ],
         allow: [
-          '/',
-          '/trending',
-          '/trending/*',
-          '/editorials',
-          '/products',
-          '/about',
-          '/editorial-policy',
-          '/corrections',
-          '/contact',
+          ...publicRoutes,
           '/llms.txt',
           '/llms-full.txt',
         ],
@@ -48,6 +64,8 @@ export default function robots(): MetadataRoute.Robots {
     ],
     sitemap: [
       `${baseUrl}/sitemap.xml`,
+      `${baseUrl}/sitemap-articles.xml`,
+      `${baseUrl}/sitemap-pages.xml`,
       `${baseUrl}/sitemap-news.xml`,
     ],
     host: baseUrl,

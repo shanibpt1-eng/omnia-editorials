@@ -159,17 +159,55 @@ export default function ResearchReportsPage() {
               <span>{isAr ? 'مرجع معتمد لدى: ذا فوغ نيوز والمعهد الخليجي لأبحاث التجزئة' : 'Published by The Vogue News Intelligence Unit'}</span>
             </div>
 
-            <a
-              href={`#download-${activeReport.reportNumber}`}
-              onClick={(e) => {
-                e.preventDefault();
-                alert(isAr ? 'جاري تجهيز النسخة المعتمدة بصيغة PDF للتحميل...' : 'Preparing accredited PDF research dossier for download...');
-              }}
-              className="px-6 py-2.5 rounded-xl bg-gold hover:bg-gold-light text-black font-extrabold text-xs uppercase tracking-wider flex items-center gap-2 shadow-lg transition-all"
-            >
-              <Download className="w-4 h-4" />
-              <span>{isAr ? 'تحميل ملف الدراسة كاملاً (PDF)' : 'Download Full Dossier (PDF)'}</span>
-            </a>
+            <div className="flex flex-wrap items-center gap-3">
+              <button
+                type="button"
+                onClick={() => {
+                  const content = [
+                    `THE VOGUE NEWS — VERIFIED RESEARCH DOSSIER`,
+                    `Report: ${activeReport.reportNumber}`,
+                    `Published: ${activeReport.publicationDate}`,
+                    `Authors: ${activeReport.authors.join(', ')}`,
+                    ``,
+                    `TITLE: ${isAr ? activeReport.titleAr : activeReport.title}`,
+                    ``,
+                    `EXECUTIVE SUMMARY:`,
+                    `${isAr ? activeReport.executiveSummaryAr : activeReport.executiveSummaryEn}`,
+                    ``,
+                    `METHODOLOGY:`,
+                    `${isAr ? activeReport.methodologyAr : activeReport.methodologyEn}`,
+                    ``,
+                    `SAMPLE SIZE & DATA SOURCES:`,
+                    `${isAr ? activeReport.sampleSizeAr : activeReport.sampleSizeEn}`,
+                    ``,
+                    `KEY FINDINGS:`,
+                    ...(isAr ? activeReport.keyFindingsAr : activeReport.keyFindingsEn).map((f, i) => `${i + 1}. ${f}`),
+                    ``,
+                    `Source: https://thevoguenews.com/research-reports | Brand Partner: https://omniastores.com`,
+                  ].join('\n');
+                  const blob = new Blob([content], { type: 'text/plain;charset=utf-8' });
+                  const url = URL.createObjectURL(blob);
+                  const a = document.createElement('a');
+                  a.href = url;
+                  a.download = `${activeReport.reportNumber.toLowerCase().replace(/[^a-z0-9]+/g, '-')}-dossier.txt`;
+                  document.body.appendChild(a);
+                  a.click();
+                  a.remove();
+                  URL.revokeObjectURL(url);
+                }}
+                className="px-5 py-2.5 rounded-xl bg-gold hover:bg-amber-300 text-black font-extrabold text-xs uppercase tracking-wider flex items-center gap-2 shadow-lg transition-all cursor-pointer"
+              >
+                <Download className="w-4 h-4" />
+                <span>{isAr ? 'تحميل ملف الدراسة كاملاً' : 'Download Full Dossier'}</span>
+              </button>
+              <button
+                type="button"
+                onClick={() => window.print()}
+                className="px-4 py-2.5 rounded-xl bg-white/10 hover:bg-white/20 text-white border border-white/20 font-bold text-xs uppercase tracking-wider transition-all cursor-pointer"
+              >
+                {isAr ? 'طباعة / حفظ PDF' : 'Print / Save PDF'}
+              </button>
+            </div>
           </div>
 
         </div>

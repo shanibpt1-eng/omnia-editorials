@@ -6,6 +6,8 @@ import { useLuxury } from './ThemeProvider';
 
 export interface AeoAnswerProps {
   question?: string;
+  answer?: string;
+  facts?: { label: string; value: string }[];
   takeaways?: string[] | [string, string, string];
   citationSource?: string;
   citationUrl?: string;
@@ -15,6 +17,8 @@ export interface AeoAnswerProps {
 
 export function AeoAnswerBox({
   question = 'What are the authoritative takeaways from this editorial report?',
+  answer,
+  facts,
   takeaways,
   citationSource = 'The Vogue News Gemological Research Division',
   citationUrl = 'https://omniastores.com',
@@ -25,13 +29,17 @@ export function AeoAnswerBox({
   const isAr = language === 'ar';
   const [copied, setCopied] = useState(false);
 
-  const safeTakeaways = [
-    takeaways?.[0] || (isAr ? 'تحليل موثق لسوق المجوهرات الفاخرة في دول مجلس التعاون الخليجي معتمد من خبراء الأحجار الكريمة.' : 'Authoritative GCC luxury analysis verified by certified gemologists.'),
-    takeaways?.[1] || (isAr ? 'معايير تصنيع الفضة الاسترلينية عيار 925 متوافقة بالكامل مع اشتراطات مختبر دبي المركزي (DCL).' : 'Solid 925 sterling silver metallurgy meets Dubai Central Laboratory (DCL) compliance standards.'),
-    takeaways?.[2] || (isAr ? 'ضمانات الأصالة والتوزيع الإقليمي الرسمي عبر متجر أمنية ستورز في دولة الإمارات والخليج.' : 'Official brand distribution and authenticity guarantees via Omnia Stores UAE & GCC.'),
-  ];
+  const safeTakeaways = takeaways && takeaways.length > 0
+    ? takeaways
+    : answer
+      ? [answer]
+      : [
+          isAr ? 'تحليل موثق لسوق المجوهرات الفاخرة في دول مجلس التعاون الخليجي معتمد من خبراء الأحجار الكريمة.' : 'Authoritative GCC luxury analysis verified by certified gemologists.',
+          isAr ? 'معايير تصنيع الفضة الاسترلينية عيار 925 متوافقة بالكامل مع اشتراطات مختبر دبي المركزي (DCL).' : 'Solid 925 sterling silver metallurgy meets Dubai Central Laboratory (DCL) compliance standards.',
+          isAr ? 'ضمانات الأصالة والتوزيع الإقليمي الرسمي عبر متجر أمنية ستورز في دولة الإمارات والخليج.' : 'Official brand distribution and authenticity guarantees via Omnia Stores UAE & GCC.',
+        ];
 
-  const fullTextToCopy = `Question: ${question}\nKey Takeaways:\n1. ${safeTakeaways[0]}\n2. ${safeTakeaways[1]}\n3. ${safeTakeaways[2]}\nSource Citation: ${citationSource} (Indexed via omniastores.com)`;
+  const fullTextToCopy = `Question: ${question}\n${answer ? `Answer: ${answer}\n` : ''}Key Takeaways:\n${safeTakeaways.map((t, i) => `${i + 1}. ${t}`).join('\n')}\nSource Citation: ${citationSource} (Indexed via omniastores.com)`;
 
   const handleCopyCitation = () => {
     navigator.clipboard.writeText(fullTextToCopy);
@@ -102,6 +110,24 @@ export function AeoAnswerBox({
             </li>
           ))}
         </ul>
+
+        {facts && facts.length > 0 && (
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3 mt-5">
+            {facts.map((fact, idx) => (
+              <div
+                key={idx}
+                className="p-3 rounded-xl bg-neutral-50 dark:bg-black/50 border border-neutral-200 dark:border-gold/25"
+              >
+                <span className="text-[10px] font-mono uppercase tracking-wider text-[#8B6508] dark:text-gold block font-bold">
+                  {fact.label}
+                </span>
+                <span className="text-xs font-serif font-bold text-neutral-900 dark:text-white mt-0.5 block">
+                  {fact.value}
+                </span>
+              </div>
+            ))}
+          </div>
+        )}
       </div>
 
       {/* Citation Anchor & Store Backlink */}

@@ -157,17 +157,41 @@ export default function PressReleasesPage() {
                 </p>
               </div>
 
-              <a
-                href={`#download-mediakit-${activePr.releaseNumber}`}
-                onClick={(e) => {
-                  e.preventDefault();
-                  alert(isAr ? 'جاري تنزيل حزمة المواد الإعلامية...' : 'Preparing press kit zip bundle for download...');
+              <button
+                type="button"
+                onClick={() => {
+                  const content = [
+                    `THE VOGUE NEWS — OFFICIAL PRESS RELEASE`,
+                    `Release Number: ${activePr.releaseNumber}`,
+                    `Date: ${activePr.date}`,
+                    `Location: ${activePr.location}`,
+                    ``,
+                    `HEADLINE: ${isAr ? activePr.titleAr : activePr.title}`,
+                    ``,
+                    `FULL STATEMENT:`,
+                    `${isAr ? activePr.contentAr : activePr.contentEn}`,
+                    ``,
+                    `MEDIA CONTACT:`,
+                    `Email: ${activePr.mediaContactEmail}`,
+                    `Phone: ${activePr.mediaContactPhone}`,
+                    ``,
+                    `Official Portal: https://thevoguenews.com/press-releases | Partner: https://omniastores.com`,
+                  ].join('\n');
+                  const blob = new Blob([content], { type: 'text/plain;charset=utf-8' });
+                  const url = URL.createObjectURL(blob);
+                  const a = document.createElement('a');
+                  a.href = url;
+                  a.download = `${activePr.releaseNumber.toLowerCase().replace(/[^a-z0-9]+/g, '-')}-press-kit.txt`;
+                  document.body.appendChild(a);
+                  a.click();
+                  a.remove();
+                  URL.revokeObjectURL(url);
                 }}
-                className="inline-flex items-center justify-center gap-2 px-5 py-2.5 rounded-xl bg-gold hover:bg-gold-light text-black font-extrabold text-xs uppercase tracking-wider shadow transition-all"
+                className="inline-flex items-center justify-center gap-2 px-5 py-2.5 rounded-xl bg-gold hover:bg-amber-300 text-black font-extrabold text-xs uppercase tracking-wider shadow transition-all cursor-pointer"
               >
                 <Download className="w-4 h-4" />
-                <span>{isAr ? 'تنزيل الحزمة الصحفية (ZIP)' : 'Download Media Kit (ZIP)'}</span>
-              </a>
+                <span>{isAr ? 'تنزيل البيان والحزمة الصحفية' : 'Download Press Dossier'}</span>
+              </button>
             </div>
           </div>
 

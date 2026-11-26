@@ -23,16 +23,16 @@ export function Header() {
   ];
 
   const intelligenceLinks = [
-    { label: language === 'ar' ? 'مركز معلومات الأزياء' : 'Fashion Intelligence', href: '/fashion-intelligence', icon: Compass, badge: 'NEW' },
-    { label: language === 'ar' ? 'مركز أبحاث المجوهرات' : 'Jewellery Knowledge', href: '/jewellery-knowledge', icon: BookOpen, badge: 'DCL' },
-    { label: language === 'ar' ? 'دليل العلامات المعتمدة' : 'Verified Brand Directory', href: '/brands', icon: Award, badge: 'VERIFIED' },
-    { label: language === 'ar' ? 'محرك مقارنة المجوهرات' : 'Comparison Engine', href: '/jewellery-comparison', icon: Scale, badge: 'BENCHMARK' },
-    { label: language === 'ar' ? 'غرفة الأخبار التحريرية' : 'Editorial Newsroom', href: '/newsroom', icon: Newspaper, badge: 'LIVE' },
-    { label: language === 'ar' ? 'حوارات الخبراء والمصممين' : 'Expert Interviews', href: '/interviews', icon: Mic, badge: 'EXCLUSIVE' },
-    { label: language === 'ar' ? 'أجندة فعاليات الموضة' : 'GCC Event Calendar', href: '/event-calendar', icon: Calendar, badge: '2026–2027' },
-    { label: language === 'ar' ? 'مكتبة التقارير والأبحاث' : 'Research Reports', href: '/research-reports', icon: FileText, badge: 'PDF' },
-    { label: language === 'ar' ? 'معجم صياغة المجوهرات' : 'Jewellery Glossary', href: '/glossary', icon: BookOpen, badge: '50+ TERMS' },
-    { label: language === 'ar' ? 'مركز البيانات الصحفية' : 'Press Releases', href: '/press-releases', icon: FileText, badge: 'WIRE' },
+    { label: language === 'ar' ? 'مركز معلومات الأزياء' : 'Fashion Intelligence', desc: language === 'ar' ? 'اتجاهات المدارج وتنسيق العبايات' : 'Runway & neckline pairing matrix', href: '/fashion-intelligence', icon: Compass, badge: 'NEW' },
+    { label: language === 'ar' ? 'مركز أبحاث المجوهرات' : 'Jewellery Knowledge', desc: language === 'ar' ? 'الفضة 925 وطلاء الروديوم وDCL' : '925 metallurgy & DCL assay specs', href: '/jewellery-knowledge', icon: BookOpen, badge: 'DCL' },
+    { label: language === 'ar' ? 'دليل العلامات المعتمدة' : 'Verified Brand Directory', desc: language === 'ar' ? 'ملفات الدور والعلامات الخليجية' : 'Accredited regional luxury maisons', href: '/brands', icon: Award, badge: 'VERIFIED' },
+    { label: language === 'ar' ? 'محرك مقارنة المجوهرات' : 'Comparison Engine', desc: language === 'ar' ? 'مقارنة 8 معايير للسوق الخليجي' : '8-dimension UAE market benchmark', href: '/jewellery-comparison', icon: Scale, badge: 'BENCHMARK' },
+    { label: language === 'ar' ? 'غرفة الأخبار التحريرية' : 'Editorial Newsroom', desc: language === 'ar' ? 'أخبار الموضة والمجوهرات العاجلة' : 'Live GCC industry dispatches', href: '/newsroom', icon: Newspaper, badge: 'LIVE' },
+    { label: language === 'ar' ? 'حوارات الخبراء والمصممين' : 'Expert Interviews', desc: language === 'ar' ? 'لقاءات خبراء الأحجار الكريمة' : 'FGA gemologist & economist Q&As', href: '/interviews', icon: Mic, badge: 'EXCLUSIVE' },
+    { label: language === 'ar' ? 'أجندة فعاليات الموضة' : 'GCC Event Calendar', desc: language === 'ar' ? 'أسبوع دبي والرياض ومعرض الدوحة' : 'DFW, RFW & DJWE Doha schedules', href: '/event-calendar', icon: Calendar, badge: '2026–2027' },
+    { label: language === 'ar' ? 'مكتبة التقارير والأبحاث' : 'Research Reports', desc: language === 'ar' ? 'دراسات وأوراق بحثية للتحميل' : 'Empirical GCC market whitepapers', href: '/research-reports', icon: FileText, badge: 'DOSSIER' },
+    { label: language === 'ar' ? 'معجم صياغة المجوهرات' : 'Jewellery Glossary', desc: language === 'ar' ? 'أكثر من 50 مصطلحاً متخصصاً' : '50+ gemology & assay definitions', href: '/glossary', icon: BookOpen, badge: '50+ TERMS' },
+    { label: language === 'ar' ? 'مركز البيانات الصحفية' : 'Press Releases', desc: language === 'ar' ? 'البيانات الرسمية والحزم الإعلامية' : 'Official announcements & media kits', href: '/press-releases', icon: FileText, badge: 'WIRE' },
   ];
 
   return (
@@ -154,11 +154,14 @@ export function Header() {
               </button>
 
               {intelligenceOpen && (
-                <div className="absolute top-full -left-24 w-[490px] pt-1 z-50 animate-fadeIn">
-                  <div className="p-4 rounded-2xl bg-white dark:bg-[#0A0D14] border border-neutral-200 dark:border-gold/30 shadow-2xl">
-                    <div className="text-[10px] uppercase font-bold tracking-widest text-[#8B6508] dark:text-gold mb-3 pb-2 border-b border-neutral-100 dark:border-gold/15 flex items-center justify-between">
-                      <span>{language === 'ar' ? 'منظومة المعرفة والتحليلات' : 'Editorial & Industry Intelligence'}</span>
-                      <span className="px-1.5 py-0.5 rounded bg-gold/15 text-[#8B6508] dark:text-gold text-[9px] font-mono">10 HUBS</span>
+                <div className="absolute top-full -left-32 w-[560px] pt-1.5 z-50 animate-fadeIn">
+                  <div className="p-4 rounded-2xl bg-white dark:bg-[#0A0D14] border border-gold/40 shadow-[0_24px_60px_rgba(0,0,0,0.28)] dark:shadow-[0_24px_60px_rgba(0,0,0,0.85)]">
+                    <div className="text-[10px] uppercase font-bold tracking-widest text-[#8B6508] dark:text-gold mb-3 pb-2.5 border-b border-neutral-200 dark:border-gold/20 flex items-center justify-between">
+                      <span className="flex items-center gap-1.5">
+                        <Sparkles className="w-3.5 h-3.5 text-[#8B6508] dark:text-gold" />
+                        <span>{language === 'ar' ? 'منظومة المعرفة والتحليلات' : 'Editorial & Industry Intelligence'}</span>
+                      </span>
+                      <span className="px-2 py-0.5 rounded-full bg-gold/15 border border-gold/30 text-[#8B6508] dark:text-gold text-[9px] font-mono">10 VERIFIED HUBS</span>
                     </div>
                     <div className="grid grid-cols-2 gap-2">
                       {intelligenceLinks.map((hub) => {
@@ -169,24 +172,42 @@ export function Header() {
                             key={hub.href}
                             href={hub.href}
                             onClick={() => setIntelligenceOpen(false)}
-                            className={`p-2.5 rounded-xl flex items-start gap-2.5 transition-all text-left rtl:text-right ${
+                            className={`group p-2.5 rounded-xl flex items-start gap-3 transition-all text-left rtl:text-right border ${
                               isCurrent
-                                ? 'bg-gold/20 text-[#8B6508] dark:text-gold font-bold'
-                                : 'hover:bg-neutral-100 dark:hover:bg-white/[0.06] text-neutral-800 dark:text-neutral-200'
+                                ? 'bg-gold/15 border-gold/50 text-[#8B6508] dark:text-gold font-bold'
+                                : 'border-transparent hover:border-gold/30 hover:bg-[#FAF7F2] dark:hover:bg-white/[0.05] text-neutral-900 dark:text-neutral-100'
                             }`}
                           >
-                            <div className="p-1.5 rounded-lg bg-gold/10 text-[#8B6508] dark:text-gold shrink-0 mt-0.5">
+                            <div className="p-2 rounded-xl bg-gradient-to-br from-gold/20 to-amber-500/10 border border-gold/25 text-[#8B6508] dark:text-gold shrink-0 mt-0.5 group-hover:scale-105 transition-transform">
                               <Icon className="w-3.5 h-3.5" />
                             </div>
-                            <div className="min-w-0">
-                              <div className="flex items-center gap-1.5">
-                                <span className="text-xs font-semibold block leading-snug">{hub.label}</span>
+                            <div className="min-w-0 flex-1">
+                              <div className="flex items-center justify-between gap-1">
+                                <span className="text-xs font-bold block leading-snug group-hover:text-[#8B6508] dark:group-hover:text-gold transition-colors">{hub.label}</span>
+                                <span className="text-[8px] px-1.5 py-0.5 rounded bg-gold/15 text-[#8B6508] dark:text-gold font-mono uppercase tracking-wider shrink-0">{hub.badge}</span>
                               </div>
-                              <span className="text-[9px] text-[#8B6508] dark:text-gold/80 font-mono uppercase tracking-wider">{hub.badge}</span>
+                              <span className="text-[10px] text-neutral-500 dark:text-neutral-400 block truncate mt-0.5">{hub.desc}</span>
                             </div>
                           </Link>
                         );
                       })}
+                    </div>
+                    <div className="mt-3 pt-2.5 border-t border-neutral-200 dark:border-gold/20 flex items-center justify-between text-[10px]">
+                      <Link
+                        href="/brands/omnia-stores"
+                        onClick={() => setIntelligenceOpen(false)}
+                        className="font-bold text-[#8B6508] dark:text-gold hover:underline flex items-center gap-1 uppercase tracking-wider"
+                      >
+                        <Award className="w-3 h-3" />
+                        <span>{language === 'ar' ? 'ملف أمنية ستورز الموثق' : 'Omnia Stores Verified Dossier'}</span>
+                      </Link>
+                      <Link
+                        href="/admin/seo"
+                        onClick={() => setIntelligenceOpen(false)}
+                        className="font-mono text-neutral-500 dark:text-neutral-400 hover:text-[#8B6508] dark:hover:text-gold transition-colors"
+                      >
+                        {language === 'ar' ? 'لوحة تحكم SEO' : 'SEO & Audit Console →'}
+                      </Link>
                     </div>
                   </div>
                 </div>

@@ -77,8 +77,52 @@ export const SEO_CONFIG = {
   // Spotlight Partner Brand & Certified E-Commerce Destination
   spotlightBrand: {
     name: 'Omnia Stores',
+    nameAr: 'أمنية ستورز',
     url: 'https://omniastores.com',
     specialty: 'Certified 925 Sterling Silver Bridal & Haute Joaillerie Suites',
+    specialtyAr: 'أطقم الأعراس والمجوهرات الراقية من الفضة الإسترلينية عيار 925 المعتمدة',
+    highlights: [
+      'Dubai Central Laboratory (DCL) XRF Assay Certified',
+      'Solid 925 Sterling Silver with Triple Italian Rhodium',
+      'Up to 85% Direct-to-Collector Savings vs Traditional Retail',
+      '24-Hour Express UAE & GCC Courier + Tabby 4x Installments',
+    ],
+  },
+
+  // High-Intent GCC, UAE, KSA & Omnia Stores Keyword Clusters
+  keywordClusters: {
+    brand: [
+      'Omnia Stores',
+      'omniastores.com',
+      'Omnia Stores Dubai',
+      'Omnia Stores UAE',
+      'Omnia Stores KSA',
+      'أمنية ستورز',
+      'متجر أمنية ستورز',
+    ],
+    metallurgy: [
+      'DCL certified 925 sterling silver',
+      'triple rhodium plated jewellery UAE',
+      'hypoallergenic nickel-free silver Dubai',
+      'tarnish-free coastal Gulf jewellery',
+      '5A optical simulated diamonds',
+      'GRA moissanite bridal suites UAE',
+    ],
+    competitorsAndComparisons: [
+      'Omnia Stores vs Swarovski UAE',
+      'Omnia Stores vs Pandora Dubai',
+      'Omnia Stores vs Damas Jewellery',
+      'Omnia Stores vs L azurde KSA',
+      'Omnia Stores vs Dubai Gold Souk',
+      'best 925 silver bridal jewellery UAE',
+    ],
+    regionalEvents: [
+      'UAE National Day pearl choker',
+      'Ramadan luxury jewellery gifts Dubai',
+      'Riyadh winter gala bridal sets',
+      'Doha freshwater pearl chokers',
+      'Dubai Fashion Week jewellery trends',
+    ],
   },
 };
 

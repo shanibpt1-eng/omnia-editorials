@@ -91,6 +91,31 @@ const AD_SLOTS = [
   },
 ];
 
+const FEATURE_AD_SLOTS = [
+  {
+    id: 'ad-black-friday',
+    tagEn: 'SEASONAL GALA OFFERS',
+    tagAr: 'عروض الموسم الفاخرة',
+    titleEn: 'Black Friday & White Friday Exclusives',
+    titleAr: 'عروض البلاك فرايدي والجمعة البيضاء الحصرية',
+    subEn: 'Pink sapphire halos & solid 925 solitaires with Tabby 4x split payments',
+    subAr: 'سوليتير الياقوت الوردي والفضة 925 مع تقسيط تابي على 4 دفعات',
+    image: '/banners/black-friday-luxury-offers-banner.jpg',
+    url: 'https://omniastores.com/collections/discounted-items',
+  },
+  {
+    id: 'ad-ramadan',
+    tagEn: 'HERITAGE & GIFTING',
+    tagAr: 'تراث وهدايا فاخرة',
+    titleEn: 'Ramadan Grace, Light & Butterfly Suites',
+    titleAr: 'أناقة رمضان وإشراقة قلادات الفراشة الملكية',
+    subEn: 'Canary pavé butterfly pendants crafted for Majlis & evening soirées',
+    subAr: 'قلادات الفراشة الكناري المصاغة لأمسيات رمضان والسهرات الراقية',
+    image: '/banners/ramadan-grace-light-elegance-banner.jpg',
+    url: 'https://omniastores.com/collections/necklaces',
+  },
+];
+
 function CinemaAdCard({ ad, isAr }: { ad: VideoAdSpec; isAr: boolean }) {
   const [isMuted, setIsMuted] = useState(true);
   const [isPlaying, setIsPlaying] = useState(true);
@@ -289,6 +314,45 @@ export function OmniaFreeSpaceAdPanel() {
                   <span className="px-2.5 py-1 rounded-lg bg-gold text-black text-[10px] font-extrabold uppercase shrink-0 flex items-center gap-1 group-hover:scale-105 transition-transform">
                     <span>{isAr ? 'تسوق' : 'Shop'}</span>
                     <ExternalLink className="w-2.5 h-2.5" />
+                  </span>
+                </div>
+              </a>
+            ))}
+          </div>
+
+          {/* Row 3: 2 Wide Feature Campaign Ad Panels (Black Friday & Ramadan Suites) */}
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
+            {FEATURE_AD_SLOTS.map((slot) => (
+              <a
+                key={slot.id}
+                href={slot.url}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="group relative rounded-2xl overflow-hidden border border-gold/35 hover:border-gold bg-black aspect-[16/9] flex items-end shadow-lg transition-all"
+              >
+                <Image
+                  src={slot.image}
+                  alt={isAr ? slot.titleAr : slot.titleEn}
+                  fill
+                  unoptimized
+                  className="object-cover object-center group-hover:scale-105 transition-transform duration-700"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/25 to-transparent" />
+                <div className="relative z-10 p-4 w-full flex items-end justify-between gap-3">
+                  <div className="min-w-0">
+                    <span className="text-[10px] font-mono uppercase tracking-widest text-gold font-bold block">
+                      {isAr ? slot.tagAr : slot.tagEn}
+                    </span>
+                    <span className="text-sm sm:text-base font-serif font-black text-white block leading-snug">
+                      {isAr ? slot.titleAr : slot.titleEn}
+                    </span>
+                    <span className="text-[11px] text-neutral-300 block truncate mt-0.5">
+                      {isAr ? slot.subAr : slot.subEn}
+                    </span>
+                  </div>
+                  <span className="px-3 py-1.5 rounded-xl bg-gold text-black text-[11px] font-extrabold uppercase shrink-0 flex items-center gap-1 group-hover:scale-105 transition-transform">
+                    <span>{isAr ? 'استكشف' : 'Explore'}</span>
+                    <ExternalLink className="w-3 h-3" />
                   </span>
                 </div>
               </a>

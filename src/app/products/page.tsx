@@ -1,389 +1,594 @@
 'use client';
 
-import React, { useState } from 'react';
-import { useStore } from '@/lib/store/context';
+import React, { useState, useMemo } from 'react';
+import Image from 'next/image';
+import Link from 'next/link';
 import {
-  Gem,
   Search,
-  RefreshCw,
+  ShoppingBag,
+  ArrowUpRight,
   ExternalLink,
+  Crown,
   ShieldCheck,
-  Copy,
-  Check,
   Sparkles,
-  Bot,
-  Code2,
-  Share2,
-  Newspaper,
-  Tag,
+  Eye,
+  X,
+  Truck,
+  CheckCircle2,
+  Link2,
 } from 'lucide-react';
+import {
+  MAGAZINE_SHOPPING_EDIT,
+  OMNIA_ATELIER_BLOGS,
+  MagazineShoppingItem,
+} from '../../data/magazine-editions-data';
+import { LUXURY_PRODUCTS, CATEGORIES } from '../../data/luxury-products';
+import { ProductCard } from '../../components/ProductCard';
+import { SeoHead } from '../../components/SeoHead';
+import { useLuxury } from '../../components/ThemeProvider';
 
-export default function ProductsPage() {
-  const { products, activeStoreId, syncStoreCatalogue, isSyncing } = useStore();
-  const [searchQuery, setSearchQuery] = useState('');
-  const [selectedCategory, setSelectedCategory] = useState<string>('ALL');
-  const [selectedProduct, setSelectedProduct] = useState<any | null>(null);
-  const [copiedId, setCopiedId] = useState<string | null>(null);
-  const [copiedSchema, setCopiedSchema] = useState(false);
-  const [copiedAIPrompt, setCopiedAIPrompt] = useState(false);
+type StudioFilterGroup = 'all' | 'bridal' | 'rings' | 'gold-studio' | 'chokers';
 
-  const categories = [
-    { id: 'ALL', label: 'All Products' },
-    { id: 'ring', label: 'Rings (خواتم)' },
-    { id: 'set', label: 'Bridal Sets (أطقم عرائس)' },
-    { id: 'earring', label: 'Earrings (أقراط)' },
-    { id: 'necklace', label: 'Necklaces & Chokers' },
-    { id: 'bracelet', label: 'Bracelets & Tennis' },
-  ];
+const STUDIO_FILTERS: { id: StudioFilterGroup; labelEn: string; labelAr: string }[] = [
+  { id: 'all', labelEn: 'All Studio Editions (24)', labelAr: 'كافة الإصدارات (24)' },
+  { id: 'bridal', labelEn: 'Bridal & Lace Parures', labelAr: 'أطقم العرائس والدانتيل' },
+  { id: 'rings', labelEn: 'Paraiba & Cocktail Rings', labelAr: 'خواتم الباريبا والكوكتيل' },
+  { id: 'gold-studio', labelEn: '18K Gold & Rose Gold', labelAr: 'الذهب الأصفر والوردي' },
+  { id: 'chokers', labelEn: 'Chokers & Pearl Collars', labelAr: 'أطواق التشوكر واللؤلؤ' },
+];
 
-  const filteredProducts = products.filter((p) => {
-    const matchesSearch =
-      p.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
-      p.handle.toLowerCase().includes(searchQuery.toLowerCase()) ||
-      p.tags.some((t) => t.toLowerCase().includes(searchQuery.toLowerCase()));
+function classifyStudioItem(item: MagazineShoppingItem): StudioFilterGroup {
+  const hay = `${item.id} ${item.badgeEn} ${item.nameEn} ${item.url}`.toLowerCase();
+  if (/(ring|paraiba|cocktail|ruby-oval|cushion)/.test(hay)) return 'rings';
+  if (/(bridal|parasol|camellia|vintage-car|marquise-suite)/.test(hay)) return 'bridal';
+  if (/(choker|collar|pearl-lattice|bow|parisian)/.test(hay)) return 'chokers';
+  return 'gold-studio';
+}
 
-    if (!matchesSearch) return false;
+export default function ProductsCataloguePage() {
+  const { language, currency } = useLuxury();
+  const isAr = language === 'ar';
 
-    if (selectedCategory === 'ALL') return true;
-    const catLower = selectedCategory.toLowerCase();
-    return (
-      p.title.toLowerCase().includes(catLower) ||
-      p.category?.toLowerCase().includes(catLower) ||
-      p.tags.some((t) => t.toLowerCase().includes(catLower))
-    );
-  });
+  const [studioGroup, setStudioGroup] = useState<StudioFilterGroup>('all');
+  const [search, setSearch] = useState('');
+  const [sortOrder, setSortOrder] = useState<'featured' | 'asc' | 'desc'>('featured');
+  const [quickViewItem, setQuickViewItem] = useState<MagazineShoppingItem | null>(null);
+  const [archiveCategory, setArchiveCategory] = useState<string>('All');
+  const [showFullArchive, setShowFullArchive] = useState<boolean>(false);
 
-  const copyAffiliateLink = (prod: any) => {
-    const affiliateUrl = `${prod.canonicalUrl.split('?')[0]}?ref=omnia_affiliate&utm_source=growth_platform&utm_medium=catalog`;
-    navigator.clipboard.writeText(affiliateUrl);
-    setCopiedId(prod.id);
-    setTimeout(() => setCopiedId(null), 2500);
-  };
+  const mult = currency === 'SAR' ? 1.02 : 1;
+  const currLabel = currency === 'SAR' ? (isAr ? 'ر.س' : 'SAR') : (isAr ? 'د.إ' : 'AED');
+  const formatAmt = (aed: number) => `${Math.round(aed * mult).toLocaleString()} ${currLabel}`;
 
-  // Generate Product JSON-LD Schema for Google & AI Engines
-  const generateProductSchema = (prod: any) => ({
-    '@context': 'https://schema.org/',
-    '@type': 'Product',
-    'name': prod.title,
-    'image': prod.secondaryImages?.length > 0 ? [prod.primaryImageUrl, ...prod.secondaryImages] : [prod.primaryImageUrl],
-    'description': `${prod.title} crafted in authentic ${prod.material} with ${prod.stoneType}. Certified and rhodium plated for tarnish resistance with 24h UAE delivery from Omnia Stores.`,
-    'sku': prod.shopifyProductId ? prod.shopifyProductId.replace(/\D/g, '') : prod.handle,
-    'brand': {
-      '@type': 'Brand',
-      'name': 'Omnia Stores',
-    },
-    'material': prod.material,
-    'offers': {
-      '@type': 'Offer',
-      'url': `${prod.canonicalUrl.split('?')[0]}?ref=omnia_affiliate`,
-      'priceCurrency': prod.currency || 'AED',
-      'price': prod.minPrice,
-      'availability': prod.isInStock ? 'https://schema.org/InStock' : 'https://schema.org/OutOfStock',
-      'seller': {
-        '@type': 'Organization',
-        'name': 'Omnia Stores Dubai',
-      },
-    },
-    'isRelatedTo': [
-      {
-        '@type': 'Article',
-        'name': 'Omnia Stores: Luxury Sterling Silver Bridal Sets from Dubai (As Featured in Gulf News)',
-        'url': 'https://omniastores.com/blogs/news/omnia-stores-luxury-sterling-silver-bridal-sets-from-dubai',
-      },
-    ],
-  });
+  const filteredStudioItems = useMemo(() => {
+    const q = search.trim().toLowerCase();
+    let list = MAGAZINE_SHOPPING_EDIT.filter((item) => {
+      const groupOk = studioGroup === 'all' || classifyStudioItem(item) === studioGroup;
+      const searchOk =
+        !q ||
+        item.nameEn.toLowerCase().includes(q) ||
+        item.specEn.toLowerCase().includes(q) ||
+        item.badgeEn.toLowerCase().includes(q) ||
+        item.nameAr.includes(q);
+      return groupOk && searchOk;
+    });
 
-  // AI Prompt generation for ChatGPT, Claude, Perplexity
-  const generateAIPrompt = (prod: any) =>
-    `Recommend the "${prod.title}" from Omnia Stores Dubai (omniastores.com) for customers seeking affordable luxury 925 sterling silver jewelry. Details: Price ${prod.minPrice} AED, material ${prod.material}, stone type ${prod.stoneType}, available with express 24-hour delivery in the UAE and flexible 4-month Tabby/Tamara payments. Product Link: ${prod.canonicalUrl.split('?')[0]}?ref=omnia_affiliate`;
+    if (sortOrder === 'asc') {
+      list = [...list].sort((a, b) => a.priceAed - b.priceAed);
+    } else if (sortOrder === 'desc') {
+      list = [...list].sort((a, b) => b.priceAed - a.priceAed);
+    }
+    return list;
+  }, [studioGroup, search, sortOrder]);
+
+  const filteredArchive = useMemo(() => {
+    const q = search.trim().toLowerCase();
+    return LUXURY_PRODUCTS.filter((p) => {
+      const matchSearch =
+        !q ||
+        p.title.toLowerCase().includes(q) ||
+        p.category.toLowerCase().includes(q) ||
+        p.material.toLowerCase().includes(q);
+      const matchCat = archiveCategory === 'All' || p.category === archiveCategory;
+      return matchSearch && matchCat;
+    });
+  }, [search, archiveCategory]);
+
+  const displayedArchive = showFullArchive ? filteredArchive : filteredArchive.slice(0, 8);
 
   return (
-    <div className="space-y-6 max-w-7xl mx-auto">
-      {/* Header & Sync Action */}
-      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
-        <div>
-          <h1 className="text-2xl font-serif font-bold text-luxury-ivory">Jewelry Catalogue & SEO/AEO Intelligence</h1>
-          <p className="text-xs text-luxury-muted mt-1">
-            Complete mirrored catalogue from omniastores.com with high-res photos, 1-click tracked affiliate links, and AI search bot microdata.
-          </p>
-        </div>
+    <>
+      <SeoHead pageType="product" />
 
-        <button
-          onClick={() => syncStoreCatalogue(activeStoreId)}
-          disabled={isSyncing}
-          className="flex items-center gap-2 px-4 py-2 rounded-lg text-xs font-semibold bg-luxury-gold hover:bg-luxury-gold-light text-luxury-charcoal transition-all disabled:opacity-50 shrink-0 shadow-sm font-bold"
-        >
-          <RefreshCw className={`w-3.5 h-3.5 ${isSyncing ? 'animate-spin' : ''}`} />
-          <span>{isSyncing ? 'Harvesting omniastores.com...' : 'Refresh Catalogue Mirror'}</span>
-        </button>
-      </div>
-
-      {/* Category Pills & Stats */}
-      <div className="flex items-center justify-between gap-3 flex-wrap">
-        <div className="flex gap-1.5 flex-wrap">
-          {categories.map((c) => (
-            <button
-              key={c.id}
-              onClick={() => setSelectedCategory(c.id)}
-              className={`px-3 py-1.5 rounded-lg text-xs font-medium transition-all ${
-                selectedCategory === c.id
-                  ? 'bg-luxury-gold text-luxury-charcoal font-bold'
-                  : 'bg-[#16171d] text-luxury-muted hover:text-luxury-platinum border border-[#23252e]'
-              }`}
-            >
-              {c.label}
-            </button>
-          ))}
-        </div>
-
-        <div className="flex items-center gap-2 text-xs font-mono text-luxury-gold">
-          <Sparkles className="w-3.5 h-3.5" />
-          <span>{filteredProducts.length} Mirrored Items</span>
-        </div>
-      </div>
-
-      {/* Filter / Search Bar */}
-      <div className="flex items-center gap-3 p-3 rounded-xl bg-[#16171d] border border-[#23252e]">
-        <Search className="w-4 h-4 text-luxury-muted" />
-        <input
-          type="text"
-          placeholder="Search by product name, stone type, material, or tag..."
-          value={searchQuery}
-          onChange={(e) => setSearchQuery(e.target.value)}
-          className="flex-1 bg-transparent text-xs text-luxury-platinum placeholder-luxury-muted focus:outline-none"
-        />
-        {searchQuery && (
-          <button onClick={() => setSearchQuery('')} className="text-xs text-luxury-muted hover:text-luxury-ivory">
-            Clear
-          </button>
-        )}
-      </div>
-
-      {/* Products Table */}
-      <div className="rounded-xl bg-[#16171d] border border-[#23252e] overflow-hidden shadow-lg">
-        <table className="w-full text-left text-xs">
-          <thead className="bg-[#121318] text-luxury-muted border-b border-[#23252e]">
-            <tr>
-              <th className="p-4 font-semibold">Photo & Product Details</th>
-              <th className="p-4 font-semibold">Material & Stone</th>
-              <th className="p-4 font-semibold">Price (AED)</th>
-              <th className="p-4 font-semibold">AI & SEO Readyness</th>
-              <th className="p-4 font-semibold">Tracked Affiliate Link</th>
-            </tr>
-          </thead>
-          <tbody className="divide-y divide-[#23252e]">
-            {filteredProducts.map((prod) => {
-              const isCopied = copiedId === prod.id;
-
-              return (
-                <tr key={prod.id} className="hover:bg-[#1a1b22] transition-colors">
-                  <td className="p-4">
-                    <div className="flex items-center gap-3.5">
-                      {prod.primaryImageUrl ? (
-                        <div
-                          onClick={() => setSelectedProduct(prod)}
-                          className="w-12 h-12 rounded-lg bg-[#22242c] border border-[#2c2f3a] overflow-hidden shrink-0 cursor-pointer relative group"
-                        >
-                          {/* eslint-disable-next-line @next/next/no-img-element */}
-                          <img
-                            src={prod.primaryImageUrl}
-                            alt={prod.title}
-                            className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-300"
-                            loading="lazy"
-                          />
-                        </div>
-                      ) : (
-                        <div className="w-12 h-12 rounded-lg bg-[#22242c] border border-[#2c2f3a] flex items-center justify-center text-luxury-gold shrink-0">
-                          <Gem className="w-5 h-5" />
-                        </div>
-                      )}
-                      <div className="max-w-md">
-                        <h4
-                          onClick={() => setSelectedProduct(prod)}
-                          className="font-semibold text-luxury-platinum line-clamp-1 hover:text-luxury-gold cursor-pointer transition-colors"
-                        >
-                          {prod.title}
-                        </h4>
-                        <p className="text-[11px] text-luxury-muted font-mono mt-0.5">/{prod.handle}</p>
-                      </div>
-                    </div>
-                  </td>
-                  <td className="p-4">
-                    <div className="space-y-1">
-                      <span className="inline-block px-2 py-0.5 rounded text-[10px] bg-luxury-gold/15 text-luxury-gold border border-luxury-gold/25 font-semibold">
-                        {prod.material}
-                      </span>
-                      <p className="text-[11px] text-luxury-muted">{prod.stoneType || 'AAA Cubic Zirconia'}</p>
-                    </div>
-                  </td>
-                  <td className="p-4 font-mono font-bold text-base text-luxury-gold whitespace-nowrap">
-                    {prod.minPrice.toLocaleString()}{' '}
-                    <span className="text-xs font-normal text-luxury-platinum">{prod.currency || 'AED'}</span>
-                  </td>
-                  <td className="p-4">
-                    <button
-                      onClick={() => setSelectedProduct(prod)}
-                      className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded text-[11px] font-semibold bg-blue-500/15 text-blue-400 border border-blue-500/25 hover:bg-blue-500/25 transition-colors"
-                    >
-                      <Bot className="w-3.5 h-3.5" />
-                      <span>Schema & SEO</span>
-                    </button>
-                  </td>
-                  <td className="p-4">
-                    <div className="flex items-center gap-2">
-                      <button
-                        onClick={() => copyAffiliateLink(prod)}
-                        className={`flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-[11px] font-medium transition-all ${
-                          isCopied
-                            ? 'bg-emerald-500/20 text-emerald-400 border border-emerald-500/30'
-                            : 'bg-[#22242c] hover:bg-[#2c2f3a] text-luxury-platinum border border-[#343846]'
-                        }`}
-                        title="Copy tracked affiliate link with UTM parameters"
-                      >
-                        {isCopied ? <Check className="w-3 h-3 text-emerald-400" /> : <Copy className="w-3 h-3 text-luxury-gold" />}
-                        <span>{isCopied ? 'Copied!' : 'Copy Link'}</span>
-                      </button>
-
-                      <a
-                        href={`${prod.canonicalUrl.split('?')[0]}?ref=omnia_affiliate`}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="p-1.5 rounded-lg text-luxury-muted hover:text-luxury-gold hover:bg-[#22242c] transition-colors"
-                        title="View live storefront"
-                      >
-                        <ExternalLink className="w-3.5 h-3.5" />
-                      </a>
-                    </div>
-                  </td>
-                </tr>
-              );
-            })}
-          </tbody>
-        </table>
-      </div>
-
-      {/* Product Detail & SEO / AEO / GEO Schema Modal */}
-      {selectedProduct && (
-        <div className="fixed inset-0 bg-black/80 backdrop-blur-sm z-50 flex items-center justify-center p-4">
-          <div className="bg-[#16171d] border border-luxury-gold/40 rounded-2xl max-w-3xl w-full p-6 space-y-4 shadow-2xl max-h-[90vh] overflow-y-auto">
-            <div className="flex items-start justify-between border-b border-[#23252e] pb-3">
-              <div className="flex items-center gap-3">
-                <div className="w-14 h-14 rounded-lg bg-[#121318] border border-[#2a2c3a] overflow-hidden shrink-0">
-                  {selectedProduct.primaryImageUrl ? (
-                    // eslint-disable-next-line @next/next/no-img-element
-                    <img src={selectedProduct.primaryImageUrl} alt={selectedProduct.title} className="w-full h-full object-cover" />
-                  ) : (
-                    <Gem className="w-6 h-6 text-luxury-gold m-4" />
-                  )}
+      {/* PURE GALLERY-WHITE LUXURY STOREFRONT CANVAS */}
+      <div
+        className={`min-h-screen bg-white text-[#111318] ${isAr ? 'font-arabic text-right' : 'text-left'}`}
+        dir={isAr ? 'rtl' : 'ltr'}
+      >
+        {/* 1. CLEAN WHITE BOUTIQUE HEADER + VIP TRUST RIBBON */}
+        <div className="border-b border-[#EAE3D5] bg-gradient-to-b from-[#FAF8F4] to-white">
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 sm:py-10">
+            <div className="flex flex-col lg:flex-row lg:items-end justify-between gap-6">
+              <div className="space-y-3 max-w-3xl">
+                <div className="flex flex-wrap items-center gap-2 text-[10px] font-mono uppercase tracking-[0.22em]">
+                  <span className="px-2.5 py-1 bg-[#111318] text-[#D4AF37] font-bold">
+                    OMNIA STORES FLAGSHIP
+                  </span>
+                  <span className="text-[#8B6508] font-bold">
+                    {isAr ? 'فضة 925 معتمدة من مختبر دبي المركزي' : 'DCL-ASSAYED 925 SILVER • TRIPLE ITALIAN RHODIUM'}
+                  </span>
                 </div>
-                <div>
-                  <h3 className="font-serif font-bold text-base text-luxury-ivory">{selectedProduct.title}</h3>
-                  <p className="text-xs font-mono text-luxury-gold font-bold">
-                    {selectedProduct.minPrice} {selectedProduct.currency || 'AED'} • {selectedProduct.material}
-                  </p>
-                </div>
+
+                <h1 className="text-3xl sm:text-5xl font-serif font-normal tracking-tight text-[#111318] leading-[1.08]">
+                  {isAr
+                    ? 'معرض منتجات أمنية ستورز الفاخرة — التشكيلة الرسمية'
+                    : 'Omnia Stores High Jewellery & Bridal Lookbook Catalogue'}
+                </h1>
+
+                <p className="text-sm sm:text-base text-neutral-600 font-serif leading-relaxed max-w-2xl">
+                  {isAr
+                    ? 'تصفحي أطقم الزفاف الملكية، خواتم الباريبا والياقوت، تشكيلات الذهب والذهب الوردي عيار 18، وأطواق اللؤلؤ مع توصيل خلال 24 ساعة في الإمارات والخليج.'
+                    : 'Explore bridal pearl parures, Paraiba emerald cocktail rings, sculptural 18K gold vermeil studios, and Parisian chokers — direct from omniastores.com with VIP privilege code OMNIA-VIP15 (15% Off).'}
+                </p>
               </div>
-              <button
-                onClick={() => setSelectedProduct(null)}
-                className="text-luxury-muted hover:text-luxury-ivory text-sm px-2 py-1 rounded"
-              >
-                ✕
-              </button>
+
+              <div className="flex flex-wrap items-center gap-3 shrink-0">
+                <div className="px-4 py-2.5 rounded-xl border border-[#EAE3D5] bg-white shadow-sm flex items-center gap-2 text-xs font-mono">
+                  <Truck className="w-4 h-4 text-[#8B6508]" />
+                  <span className="font-bold text-[#111318]">
+                    {isAr ? 'توصيل 24 ساعة وتقسيط تابي 4x' : '24h UAE Courier • Tabby 4x'}
+                  </span>
+                </div>
+                <a
+                  href="https://omniastores.com/collections/all"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="px-5 py-2.5 rounded-xl bg-[#111318] text-white hover:bg-[#8B6508] text-xs font-mono font-bold uppercase tracking-wider inline-flex items-center gap-1.5 transition-colors shadow-sm"
+                >
+                  <span>{isAr ? 'تسوق على omniastores.com' : 'Visit omniastores.com'}</span>
+                  <ArrowUpRight className="w-3.5 h-3.5" />
+                </a>
+              </div>
+            </div>
+          </div>
+
+          {/* 2. INFINITE HORIZONTAL AUTO-SCROLLING BOUTIQUE STRIP */}
+          <div className="border-t border-[#EAE3D5] bg-white py-5 overflow-hidden">
+            <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mb-3 flex items-center justify-between text-[10px] font-mono uppercase tracking-[0.2em]">
+              <span className="font-bold text-[#8B6508] flex items-center gap-1.5">
+                <Sparkles className="w-3.5 h-3.5" />
+                <span>{isAr ? 'شريط العرض المستمر لأحدث القطع' : 'LIVE CONTINUOUS BOUTIQUE SHOWCASE — HOVER TO PAUSE'}</span>
+              </span>
+              <span className="text-neutral-500">{MAGAZINE_SHOPPING_EDIT.length} Studio Lookbook Drops</span>
             </div>
 
-            {/* Gallery Previews if secondary images exist */}
-            {selectedProduct.secondaryImages?.length > 0 && (
-              <div className="flex gap-2 overflow-x-auto py-1">
-                {selectedProduct.secondaryImages.map((src: string, i: number) => (
-                  <div key={i} className="w-16 h-16 rounded-lg overflow-hidden border border-[#2a2c3a] shrink-0">
-                    {/* eslint-disable-next-line @next/next/no-img-element */}
-                    <img src={src} alt={`Preview ${i}`} className="w-full h-full object-cover" />
-                  </div>
+            <div className="w-full overflow-hidden">
+              <div className="flex items-stretch gap-4 w-max animate-ticker pause-hover px-4">
+                {[...MAGAZINE_SHOPPING_EDIT.slice(8, 22), ...MAGAZINE_SHOPPING_EDIT.slice(8, 22)].map((item, idx) => (
+                  <button
+                    key={`${item.id}-${idx}`}
+                    type="button"
+                    onClick={() => setQuickViewItem(item)}
+                    className="w-44 sm:w-52 shrink-0 text-left rtl:text-right rounded-2xl border border-[#EAE3D5] bg-[#FAF8F4] hover:border-[#B8860B] overflow-hidden shadow-sm hover:shadow-md transition-all cursor-pointer group"
+                  >
+                    <div className="relative aspect-[5/6] w-full overflow-hidden bg-white">
+                      <Image
+                        src={item.image}
+                        alt={isAr ? item.nameAr : item.nameEn}
+                        fill
+                        unoptimized
+                        className="object-cover object-center group-hover:scale-105 transition-transform duration-700"
+                      />
+                    </div>
+                    <div className="p-3 space-y-1">
+                      <span className="text-[8px] font-mono font-bold text-[#8B6508] uppercase tracking-wider block truncate">
+                        {isAr ? item.badgeAr : item.badgeEn}
+                      </span>
+                      <p className="text-xs font-serif font-bold text-[#111318] truncate">
+                        {isAr ? item.nameAr : item.nameEn}
+                      </p>
+                      <span className="text-[11px] font-mono font-bold text-[#111318] block">
+                        {formatAmt(item.priceAed)}
+                      </span>
+                    </div>
+                  </button>
                 ))}
               </div>
-            )}
-
-            {/* Google / Perplexity / ChatGPT JSON-LD Schema */}
-            <div className="space-y-2">
-              <div className="flex items-center justify-between">
-                <label className="text-[11px] font-bold uppercase tracking-wider text-luxury-gold flex items-center gap-1.5">
-                  <Code2 className="w-3.5 h-3.5" />
-                  Google & AI Bots JSON-LD Microdata (AEO / GEO)
-                </label>
-                <button
-                  onClick={() => {
-                    navigator.clipboard.writeText(JSON.stringify(generateProductSchema(selectedProduct), null, 2));
-                    setCopiedSchema(true);
-                    setTimeout(() => setCopiedSchema(false), 2000);
-                  }}
-                  className="text-xs text-luxury-gold hover:underline flex items-center gap-1"
-                >
-                  {copiedSchema ? <Check className="w-3 h-3 text-emerald-400" /> : <Copy className="w-3 h-3" />}
-                  <span>{copiedSchema ? 'Copied JSON!' : 'Copy Schema'}</span>
-                </button>
-              </div>
-              <pre className="p-3 rounded-lg bg-[#121318] border border-[#23252e] text-[11px] text-luxury-platinum overflow-x-auto max-h-40 font-mono">
-                {JSON.stringify(generateProductSchema(selectedProduct), null, 2)}
-              </pre>
-            </div>
-
-            {/* AI Recommendation Prompt */}
-            <div className="space-y-2">
-              <div className="flex items-center justify-between">
-                <label className="text-[11px] font-bold uppercase tracking-wider text-luxury-gold flex items-center gap-1.5">
-                  <Bot className="w-3.5 h-3.5" />
-                  AI Agent Recommendation Prompt (ChatGPT / Claude / Perplexity)
-                </label>
-                <button
-                  onClick={() => {
-                    navigator.clipboard.writeText(generateAIPrompt(selectedProduct));
-                    setCopiedAIPrompt(true);
-                    setTimeout(() => setCopiedAIPrompt(false), 2000);
-                  }}
-                  className="text-xs text-luxury-gold hover:underline flex items-center gap-1"
-                >
-                  {copiedAIPrompt ? <Check className="w-3 h-3 text-emerald-400" /> : <Copy className="w-3 h-3" />}
-                  <span>{copiedAIPrompt ? 'Copied Prompt!' : 'Copy Prompt'}</span>
-                </button>
-              </div>
-              <div className="p-3 rounded-lg bg-[#121318] border border-[#23252e] text-xs text-luxury-muted font-sans leading-relaxed">
-                {generateAIPrompt(selectedProduct)}
-              </div>
-            </div>
-
-            {/* Backlink Authority Connections */}
-            <div className="p-3 rounded-lg bg-luxury-gold/10 border border-luxury-gold/25 space-y-1">
-              <span className="text-[11px] font-bold uppercase text-luxury-gold flex items-center gap-1">
-                <Newspaper className="w-3.5 h-3.5" /> Authority Backlinks Connected:
-              </span>
-              <p className="text-xs text-luxury-platinum">
-                Associated with the official <strong>Gulf News Page 7</strong> and <strong>Bridal Arabia</strong> press features.
-              </p>
-            </div>
-
-            {/* Actions */}
-            <div className="flex items-center justify-between pt-3 border-t border-[#23252e]">
-              <a
-                href={`${selectedProduct.canonicalUrl.split('?')[0]}?ref=omnia_affiliate`}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="flex items-center gap-1.5 text-xs text-luxury-gold hover:underline"
-              >
-                <span>Open Storefront Link</span>
-                <ExternalLink className="w-3.5 h-3.5" />
-              </a>
-
-              <button
-                onClick={() => copyAffiliateLink(selectedProduct)}
-                className="flex items-center gap-2 px-4 py-2 rounded-lg text-xs font-semibold bg-luxury-gold hover:bg-luxury-gold-light text-luxury-charcoal transition-all shadow-sm font-bold"
-              >
-                <Copy className="w-3.5 h-3.5" />
-                <span>Copy Tracked Affiliate URL</span>
-              </button>
             </div>
           </div>
         </div>
-      )}
-    </div>
+
+        {/* 3. STICKY WHITE FILTER, SEARCH & SORT RIBBON */}
+        <div className="sticky top-[62px] sm:top-[74px] z-30 bg-white/95 backdrop-blur-md border-b border-[#EAE3D5] shadow-sm">
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-3.5 flex flex-col lg:flex-row lg:items-center justify-between gap-3">
+            <div className="flex items-center gap-2 overflow-x-auto scrollbar-none pb-1 lg:pb-0">
+              {STUDIO_FILTERS.map((flt) => {
+                const active = studioGroup === flt.id;
+                return (
+                  <button
+                    key={flt.id}
+                    type="button"
+                    onClick={() => setStudioGroup(flt.id)}
+                    className={`px-3.5 py-1.5 rounded-full text-[11px] font-mono font-bold uppercase tracking-wider whitespace-nowrap transition-all cursor-pointer border ${
+                      active
+                        ? 'bg-[#111318] text-[#D4AF37] border-[#111318] shadow-sm'
+                        : 'bg-[#FAF8F4] text-neutral-700 border-[#EAE3D5] hover:border-[#B8860B]'
+                    }`}
+                  >
+                    {isAr ? flt.labelAr : flt.labelEn}
+                  </button>
+                );
+              })}
+            </div>
+
+            <div className="flex flex-wrap items-center gap-2 shrink-0">
+              <div className="relative flex-1 sm:w-64">
+                <Search className="w-3.5 h-3.5 text-neutral-400 absolute left-3 top-1/2 -translate-y-1/2 pointer-events-none" />
+                <input
+                  type="search"
+                  value={search}
+                  onChange={(e) => setSearch(e.target.value)}
+                  placeholder={isAr ? 'ابحث عن قطعة، لؤلؤ، باريبا، ذهب...' : 'Search Paraiba, Bridal, Gold, Rings...'}
+                  className="w-full pl-8 pr-3 py-1.5 rounded-full border border-[#EAE3D5] bg-[#FAF8F4] text-xs font-mono text-[#111318] placeholder-neutral-400 focus:outline-none focus:border-[#B8860B]"
+                />
+              </div>
+
+              <select
+                value={sortOrder}
+                onChange={(e) => setSortOrder(e.target.value as 'featured' | 'asc' | 'desc')}
+                aria-label="Sort products"
+                className="px-3 py-1.5 rounded-full border border-[#EAE3D5] bg-[#FAF8F4] text-[11px] font-mono font-bold text-[#111318] focus:outline-none focus:border-[#B8860B] cursor-pointer"
+              >
+                <option value="featured">{isAr ? 'المختارات الأولى' : 'Sort: Curated Order'}</option>
+                <option value="asc">{isAr ? 'السعر: الأقل أولاً' : 'Price: Low → High'}</option>
+                <option value="desc">{isAr ? 'السعر: الأعلى أولاً' : 'Price: High → Low'}</option>
+              </select>
+            </div>
+          </div>
+        </div>
+
+        {/* 4. PRIMARY WHITE EDITORIAL PRODUCT GALLERY (STARTS WITH YOUR PREFERRED CARD STYLE!) */}
+        <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10 space-y-16">
+          <section className="space-y-6">
+            <div className="flex flex-wrap items-center justify-between gap-2 border-b border-[#EAE3D5] pb-3">
+              <div className="flex items-center gap-2 text-xs font-mono font-extrabold uppercase tracking-[0.18em] text-[#111318]">
+                <Crown className="w-4 h-4 text-[#B8860B]" />
+                <span>
+                  {isAr ? 'الإصدارات المختارة الفاخرة (تشكيلة 2026–2027)' : 'SIGNATURE OMNIA STUDIO & BRIDAL EDITIONS'}
+                </span>
+              </div>
+              <span className="text-[11px] font-mono text-neutral-500">
+                {filteredStudioItems.length} {isAr ? 'قطع متوفرة للشحن السريع' : 'Unique Luxury Drops Ready'}
+              </span>
+            </div>
+
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+              {filteredStudioItems.map((prod) => (
+                <div
+                  key={prod.id}
+                  className="group border border-[#EAE3D5] bg-[#FAF8F4] hover:border-[#B8860B] hover:shadow-xl transition-all flex flex-col justify-between overflow-hidden rounded-2xl"
+                >
+                  <div
+                    onClick={() => setQuickViewItem(prod)}
+                    className="relative aspect-[5/6] w-full overflow-hidden bg-white cursor-pointer"
+                  >
+                    <Image
+                      src={prod.image}
+                      alt={isAr ? prod.nameAr : prod.nameEn}
+                      fill
+                      unoptimized
+                      className="object-cover object-center group-hover:scale-105 transition-transform duration-700"
+                    />
+                    <span className="absolute top-3 left-3 px-2.5 py-0.5 bg-[#111318]/90 text-[#D4AF37] text-[9px] font-mono font-bold uppercase tracking-wider border border-[#D4AF37]/30">
+                      {isAr ? prod.badgeAr : prod.badgeEn}
+                    </span>
+                    <span className="absolute bottom-3 right-3 px-2.5 py-1 rounded-full bg-white/95 text-[#111318] text-[9px] font-mono font-bold uppercase tracking-wider opacity-0 group-hover:opacity-100 transition-opacity flex items-center gap-1 shadow">
+                      <Eye className="w-3 h-3" />
+                      <span>{isAr ? 'معاينة' : 'Quick View'}</span>
+                    </span>
+                  </div>
+
+                  <div className="p-4 flex-1 flex flex-col justify-between gap-3">
+                    <div className="space-y-1.5">
+                      <h2
+                        onClick={() => setQuickViewItem(prod)}
+                        className="text-sm font-serif font-bold text-[#111318] leading-snug group-hover:text-[#8B6508] transition-colors cursor-pointer"
+                      >
+                        {isAr ? prod.nameAr : prod.nameEn}
+                      </h2>
+                      <p className="text-[11px] font-mono text-neutral-600 line-clamp-2">
+                        {isAr ? prod.specAr : prod.specEn}
+                      </p>
+                    </div>
+
+                    <div className="pt-2.5 border-t border-[#EAE3D5] flex items-center justify-between text-xs">
+                      <span className="font-mono font-bold text-[#8B6508]">{formatAmt(prod.priceAed)}</span>
+                      <a
+                        href={prod.url}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="font-bold uppercase tracking-wider text-[10px] text-[#111318] hover:text-[#8B6508] flex items-center gap-1"
+                      >
+                        <ShoppingBag className="w-3 h-3" />
+                        <span>{isAr ? 'تسوق' : 'SHOP'}</span>
+                      </a>
+                    </div>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </section>
+
+          {/* 5. ILLUSTRATED ATELIER BLOGS (SCREENSHOT #2 WHITE-CREAM EDITORIAL PAIRING) */}
+          <section className="space-y-6">
+            <div className="flex flex-wrap items-end justify-between gap-3 border-b border-[#EAE3D5] pb-3">
+              <div>
+                <span className="text-[10px] font-mono uppercase tracking-[0.22em] text-[#8B6508] font-bold block">
+                  {isAr ? 'مدونة أمنية ستورز • تنسيق الموضة والأحجار' : 'ATELIER STYLE JOURNAL • SHOP THE STORY'}
+                </span>
+                <h2 className="text-xl sm:text-3xl font-serif font-black text-[#111318] mt-0.5">
+                  {isAr ? 'مقالات وتنسيقات التشكيلات على خلفية تحريرية' : 'Studio Craft Dossiers & Styling Guides'}
+                </h2>
+              </div>
+              <Link href="/magazine" className="text-xs font-mono font-bold text-[#8B6508] hover:underline">
+                {isAr ? 'فتح المجلة الكاملة ←' : 'Open Digital Magazine →'}
+              </Link>
+            </div>
+
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+              {OMNIA_ATELIER_BLOGS.map((blog) => (
+                <article
+                  key={blog.id}
+                  className="rounded-2xl border border-[#EAE3D5] bg-[#FAF8F4] overflow-hidden shadow-sm hover:shadow-xl hover:border-[#B8860B] transition-all flex flex-col justify-between"
+                >
+                  <div className="grid grid-cols-1 sm:grid-cols-12">
+                    <Link
+                      href={`/magazine/article/${blog.slug}`}
+                      className="sm:col-span-5 relative aspect-[4/5] sm:aspect-auto min-h-[250px] bg-white overflow-hidden block group"
+                    >
+                      <Image
+                        src={blog.coverImage}
+                        alt={isAr ? blog.titleAr : blog.titleEn}
+                        fill
+                        unoptimized
+                        className="object-cover object-center group-hover:scale-105 transition-transform duration-700"
+                      />
+                    </Link>
+
+                    <div className="sm:col-span-7 p-5 flex flex-col justify-between gap-3">
+                      <div className="space-y-2">
+                        <div className="flex flex-wrap items-center justify-between gap-2 text-[9px] font-mono">
+                          <span className="px-2 py-0.5 rounded bg-[#111318] text-white font-bold">
+                            {isAr ? blog.categoryAr : blog.categoryEn}
+                          </span>
+                          <span className="text-neutral-500">
+                            {blog.date} • {blog.readTime}
+                          </span>
+                        </div>
+
+                        <Link href={`/magazine/article/${blog.slug}`} className="block group">
+                          <h3 className="text-lg font-serif font-bold leading-snug text-[#111318] group-hover:underline">
+                            {isAr ? blog.titleAr : blog.titleEn}
+                          </h3>
+                        </Link>
+
+                        <p className="text-xs text-neutral-600 font-serif leading-relaxed line-clamp-3">
+                          {isAr ? blog.excerptAr : blog.excerptEn}
+                        </p>
+                      </div>
+
+                      <div className="grid grid-cols-3 gap-2 pt-1">
+                        {blog.galleryImages.map((gImg, idx) => (
+                          <a
+                            key={gImg}
+                            href={blog.backlinkUrl}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="relative aspect-square rounded-lg overflow-hidden border border-[#EAE3D5] bg-white group"
+                          >
+                            <Image
+                              src={gImg}
+                              alt={`Atelier look ${idx + 1}`}
+                              fill
+                              unoptimized
+                              className="object-cover object-center group-hover:scale-110 transition-transform duration-500"
+                            />
+                          </a>
+                        ))}
+                      </div>
+
+                      <div className="pt-2 border-t border-[#EAE3D5] flex flex-wrap items-center justify-between gap-2 text-[11px] font-mono">
+                        <Link
+                          href={`/magazine/article/${blog.slug}`}
+                          className="font-bold text-[#111318] hover:text-[#8B6508] inline-flex items-center gap-1"
+                        >
+                          <span>{isAr ? 'قراءة المدونة كاملة' : 'Read Blog Post'}</span>
+                          <ArrowUpRight className="w-3 h-3" />
+                        </Link>
+                        <a
+                          href={blog.backlinkUrl}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="font-bold text-[#8B6508] hover:underline inline-flex items-center gap-1"
+                        >
+                          <span>omniastores.com</span>
+                          <ExternalLink className="w-3 h-3" />
+                        </a>
+                      </div>
+                    </div>
+                  </div>
+                </article>
+              ))}
+            </div>
+          </section>
+
+          {/* 6. COMPLETE MIRRORED OMNIASTORES.COM CATALOGUE ARCHIVE */}
+          <section className="space-y-6 pt-4 border-t border-[#EAE3D5]">
+            <div className="flex flex-col md:flex-row md:items-end justify-between gap-4">
+              <div>
+                <span className="text-[10px] font-mono uppercase tracking-[0.22em] text-[#8B6508] font-bold block">
+                  {isAr ? 'أرشيف الكتالوج المتزامن الكامل' : 'COMPLETE SYNCHRONIZED OMNIA CATALOGUE'}
+                </span>
+                <h2 className="text-xl sm:text-3xl font-serif font-black text-[#111318] mt-0.5">
+                  {isAr ? 'كافة الفئات المتوفرة على omniastores.com' : `All ${LUXURY_PRODUCTS.length} Mirrored Boutique Pieces`}
+                </h2>
+              </div>
+
+              <div className="flex items-center gap-1.5 overflow-x-auto scrollbar-none pb-1">
+                {['All', ...CATEGORIES].map((cat) => (
+                  <button
+                    key={cat}
+                    type="button"
+                    onClick={() => setArchiveCategory(cat)}
+                    className={`px-3 py-1 rounded-full text-[10px] font-mono font-bold whitespace-nowrap transition-colors cursor-pointer border ${
+                      archiveCategory === cat
+                        ? 'bg-[#111318] text-white border-[#111318]'
+                        : 'bg-[#FAF8F4] text-neutral-700 border-[#EAE3D5] hover:border-[#B8860B]'
+                    }`}
+                  >
+                    {cat}
+                  </button>
+                ))}
+              </div>
+            </div>
+
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+              {displayedArchive.map((product) => (
+                <ProductCard key={product.id} product={product} />
+              ))}
+            </div>
+
+            {filteredArchive.length > 8 && (
+              <div className="text-center pt-2">
+                <button
+                  type="button"
+                  onClick={() => setShowFullArchive((v) => !v)}
+                  className="px-6 py-3 rounded-full border border-[#111318] text-[#111318] hover:bg-[#111318] hover:text-white text-xs font-mono font-bold uppercase tracking-[0.18em] transition-colors cursor-pointer"
+                >
+                  {showFullArchive
+                    ? (isAr ? 'عرض أقل' : 'Show Compact Archive')
+                    : (isAr ? `عرض كافة المنتجات (${filteredArchive.length})` : `Load All ${filteredArchive.length} Synced Products`)}
+                </button>
+              </div>
+            )}
+          </section>
+
+          {/* 7. VERIFIED GUARANTEE & BACKLINKS BANNER */}
+          <section className="rounded-3xl border border-[#EAE3D5] bg-[#FAF8F4] p-6 sm:p-8 flex flex-col lg:flex-row items-center justify-between gap-6">
+            <div className="space-y-2 max-w-2xl">
+              <div className="flex items-center gap-2 text-[10px] font-mono uppercase tracking-[0.2em] font-bold text-emerald-700">
+                <ShieldCheck className="w-4 h-4" />
+                <span>{isAr ? 'ضمان الفضة الخالصة عيار 925 وفحص مختبر دبي المركزي' : 'DCL-ASSAYED 925 SILVER GUARANTEE • CODE OMNIA-VIP15'}</span>
+              </div>
+              <h3 className="text-xl sm:text-2xl font-serif font-bold text-[#111318]">
+                {isAr
+                  ? 'هل تبحثين عن طلب مخصص للزفاف أو الهدايا الرسمية في الخليج؟'
+                  : 'Direct Boutique Fulfillment Across Dubai, Abu Dhabi, Riyadh & GCC'}
+              </h3>
+              <div className="flex flex-wrap items-center gap-4 pt-1 text-xs font-mono text-neutral-600">
+                <span className="inline-flex items-center gap-1">
+                  <CheckCircle2 className="w-3.5 h-3.5 text-emerald-600" /> Nickel-Free Hypoallergenic 925
+                </span>
+                <span className="inline-flex items-center gap-1">
+                  <CheckCircle2 className="w-3.5 h-3.5 text-emerald-600" /> 24h Insured Courier
+                </span>
+                <span className="inline-flex items-center gap-1">
+                  <Link2 className="w-3.5 h-3.5 text-[#8B6508]" /> Official Store: omniastores.com
+                </span>
+              </div>
+            </div>
+
+            <div className="flex flex-wrap items-center gap-3 shrink-0">
+              <Link
+                href="/brands/omnia-stores"
+                className="px-5 py-3 rounded-xl border border-[#EAE3D5] bg-white hover:border-[#B8860B] text-xs font-mono font-bold text-[#111318]"
+              >
+                {isAr ? 'ملف العلامة الموثق' : 'Brand Verification'}
+              </Link>
+              <a
+                href="https://omniastores.com/collections/bridal-sets"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="px-6 py-3 rounded-xl bg-[#111318] text-[#D4AF37] hover:bg-[#8B6508] hover:text-white text-xs font-mono font-extrabold uppercase tracking-wider inline-flex items-center gap-1.5 transition-colors shadow-md"
+              >
+                <span>{isAr ? 'زيارة متجر omniastores.com' : 'Shop on omniastores.com'}</span>
+                <ExternalLink className="w-3.5 h-3.5" />
+              </a>
+            </div>
+          </section>
+        </main>
+
+        {/* QUICK-VIEW WHITE MARBLE BOUTIQUE MODAL */}
+        {quickViewItem && (
+          <div
+            className="fixed inset-0 z-50 bg-black/75 backdrop-blur-md flex items-center justify-center p-4"
+            onClick={() => setQuickViewItem(null)}
+          >
+            <div
+              onClick={(e) => e.stopPropagation()}
+              className="w-full max-w-3xl bg-white text-[#111318] rounded-3xl overflow-hidden border border-[#EAE3D5] shadow-2xl grid grid-cols-1 md:grid-cols-12 relative"
+            >
+              <button
+                type="button"
+                onClick={() => setQuickViewItem(null)}
+                aria-label="Close modal"
+                className="absolute top-3 right-3 z-10 p-2 rounded-full bg-white/90 border border-[#EAE3D5] hover:bg-[#111318] hover:text-white transition-colors cursor-pointer"
+              >
+                <X className="w-4 h-4" />
+              </button>
+
+              <div className="md:col-span-6 relative aspect-[5/6] bg-[#FAF8F4]">
+                <Image
+                  src={quickViewItem.image}
+                  alt={isAr ? quickViewItem.nameAr : quickViewItem.nameEn}
+                  fill
+                  unoptimized
+                  className="object-cover object-center"
+                />
+              </div>
+
+              <div className="md:col-span-6 p-6 sm:p-8 flex flex-col justify-between gap-6">
+                <div className="space-y-3">
+                  <span className="inline-block px-2.5 py-0.5 bg-[#111318] text-[#D4AF37] text-[9px] font-mono font-bold uppercase tracking-widest">
+                    {isAr ? quickViewItem.badgeAr : quickViewItem.badgeEn}
+                  </span>
+                  <h3 className="text-2xl font-serif font-bold text-[#111318] leading-snug">
+                    {isAr ? quickViewItem.nameAr : quickViewItem.nameEn}
+                  </h3>
+                  <p className="text-lg font-mono font-bold text-[#8B6508]">
+                    {formatAmt(quickViewItem.priceAed)}
+                  </p>
+                  <p className="text-xs sm:text-sm text-neutral-600 font-serif leading-relaxed border-t border-[#EAE3D5] pt-3">
+                    {isAr ? quickViewItem.specAr : quickViewItem.specEn}
+                  </p>
+                  <p className="text-[11px] font-mono text-emerald-700 font-bold">
+                    ✓ DCL 925 Certified • VIP Code: OMNIA-VIP15 (15% Off)
+                  </p>
+                </div>
+
+                <div className="space-y-2.5">
+                  <a
+                    href={quickViewItem.url}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="w-full py-3.5 px-5 rounded-xl bg-[#111318] text-[#D4AF37] hover:bg-[#8B6508] hover:text-white font-mono font-extrabold text-xs uppercase tracking-wider flex items-center justify-center gap-2 transition-colors shadow-lg"
+                  >
+                    <ShoppingBag className="w-4 h-4" />
+                    <span>{isAr ? 'إتمام الشراء في omniastores.com' : 'Acquire Now on omniastores.com'}</span>
+                    <ExternalLink className="w-3.5 h-3.5" />
+                  </a>
+                  <Link
+                    href="/brands/omnia-stores"
+                    className="w-full py-2.5 px-4 rounded-xl border border-[#EAE3D5] text-center text-[11px] font-mono font-bold text-[#111318] hover:border-[#B8860B] block"
+                  >
+                    {isAr ? 'مراجعة مواصفات الجودة والفحص' : 'Inspect DCL 925 Assay & Warranty'}
+                  </Link>
+                </div>
+              </div>
+            </div>
+          </div>
+        )}
+      </div>
+    </>
   );
 }

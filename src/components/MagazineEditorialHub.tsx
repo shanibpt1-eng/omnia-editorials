@@ -461,7 +461,7 @@ export function MagazineEditorialHub() {
                 href="https://omniastores.com/collections/brooches"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="block rounded-2xl overflow-hidden border border-gold/45 bg-[#090C13] text-white shadow-xl group"
+                className="dark-surface block rounded-2xl overflow-hidden border border-gold/45 bg-[#090C13] text-white shadow-xl group"
               >
                 <div className="relative aspect-[4/3] w-full overflow-hidden">
                   <Image
@@ -480,7 +480,7 @@ export function MagazineEditorialHub() {
                       <span className="text-[8px] font-mono uppercase tracking-widest text-gold font-bold block">
                         OMNIASTORES.COM • 15% OFF
                       </span>
-                      <h5 className="text-xs font-serif font-bold leading-tight">
+                      <h5 className="text-xs font-serif font-bold leading-tight text-white stay-white">
                         {isAr ? 'مختارات الفضة 925 والبروشات' : 'The 925 Brooch & Bridal Vault'}
                       </h5>
                     </div>
@@ -536,7 +536,7 @@ export function MagazineEditorialHub() {
                 <Link
                   key={story.id}
                   href={buildArticleHref(story)}
-                  className="group relative aspect-[4/5] w-full overflow-hidden rounded-2xl bg-neutral-900 shadow-lg border border-neutral-200 dark:border-white/10 hover:border-gold/60 transition-all block"
+                  className="dark-surface group relative aspect-[4/5] w-full overflow-hidden rounded-2xl bg-neutral-900 shadow-lg border border-neutral-200 dark:border-white/10 hover:border-gold/60 transition-all block"
                 >
                   <img
                     src={story.thumbnail}
@@ -551,7 +551,7 @@ export function MagazineEditorialHub() {
                     }}
                     className="w-full h-full object-cover object-center group-hover:scale-105 transition-transform duration-700"
                   />
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/95 via-black/30 to-black/15" />
+                  <div className="absolute inset-0 bg-gradient-to-t from-black via-black/55 to-black/15" />
 
                   <div className="absolute top-3 left-3 right-3 flex items-center justify-between gap-2">
                     <span className="px-2.5 py-0.5 bg-white/95 dark:bg-black/85 text-neutral-950 dark:text-gold text-[9px] font-mono font-extrabold uppercase tracking-widest border border-gold/25">
@@ -566,7 +566,7 @@ export function MagazineEditorialHub() {
                     <span className="text-[10px] font-mono uppercase tracking-[0.2em] text-amber-300 font-bold block">
                       {story.category}
                     </span>
-                    <h4 className="text-lg sm:text-xl font-serif font-medium leading-snug group-hover:underline line-clamp-3">
+                    <h4 className="text-lg sm:text-xl font-serif font-medium leading-snug text-white stay-white group-hover:underline line-clamp-3">
                       {story.title}
                     </h4>
                     <div className="pt-1 flex items-center justify-between text-[10px] font-mono uppercase tracking-[0.14em] text-neutral-300">
@@ -695,13 +695,13 @@ export function MagazineEditorialHub() {
         )}
 
         {/* 4. SPONSORED OMNIA STORES FLAGSHIP ADVERTISEMENT PORTAL */}
-        <div className="rounded-3xl bg-gradient-to-r from-[#0A0D14] via-[#171E2E] to-[#0A0D14] text-white border border-gold/45 p-6 sm:p-10 flex flex-col lg:flex-row items-center justify-between gap-6 shadow-2xl">
+        <div className="dark-surface rounded-3xl bg-gradient-to-r from-[#0A0D14] via-[#171E2E] to-[#0A0D14] text-white border border-gold/45 p-6 sm:p-10 flex flex-col lg:flex-row items-center justify-between gap-6 shadow-2xl">
           <div className="space-y-2.5 max-w-2xl">
             <div className="inline-flex items-center gap-2 text-gold text-[10px] font-mono uppercase tracking-[0.22em] font-bold">
               <Crown className="w-3.5 h-3.5" />
               <span>{isAr ? 'مساحة إعلانية • الشريك الفاخر المعتمد' : 'ADVERTISEMENT • OFFICIAL GCC JEWELLERY PARTNER'}</span>
             </div>
-            <h3 className="text-2xl sm:text-3xl font-serif font-bold">
+            <h3 className="text-2xl sm:text-3xl font-serif font-bold text-white stay-white">
               {isAr
                 ? 'أمنية ستورز (omniastores.com): مجوهرات الفضة عيار 925 وأطقم العرائس'
                 : 'Omnia Stores (omniastores.com): DCL-Assayed 925 Bridal Suites & Brooches'}
@@ -762,15 +762,15 @@ export function MagazineEditorialHub() {
                 rel="noopener noreferrer"
                 className="group border border-neutral-200 dark:border-gold/25 bg-[#FAF7F2] dark:bg-[#0D111A] hover:border-gold transition-all flex flex-col justify-between overflow-hidden rounded-xl"
               >
-                <div className="relative aspect-[4/5] w-full overflow-hidden bg-black">
+                <div className="relative aspect-[5/6] w-full overflow-hidden bg-black">
                   <Image
                     src={prod.image}
                     alt={isAr ? prod.nameAr : prod.nameEn}
                     fill
                     unoptimized
-                    className="object-cover object-top group-hover:scale-105 transition-transform duration-700"
+                    className="object-cover object-center group-hover:scale-105 transition-transform duration-700"
                   />
-                  <span className="absolute top-2.5 left-2.5 px-2 py-0.5 bg-black/85 text-gold text-[9px] font-mono font-bold uppercase tracking-wider border border-gold/30">
+                  <span className="absolute top-2.5 left-2.5 px-2.5 py-0.5 bg-black/85 text-gold text-[9px] font-mono font-bold uppercase tracking-wider border border-gold/40">
                     {isAr ? prod.badgeAr : prod.badgeEn}
                   </span>
                 </div>
@@ -778,7 +778,7 @@ export function MagazineEditorialHub() {
                   <h4 className="text-sm font-serif font-bold leading-snug group-hover:text-[#8B6508] dark:group-hover:text-gold transition-colors">
                     {isAr ? prod.nameAr : prod.nameEn}
                   </h4>
-                  <p className="text-[11px] font-mono text-neutral-500 dark:text-neutral-400">
+                  <p className="text-[11px] font-mono text-neutral-600 dark:text-neutral-400 line-clamp-2">
                     {isAr ? prod.specAr : prod.specEn}
                   </p>
                   <div className="pt-2 border-t border-neutral-200 dark:border-white/10 flex items-center justify-between text-xs">
@@ -909,7 +909,7 @@ export function MagazineEditorialHub() {
               <article
                 key={story.id}
                 onClick={() => setReaderLocal(story)}
-                className="group relative aspect-[4/5] w-full overflow-hidden rounded-2xl bg-neutral-900 cursor-pointer shadow-lg border border-neutral-200 dark:border-gold/25"
+                className="dark-surface group relative aspect-[4/5] w-full overflow-hidden rounded-2xl bg-neutral-900 cursor-pointer shadow-lg border border-neutral-200 dark:border-gold/25"
               >
                 <Image
                   src={story.coverImage}
@@ -918,12 +918,12 @@ export function MagazineEditorialHub() {
                   unoptimized
                   className="object-cover object-top group-hover:scale-105 transition-transform duration-700"
                 />
-                <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/35 to-transparent" />
+                <div className="absolute inset-0 bg-gradient-to-t from-black via-black/50 to-transparent" />
                 <div className="absolute bottom-0 inset-x-0 p-5 text-white space-y-1.5">
                   <span className="text-[10px] font-mono uppercase tracking-[0.2em] text-amber-300 font-bold block">
                     {isAr ? story.tagAr : story.tagEn}
                   </span>
-                  <h4 className="text-base sm:text-lg font-serif font-medium leading-snug group-hover:underline">
+                  <h4 className="text-base sm:text-lg font-serif font-medium leading-snug text-white stay-white group-hover:underline">
                     {isAr ? story.titleAr : story.titleEn}
                   </h4>
                   <p className="text-[10px] font-mono uppercase tracking-[0.16em] text-neutral-300 pt-1">
@@ -955,7 +955,7 @@ export function MagazineEditorialHub() {
                 key={issue.id}
                 type="button"
                 onClick={() => setActiveSection(issue.linkedPillar)}
-                className="group text-left rtl:text-right border border-neutral-200 dark:border-gold/25 bg-[#FAF7F2] dark:bg-[#0D111A] hover:border-gold transition-all overflow-hidden rounded-xl cursor-pointer"
+                className="dark-surface group text-left rtl:text-right border border-neutral-200 dark:border-gold/25 bg-[#FAF7F2] dark:bg-[#0D111A] hover:border-gold transition-all overflow-hidden rounded-xl cursor-pointer"
               >
                 <div className="relative aspect-[3/4] w-full overflow-hidden bg-black">
                   <Image
@@ -978,7 +978,7 @@ export function MagazineEditorialHub() {
                     <span className="text-[9px] font-mono uppercase tracking-widest text-amber-300 font-bold block">
                       {isAr ? issue.seasonAr : issue.seasonEn}
                     </span>
-                    <h4 className="text-xs sm:text-sm font-serif font-bold leading-snug">
+                    <h4 className="text-xs sm:text-sm font-serif font-bold leading-snug text-white stay-white">
                       {isAr ? issue.titleAr : issue.titleEn}
                     </h4>
                   </div>

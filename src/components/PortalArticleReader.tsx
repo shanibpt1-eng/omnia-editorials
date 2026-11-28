@@ -296,20 +296,20 @@ export function PortalArticleReader({ article, relatedArticles }: PortalArticleR
           <aside className="lg:col-span-4 space-y-6 lg:sticky lg:top-24">
             {/* 1. Primary Omnia Stores Vertical Advertisement Portal */}
             <a
-              href="https://omniastores.com/"
+              href="https://omniastores.com/collections/bridal-sets"
               target="_blank"
               rel="noopener noreferrer"
-              className="block rounded-2xl overflow-hidden border border-gold/50 bg-[#0A0D14] text-white shadow-2xl group"
+              className="dark-surface block rounded-2xl overflow-hidden border border-gold/50 bg-[#0A0D14] text-white shadow-2xl group"
             >
               <div className="relative aspect-[4/5] w-full overflow-hidden">
                 <Image
-                  src="/ai-models/omnia-bridal-model.jpg"
+                  src="/omnia-luxury/diamond-bow-collar-opera-gloves.jpg"
                   alt="Omnia Stores Flagship Ad Portal"
                   fill
                   unoptimized
                   className="object-cover object-top group-hover:scale-105 transition-transform duration-700"
                 />
-                <div className="absolute inset-0 bg-gradient-to-t from-black/95 via-black/35 to-black/20" />
+                <div className="absolute inset-0 bg-gradient-to-t from-black via-black/45 to-black/20" />
                 <span className="absolute top-3 right-3 px-2 py-0.5 bg-black/85 text-gold text-[9px] font-mono font-bold uppercase tracking-widest border border-gold/40">
                   ADVERTISEMENT PORTAL
                 </span>
@@ -318,10 +318,10 @@ export function PortalArticleReader({ article, relatedArticles }: PortalArticleR
                     <Crown className="w-3.5 h-3.5" />
                     <span>OMNIASTORES.COM</span>
                   </div>
-                  <h3 className="text-xl font-serif font-bold leading-snug">
+                  <h3 className="text-xl font-serif font-bold leading-snug text-white stay-white">
                     {isAr ? 'أطقم الزفاف والمجوهرات الفضية عيار 925' : 'Bridal Suites & 925 Couture Jewellery'}
                   </h3>
-                  <p className="text-xs text-neutral-300 font-serif">
+                  <p className="text-xs text-neutral-200 font-serif">
                     {isAr ? 'كود VIP خصم 15%: OMNIA-VIP15 • توصيل 24 ساعة' : 'VIP Privilege Code: OMNIA-VIP15 (15% Off) • 24h UAE Delivery'}
                   </p>
                   <span className="inline-flex items-center gap-1.5 px-4 py-2 bg-gradient-to-r from-gold via-amber-300 to-[#AA8C2C] text-black text-xs font-extrabold uppercase tracking-wider mt-1">
@@ -424,7 +424,7 @@ export function PortalArticleReader({ article, relatedArticles }: PortalArticleR
                 <Link
                   key={rel.id}
                   href={buildArticleHref(rel)}
-                  className="group relative aspect-[4/5] overflow-hidden bg-neutral-900 border border-neutral-200 dark:border-white/10 shadow-lg block"
+                  className="dark-surface group relative aspect-[4/5] overflow-hidden bg-neutral-900 border border-neutral-200 dark:border-white/10 shadow-lg block rounded-2xl"
                 >
                   <img
                     src={rel.thumbnail}
@@ -439,7 +439,7 @@ export function PortalArticleReader({ article, relatedArticles }: PortalArticleR
                     }}
                     className="w-full h-full object-cover object-center group-hover:scale-105 transition-transform duration-700"
                   />
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/30 to-black/15" />
+                  <div className="absolute inset-0 bg-gradient-to-t from-black via-black/45 to-black/15" />
                   <span className="absolute top-3 left-3 px-2 py-0.5 bg-white/95 dark:bg-black/85 text-neutral-950 dark:text-white text-[9px] font-mono font-extrabold uppercase tracking-wider">
                     {rel.publisher}
                   </span>
@@ -447,7 +447,7 @@ export function PortalArticleReader({ article, relatedArticles }: PortalArticleR
                     <span className="text-[10px] font-mono uppercase tracking-[0.18em] text-amber-300 font-bold block">
                       {rel.category} • {rel.publishedDisplay}
                     </span>
-                    <h3 className="text-base sm:text-lg font-serif font-medium leading-snug group-hover:underline line-clamp-3">
+                    <h3 className="text-base sm:text-lg font-serif font-medium leading-snug text-white stay-white group-hover:underline line-clamp-3">
                       {rel.title}
                     </h3>
                   </div>

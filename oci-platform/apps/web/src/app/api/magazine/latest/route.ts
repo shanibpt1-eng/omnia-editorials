@@ -64,6 +64,18 @@ const FEED_SOURCES: FeedSourceConfig[] = [
     ],
   },
   {
+    slug: 'robb-report',
+    name: 'Robb Report',
+    url: 'https://robbreport.com/feed/',
+    defaultCategory: 'Ultra Luxury',
+    defaultPillar: 'watches',
+    fallbackImages: [
+      '/campaigns/golden-nocturne.jpg',
+      '/press/golden-luxe-middle-east-cover-oct2026.jpg',
+      '/campaigns/rose-brilliance.jpg',
+    ],
+  },
+  {
     slug: 'vanity-fair',
     name: 'Vanity Fair',
     url: 'https://www.vanityfair.com/feed/rss',
@@ -88,6 +100,18 @@ const FEED_SOURCES: FeedSourceConfig[] = [
     ],
   },
   {
+    slug: 'new-yorker',
+    name: 'The New Yorker',
+    url: 'https://www.newyorker.com/feed/culture',
+    defaultCategory: 'Culture & Criticism',
+    defaultPillar: 'culture',
+    fallbackImages: [
+      '/press/the-pearl-edit-omnia-stores.jpg',
+      '/campaigns/cobalt-couture.jpg',
+      '/press/inside-luxury-bridal-sets-feature.jpg',
+    ],
+  },
+  {
     slug: 'allure',
     name: 'Allure',
     url: 'https://www.allure.com/feed/rss',
@@ -100,15 +124,39 @@ const FEED_SOURCES: FeedSourceConfig[] = [
     ],
   },
   {
+    slug: 'glamour',
+    name: 'Glamour',
+    url: 'https://www.glamour.com/feed/rss',
+    defaultCategory: 'Style & Beauty',
+    defaultPillar: 'beauty',
+    fallbackImages: [
+      '/banners/romantic-florals-and-jewel-tones.jpg',
+      '/banners/ruby-evenings.jpg',
+      '/banners/sapphire-allure.jpg',
+    ],
+  },
+  {
     slug: 'gq',
     name: 'GQ',
     url: 'https://www.gq.com/feed/rss',
     defaultCategory: 'Menswear & Watches',
     defaultPillar: 'watches',
     fallbackImages: [
-      '/campaigns/golden-nocturne.jpg',
       '/press/business-lifestyle-march2026.jpg',
       '/campaigns/cobalt-couture.jpg',
+      '/banners/sapphire-evenings.jpg',
+    ],
+  },
+  {
+    slug: 'esquire',
+    name: 'Esquire',
+    url: 'https://www.esquire.com/rss/all.xml/',
+    defaultCategory: 'Menswear & Culture',
+    defaultPillar: 'watches',
+    fallbackImages: [
+      '/press/gulf-news-business-june2026.jpg',
+      '/banners/midnight-nocturne-couture.jpg',
+      '/campaigns/01_timeless-elegance.png',
     ],
   },
   {
@@ -147,6 +195,30 @@ const FEED_SOURCES: FeedSourceConfig[] = [
       '/banners/diamond-radiance.jpg',
       '/press/brand-milestone-report-jan2027.jpg',
       '/campaigns/azure-pendant-edit.jpg',
+    ],
+  },
+  {
+    slug: 'house-beautiful',
+    name: 'House Beautiful',
+    url: 'https://www.housebeautiful.com/rss/all.xml/',
+    defaultCategory: 'Interiors & Living',
+    defaultPillar: 'living',
+    fallbackImages: [
+      '/press/omnia-stores-guide-bridal-gifting.jpg',
+      '/banners/how-to-wear-statement-sets.jpg',
+      '/campaigns/04_radiant-luxury.png',
+    ],
+  },
+  {
+    slug: 'hypebeast',
+    name: 'Hypebeast',
+    url: 'https://hypebeast.com/feed',
+    defaultCategory: 'Street Luxury & Design',
+    defaultPillar: 'fashion',
+    fallbackImages: [
+      '/campaigns/ruby-statements-editorial.jpg',
+      '/banners/the-colour-gem-edit.jpg',
+      '/campaigns/07_heirloom-beauty.png',
     ],
   },
 ];
@@ -211,25 +283,25 @@ function inferPillar(
   title: string
 ): MagazineWirePillar {
   const hay = `${category} ${title}`.toLowerCase();
-  if (/(watch|horology|rolex|omega|cartier|patek|menswear|suit|grooming|sneaker)/i.test(hay)) {
+  if (/\b(watch|horology|rolex|omega|cartier|patek|menswear|suit|grooming|sneaker|tailoring)\b/i.test(hay)) {
     return 'watches';
   }
-  if (/(jewel|diamond|pearl|ring|necklace|brooch|sapphire|emerald|tiffany|van cleef|bulgari)/i.test(hay)) {
+  if (/\b(jewel|jewelry|jewellery|diamond|pearl|necklace|brooch|sapphire|emerald|tiffany|van cleef|bulgari)\b/i.test(hay)) {
     return 'jewellery';
   }
-  if (/(runway|pre-fall|resort|couture|fashion week|spring 20|fall 20|collection|show)/i.test(hay)) {
+  if (/\b(runway|pre-fall|resort|couture|fashion week|spring 20|fall 20|collection|catwalk)\b/i.test(hay)) {
     return 'runway';
   }
-  if (/(beauty|skin|makeup|hair|fragrance|perfume|lip|serum|glam)/i.test(hay)) {
+  if (/\b(beauty|skincare|skin care|makeup|hair|fragrance|perfume|lipstick|serum|glam)\b/i.test(hay)) {
     return 'beauty';
   }
-  if (/(architect|interior|design|home|villa|kitchen|hotel|travel|living|decor)/i.test(hay)) {
+  if (/\b(architecture|architect|interior|interiors|home deals|furniture|kitchen|villa|hotel|decor|dining room)\b/i.test(hay)) {
     return 'living';
   }
-  if (/(art|museum|exhibition|film|movie|book|music|theatre|culture|royal|celebrity|oscars)/i.test(hay)) {
+  if (/\b(art|museum|exhibition|film|movie|book|music|theatre|culture|royal|cinema|oscars)\b/i.test(hay)) {
     return 'culture';
   }
-  if (/(business|revenue|market|ceo|creative director|appoint|step down|merge|retail|brand)/i.test(hay)) {
+  if (/\b(business|revenue|market|ceo|creative director|appoint|step down|steps down|part ways|merge|retail|earnings)\b/i.test(hay)) {
     return 'business';
   }
   return source.defaultPillar;
@@ -338,7 +410,7 @@ export async function GET(req: NextRequest) {
   const activeSources = targetSources.length > 0 ? targetSources : FEED_SOURCES;
   const results = await Promise.all(activeSources.map((src) => fetchSingleFeed(src)));
 
-  // Interleave sources round-robin after sorting each source by date so top rows showcase varied publishers
+  // Interleave sources round-robin after sorting each source by date
   const buckets = results
     .map((r) => [...r.items].sort((a, b) => new Date(b.publishedAt).getTime() - new Date(a.publishedAt).getTime()))
     .filter((b) => b.length > 0);

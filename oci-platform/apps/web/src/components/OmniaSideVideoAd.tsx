@@ -18,13 +18,22 @@ import { useLuxury } from './ThemeProvider';
 
 const SIDE_VIDEOS = [
   {
-    id: 'brooch-collection',
-    title: 'Omnia Brooch Collection 1080P',
-    titleAr: 'تشكيلة البروشات الفاخرة 1080P',
+    id: 'brooch-collection-1',
+    title: 'Omnia Brooch Collection I — 1080P',
+    titleAr: 'تشكيلة البروشات الفاخرة ١ — 1080P',
     src: '/videos/brooch-collection-1080p.mp4',
     url: 'https://omniastores.com/collections/brooches',
-    cta: 'Shop Brooches • omniastores.com',
-    ctaAr: 'تسوق البروشات • omniastores.com',
+    cta: 'Shop Brooches I • omniastores.com',
+    ctaAr: 'تسوق البروشات ١ • omniastores.com',
+  },
+  {
+    id: 'brooch-collection-2',
+    title: 'Omnia Brooch Collection II — 1080P',
+    titleAr: 'تشكيلة البروشات الفاخرة ٢ — 1080P',
+    src: '/videos/brooch-collection-2-1080p.mp4',
+    url: 'https://omniastores.com/collections/brooches',
+    cta: 'Shop Brooches II • omniastores.com',
+    ctaAr: 'تسوق البروشات ٢ • omniastores.com',
   },
 ];
 

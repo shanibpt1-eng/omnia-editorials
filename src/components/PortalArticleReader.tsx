@@ -204,7 +204,7 @@ export function PortalArticleReader({ article, relatedArticles }: PortalArticleR
 
             {/* Drop-Cap Editorial Copy */}
             <div className="space-y-6 font-serif text-base sm:text-lg leading-relaxed text-neutral-800 dark:text-neutral-200">
-              <p className="first-letter:text-5xl first-letter:font-black first-letter:float-left first-letter:mr-3 first-letter:leading-none first-letter:text-neutral-950 dark:first-letter:text-gold">
+              <p className="ltr:first-letter:text-5xl ltr:first-letter:font-black ltr:first-letter:float-left ltr:first-letter:mr-3 ltr:first-letter:leading-none ltr:first-letter:text-neutral-950 dark:ltr:first-letter:text-gold">
                 {article.excerpt}{' '}
                 {isAr
                   ? `نُشر هذا التقرير بتاريخ ${article.publishedDisplay} عبر شبكة ${article.publisher} ليضع القارئ في قلب التحولات الجمالية والثقافية العالمية المعاصرة.`

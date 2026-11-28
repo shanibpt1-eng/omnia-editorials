@@ -221,15 +221,15 @@ export default function ProductsCataloguePage() {
               })}
             </div>
 
-            <div className="flex flex-wrap items-center gap-2 shrink-0">
-              <div className="relative flex-1 sm:w-64">
+            <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-2 shrink-0 w-full lg:w-auto">
+              <div className="relative flex-1 sm:w-60">
                 <Search className="w-3.5 h-3.5 text-neutral-400 absolute left-3 top-1/2 -translate-y-1/2 pointer-events-none" />
                 <input
                   type="search"
                   value={search}
                   onChange={(e) => setSearch(e.target.value)}
                   placeholder={isAr ? 'ابحث عن قطعة، لؤلؤ، باريبا، ذهب...' : 'Search Paraiba, Bridal, Gold, Rings...'}
-                  className="w-full pl-8 pr-3 py-1.5 rounded-full border border-[#EAE3D5] bg-[#FAF8F4] text-xs font-mono text-[#111318] placeholder-neutral-400 focus:outline-none focus:border-[#B8860B]"
+                  className="w-full pl-8 pr-3 py-2 sm:py-1.5 rounded-full border border-[#EAE3D5] bg-[#FAF8F4] text-xs font-mono text-[#111318] placeholder-neutral-400 focus:outline-none focus:border-[#B8860B]"
                 />
               </div>
 
@@ -237,7 +237,7 @@ export default function ProductsCataloguePage() {
                 value={sortOrder}
                 onChange={(e) => setSortOrder(e.target.value as 'featured' | 'asc' | 'desc')}
                 aria-label="Sort products"
-                className="px-3 py-1.5 rounded-full border border-[#EAE3D5] bg-[#FAF8F4] text-[11px] font-mono font-bold text-[#111318] focus:outline-none focus:border-[#B8860B] cursor-pointer"
+                className="w-full sm:w-auto px-3.5 py-2 sm:py-1.5 rounded-full border border-[#EAE3D5] bg-[#FAF8F4] text-[11px] font-mono font-bold text-[#111318] focus:outline-none focus:border-[#B8860B] cursor-pointer"
               >
                 <option value="featured">{isAr ? 'المختارات الأولى' : 'Sort: Curated Order'}</option>
                 <option value="asc">{isAr ? 'السعر: الأقل أولاً' : 'Price: Low → High'}</option>
@@ -526,7 +526,7 @@ export default function ProductsCataloguePage() {
           >
             <div
               onClick={(e) => e.stopPropagation()}
-              className="w-full max-w-3xl bg-white text-[#111318] rounded-3xl overflow-hidden border border-[#EAE3D5] shadow-2xl grid grid-cols-1 md:grid-cols-12 relative"
+              className="w-full max-w-3xl max-h-[90vh] overflow-y-auto bg-white text-[#111318] rounded-3xl border border-[#EAE3D5] shadow-2xl grid grid-cols-1 md:grid-cols-12 relative"
             >
               <button
                 type="button"
@@ -537,7 +537,7 @@ export default function ProductsCataloguePage() {
                 <X className="w-4 h-4" />
               </button>
 
-              <div className="md:col-span-6 relative aspect-[5/6] bg-[#FAF8F4]">
+              <div className="md:col-span-6 relative aspect-[4/3] md:aspect-[5/6] bg-[#FAF8F4]">
                 <Image
                   src={quickViewItem.image}
                   alt={isAr ? quickViewItem.nameAr : quickViewItem.nameEn}

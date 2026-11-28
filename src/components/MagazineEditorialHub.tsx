@@ -346,8 +346,8 @@ export function MagazineEditorialHub() {
           </div>
         ) : leadLive ? (
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
-            {/* LEFT 5 COLS: COVER TYPOGRAPHY */}
-            <div className="lg:col-span-5 flex flex-col justify-center space-y-4 lg:py-4">
+            {/* LEFT 5 COLS: COVER TYPOGRAPHY (SECOND ON MOBILE BELOW COVER PHOTO) */}
+            <div className="lg:col-span-5 order-2 lg:order-1 flex flex-col justify-center space-y-4 lg:py-4">
               <div className="flex flex-wrap items-center gap-2 text-[10px] font-mono uppercase tracking-[0.22em] font-bold">
                 <span className="px-2.5 py-0.5 bg-neutral-950 text-gold dark:bg-gold dark:text-black">
                   {leadLive.publisher}
@@ -391,10 +391,10 @@ export function MagazineEditorialHub() {
               </div>
             </div>
 
-            {/* CENTER 4 COLS: LARGE PORTRAIT IMAGE -> OPENS OUR PORTAL ARTICLE */}
+            {/* CENTER 4 COLS: LARGE PORTRAIT IMAGE -> FIRST ON MOBILE */}
             <Link
               href={buildArticleHref(leadLive)}
-              className="lg:col-span-4 relative aspect-[4/5] w-full overflow-hidden bg-neutral-100 dark:bg-neutral-900 cursor-pointer group shadow-2xl rounded-2xl border border-neutral-200 dark:border-gold/30 block"
+              className="lg:col-span-4 order-1 lg:order-2 relative aspect-[4/5] w-full overflow-hidden bg-neutral-100 dark:bg-neutral-900 cursor-pointer group shadow-2xl rounded-2xl border border-neutral-200 dark:border-gold/30 block"
             >
               <img
                 src={leadLive.thumbnail}
@@ -415,7 +415,7 @@ export function MagazineEditorialHub() {
             </Link>
 
             {/* RIGHT 3 COLS: TODAY'S WIRE + OMNIA AD PORTAL */}
-            <div className="lg:col-span-3 space-y-5">
+            <div className="lg:col-span-3 order-3 space-y-5">
               <div className="border-b-2 border-neutral-950 dark:border-gold pb-2 flex items-center justify-between">
                 <span className="text-[11px] font-mono font-extrabold uppercase tracking-[0.2em]">
                   {isAr ? 'أحدث التقارير العالمية' : "TODAY'S WIRE"}

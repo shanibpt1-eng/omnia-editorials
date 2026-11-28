@@ -51,6 +51,13 @@ export function OmniaSideVideoAd() {
   const videoRef = useRef<HTMLVideoElement>(null);
   const activeVideo = SIDE_VIDEOS[currentVideoIdx];
 
+  // Auto-minimize on narrow mobile viewports so corner video never overlaps cards
+  useEffect(() => {
+    if (typeof window !== 'undefined' && window.innerWidth < 640) {
+      setIsMinimized(true);
+    }
+  }, []);
+
   // Auto-play safely
   useEffect(() => {
     if (videoRef.current) {
@@ -59,7 +66,7 @@ export function OmniaSideVideoAd() {
         setIsPlaying(false);
       });
     }
-  }, [currentVideoIdx]);
+  }, [currentVideoIdx, isMinimized]);
 
   if (!isVisible) return null;
 

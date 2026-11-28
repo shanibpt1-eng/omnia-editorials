@@ -1,6 +1,7 @@
 import React from 'react';
 import type { Metadata } from 'next';
 import { getAggregatedMagazineWire, LiveMagazineFeedItem, MagazineWirePillar, PublisherChannelType } from '../../../../lib/magazine-wire';
+import { OMNIA_ATELIER_BLOGS } from '../../../../data/magazine-editions-data';
 import { PortalArticleReader } from '../../../../components/PortalArticleReader';
 
 interface PageProps {
@@ -16,6 +17,13 @@ function strParam(val: string | string[] | undefined, fallback = ''): string {
 export async function generateMetadata({ params, searchParams }: PageProps): Promise<Metadata> {
   const { slug } = await params;
   const sp = await searchParams;
+  const atelierMatch = OMNIA_ATELIER_BLOGS.find((b) => b.slug === slug);
+  if (atelierMatch) {
+    return {
+      title: `${atelierMatch.titleEn} | Omnia Atelier Journal | The Vogue News`,
+      description: atelierMatch.excerptEn,
+    };
+  }
   const titleFromParam = strParam(sp.t);
   const pubFromParam = strParam(sp.p, 'The Vogue News');
 
@@ -37,7 +45,27 @@ export default async function MagazineArticlePortalPage({ params, searchParams }
   const sp = await searchParams;
 
   const wire = await getAggregatedMagazineWire();
-  const matched = wire.items.find((item) => item.slug === slug);
+  const atelierMatch = OMNIA_ATELIER_BLOGS.find((b) => b.slug === slug);
+  const matched =
+    atelierMatch
+      ? ({
+          id: atelierMatch.id,
+          slug: atelierMatch.slug,
+          publisher: 'Omnia Atelier Journal',
+          publisherSlug: 'omnia-stores',
+          channelType: 'magazine' as PublisherChannelType,
+          homeUrl: 'https://omniastores.com/',
+          pillar: 'jewellery' as MagazineWirePillar,
+          title: atelierMatch.titleEn,
+          excerpt: `${atelierMatch.excerptEn} ${atelierMatch.paragraphsEn.join(' ')}`,
+          link: atelierMatch.backlinkUrl,
+          publishedAt: '2026-11-28T10:00:00.000Z',
+          publishedDisplay: atelierMatch.date,
+          category: atelierMatch.categoryEn,
+          author: atelierMatch.author,
+          thumbnail: atelierMatch.coverImage,
+        } satisfies LiveMagazineFeedItem)
+      : wire.items.find((item) => item.slug === slug);
 
   const fallbackArticle: LiveMagazineFeedItem = {
     id: slug,

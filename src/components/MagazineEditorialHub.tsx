@@ -26,6 +26,7 @@ import {
   MAGAZINE_STORIES,
   MAGAZINE_ISSUES,
   MAGAZINE_SHOPPING_EDIT,
+  OMNIA_ATELIER_BLOGS,
   MagazinePillarId,
   MagazineFeatureStory,
 } from '../data/magazine-editions-data';
@@ -790,6 +791,112 @@ export function MagazineEditorialHub() {
                   </div>
                 </div>
               </a>
+            ))}
+          </div>
+        </div>
+
+        {/* 5B. OMNIA ATELIER JOURNAL — ILLUSTRATED STUDIO & LOOKBOOK BLOGS */}
+        <div className="pt-4 space-y-6">
+          <div className="flex flex-wrap items-end justify-between gap-3 border-b-2 border-neutral-950 dark:border-gold/40 pb-3">
+            <div>
+              <span className="text-[10px] font-mono uppercase tracking-[0.22em] text-[#8B6508] dark:text-gold font-bold block">
+                {isAr ? 'مدونة أتيليه أمنية ستورز • تقارير التشكيلة الجديدة' : 'ATELIER JOURNAL • STUDIO & LOOKBOOK EDITORIAL BLOGS'}
+              </span>
+              <h3 className="text-xl sm:text-3xl font-serif font-black mt-0.5">
+                {isAr ? 'مقالات وتنسيقات التشكيلات الجديدة من omniastores.com' : 'Omnia Stores Style Dossiers, Craft Notes & Collection Blogs'}
+              </h3>
+            </div>
+            <Link
+              href="/editorials"
+              className="text-xs font-mono font-bold text-[#8B6508] dark:text-gold hover:underline"
+            >
+              {isAr ? 'كافة المدونات التحريرية ←' : 'All Editorial Blogs →'}
+            </Link>
+          </div>
+
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+            {OMNIA_ATELIER_BLOGS.map((blog) => (
+              <article
+                key={blog.id}
+                className="rounded-2xl border border-neutral-200 dark:border-gold/30 bg-[#FAF7F2] dark:bg-[#0B0F18] overflow-hidden shadow-lg hover:border-gold transition-colors flex flex-col justify-between"
+              >
+                <div className="grid grid-cols-1 sm:grid-cols-12">
+                  <Link
+                    href={`/magazine/article/${blog.slug}`}
+                    className="sm:col-span-5 relative aspect-[4/5] sm:aspect-auto min-h-[240px] bg-black overflow-hidden block group"
+                  >
+                    <Image
+                      src={blog.coverImage}
+                      alt={isAr ? blog.titleAr : blog.titleEn}
+                      fill
+                      unoptimized
+                      className="object-cover object-center group-hover:scale-105 transition-transform duration-700"
+                    />
+                  </Link>
+
+                  <div className="sm:col-span-7 p-5 flex flex-col justify-between gap-3">
+                    <div className="space-y-2">
+                      <div className="flex flex-wrap items-center justify-between gap-2 text-[9px] font-mono">
+                        <span className="px-2 py-0.5 rounded bg-neutral-950 dark:bg-gold text-white dark:text-black font-bold">
+                          {isAr ? blog.categoryAr : blog.categoryEn}
+                        </span>
+                        <span className="text-neutral-500">{blog.date} • {blog.readTime}</span>
+                      </div>
+
+                      <Link href={`/magazine/article/${blog.slug}`} className="block group">
+                        <h4 className="text-lg font-serif font-bold leading-snug text-neutral-950 dark:text-white group-hover:underline">
+                          {isAr ? blog.titleAr : blog.titleEn}
+                        </h4>
+                      </Link>
+
+                      <p className="text-xs text-neutral-600 dark:text-neutral-300 font-serif leading-relaxed line-clamp-3">
+                        {isAr ? blog.excerptAr : blog.excerptEn}
+                      </p>
+                    </div>
+
+                    {/* 3 Paired Studio/Lookbook Thumbnails */}
+                    <div className="grid grid-cols-3 gap-2 pt-1">
+                      {blog.galleryImages.map((gImg, idx) => (
+                        <a
+                          key={gImg}
+                          href={blog.backlinkUrl}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="relative aspect-square rounded-lg overflow-hidden border border-neutral-200 dark:border-white/15 bg-black group"
+                          title={`Featured piece ${idx + 1} on omniastores.com`}
+                        >
+                          <Image
+                            src={gImg}
+                            alt={`Omnia Stores collection piece ${idx + 1}`}
+                            fill
+                            unoptimized
+                            className="object-cover object-center group-hover:scale-110 transition-transform duration-500"
+                          />
+                        </a>
+                      ))}
+                    </div>
+
+                    <div className="pt-2 border-t border-neutral-200 dark:border-white/10 flex flex-wrap items-center justify-between gap-2 text-[11px] font-mono">
+                      <Link
+                        href={`/magazine/article/${blog.slug}`}
+                        className="font-bold text-neutral-950 dark:text-white hover:text-[#8B6508] dark:hover:text-gold inline-flex items-center gap-1"
+                      >
+                        <span>{isAr ? 'قراءة المدونة كاملة' : 'Read Blog Post'}</span>
+                        <ArrowUpRight className="w-3 h-3" />
+                      </Link>
+                      <a
+                        href={blog.backlinkUrl}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="font-bold text-[#8B6508] dark:text-gold hover:underline inline-flex items-center gap-1"
+                      >
+                        <span>omniastores.com</span>
+                        <ExternalLink className="w-3 h-3" />
+                      </a>
+                    </div>
+                  </div>
+                </div>
+              </article>
             ))}
           </div>
         </div>

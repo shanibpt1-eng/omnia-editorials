@@ -662,6 +662,254 @@ export const MAGAZINE_SHOPPING_EDIT: MagazineShoppingItem[] = [
     image: '/ai-models/omnia-bridal-model.jpg',
     url: 'https://omniastores.com/collections/bridal-collection',
   },
+  {
+    id: 'shop-sakura-gold-studs',
+    badgeEn: '18K VERMEIL • FLORAL',
+    badgeAr: 'فيرميل ذهب 18 • زهور',
+    nameEn: 'Sakura Pavé Blossom Sculptural Studs',
+    nameAr: 'أقراط زهرة الساكورا الذهبية المرصعة',
+    specEn: 'Baguettes + Micro-Pavé Petals in Warm Gold Vermeil',
+    specAr: 'أحجار باجيت وبتلات مرصعة بطلاء ذهب 18 قيراط',
+    priceAed: 460,
+    image: '/omnia-luxury/gold-sakura-floral-studs.jpg',
+    url: 'https://omniastores.com/collections/earrings',
+  },
+  {
+    id: 'shop-rose-gold-tassel',
+    badgeEn: 'ROSE GOLD KINETIC',
+    badgeAr: 'ذهب وردي متحرك',
+    nameEn: 'Marquise Kite & Waterfall Tassel Lariat',
+    nameAr: 'قلادة الماركيز والشراشيب الذهبية الوردية',
+    specEn: 'Five-Chain Articulated Drop • 18K Rose Gold Finish',
+    specAr: 'خمس سلاسل متدلية مفصلية • تشطيب ذهب وردي عيار 18',
+    priceAed: 780,
+    image: '/omnia-luxury/rose-gold-tassel-necklace.jpg',
+    url: 'https://omniastores.com/collections/necklaces',
+  },
+  {
+    id: 'shop-layered-daisy-gold',
+    badgeEn: 'DOUBLE-LAYER CHAIN',
+    badgeAr: 'سلسلة مزدوجة الطبقات',
+    nameEn: 'Mixed-Cut Solitaire & Daisy Station Double Necklace',
+    nameAr: 'عقد الطبقات المزدوج بقطع متنوعة وأزهار الألماس',
+    specEn: 'Marquise, Emerald & Oval Cuts over Floral Halo Drop',
+    specAr: 'قطع ماركيز وزمرد وبيضاوي مع زهور مرصعة متعددة',
+    priceAed: 890,
+    image: '/omnia-luxury/layered-daisy-mixed-cut-necklace.jpg',
+    url: 'https://omniastores.com/collections/necklaces',
+  },
+  {
+    id: 'shop-sunburst-fan-earrings',
+    badgeEn: 'ARCHITECTURAL ART DECO',
+    badgeAr: 'تصميم آرت ديكو معماري',
+    nameEn: 'Solaris Bezel Fan Chandelier Earrings',
+    nameAr: 'أقراط المروحة الشمسية المعمارية بالذهب الأصفر',
+    specEn: 'Radial Fluted Rays + Bezel-Set Brilliant Accents',
+    specAr: 'أشعة ذهبية منحوتة مرصعة بأحجار بريق دائرية',
+    priceAed: 540,
+    image: '/omnia-luxury/gold-sunburst-fan-earrings.jpg',
+    url: 'https://omniastores.com/collections/earrings',
+  },
+  {
+    id: 'shop-rainbow-multi-gem',
+    badgeEn: 'RIVIERA COLOUR EDIT',
+    badgeAr: 'ألوان الريفيرا',
+    nameEn: 'Prismatic Multi-Gem & Diamond Halo Collar',
+    nameAr: 'عقد الأحجار الملونة وهالات الألماس',
+    specEn: 'Tanzanite, Pink Tourmaline, Sky Topaz & Garnet Cuts',
+    specAr: 'أحجار تنزانيت وتورمالين وردي وتوباز وعقيق طبيعي المظهر',
+    priceAed: 1290,
+    image: '/omnia-luxury/rainbow-multi-gem-station-necklace.jpg',
+    url: 'https://omniastores.com/collections/necklaces',
+  },
+  {
+    id: 'shop-pear-drop-lariat',
+    badgeEn: 'DAY-TO-EVENING BRIDAL',
+    badgeAr: 'إطلالة نهار ومساء',
+    nameEn: 'Twin Pear-Drop Marquise Leaf Lariat',
+    nameAr: 'عقد اللاريت المزدوج بدمعة الألماس وأوراق الشجر',
+    specEn: 'Asscher Bridge Stone + Matched Pear Solitaire Drops',
+    specAr: 'حجر وسطي آشر مع دمعتي سوليتير متناظرتين',
+    priceAed: 1420,
+    image: '/omnia-luxury/pear-drop-diamond-lariat-collar.jpg',
+    url: 'https://omniastores.com/collections/bridal-collection',
+  },
+  {
+    id: 'shop-parisian-noir-choker',
+    badgeEn: 'PARISIAN NOIR COUTURE',
+    badgeAr: 'أزياء السهرة الباريسية',
+    nameEn: 'Noir Atelier Teardrop Fringe Diamond Choker',
+    nameAr: 'تشوكر الأتيليه الباريسي بشلال دموع الألماس',
+    specEn: 'Graduated Pear Fringe + Heart-Cut Studs Included',
+    specAr: 'أهداب دموع متدرجة مع أقراط قلبية متطابقة',
+    priceAed: 1580,
+    image: '/omnia-luxury/parisian-veil-leather-opera-choker.jpg',
+    url: 'https://omniastores.com/collections/chokers-collection',
+  },
+  {
+    id: 'shop-coastal-pearl-lattice',
+    badgeEn: 'MEDITERRANEAN HEIRLOOM',
+    badgeAr: 'إرث البحر المتوسط',
+    nameEn: '5-Strand Riviera Pearl & Diamond Lattice Tassel',
+    nameAr: 'طوق اللؤلؤ الخماسي بشلال الشبكة الماسية',
+    specEn: 'Five-Row Pearl Collar + Articulated Diamond Bib Drop',
+    specAr: 'خمسة صفوف من اللؤلؤ مع قلادة شبكية مرصعة متحركة',
+    priceAed: 1790,
+    image: '/omnia-luxury/coastal-pearl-lattice-tassel-collar.jpg',
+    url: 'https://omniastores.com/collections/chokers-collection',
+  },
+];
+
+export interface OmniaAtelierBlog {
+  id: string;
+  slug: string;
+  categoryEn: string;
+  categoryAr: string;
+  date: string;
+  readTime: string;
+  author: string;
+  titleEn: string;
+  titleAr: string;
+  excerptEn: string;
+  excerptAr: string;
+  coverImage: string;
+  galleryImages: string[];
+  paragraphsEn: string[];
+  paragraphsAr: string[];
+  backlinkUrl: string;
+  backlinkLabelEn: string;
+  backlinkLabelAr: string;
+}
+
+export const OMNIA_ATELIER_BLOGS: OmniaAtelierBlog[] = [
+  {
+    id: 'atelier-blog-sculptural-gold',
+    slug: 'omnia-atelier-sculptural-gold-sakura-sunburst-quatrefoil',
+    categoryEn: 'STUDIO DESIGN BLOG • GOLD VERMEIL',
+    categoryAr: 'مدونة التصميم • صياغة الذهب',
+    date: 'Nov 28, 2026',
+    readTime: '5 min read',
+    author: 'Omnia Fashion & Jewellery Desk',
+    titleEn: 'The Sculptural Gold Revival: From Sakura Pavé Blooms to Sunburst Fan Chandeliers',
+    titleAr: 'نهضة الذهب النحتي: من أقراط زهرة الساكورا إلى المروحة الشمسية المعمارية',
+    excerptEn: 'Inside Omnia Stores’ new warm-gold capsule featuring radiant Art Deco fluted earrings, woven pearl charm baskets, and quatrefoil diamond stations.',
+    excerptAr: 'جولة داخل كبسولة الذهب الدافئ الجديدة من أمنية ستورز بأقراط الآرت ديكو وسلال اللؤلؤ المنسوجة.',
+    coverImage: '/omnia-luxury/gold-sakura-floral-studs.jpg',
+    galleryImages: [
+      '/omnia-luxury/gold-sunburst-fan-earrings.jpg',
+      '/omnia-luxury/quatrefoil-star-pave-necklace.jpg',
+      '/omnia-luxury/gold-pearl-basket-pendant.jpg',
+    ],
+    paragraphsEn: [
+      'A decisive aesthetic shift defines late-2026 fine fashion jewellery across Dubai and Paris: collectors are embracing architectural yellow gold silhouettes that capture sculptural movement even in daylight.',
+      'Anchored by Omnia Stores’ new Sakura Pavé Blossom Studs and Solaris Bezel Fan Chandeliers, each piece balances crisp geometry with romantic micro-pavé softness—transitioning effortlessly from crisp linen tailoring to winter silk evening kaftans.',
+      'For collectors building a versatile daytime capsule, pairing the Woven Basket Pearl Charm or Quatrefoil Star Station Necklace with clean solitaire studs adds multidimensional shimmer without overpowering delicate fabrics.',
+    ],
+    paragraphsAr: [
+      'يشهد نهاية عام 2026 تحولاً لافتاً نحو تصاميم الذهب الأصفر النحتية التي تجمع بين الخطوط الهندسية المعمارية ولمسات البريق الكلاسيكي.',
+      'تبرز أقراط زهرة الساكورا والمروحة الشمسية من أمنية ستورز بتفاصيل دقيقة تناسب الإطلالات الصباحية الرسمية وفساتين السهرة الحريرية على حد سواء.',
+      'ولإطلالة نهارية متكاملة، يمكن تنسيق قلادة سلة اللؤلؤ المنسوجة أو سلسلة النجوم الرباعية المرصعة لمظهر فاخر ومريح طوال اليوم.',
+    ],
+    backlinkUrl: 'https://omniastores.com/collections/earrings',
+    backlinkLabelEn: 'Explore Gold Studio Capsule on omniastores.com',
+    backlinkLabelAr: 'استكشفي تشكيلة الذهب على omniastores.com',
+  },
+  {
+    id: 'atelier-blog-rose-gold-tassel',
+    slug: 'omnia-atelier-rose-gold-kinetic-tassel-kite-geometry',
+    categoryEn: 'ATELIER CRAFT BLOG • ROSE GOLD',
+    categoryAr: 'مدونة الصياغة • الذهب الوردي',
+    date: 'Nov 28, 2026',
+    readTime: '4 min read',
+    author: 'Elena Vance, Senior Style Editor',
+    titleEn: 'Kinetic Rose Gold: Why Winged Tassel Pendants & Kite-Cut Drops Owned Winter Styling',
+    titleAr: 'حركية الذهب الوردي: لماذا تصدرت قلادات الشراشيب وقطع الطائرة الورقية هذا الموسم؟',
+    excerptEn: 'Exploring articulated rose-gold chain tassels, winged pavé motifs, and matched kite-cut halo drops designed to sway with every step.',
+    excerptAr: 'نظرة معمقة على سلاسل الذهب الوردي المتدلية وتصاميم الأجنحة والألماس ذات الحركة الساحرة.',
+    coverImage: '/omnia-luxury/rose-gold-tassel-necklace.jpg',
+    galleryImages: [
+      '/omnia-luxury/rose-gold-wing-tassel-earrings.jpg',
+      '/omnia-luxury/rose-gold-wing-tassel-pendant.jpg',
+      '/omnia-luxury/rose-gold-kite-drop-earrings.jpg',
+    ],
+    paragraphsEn: [
+      'Static rigid necklaces are making room for fluid kinetic jewellery that catches candlelight with every subtle turn of the shoulder. Rose gold’s warm blush undertone flatters every complexion across Gulf winter palettes.',
+      'Omnia Stores’ new Winged Tassel Pendant, matching Wing Fringe Drop Earrings, and Kite-Cut Halo Drops share an aligned geometric DNA—allowing wearers to mix earrings and necklaces harmoniously.',
+      'Tested on solid 925 sterling silver foundations coated in durable warm 18K rose gold vermeil, these featherweight waterfall tassels remain hypoallergenic and tarnish-resistant.',
+    ],
+    paragraphsAr: [
+      'تتجه صيحات الموضة نحو التصاميم الحركية المنسدلة التي تعكس الضوء مع كل حركة، خاصة بريق الذهب الوردي الدافئ الملائم لجميع درجات البشرة.',
+      'تجمع تشكيلة الأجنحة المتدلية وأقراط القطع المعيني من أمنية ستورز لغة تصميمية موحدة تتيح تنسيق القلادة والأقراط بتناغم تام.',
+      'ومع التصنيع على قاعدة فضة خالصة عيار 925 وطلاء فائق الجودة، تحافظ القطع على لمعانها بدون تسبب أي حساسية للبشرة.',
+    ],
+    backlinkUrl: 'https://omniastores.com/collections/necklaces',
+    backlinkLabelEn: 'Shop Rose Gold Tassels on omniastores.com',
+    backlinkLabelAr: 'تسوقي قلادات الذهب الوردي على omniastores.com',
+  },
+  {
+    id: 'atelier-blog-riviera-to-parisian',
+    slug: 'omnia-atelier-riviera-pearls-to-parisian-noir-chokers',
+    categoryEn: 'EDITORIAL LOOKBOOK • COLLARS',
+    categoryAr: 'ملف الإطلالات • أطواق السهرة',
+    date: 'Nov 28, 2026',
+    readTime: '6 min read',
+    author: 'Salomé Mansour, Runway Director',
+    titleEn: 'Riviera Pearls to Parisian Noir: Styling Statement Diamond Collars from Sunlit Resorts to Gala Nights',
+    titleAr: 'من لؤلؤ الريفيرا إلى السهرة الباريسية: دليل تنسيق أطواق الألماس من المنتجعات إلى حفلات المساء',
+    excerptEn: 'Contrasting daytime Riviera pearl lattice collars and crisp linen lariats against dramatic Parisian noir veil leather and pear-fringe chokers.',
+    excerptAr: 'مقارنة أسلوبية بين إطلالة اللؤلؤ الشاطئية الساطعة وأناقة الأسود الباريسي في أمسيات السهرة.',
+    coverImage: '/omnia-luxury/coastal-pearl-lattice-tassel-collar.jpg',
+    galleryImages: [
+      '/omnia-luxury/parisian-veil-leather-opera-choker.jpg',
+      '/omnia-luxury/pear-drop-diamond-lariat-collar.jpg',
+      '/omnia-luxury/ruby-emerald-cut-collar-gala.jpg',
+    ],
+    paragraphsEn: [
+      'Modern luxury dressing no longer confines diamond collars strictly to black-tie ballrooms. Lookbook photography this season pairs multi-strand pearl lattice bibs with breezy ivory linen overlooking open Mediterranean waters.',
+      'After dusk, the exact same collar architecture pivots effortlessly into Parisian noir evening drama: styled with sculptural black leather opera gloves, velvet caps, or crisp strapless silk crepe.',
+      'Omnia Stores engineers interchangeable clasp lengths across its Riviera 5-Strand Pearl Lattice Collar and Twin Pear-Drop Lariat so one signature investment styles three distinct dress codes.',
+    ],
+    paragraphsAr: [
+      'لم تعد أطواق الألماس واللؤلؤ حكراً على قاعات الزفاف، بل أصبحت تتألق في إطلالات المنتجعات النهارية مع قمصان الكتان العاجية.',
+      'ومع حلول المساء، تنتقل الهندسة نفسها إلى أجواء السهرة الباريسية الفاخرة مع القفازات الجلدية السوداء والفساتين الكلاسيكية.',
+      'توفر أمنية ستورز أقفال ضبط متعددة المقاسات في طوق اللؤلؤ الخماسي وعقد الدمعتين الماسي لتناسب مختلف القصات والأوقات.',
+    ],
+    backlinkUrl: 'https://omniastores.com/collections/chokers-collection',
+    backlinkLabelEn: 'View Couture Chokers on omniastores.com',
+    backlinkLabelAr: 'شاهدي أطواق التشوكر على omniastores.com',
+  },
+  {
+    id: 'atelier-blog-rainbow-layered-chains',
+    slug: 'omnia-atelier-prismatic-gem-stations-layered-marquise-chains',
+    categoryEn: 'COLOUR & LAYERING BLOG',
+    categoryAr: 'مدونة الألوان والطبقات',
+    date: 'Nov 28, 2026',
+    readTime: '5 min read',
+    author: 'Layla Al-Harbi, Collector Editor',
+    titleEn: 'Chromatic Brilliance: How Multi-Gemstone Stations & Mixed-Cut Layers Elevate Everyday Wardrobe Staples',
+    titleAr: 'سحر الألوان والطبقات: كيف تضفي سلاسل الأحجار الملونة والقطع المختلطة حيوية على الإطلالات اليومية',
+    excerptEn: 'Pairing rainbow tourmaline-and-topaz halos, layered daisy chains, and marquise wreath motifs against minimalist cotton shirts and abayas.',
+    excerptAr: 'تنسيق الأحجار الكريمة الملونة وسلاسل الزهور المزدوجة مع القمصان القطنية والعباءات اليومية.',
+    coverImage: '/omnia-luxury/rainbow-multi-gem-station-necklace.jpg',
+    galleryImages: [
+      '/omnia-luxury/layered-daisy-mixed-cut-necklace.jpg',
+      '/omnia-luxury/gold-marquise-wreath-necklace.jpg',
+      '/omnia-luxury/pink-cushion-diamond-rings-macro.jpg',
+    ],
+    paragraphsEn: [
+      'One crisp white cotton shirt opens dozens of luxury styling possibilities depending purely on the neckline piece chosen. Prismatic multi-gem station necklaces introduce jewel-box sapphire blue, rubellite pink, peridot green, and amethyst violet in calibrated rhythm.',
+      'For monochrome gold lovers, layering our Double-Row Mixed-Cut Diamond Chain (combining oval, emerald, and marquise stones above floral clusters) with the Marquise Leaf Wreath creates effortless red-carpet polish.',
+      'Pair any multi-color station necklace with our Pink Cushion & Emerald-Cut Halo Ring Quartet for balanced hand-to-collar sparkle.',
+    ],
+    paragraphsAr: [
+      'قميص أبيض كلاسيكي بسيط يكفي لإبراز فخامة عقود الأحجار الملونة المتدرجة بين الأزرق الياقوتي والوردي والتورمالين الأخضر.',
+      'ولمحبات الذهب المتناسق، يمنح عقد الطبقات المزدوج بقطع الماركيز والزمرد والأزهار توازناً رائعاً عند تنسيقه مع إكليل الماركيز الذهبي.',
+      'أكملي الإطلالة بخواتم الألماس الوردي وقطع الزمرد الفاخرة لإشراقة متكاملة.',
+    ],
+    backlinkUrl: 'https://omniastores.com/collections/bridal-sets',
+    backlinkLabelEn: 'Discover Layered & Gemstone Edits on omniastores.com',
+    backlinkLabelAr: 'اكتشفي تشكيلة الأحجار الملونة على omniastores.com',
+  },
 ];
 
 export interface PublisherWireItem {

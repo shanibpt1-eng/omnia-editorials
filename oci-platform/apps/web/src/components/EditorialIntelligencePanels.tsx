@@ -27,6 +27,7 @@ import {
   Gem,
 } from 'lucide-react';
 import { useLuxury } from './ThemeProvider';
+import { OMNIA_ATELIER_BLOGS } from '../data/magazine-editions-data';
 
 type PanelTab = 'wire' | 'fashion' | 'collections' | 'blogs' | 'interviews' | 'events';
 type BenchmarkItemKey = 'brooch' | 'bridal' | 'choker' | 'solitaire' | 'bracelet';
@@ -139,24 +140,24 @@ const TRENDING_FASHION_LOOKS = [
   },
   {
     id: 'look-geometric-south-sea',
-    tagEn: 'TRENDING • NEW YEAR GALA',
-    tagAr: 'رائج • حفلات رأس السنة',
-    titleEn: 'Geometric Diamond Collar & South Sea Pearl',
-    titleAr: 'طوق الألماس الهندسي ولؤلؤ البحار الجنوبية',
-    stylingEn: 'Architectural neckline geometry crafted for minimalist satin column dresses.',
-    stylingAr: 'تصميم هندسي معاصر يلائم فساتين الساتان الراقية وحفلات التخرج والزفاف.',
-    image: '/campaigns/golden-lumiere.jpg',
-    url: 'https://omniastores.com/collections/bridal-collection',
+    tagEn: 'TRENDING • RIVIERA PEARL BIB',
+    tagAr: 'رائج • طوق اللؤلؤ الساحلي',
+    titleEn: '5-Strand Riviera Pearl & Diamond Lattice Tassel',
+    titleAr: 'طوق اللؤلؤ الخماسي بشلال الشبكة الماسية',
+    stylingEn: 'Mediterranean resort silk draping paired with luminous five-row pearl architecture.',
+    stylingAr: 'تناغم ساحر بين حرير المنتجعات وخمسة صفوف من اللؤلؤ بشبكة ماسية متدلية.',
+    image: '/omnia-luxury/coastal-pearl-lattice-tassel-collar.jpg',
+    url: 'https://omniastores.com/collections/chokers-collection',
   },
   {
     id: 'look-pink-sapphire',
-    tagEn: 'TRENDING • ROMANTIC GIFTING',
-    tagAr: 'رائج • هدايا فاخرة',
-    titleEn: 'Rose Princess Oval Pink Sapphire & Halo Suite',
-    titleAr: 'طقم الياقوت الوردي الملكي وهالة الألماس',
-    stylingEn: 'Soft rose fire accents pastel organza ensembles and daytime afternoon tea jewelry styling.',
-    stylingAr: 'بريق وردي ناعم يكمل إطلالات الأورجانزا الهادئة واللقاءات النهارية الراقية.',
-    image: '/campaigns/azure-pendant-edit.jpg',
+    tagEn: 'TRENDING • PARISIAN NOIR',
+    tagAr: 'رائج • السهرة الباريسية',
+    titleEn: 'Noir Atelier Teardrop Fringe Diamond Choker',
+    titleAr: 'تشوكر الأتيليه الباريسي بشلال دموع الألماس',
+    stylingEn: 'High-contrast Parisian leather gloves paired with graduated 58-facet pear-cut teardrops.',
+    stylingAr: 'إطلالة السهرة الكلاسيكية بالقفازات الجلدية السوداء مع تشوكر الدموع الماسي.',
+    image: '/omnia-luxury/parisian-veil-leather-opera-choker.jpg',
     url: 'https://omniastores.com/collections/necklaces',
   },
 ];
@@ -724,9 +725,99 @@ export function EditorialIntelligencePanels() {
             </div>
           )}
 
-          {/* TAB 4: FULL-TEXT EDITORIAL BLOGS & DEEP READS (4 EXPANDABLE BLOG ARTICLES) */}
+          {/* TAB 4: FULL-TEXT EDITORIAL BLOGS & DEEP READS (STUDIO LOOKBOOK BLOGS + DEEP READS) */}
           {activeTab === 'blogs' && (
-            <div className="space-y-4">
+            <div className="space-y-6">
+              {/* Illustrated Omnia Atelier Collection Blogs */}
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
+                {OMNIA_ATELIER_BLOGS.map((ablog) => {
+                  const isExpanded = expandedBlogId === ablog.id;
+                  return (
+                    <article
+                      key={ablog.id}
+                      className="rounded-2xl border border-neutral-200 dark:border-gold/30 bg-[#FAF7F2] dark:bg-black/50 overflow-hidden shadow-md flex flex-col justify-between"
+                    >
+                      <div className="p-4 sm:p-5 space-y-3">
+                        <div className="grid grid-cols-4 gap-2">
+                          <div className="col-span-2 relative aspect-square rounded-xl overflow-hidden bg-black">
+                            <Image
+                              src={ablog.coverImage}
+                              alt={isAr ? ablog.titleAr : ablog.titleEn}
+                              fill
+                              unoptimized
+                              className="object-cover object-center"
+                            />
+                          </div>
+                          {ablog.galleryImages.slice(0, 2).map((gi, giIdx) => (
+                            <div key={gi} className="relative aspect-square rounded-xl overflow-hidden bg-black">
+                              <Image
+                                src={gi}
+                                alt={`${isAr ? ablog.titleAr : ablog.titleEn} look ${giIdx + 2}`}
+                                fill
+                                unoptimized
+                                className="object-cover object-center"
+                              />
+                            </div>
+                          ))}
+                        </div>
+
+                        <div className="flex flex-wrap items-center gap-2 text-[10px] font-mono">
+                          <span className="px-2 py-0.5 rounded bg-gold/20 text-[#8B6508] dark:text-gold font-bold">
+                            {isAr ? ablog.categoryAr : ablog.categoryEn}
+                          </span>
+                          <span className="text-neutral-500">• {ablog.date}</span>
+                          <span className="text-neutral-500">• {ablog.readTime}</span>
+                        </div>
+
+                        <h3 className="text-lg font-serif font-bold text-neutral-950 dark:text-white leading-snug">
+                          {isAr ? ablog.titleAr : ablog.titleEn}
+                        </h3>
+                        <p className="text-xs text-neutral-600 dark:text-neutral-400 leading-relaxed">
+                          {isAr ? ablog.excerptAr : ablog.excerptEn}
+                        </p>
+
+                        {isExpanded && (
+                          <div className="pt-2 space-y-2 border-t border-neutral-200 dark:border-white/10">
+                            {(isAr ? ablog.paragraphsAr : ablog.paragraphsEn).map((p, idx) => (
+                              <p key={idx} className="text-xs sm:text-sm font-serif text-neutral-800 dark:text-neutral-200 leading-relaxed">
+                                {p}
+                              </p>
+                            ))}
+                          </div>
+                        )}
+                      </div>
+
+                      <div className="px-5 py-3 border-t border-neutral-200 dark:border-white/10 bg-white/60 dark:bg-white/[0.02] flex flex-wrap items-center justify-between gap-2 text-xs font-mono">
+                        <div className="flex items-center gap-3">
+                          <button
+                            type="button"
+                            onClick={() => setExpandedBlogId(isExpanded ? '' : ablog.id)}
+                            className="font-bold text-neutral-900 dark:text-white hover:text-gold cursor-pointer"
+                          >
+                            {isExpanded ? (isAr ? 'إخفاء النص' : 'Collapse') : (isAr ? 'قراءة سريعة' : 'Quick Read')}
+                          </button>
+                          <Link
+                            href={`/magazine/article/${ablog.slug}`}
+                            className="font-bold text-[#8B6508] dark:text-gold hover:underline"
+                          >
+                            {isAr ? 'صفحة المقال الكاملة →' : 'Open Portal Article →'}
+                          </Link>
+                        </div>
+                        <a
+                          href={ablog.backlinkUrl}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="font-bold text-gold hover:underline inline-flex items-center gap-1"
+                        >
+                          <span>omniastores.com</span>
+                          <ExternalLink className="w-3 h-3" />
+                        </a>
+                      </div>
+                    </article>
+                  );
+                })}
+              </div>
+
               {EDITORIAL_BLOGS.map((blog) => {
                 const isExpanded = expandedBlogId === blog.id;
                 return (

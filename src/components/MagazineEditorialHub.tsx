@@ -4,11 +4,9 @@ import React, { useState, useEffect, useCallback, useMemo } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
 import {
-  X,
   ExternalLink,
   Crown,
   BookOpen,
-  Clock,
   Globe,
   ShoppingBag,
   ShieldCheck,
@@ -18,6 +16,10 @@ import {
   ArrowUpRight,
   Sparkles,
   Link2,
+  Newspaper,
+  Tv,
+  X,
+  Clock,
 } from 'lucide-react';
 import {
   MAGAZINE_PILLARS,
@@ -28,22 +30,8 @@ import {
   MagazineFeatureStory,
 } from '../data/magazine-editions-data';
 import { useLuxury } from './ThemeProvider';
-
-interface LiveMagazineFeedItem {
-  id: string;
-  publisher: string;
-  publisherSlug: string;
-  pillar: string;
-  title: string;
-  excerpt: string;
-  link: string;
-  publishedAt: string;
-  publishedDisplay: string;
-  category: string;
-  author: string;
-  thumbnail: string;
-  isFallback?: boolean;
-}
+import { LiveMagazineFeedItem } from '../lib/magazine-wire';
+import { buildArticleHref } from './PortalArticleReader';
 
 const VOGUE_SECTIONS: { id: string; labelEn: string; labelAr: string }[] = [
   { id: 'all', labelEn: 'ALL STORIES', labelAr: 'كافة الأقسام' },
@@ -53,111 +41,77 @@ const VOGUE_SECTIONS: { id: string; labelEn: string; labelAr: string }[] = [
   { id: 'culture', labelEn: 'CULTURE & ARTS', labelAr: 'الثقافة والفنون' },
   { id: 'living', labelEn: 'LIVING & DESIGN', labelAr: 'الديكور والتصميم' },
   { id: 'watches', labelEn: 'MENSWEAR & WATCHES', labelAr: 'الساعات والرجال' },
-  { id: 'business', labelEn: 'BUSINESS', labelAr: 'أعمال الموضة' },
+  { id: 'business', labelEn: 'BUSINESS & MARKETS', labelAr: 'الاقتصاد والأعمال' },
   { id: 'jewellery', labelEn: 'HIGH JEWELLERY', labelAr: 'المجوهرات الراقية' },
 ];
 
-const PUBLISHER_TABS = [
-  { slug: 'all', label: 'ALL PUBLICATIONS', homeUrl: 'https://www.vogue.com/' },
-  { slug: 'vogue', label: 'Vogue', homeUrl: 'https://www.vogue.com/' },
-  { slug: 'harpers-bazaar', label: "Harper's Bazaar", homeUrl: 'https://www.harpersbazaar.com/' },
-  { slug: 'robb-report', label: 'Robb Report', homeUrl: 'https://robbreport.com/' },
-  { slug: 'vanity-fair', label: 'Vanity Fair', homeUrl: 'https://www.vanityfair.com/' },
-  { slug: 'architectural-digest', label: 'Architectural Digest', homeUrl: 'https://www.architecturaldigest.com/' },
-  { slug: 'new-yorker', label: 'The New Yorker', homeUrl: 'https://www.newyorker.com/culture' },
-  { slug: 'allure', label: 'Allure', homeUrl: 'https://www.allure.com/' },
-  { slug: 'glamour', label: 'Glamour', homeUrl: 'https://www.glamour.com/' },
-  { slug: 'gq', label: 'GQ', homeUrl: 'https://www.gq.com/' },
-  { slug: 'esquire', label: 'Esquire', homeUrl: 'https://www.esquire.com/' },
-  { slug: 'town-and-country', label: 'Town & Country', homeUrl: 'https://www.townandcountrymag.com/' },
-  { slug: 'elle', label: 'Elle', homeUrl: 'https://www.elle.com/' },
-  { slug: 'wwd', label: 'WWD', homeUrl: 'https://wwd.com/' },
-  { slug: 'house-beautiful', label: 'House Beautiful', homeUrl: 'https://www.housebeautiful.com/' },
-  { slug: 'hypebeast', label: 'Hypebeast', homeUrl: 'https://hypebeast.com/' },
+const PUBLISHER_TABS: {
+  slug: string;
+  label: string;
+  type: 'all' | 'magazine' | 'news-channel';
+  homeUrl: string;
+}[] = [
+  { slug: 'all', label: 'ALL 25 SOURCES', type: 'all', homeUrl: 'https://www.vogue.com/' },
+  { slug: 'vogue', label: 'Vogue', type: 'magazine', homeUrl: 'https://www.vogue.com/' },
+  { slug: 't-magazine', label: 'T Magazine (NYT)', type: 'magazine', homeUrl: 'https://www.nytimes.com/section/t-magazine' },
+  { slug: 'harpers-bazaar', label: "Harper's Bazaar", type: 'magazine', homeUrl: 'https://www.harpersbazaar.com/' },
+  { slug: 'robb-report', label: 'Robb Report', type: 'magazine', homeUrl: 'https://robbreport.com/' },
+  { slug: 'vanity-fair', label: 'Vanity Fair', type: 'magazine', homeUrl: 'https://www.vanityfair.com/' },
+  { slug: 'architectural-digest', label: 'Architectural Digest', type: 'magazine', homeUrl: 'https://www.architecturaldigest.com/' },
+  { slug: 'new-yorker', label: 'The New Yorker', type: 'magazine', homeUrl: 'https://www.newyorker.com/culture' },
+  { slug: 'allure', label: 'Allure', type: 'magazine', homeUrl: 'https://www.allure.com/' },
+  { slug: 'glamour', label: 'Glamour', type: 'magazine', homeUrl: 'https://www.glamour.com/' },
+  { slug: 'gq', label: 'GQ', type: 'magazine', homeUrl: 'https://www.gq.com/' },
+  { slug: 'esquire', label: 'Esquire', type: 'magazine', homeUrl: 'https://www.esquire.com/' },
+  { slug: 'town-and-country', label: 'Town & Country', type: 'magazine', homeUrl: 'https://www.townandcountrymag.com/' },
+  { slug: 'elle', label: 'Elle', type: 'magazine', homeUrl: 'https://www.elle.com/' },
+  { slug: 'house-beautiful', label: 'House Beautiful', type: 'magazine', homeUrl: 'https://www.housebeautiful.com/' },
+  { slug: 'hypebeast', label: 'Hypebeast', type: 'magazine', homeUrl: 'https://hypebeast.com/' },
+  { slug: 'nyt-fashion', label: 'NYTimes Fashion', type: 'news-channel', homeUrl: 'https://www.nytimes.com/section/fashion' },
+  { slug: 'bbc-culture', label: 'BBC News Culture', type: 'news-channel', homeUrl: 'https://www.bbc.com/news/entertainment_and_arts' },
+  { slug: 'bbc-world', label: 'BBC World News', type: 'news-channel', homeUrl: 'https://www.bbc.com/news/world' },
+  { slug: 'guardian-fashion', label: 'Guardian Fashion', type: 'news-channel', homeUrl: 'https://www.theguardian.com/fashion' },
+  { slug: 'guardian-culture', label: 'Guardian Culture', type: 'news-channel', homeUrl: 'https://www.theguardian.com/culture' },
+  { slug: 'wwd', label: 'WWD News', type: 'news-channel', homeUrl: 'https://wwd.com/' },
+  { slug: 'arabian-business', label: 'Arabian Business', type: 'news-channel', homeUrl: 'https://www.arabianbusiness.com/' },
+  { slug: 'luxury-daily', label: 'Luxury Daily', type: 'news-channel', homeUrl: 'https://www.luxurydaily.com/' },
+  { slug: 'cnbc-retail', label: 'CNBC Retail', type: 'news-channel', homeUrl: 'https://www.cnbc.com/retail/' },
+  { slug: 'aljazeera-world', label: 'Al Jazeera', type: 'news-channel', homeUrl: 'https://www.aljazeera.com/' },
 ];
 
 const OMNIA_AUTHORITY_BACKLINKS = [
-  {
-    anchorEn: 'Omnia Stores Official GCC 925 Silver Flagship',
-    anchorAr: 'المتجر الرسمي لأمنية ستورز للفضة الفاخرة عيار 925',
-    url: 'https://omniastores.com/',
-    tag: 'FLAGSHIP',
-  },
-  {
-    anchorEn: 'Bridal Jewellery Sets & Couture Diamond Parures',
-    anchorAr: 'أطقم مجوهرات العرائس الفاخرة',
-    url: 'https://omniastores.com/collections/bridal-sets',
-    tag: 'BRIDAL SETS',
-  },
-  {
-    anchorEn: 'DCL-Assayed 925 Bridal Collection & Collars',
-    anchorAr: 'تشكيلة العرائس المعتمدة عيار 925',
-    url: 'https://omniastores.com/collections/bridal-collection',
-    tag: 'COLLECTION',
-  },
-  {
-    anchorEn: 'Sculptural 925 Brooches & Abaya Silk Pins',
-    anchorAr: 'تشكيلة البروشات الملكية عيار 925',
-    url: 'https://omniastores.com/collections/brooches',
-    tag: 'NEW DROP',
-  },
-  {
-    anchorEn: 'Imperial South Sea Pearl & Emerald Chokers',
-    anchorAr: 'أطواق التشوكر باللؤلؤ والزمرد',
-    url: 'https://omniastores.com/collections/chokers-collection',
-    tag: 'CHOKERS',
-  },
-  {
-    anchorEn: '58-Facet 5A Simulated Diamond & Pendant Necklaces',
-    anchorAr: 'العقود والقلادات المرصعة بأحجار 5A',
-    url: 'https://omniastores.com/collections/necklaces',
-    tag: 'NECKLACES',
-  },
-  {
-    anchorEn: 'High-Dispersion Drop Earrings & Evening Studs',
-    anchorAr: 'الأقراط المتدلية وأقراط السهرة الفاخرة',
-    url: 'https://omniastores.com/collections/earrings',
-    tag: 'EARRINGS',
-  },
-  {
-    anchorEn: 'GRA Moissanite Solitaires & Cocktail Rings',
-    anchorAr: 'خواتم السوليتير والمويسانيت المعتمدة',
-    url: 'https://omniastores.com/collections/rings',
-    tag: 'RINGS',
-  },
-  {
-    anchorEn: 'Seasonal Archive & VIP Collector Privileges',
-    anchorAr: 'العروض الحصرية وامتيازات المقتنين',
-    url: 'https://omniastores.com/collections/discounted-items',
-    tag: 'VIP EDIT',
-  },
-  {
-    anchorEn: 'Omnia Stores Craftsmanship, Warranty & Heritage',
-    anchorAr: 'قصة أمنية ستورز ومعايير الصياغة والضمان',
-    url: 'https://omniastores.com/pages/about-us',
-    tag: 'HERITAGE',
-  },
+  { anchorEn: 'Omnia Stores Official GCC 925 Silver Flagship', anchorAr: 'المتجر الرسمي لأمنية ستورز للفضة الفاخرة عيار 925', url: 'https://omniastores.com/', tag: 'FLAGSHIP' },
+  { anchorEn: 'Bridal Jewellery Sets & Couture Diamond Parures', anchorAr: 'أطقم مجوهرات العرائس الفاخرة', url: 'https://omniastores.com/collections/bridal-sets', tag: 'BRIDAL SETS' },
+  { anchorEn: 'DCL-Assayed 925 Bridal Collection & Collars', anchorAr: 'تشكيلة العرائس المعتمدة عيار 925', url: 'https://omniastores.com/collections/bridal-collection', tag: 'COLLECTION' },
+  { anchorEn: 'Sculptural 925 Brooches & Abaya Silk Pins', anchorAr: 'تشكيلة البروشات الملكية عيار 925', url: 'https://omniastores.com/collections/brooches', tag: 'NEW DROP' },
+  { anchorEn: 'Imperial South Sea Pearl & Emerald Chokers', anchorAr: 'أطواق التشوكر باللؤلؤ والزمرد', url: 'https://omniastores.com/collections/chokers-collection', tag: 'CHOKERS' },
+  { anchorEn: '58-Facet 5A Simulated Diamond & Pendant Necklaces', anchorAr: 'العقود والقلادات المرصعة بأحجار 5A', url: 'https://omniastores.com/collections/necklaces', tag: 'NECKLACES' },
+  { anchorEn: 'High-Dispersion Drop Earrings & Evening Studs', anchorAr: 'الأقراط المتدلية وأقراط السهرة الفاخرة', url: 'https://omniastores.com/collections/earrings', tag: 'EARRINGS' },
+  { anchorEn: 'GRA Moissanite Solitaires & Cocktail Rings', anchorAr: 'خواتم السوليتير والمويسانيت المعتمدة', url: 'https://omniastores.com/collections/rings', tag: 'RINGS' },
+  { anchorEn: 'Seasonal Archive & VIP Collector Privileges', anchorAr: 'العروض الحصرية وامتيازات المقتنين', url: 'https://omniastores.com/collections/discounted-items', tag: 'VIP EDIT' },
+  { anchorEn: 'Omnia Stores Craftsmanship, Warranty & Heritage', anchorAr: 'قصة أمنية ستورز ومعايير الصياغة والضمان', url: 'https://omniastores.com/pages/about-us', tag: 'HERITAGE' },
 ];
 
 export function MagazineEditorialHub() {
   const { language, currency } = useLuxury();
   const isAr = language === 'ar';
   const [activeSection, setActiveSection] = useState<string>('all');
+  const [channelFilter, setChannelFilter] = useState<'all' | 'magazine' | 'news-channel'>('all');
   const [selectedPublisher, setSelectedPublisher] = useState<string>('all');
   const [searchTerm, setSearchTerm] = useState<string>('');
   const [showAllFeed, setShowAllFeed] = useState<boolean>(false);
   const [liveItems, setLiveItems] = useState<LiveMagazineFeedItem[]>([]);
   const [liveLoading, setLiveLoading] = useState<boolean>(true);
   const [liveMode, setLiveMode] = useState<string>('live-rss-syndication');
-  const [readerLive, setReaderLive] = useState<LiveMagazineFeedItem | null>(null);
   const [readerLocal, setReaderLocal] = useState<MagazineFeatureStory | null>(null);
 
-  const fetchLiveWire = useCallback(async (sourceSlug: string, pillarSlug: string) => {
+  const fetchLiveWire = useCallback(async (sourceSlug: string, pillarSlug: string, chanType: string) => {
     setLiveLoading(true);
     try {
       const qs = new URLSearchParams({
         source: sourceSlug,
         pillar: pillarSlug,
+        type: chanType,
       });
       const res = await fetch(`/api/magazine/latest?${qs.toString()}`);
       if (res.ok) {
@@ -168,7 +122,7 @@ export function MagazineEditorialHub() {
         }
       }
     } catch {
-      // Resilient fallback handled cleanly
+      // Fallback handled on API
     } finally {
       setLiveLoading(false);
     }
@@ -176,12 +130,17 @@ export function MagazineEditorialHub() {
 
   useEffect(() => {
     setShowAllFeed(false);
-    fetchLiveWire(selectedPublisher, activeSection);
-  }, [selectedPublisher, activeSection, fetchLiveWire]);
+    fetchLiveWire(selectedPublisher, activeSection, channelFilter);
+  }, [selectedPublisher, activeSection, channelFilter, fetchLiveWire]);
 
   const mult = currency === 'SAR' ? 1.02 : 1;
   const currLabel = currency === 'SAR' ? (isAr ? 'ر.س' : 'SAR') : (isAr ? 'د.إ' : 'AED');
   const formatAmt = (aed: number) => `${Math.round(aed * mult).toLocaleString()} ${currLabel}`;
+
+  const visiblePublishers = useMemo(() => {
+    if (channelFilter === 'all') return PUBLISHER_TABS;
+    return PUBLISHER_TABS.filter((p) => p.type === 'all' || p.type === channelFilter);
+  }, [channelFilter]);
 
   const filteredItems = useMemo(() => {
     const q = searchTerm.trim().toLowerCase();
@@ -197,8 +156,12 @@ export function MagazineEditorialHub() {
 
   const leadLive = filteredItems[0] || null;
   const railLiveStories = filteredItems.slice(1, 7);
-  const photoGridLive = showAllFeed ? filteredItems.slice(7, 34) : filteredItems.slice(7, 19);
-  const compactBriefs = showAllFeed ? filteredItems.slice(34) : filteredItems.slice(19, 28);
+  const photoGridLive = showAllFeed ? filteredItems.slice(7, 37) : filteredItems.slice(7, 19);
+  const newsChannelHighlights = useMemo(
+    () => filteredItems.filter((it) => it.channelType === 'news-channel').slice(0, 6),
+    [filteredItems]
+  );
+  const compactBriefs = showAllFeed ? filteredItems.slice(37) : filteredItems.slice(19, 31);
 
   const regionalStories = useMemo(() => {
     if (activeSection === 'all') return MAGAZINE_STORIES.slice(0, 6);
@@ -207,35 +170,34 @@ export function MagazineEditorialHub() {
   }, [activeSection]);
 
   const activeSectionObj = VOGUE_SECTIONS.find((s) => s.id === activeSection);
-  const activePubObj = PUBLISHER_TABS.find((p) => p.slug === selectedPublisher);
 
   return (
     <section
-      aria-label="The Vogue News International Digital Magazine"
+      aria-label="The Vogue News International Magazine & News Channel Portal"
       className={`my-6 bg-white dark:bg-[#07090E] text-neutral-950 dark:text-white border-y border-neutral-200 dark:border-gold/25 ${
         isAr ? 'text-right' : 'text-left'
       }`}
       dir={isAr ? 'rtl' : 'ltr'}
     >
-      {/* 0. LIVE BREAKING GLOBAL WIRE RIBBON */}
-      <div className="bg-neutral-950 text-white border-b border-gold/30 py-2 px-4 sm:px-6 lg:px-8">
+      {/* 0. LIVE BREAKING NEWS & MAGAZINE TICKER (OPENS IN OUR PORTAL) */}
+      <div className="bg-neutral-950 text-white border-b border-gold/35 py-2.5 px-4 sm:px-6 lg:px-8">
         <div className="max-w-7xl mx-auto flex flex-wrap items-center justify-between gap-3 text-[10px] font-mono">
-          <div className="flex items-center gap-2.5 min-w-0">
-            <span className="inline-flex items-center gap-1.5 px-2 py-0.5 bg-gold text-black font-extrabold tracking-widest shrink-0">
-              <span className="h-1.5 w-1.5 rounded-full bg-black animate-ping" />
-              WIRE
+          <div className="flex items-center gap-2.5 min-w-0 flex-1">
+            <span className="inline-flex items-center gap-1.5 px-2.5 py-0.5 bg-gradient-to-r from-gold to-amber-300 text-black font-extrabold tracking-widest shrink-0 rounded-sm">
+              <span className="h-1.5 w-1.5 rounded-full bg-red-600 animate-ping" />
+              25-SOURCE WIRE
             </span>
-            <div className="flex items-center gap-3 overflow-x-auto scrollbar-none whitespace-nowrap">
-              {liveItems.slice(0, 4).map((hl) => (
-                <button
+            <div className="flex items-center gap-4 overflow-x-auto scrollbar-none whitespace-nowrap">
+              {liveItems.slice(0, 5).map((hl) => (
+                <Link
                   key={hl.id}
-                  type="button"
-                  onClick={() => setReaderLive(hl)}
-                  className="hover:text-gold transition-colors cursor-pointer inline-flex items-center gap-1.5"
+                  href={buildArticleHref(hl)}
+                  className="hover:text-gold transition-colors inline-flex items-center gap-1.5"
                 >
                   <span className="text-gold font-bold">{hl.publisher}:</span>
-                  <span className="text-neutral-200 truncate max-w-[260px]">{hl.title}</span>
-                </button>
+                  <span className="text-neutral-200 truncate max-w-[240px]">{hl.title}</span>
+                  <span className="text-neutral-500">({hl.publishedDisplay})</span>
+                </Link>
               ))}
             </div>
           </div>
@@ -252,29 +214,57 @@ export function MagazineEditorialHub() {
         </div>
       </div>
 
-      {/* 1. VOGUE.COM STYLE EDITORIAL MASTHEAD & SECTION BAR */}
-      <div className="border-b border-neutral-200 dark:border-gold/20 bg-white dark:bg-[#090C13]">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-7 pb-4 text-center space-y-2.5">
+      {/* 1. LUXURY VOGUE MASTHEAD + CHANNEL SWITCHER + SEARCH */}
+      <div className="border-b border-neutral-200 dark:border-gold/20 bg-gradient-to-b from-[#FAF7F2] via-white to-white dark:from-[#0C101B] dark:via-[#090C13] dark:to-[#07090E]">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-7 pb-5 text-center space-y-3">
           <div className="flex flex-wrap items-center justify-center gap-3 text-[10px] font-mono uppercase tracking-[0.24em] text-neutral-500 dark:text-neutral-400">
-            <span>{isAr ? 'النشرة الدولية المجمعة' : 'INTERNATIONAL DIGITAL MAGAZINE'}</span>
+            <span>{isAr ? 'البوابة الموحدة للأخبار والمجلات العالمية' : 'GLOBAL LUXURY MAGAZINE & NEWS PORTAL'}</span>
             <span>•</span>
             <span className="text-[#8B6508] dark:text-gold font-bold">
               {liveMode === 'live-rss-syndication'
-                ? (isAr ? `${liveItems.length} مقالاً حياً من 15 مجلة عالمية` : `${liveItems.length} LIVE STORIES • 15 GLOBAL MAGAZINES`)
+                ? (isAr ? `${liveItems.length} خبراً ومقالاً حياً • 25 قناة ومجلة` : `${liveItems.length} LIVE PORTAL STORIES • 15 MAGAZINES & 10 NEWS CHANNELS`)
                 : (isAr ? 'الأرشيف التحريري الموثق' : 'CURATED EDITION ARCHIVE')}
             </span>
-            <span>•</span>
-            <span>NEW YORK • LONDON • PARIS • DUBAI • MILAN</span>
           </div>
 
           <h1 className="text-4xl sm:text-6xl lg:text-7xl font-serif font-black tracking-[0.04em] uppercase text-neutral-950 dark:text-white leading-none">
             THE VOGUE NEWS
           </h1>
 
-          {/* Primary Horizontal Navigation Bar (Mirrors vogue.com top navigation) */}
+          {/* Channel Type Selector Pills */}
+          <div className="pt-1 flex flex-wrap items-center justify-center gap-2">
+            {[
+              { id: 'all', icon: Layers, en: 'All 25 Magazines & News Channels', ar: 'جميع المجلات والقنوات (25)' },
+              { id: 'magazine', icon: BookOpen, en: '15 Luxury Magazines', ar: '15 مجلة فاخرة عالمية' },
+              { id: 'news-channel', icon: Tv, en: '10 Global News Channels', ar: '10 قنوات أخبار عالمية' },
+            ].map((tab) => {
+              const Icon = tab.icon;
+              const active = channelFilter === tab.id;
+              return (
+                <button
+                  key={tab.id}
+                  type="button"
+                  onClick={() => {
+                    setSelectedPublisher('all');
+                    setChannelFilter(tab.id as 'all' | 'magazine' | 'news-channel');
+                  }}
+                  className={`px-3.5 py-1.5 rounded-full text-[11px] font-mono font-bold uppercase tracking-wider inline-flex items-center gap-1.5 transition-all cursor-pointer border ${
+                    active
+                      ? 'bg-neutral-950 text-gold border-neutral-950 dark:bg-gold dark:text-black dark:border-gold shadow-md'
+                      : 'bg-white dark:bg-white/[0.04] text-neutral-700 dark:text-neutral-300 border-neutral-200 dark:border-white/15 hover:border-gold'
+                  }`}
+                >
+                  <Icon className="w-3.5 h-3.5" />
+                  <span>{isAr ? tab.ar : tab.en}</span>
+                </button>
+              );
+            })}
+          </div>
+
+          {/* Primary Category Navigation Bar */}
           <nav
             aria-label="Magazine categories"
-            className="pt-4 flex items-center justify-start sm:justify-center gap-4 sm:gap-6 overflow-x-auto scrollbar-none pb-1"
+            className="pt-3 flex items-center justify-start sm:justify-center gap-4 sm:gap-6 overflow-x-auto scrollbar-none pb-1"
           >
             {VOGUE_SECTIONS.map((sec) => {
               const active = activeSection === sec.id;
@@ -296,11 +286,11 @@ export function MagazineEditorialHub() {
           </nav>
         </div>
 
-        {/* Publisher Pills + Instant Search Toolbar */}
-        <div className="border-t border-neutral-100 dark:border-white/10 bg-[#FAF7F2] dark:bg-[#0B0F18]">
+        {/* Publisher Filter Pills + Search */}
+        <div className="border-t border-neutral-200/80 dark:border-white/10 bg-[#FAF7F2] dark:bg-[#0B0F18]">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-3 flex flex-col lg:flex-row lg:items-center justify-between gap-3">
             <div className="flex items-center gap-1.5 overflow-x-auto scrollbar-none pb-1 lg:pb-0">
-              {PUBLISHER_TABS.map((pub) => {
+              {visiblePublishers.map((pub) => {
                 const active = selectedPublisher === pub.slug;
                 return (
                   <button
@@ -320,20 +310,20 @@ export function MagazineEditorialHub() {
             </div>
 
             <div className="flex items-center gap-2 shrink-0">
-              <div className="relative flex-1 lg:w-56">
+              <div className="relative flex-1 lg:w-60">
                 <Search className="w-3.5 h-3.5 text-neutral-400 absolute left-3 top-1/2 -translate-y-1/2 pointer-events-none" />
                 <input
                   type="search"
                   value={searchTerm}
                   onChange={(e) => setSearchTerm(e.target.value)}
-                  placeholder={isAr ? 'ابحث في المجلات...' : 'Filter headlines, authors...'}
+                  placeholder={isAr ? 'ابحث في الأخبار والمجلات...' : 'Search Vogue, BBC, NYT, Robb Report...'}
                   className="w-full pl-8 pr-3 py-1.5 text-[11px] font-mono rounded-full border border-neutral-300 dark:border-white/15 bg-white dark:bg-[#07090E] focus:outline-none focus:border-gold"
                 />
               </div>
 
               <button
                 type="button"
-                onClick={() => fetchLiveWire(selectedPublisher, activeSection)}
+                onClick={() => fetchLiveWire(selectedPublisher, activeSection, channelFilter)}
                 disabled={liveLoading}
                 className="shrink-0 px-3 py-1.5 rounded-full border border-neutral-300 dark:border-gold/40 bg-white dark:bg-transparent hover:border-neutral-950 dark:hover:border-gold text-[10px] font-mono font-bold uppercase tracking-wider flex items-center gap-1.5 cursor-pointer disabled:opacity-50"
               >
@@ -345,36 +335,30 @@ export function MagazineEditorialHub() {
         </div>
       </div>
 
-      {/* 2. VOGUE.COM HERO LEAD FEATURE SPLIT */}
+      {/* 2. VOGUE COVER SPLIT HERO (ALL CLICKABLE LINKS OPEN OUR PORTAL PAGE) */}
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 sm:py-10 border-b border-neutral-200 dark:border-gold/20">
         {liveLoading && !leadLive ? (
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-stretch animate-pulse">
-            <div className="lg:col-span-5 h-72 bg-neutral-100 dark:bg-white/5 rounded-xl" />
-            <div className="lg:col-span-4 h-96 bg-neutral-100 dark:bg-white/5 rounded-xl" />
-            <div className="lg:col-span-3 h-96 bg-neutral-100 dark:bg-white/5 rounded-xl" />
+            <div className="lg:col-span-5 h-72 bg-neutral-100 dark:bg-white/5 rounded-2xl" />
+            <div className="lg:col-span-4 h-96 bg-neutral-100 dark:bg-white/5 rounded-2xl" />
+            <div className="lg:col-span-3 h-96 bg-neutral-100 dark:bg-white/5 rounded-2xl" />
           </div>
         ) : leadLive ? (
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
-            {/* LEFT: VOGUE COVER TYPOGRAPHY */}
-            <div className="lg:col-span-5 flex flex-col justify-center space-y-4 lg:py-6">
+            {/* LEFT 5 COLS: COVER TYPOGRAPHY */}
+            <div className="lg:col-span-5 flex flex-col justify-center space-y-4 lg:py-4">
               <div className="flex flex-wrap items-center gap-2 text-[10px] font-mono uppercase tracking-[0.22em] font-bold">
-                <a
-                  href={PUBLISHER_TABS.find((p) => p.slug === leadLive.publisherSlug)?.homeUrl || leadLive.link}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="px-2.5 py-0.5 bg-neutral-950 text-white dark:bg-gold dark:text-black hover:opacity-85 transition-opacity"
-                >
+                <span className="px-2.5 py-0.5 bg-neutral-950 text-gold dark:bg-gold dark:text-black">
                   {leadLive.publisher}
-                </a>
+                </span>
                 <span className="text-[#8B6508] dark:text-gold">{leadLive.category}</span>
               </div>
 
-              <h2
-                onClick={() => setReaderLive(leadLive)}
-                className="text-3xl sm:text-5xl font-serif font-normal tracking-tight leading-[1.08] cursor-pointer hover:underline text-neutral-950 dark:text-white"
-              >
-                {leadLive.title}
-              </h2>
+              <Link href={buildArticleHref(leadLive)} className="block group">
+                <h2 className="text-3xl sm:text-5xl font-serif font-normal tracking-tight leading-[1.08] text-neutral-950 dark:text-white group-hover:underline">
+                  {leadLive.title}
+                </h2>
+              </Link>
 
               <p className="text-sm sm:text-base text-neutral-600 dark:text-neutral-300 font-serif leading-relaxed">
                 {leadLive.excerpt}
@@ -383,33 +367,33 @@ export function MagazineEditorialHub() {
               <div className="pt-1 text-[11px] font-mono uppercase tracking-[0.16em] text-neutral-500 dark:text-neutral-400">
                 <span>BY {leadLive.author.toUpperCase()}</span>
                 <span className="mx-2">•</span>
-                <span>{leadLive.publishedDisplay}</span>
+                <span className="text-neutral-900 dark:text-gold font-bold">{leadLive.publishedDisplay}</span>
               </div>
 
               <div className="pt-3 flex flex-wrap items-center gap-3">
-                <button
-                  type="button"
-                  onClick={() => setReaderLive(leadLive)}
-                  className="px-5 py-2.5 bg-neutral-950 dark:bg-gold text-white dark:text-black text-[11px] font-bold uppercase tracking-[0.18em] hover:opacity-90 transition-opacity cursor-pointer"
+                <Link
+                  href={buildArticleHref(leadLive)}
+                  className="px-6 py-3 bg-neutral-950 dark:bg-gold text-white dark:text-black text-[11px] font-extrabold uppercase tracking-[0.18em] hover:opacity-90 transition-opacity inline-flex items-center gap-2 shadow-lg"
                 >
-                  {isAr ? 'معاينة المقال' : 'Read Story Preview'}
-                </button>
+                  <span>{isAr ? 'قراءة المقال في بوابتنا' : 'Open Full Portal Article'}</span>
+                  <ArrowUpRight className="w-3.5 h-3.5" />
+                </Link>
                 <a
-                  href={leadLive.link}
+                  href="https://omniastores.com/collections/bridal-sets"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="px-4 py-2.5 border border-neutral-900 dark:border-white/25 text-neutral-900 dark:text-white text-[11px] font-bold uppercase tracking-[0.14em] hover:bg-neutral-100 dark:hover:bg-white/10 transition-colors inline-flex items-center gap-1.5"
+                  className="px-4 py-3 border border-gold/60 text-[#8B6508] dark:text-gold text-[11px] font-mono font-bold uppercase tracking-[0.14em] hover:bg-gold hover:text-black transition-colors inline-flex items-center gap-1.5"
                 >
-                  <span>{isAr ? `اقرأ على ${leadLive.publisher}` : `Read on ${leadLive.publisher}`}</span>
-                  <ExternalLink className="w-3 h-3" />
+                  <ShoppingBag className="w-3.5 h-3.5" />
+                  <span>{isAr ? 'تنسيق أمنية ستورز' : 'Shop Partner Edit'}</span>
                 </a>
               </div>
             </div>
 
-            {/* CENTER: LARGE HERO PORTRAIT PHOTO */}
-            <div
-              onClick={() => setReaderLive(leadLive)}
-              className="lg:col-span-4 relative aspect-[4/5] w-full overflow-hidden bg-neutral-100 dark:bg-neutral-900 cursor-pointer group shadow-2xl border border-neutral-200 dark:border-gold/25"
+            {/* CENTER 4 COLS: LARGE PORTRAIT IMAGE -> OPENS OUR PORTAL ARTICLE */}
+            <Link
+              href={buildArticleHref(leadLive)}
+              className="lg:col-span-4 relative aspect-[4/5] w-full overflow-hidden bg-neutral-100 dark:bg-neutral-900 cursor-pointer group shadow-2xl rounded-2xl border border-neutral-200 dark:border-gold/30 block"
             >
               <img
                 src={leadLive.thumbnail}
@@ -423,30 +407,29 @@ export function MagazineEditorialHub() {
                 }}
                 className="w-full h-full object-cover object-center group-hover:scale-[1.03] transition-transform duration-700"
               />
-              <span className="absolute bottom-3 left-3 px-2.5 py-1 bg-black/80 text-white text-[9px] font-mono uppercase tracking-widest">
-                {leadLive.publisher} • COVER FEATURE
+              <div className="absolute inset-0 bg-gradient-to-t from-black/75 via-transparent to-transparent opacity-70" />
+              <span className="absolute bottom-3 left-3 px-2.5 py-1 bg-black/85 text-gold text-[9px] font-mono uppercase tracking-widest border border-gold/40">
+                {leadLive.publisher} • {leadLive.publishedDisplay}
               </span>
-            </div>
+            </Link>
 
-            {/* RIGHT RAIL: TODAY'S WIRE + SPONSORED OMNIA AD */}
+            {/* RIGHT 3 COLS: TODAY'S WIRE + OMNIA AD PORTAL */}
             <div className="lg:col-span-3 space-y-5">
               <div className="border-b-2 border-neutral-950 dark:border-gold pb-2 flex items-center justify-between">
                 <span className="text-[11px] font-mono font-extrabold uppercase tracking-[0.2em]">
                   {isAr ? 'أحدث التقارير العالمية' : "TODAY'S WIRE"}
                 </span>
-                <span className="text-[9px] font-mono text-emerald-700 dark:text-emerald-400 font-bold">
-                  15 FEEDS
-                </span>
+                <span className="text-[9px] font-mono text-emerald-700 dark:text-emerald-400 font-bold">PORTAL VIEW</span>
               </div>
 
               <div className="divide-y divide-neutral-200 dark:divide-white/10">
                 {railLiveStories.map((st) => (
-                  <article
+                  <Link
                     key={st.id}
-                    onClick={() => setReaderLive(st)}
-                    className="py-2.5 first:pt-0 cursor-pointer group flex items-start gap-3"
+                    href={buildArticleHref(st)}
+                    className="py-2.5 first:pt-0 group flex items-start gap-3"
                   >
-                    <div className="relative w-14 h-14 shrink-0 overflow-hidden bg-neutral-100 dark:bg-neutral-900 rounded">
+                    <div className="relative w-14 h-14 shrink-0 overflow-hidden bg-neutral-100 dark:bg-neutral-900 rounded-lg">
                       <img
                         src={st.thumbnail}
                         alt={st.title}
@@ -463,22 +446,22 @@ export function MagazineEditorialHub() {
                     </div>
                     <div className="min-w-0 space-y-0.5">
                       <span className="text-[9px] font-mono uppercase tracking-wider text-[#8B6508] dark:text-gold font-bold block truncate">
-                        {st.publisher} • {st.category}
+                        {st.publisher} • {st.publishedDisplay}
                       </span>
                       <h4 className="text-xs font-serif font-bold leading-snug group-hover:underline line-clamp-2">
                         {st.title}
                       </h4>
                     </div>
-                  </article>
+                  </Link>
                 ))}
               </div>
 
-              {/* Vertical Vogue-Style Print Ad Card for Omnia Stores */}
+              {/* OMNIA STORES ADVERTISEMENT PORTAL */}
               <a
                 href="https://omniastores.com/collections/brooches"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="block rounded-xl overflow-hidden border border-gold/40 bg-[#090C13] text-white shadow-lg group"
+                className="block rounded-2xl overflow-hidden border border-gold/45 bg-[#090C13] text-white shadow-xl group"
               >
                 <div className="relative aspect-[4/3] w-full overflow-hidden">
                   <Image
@@ -488,8 +471,8 @@ export function MagazineEditorialHub() {
                     unoptimized
                     className="object-cover object-center group-hover:scale-105 transition-transform duration-700"
                   />
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/30 to-transparent" />
-                  <span className="absolute top-2 right-2 px-1.5 py-0.5 bg-black/80 text-white/85 text-[8px] font-mono uppercase tracking-widest border border-white/15">
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/95 via-black/35 to-transparent" />
+                  <span className="absolute top-2 right-2 px-1.5 py-0.5 bg-black/85 text-gold text-[8px] font-mono uppercase tracking-widest border border-gold/40">
                     ADVERTISEMENT
                   </span>
                   <div className="absolute bottom-2.5 inset-x-3 flex items-end justify-between gap-2">
@@ -512,13 +495,14 @@ export function MagazineEditorialHub() {
             <p className="text-sm font-serif text-neutral-500">
               {isAr
                 ? 'لا توجد مقالات مطابقة لهذا البحث حالياً.'
-                : `No live articles matched "${searchTerm || activePubObj?.label}" under "${activeSectionObj?.labelEn}".`}
+                : `No live articles matched "${searchTerm || selectedPublisher}" under "${activeSectionObj?.labelEn}".`}
             </p>
             <button
               type="button"
               onClick={() => {
                 setSearchTerm('');
                 setActiveSection('all');
+                setChannelFilter('all');
                 setSelectedPublisher('all');
               }}
               className="px-4 py-2 bg-neutral-950 dark:bg-gold text-white dark:text-black text-xs font-mono font-bold uppercase cursor-pointer"
@@ -529,7 +513,7 @@ export function MagazineEditorialHub() {
         )}
       </div>
 
-      {/* 3. VOGUE.COM 3-COLUMN FULL-BLEED PHOTO GRID */}
+      {/* 3. PREMIUM 3-COLUMN FULL-BLEED EDITORIAL PHOTO GRID (EVERY LINK OPENS IN OUR PORTAL!) */}
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10 space-y-14">
         {photoGridLive.length > 0 && (
           <div className="space-y-6">
@@ -538,23 +522,21 @@ export function MagazineEditorialHub() {
                 <Globe className="w-4 h-4 text-[#8B6508] dark:text-gold" />
                 <h3 className="text-sm font-mono font-extrabold uppercase tracking-[0.2em]">
                   {activeSection === 'all'
-                    ? (isAr ? 'مختارات اليوم من 15 مجلة عالمية' : "TODAY'S STORIES — 15 GLOBAL LUXURY MAGAZINES")
-                    : (isAr
-                        ? `مقالات ${activeSectionObj?.labelAr}`
-                        : `${activeSectionObj?.labelEn} DISPATCHES`)}
+                    ? (isAr ? 'مختارات اليوم من أرقى المجلات والقنوات العالمية' : "TODAY'S EDITION — VOGUE, BAZAAR, ROBB REPORT, BBC & NYT PORTAL")
+                    : (isAr ? `تقارير ${activeSectionObj?.labelAr}` : `${activeSectionObj?.labelEn} PORTAL DISPATCHES`)}
                 </h3>
               </div>
               <span className="text-[11px] font-mono text-neutral-500">
-                {filteredItems.length} {isAr ? 'مقالاً عالمياً محدثاً' : 'Live Syndicated Features'}
+                {filteredItems.length} {isAr ? 'مقالاً يفتح في بوابتنا' : 'Portal Articles Ready'}
               </span>
             </div>
 
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5 sm:gap-6">
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
               {photoGridLive.map((story) => (
-                <article
+                <Link
                   key={story.id}
-                  onClick={() => setReaderLive(story)}
-                  className="group relative aspect-[4/5] w-full overflow-hidden bg-neutral-900 cursor-pointer shadow-lg border border-neutral-200 dark:border-white/10"
+                  href={buildArticleHref(story)}
+                  className="group relative aspect-[4/5] w-full overflow-hidden rounded-2xl bg-neutral-900 shadow-lg border border-neutral-200 dark:border-white/10 hover:border-gold/60 transition-all block"
                 >
                   <img
                     src={story.thumbnail}
@@ -569,16 +551,16 @@ export function MagazineEditorialHub() {
                     }}
                     className="w-full h-full object-cover object-center group-hover:scale-105 transition-transform duration-700"
                   />
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/30 to-black/15" />
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/95 via-black/30 to-black/15" />
 
-                  <span className="absolute top-3 left-3 px-2.5 py-0.5 bg-white/95 dark:bg-black/85 text-neutral-950 dark:text-white text-[9px] font-mono font-extrabold uppercase tracking-widest">
-                    {story.publisher}
-                  </span>
-
-                  <span className="absolute top-3 right-3 px-2 py-0.5 bg-black/70 text-white/90 text-[9px] font-mono rounded opacity-0 group-hover:opacity-100 transition-opacity flex items-center gap-1">
-                    <span>READ</span>
-                    <ArrowUpRight className="w-2.5 h-2.5" />
-                  </span>
+                  <div className="absolute top-3 left-3 right-3 flex items-center justify-between gap-2">
+                    <span className="px-2.5 py-0.5 bg-white/95 dark:bg-black/85 text-neutral-950 dark:text-gold text-[9px] font-mono font-extrabold uppercase tracking-widest border border-gold/25">
+                      {story.publisher}
+                    </span>
+                    <span className="px-2 py-0.5 bg-black/75 text-white/90 text-[9px] font-mono rounded">
+                      {story.publishedDisplay}
+                    </span>
+                  </div>
 
                   <div className="absolute bottom-0 inset-x-0 p-5 sm:p-6 text-white space-y-1.5">
                     <span className="text-[10px] font-mono uppercase tracking-[0.2em] text-amber-300 font-bold block">
@@ -587,22 +569,84 @@ export function MagazineEditorialHub() {
                     <h4 className="text-lg sm:text-xl font-serif font-medium leading-snug group-hover:underline line-clamp-3">
                       {story.title}
                     </h4>
-                    <p className="text-[10px] font-mono uppercase tracking-[0.16em] text-neutral-300 pt-1">
-                      BY {story.author.toUpperCase()}
-                    </p>
+                    <div className="pt-1 flex items-center justify-between text-[10px] font-mono uppercase tracking-[0.14em] text-neutral-300">
+                      <span className="truncate max-w-[190px]">BY {story.author}</span>
+                      <span className="text-gold font-bold flex items-center gap-0.5 shrink-0">
+                        <span>{isAr ? 'اقرأ هنا' : 'READ HERE'}</span>
+                        <ArrowUpRight className="w-3 h-3" />
+                      </span>
+                    </div>
                   </div>
-                </article>
+                </Link>
               ))}
             </div>
 
-            {/* Compact Additional Live Wire Columns */}
+            {/* GLOBAL NEWS CHANNELS DESK BAND (BBC, NYT, GUARDIAN, ARABIAN BUSINESS, CNBC, AL JAZEERA) */}
+            {newsChannelHighlights.length > 0 && channelFilter !== 'magazine' && (
+              <div className="pt-6 space-y-5">
+                <div className="flex flex-wrap items-center justify-between gap-2 border-b-2 border-neutral-950 dark:border-gold/40 pb-3">
+                  <div className="flex items-center gap-2">
+                    <Newspaper className="w-4 h-4 text-[#8B6508] dark:text-gold" />
+                    <h3 className="text-sm font-mono font-extrabold uppercase tracking-[0.2em]">
+                      {isAr
+                        ? 'مكتب القنوات الإخبارية العالمية (BBC, NYT, Guardian, Arabian Business, CNBC, Al Jazeera)'
+                        : 'WORLD NEWS CHANNELS BRIEFING — BBC, NYTIMES, GUARDIAN, CNBC, ARABIAN BUSINESS'}
+                    </h3>
+                  </div>
+                  <span className="text-[10px] font-mono text-emerald-700 dark:text-emerald-400 font-bold">
+                    {isAr ? 'تفتح داخل منصتنا بنفس التاريخ' : 'ALL POSTS OPEN IN OUR PORTAL'}
+                  </span>
+                </div>
+
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+                  {newsChannelHighlights.map((news) => (
+                    <Link
+                      key={news.id}
+                      href={buildArticleHref(news)}
+                      className="group p-4 rounded-2xl border border-neutral-200 dark:border-gold/20 bg-[#FAF7F2] dark:bg-[#0B0F18] hover:border-gold transition-all flex items-start gap-3.5"
+                    >
+                      <img
+                        src={news.thumbnail}
+                        alt={news.title}
+                        loading="lazy"
+                        onError={(e) => {
+                          const target = e.currentTarget;
+                          if (!target.dataset.fb) {
+                            target.dataset.fb = '1';
+                            target.src = '/campaigns/golden-nocturne.jpg';
+                          }
+                        }}
+                        className="w-24 h-24 object-cover rounded-xl shrink-0 bg-neutral-900 group-hover:scale-105 transition-transform duration-500"
+                      />
+                      <div className="min-w-0 space-y-1">
+                        <div className="flex items-center justify-between gap-2 text-[9px] font-mono">
+                          <span className="px-2 py-0.5 bg-neutral-950 text-gold font-bold uppercase rounded">
+                            {news.publisher}
+                          </span>
+                          <span className="text-neutral-500">{news.publishedDisplay}</span>
+                        </div>
+                        <h4 className="text-sm font-serif font-bold leading-snug group-hover:underline line-clamp-2">
+                          {news.title}
+                        </h4>
+                        <span className="text-[10px] font-mono text-[#8B6508] dark:text-gold font-bold inline-flex items-center gap-1">
+                          <span>{isAr ? 'فتح التقرير الكامل' : 'Open Official Portal Post'}</span>
+                          <ArrowUpRight className="w-3 h-3" />
+                        </span>
+                      </div>
+                    </Link>
+                  ))}
+                </div>
+              </div>
+            )}
+
+            {/* Additional Portal Briefs */}
             {compactBriefs.length > 0 && (
               <div className="pt-4 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 border-t border-neutral-200 dark:border-white/10">
                 {compactBriefs.map((brief) => (
-                  <div
+                  <Link
                     key={brief.id}
-                    onClick={() => setReaderLive(brief)}
-                    className="p-4 rounded-xl border border-neutral-200 dark:border-white/10 bg-[#FAF7F2] dark:bg-[#0B0F18] hover:border-gold/50 cursor-pointer flex items-start gap-3 transition-colors"
+                    href={buildArticleHref(brief)}
+                    className="p-4 rounded-xl border border-neutral-200 dark:border-white/10 bg-[#FAF7F2] dark:bg-[#0B0F18] hover:border-gold/60 flex items-start gap-3 transition-colors group"
                   >
                     <img
                       src={brief.thumbnail}
@@ -622,19 +666,18 @@ export function MagazineEditorialHub() {
                         <span>{brief.publisher}</span>
                         <span className="text-neutral-500">{brief.publishedDisplay}</span>
                       </div>
-                      <h5 className="text-xs sm:text-sm font-serif font-bold leading-snug line-clamp-2 hover:underline">
+                      <h5 className="text-xs sm:text-sm font-serif font-bold leading-snug line-clamp-2 group-hover:underline">
                         {brief.title}
                       </h5>
                       <span className="text-[10px] text-neutral-500 font-mono block truncate">
                         BY {brief.author.toUpperCase()}
                       </span>
                     </div>
-                  </div>
+                  </Link>
                 ))}
               </div>
             )}
 
-            {/* Toggle All 75+ Stories Button */}
             {filteredItems.length > 19 && (
               <div className="text-center pt-2">
                 <button
@@ -643,15 +686,15 @@ export function MagazineEditorialHub() {
                   className="px-6 py-3 rounded-full border border-neutral-950 dark:border-gold/60 text-neutral-950 dark:text-gold hover:bg-neutral-950 hover:text-white dark:hover:bg-gold dark:hover:text-black text-xs font-mono font-bold uppercase tracking-[0.18em] transition-colors cursor-pointer"
                 >
                   {showAllFeed
-                    ? (isAr ? 'عرض أقل' : 'Show Fewer Stories')
-                    : (isAr ? `عرض كافة المقالات الحية (${filteredItems.length})` : `Explore All ${filteredItems.length} Live Magazine Stories`)}
+                    ? (isAr ? 'عرض أقل' : 'Show Fewer Portal Articles')
+                    : (isAr ? `عرض كافة المقالات (${filteredItems.length})` : `Explore All ${filteredItems.length} Live Portal Stories`)}
                 </button>
               </div>
             )}
           </div>
         )}
 
-        {/* 4. SPONSORED LUXURY PARTNER FEATURE */}
+        {/* 4. SPONSORED OMNIA STORES FLAGSHIP ADVERTISEMENT PORTAL */}
         <div className="rounded-3xl bg-gradient-to-r from-[#0A0D14] via-[#171E2E] to-[#0A0D14] text-white border border-gold/45 p-6 sm:p-10 flex flex-col lg:flex-row items-center justify-between gap-6 shadow-2xl">
           <div className="space-y-2.5 max-w-2xl">
             <div className="inline-flex items-center gap-2 text-gold text-[10px] font-mono uppercase tracking-[0.22em] font-bold">
@@ -688,7 +731,7 @@ export function MagazineEditorialHub() {
           </div>
         </div>
 
-        {/* 5. VOGUE SHOPPING • ALL 8 CURATED OMNIA STORES COLLECTOR PIECES */}
+        {/* 5. VOGUE SHOPPING • ALL 8 OMNIA STORES COLLECTOR PIECES */}
         <div className="pt-2 space-y-6">
           <div className="flex flex-wrap items-end justify-between gap-3 border-b-2 border-neutral-950 dark:border-gold/40 pb-3">
             <div>
@@ -751,15 +794,15 @@ export function MagazineEditorialHub() {
           </div>
         </div>
 
-        {/* 6. OMNIA STORES & VOGUE GLOBAL EDITORIAL BACKLINK AUTHORITY LEDGER */}
+        {/* 6. OMNIA STORES & 25-SOURCE BACKLINK AUTHORITY DIRECTORY */}
         <div className="pt-2 space-y-6">
           <div className="flex flex-wrap items-center justify-between gap-2 border-b-2 border-neutral-950 dark:border-gold/40 pb-3">
             <div className="flex items-center gap-2">
               <Link2 className="w-4 h-4 text-[#8B6508] dark:text-gold" />
               <h3 className="text-sm font-mono font-extrabold uppercase tracking-[0.2em]">
                 {isAr
-                  ? 'دليل الروابط الموثقة — أمنية ستورز (omniastores.com) وفوغ العالمية (vogue.com)'
-                  : 'VERIFIED AUTHORITY BACKLINKS — OMNIASTORES.COM & GLOBAL MAGAZINE INDEX'}
+                  ? 'دليل البوابات والروابط الموثقة — أمنية ستورز و 25 مصدراً عالمياً'
+                  : 'OMNIA STORES BACKLINK PORTALS & 25 ACCREDITED GLOBAL PUBLISHERS'}
               </h3>
             </div>
             <span className="text-[10px] font-mono text-emerald-700 dark:text-emerald-400 font-bold flex items-center gap-1">
@@ -769,13 +812,12 @@ export function MagazineEditorialHub() {
           </div>
 
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-6">
-            {/* Left 7 cols: Omnia Stores Deep Authority Backlinks */}
-            <div className="lg:col-span-7 p-6 rounded-2xl border border-gold/35 bg-[#0A0D14] text-white space-y-4">
+            <div className="lg:col-span-6 p-6 rounded-2xl border border-gold/35 bg-[#0A0D14] text-white space-y-4">
               <div className="flex flex-wrap items-center justify-between gap-2 border-b border-white/10 pb-3">
                 <div className="flex items-center gap-2">
                   <Sparkles className="w-4 h-4 text-gold" />
                   <h4 className="text-sm font-serif font-bold text-gold">
-                    {isAr ? 'روابط أقسام أمنية ستورز المباشرة (omniastores.com)' : 'Omnia Stores Flagship Collection Backlinks'}
+                    {isAr ? 'بوابات وروابط أمنية ستورز المباشرة (omniastores.com)' : 'Omnia Stores Flagship Collection Backlinks'}
                   </h4>
                 </div>
                 <a
@@ -810,23 +852,12 @@ export function MagazineEditorialHub() {
                   </a>
                 ))}
               </div>
-
-              <div className="pt-2 flex flex-wrap items-center gap-3 text-[11px] font-mono">
-                <Link href="/brands/omnia-stores" className="text-gold hover:underline">
-                  {isAr ? '← الملف الموثق لأمنية ستورز' : 'View Omnia Stores Brand Entity →'}
-                </Link>
-                <span className="text-white/25">|</span>
-                <Link href="/jewellery-comparison" className="text-neutral-300 hover:text-gold hover:underline">
-                  {isAr ? 'مقارنة جودة الفضة والأسعار في الخليج' : 'GCC Competitor Value Matrix →'}
-                </Link>
-              </div>
             </div>
 
-            {/* Right 5 cols: Official Vogue & 15 International Magazine References */}
-            <div className="lg:col-span-5 p-6 rounded-2xl border border-neutral-200 dark:border-white/15 bg-[#FAF7F2] dark:bg-[#0B0F18] space-y-4">
+            <div className="lg:col-span-6 p-6 rounded-2xl border border-neutral-200 dark:border-white/15 bg-[#FAF7F2] dark:bg-[#0B0F18] space-y-4">
               <div className="flex items-center justify-between border-b border-neutral-200 dark:border-white/10 pb-3">
                 <h4 className="text-sm font-serif font-bold">
-                  {isAr ? 'المجلات العالمية المعتمدة (vogue.com وغيرها)' : 'Accredited Global Magazines (vogue.com & Partners)'}
+                  {isAr ? 'المجلات والقنوات العالمية المعتمدة (25)' : '25 Global Magazines & News Channels Directory'}
                 </h4>
                 <a
                   href="https://www.vogue.com/"
@@ -840,16 +871,19 @@ export function MagazineEditorialHub() {
 
               <div className="grid grid-cols-2 sm:grid-cols-3 gap-2">
                 {PUBLISHER_TABS.filter((p) => p.slug !== 'all').map((pub) => (
-                  <a
+                  <button
                     key={pub.slug}
-                    href={pub.homeUrl}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="px-3 py-2 rounded-lg border border-neutral-200 dark:border-white/10 bg-white dark:bg-[#07090E] hover:border-gold text-[11px] font-serif font-bold flex items-center justify-between gap-1 transition-colors"
+                    type="button"
+                    onClick={() => {
+                      setChannelFilter('all');
+                      setSelectedPublisher(pub.slug);
+                      window.scrollTo({ top: 0, behavior: 'smooth' });
+                    }}
+                    className="px-3 py-2 rounded-lg border border-neutral-200 dark:border-white/10 bg-white dark:bg-[#07090E] hover:border-gold text-[11px] font-serif font-bold flex items-center justify-between gap-1 transition-colors cursor-pointer text-left"
                   >
                     <span className="truncate">{pub.label}</span>
-                    <ArrowUpRight className="w-3 h-3 text-neutral-400 shrink-0" />
-                  </a>
+                    <ArrowUpRight className="w-3 h-3 text-gold shrink-0" />
+                  </button>
                 ))}
               </div>
             </div>
@@ -875,7 +909,7 @@ export function MagazineEditorialHub() {
               <article
                 key={story.id}
                 onClick={() => setReaderLocal(story)}
-                className="group relative aspect-[4/5] w-full overflow-hidden bg-neutral-900 cursor-pointer shadow-lg border border-neutral-200 dark:border-gold/25"
+                className="group relative aspect-[4/5] w-full overflow-hidden rounded-2xl bg-neutral-900 cursor-pointer shadow-lg border border-neutral-200 dark:border-gold/25"
               >
                 <Image
                   src={story.coverImage}
@@ -921,7 +955,7 @@ export function MagazineEditorialHub() {
                 key={issue.id}
                 type="button"
                 onClick={() => setActiveSection(issue.linkedPillar)}
-                className="group text-left rtl:text-right border border-neutral-200 dark:border-gold/25 bg-[#FAF7F2] dark:bg-[#0D111A] hover:border-gold transition-all overflow-hidden cursor-pointer"
+                className="group text-left rtl:text-right border border-neutral-200 dark:border-gold/25 bg-[#FAF7F2] dark:bg-[#0D111A] hover:border-gold transition-all overflow-hidden rounded-xl cursor-pointer"
               >
                 <div className="relative aspect-[3/4] w-full overflow-hidden bg-black">
                   <Image
@@ -954,86 +988,6 @@ export function MagazineEditorialHub() {
           </div>
         </div>
       </div>
-
-      {/* READER MODAL FOR SYNDICATED GLOBAL ARTICLES */}
-      {readerLive && (
-        <div
-          className="fixed inset-0 z-50 bg-black/80 backdrop-blur-md flex items-center justify-center p-3 sm:p-6"
-          onClick={() => setReaderLive(null)}
-        >
-          <div
-            onClick={(e) => e.stopPropagation()}
-            className="w-full max-w-4xl max-h-[90vh] bg-white dark:bg-[#0D111A] text-neutral-950 dark:text-white rounded-3xl overflow-hidden shadow-2xl border border-neutral-300 dark:border-gold/40 flex flex-col"
-          >
-            <div className="px-5 py-4 border-b border-neutral-200 dark:border-white/10 flex items-center justify-between bg-[#FAF7F2] dark:bg-[#090C13]">
-              <div className="flex items-center gap-2 text-[10px] font-mono uppercase tracking-widest font-bold">
-                <span className="px-2 py-0.5 bg-neutral-950 text-white dark:bg-gold dark:text-black">
-                  {readerLive.publisher}
-                </span>
-                <span className="text-[#8B6508] dark:text-gold">{readerLive.category}</span>
-              </div>
-              <button
-                type="button"
-                onClick={() => setReaderLive(null)}
-                aria-label="Close reader"
-                className="p-2 rounded-full bg-neutral-200/70 dark:bg-white/10 hover:bg-gold hover:text-black transition-colors cursor-pointer"
-              >
-                <X className="w-4 h-4" />
-              </button>
-            </div>
-
-            <div className="overflow-y-auto p-5 sm:p-8 space-y-6">
-              <div className="grid grid-cols-1 md:grid-cols-12 gap-6 items-start">
-                <div className="md:col-span-5 relative aspect-[4/5] rounded-2xl overflow-hidden bg-black">
-                  <img
-                    src={readerLive.thumbnail}
-                    alt={readerLive.title}
-                    className="w-full h-full object-cover object-center"
-                  />
-                </div>
-                <div className="md:col-span-7 space-y-4">
-                  <h3 className="text-2xl sm:text-3xl font-serif font-bold leading-tight">
-                    {readerLive.title}
-                  </h3>
-                  <div className="flex flex-wrap items-center gap-3 text-xs font-mono text-neutral-500 dark:text-neutral-400">
-                    <span className="font-bold text-neutral-900 dark:text-gold">BY {readerLive.author.toUpperCase()}</span>
-                    <span>•</span>
-                    <span>{readerLive.publishedDisplay}</span>
-                  </div>
-                  <p className="text-base text-neutral-700 dark:text-neutral-200 font-serif leading-relaxed border-l-2 border-neutral-900 dark:border-gold pl-4">
-                    {readerLive.excerpt}
-                  </p>
-                  <p className="text-xs font-mono text-neutral-500">
-                    {isAr
-                      ? `هذا الموجز منقول مع التوثيق التحريري المباشر من ${readerLive.publisher}. لقراءة التحقيق الكامل، انتقل إلى الموقع الرسمي للناشر.`
-                      : `Syndicated editorial digest attributed directly to ${readerLive.publisher}. Read the complete feature and gallery on the official publisher edition.`}
-                  </p>
-                  <div className="pt-2 flex flex-wrap items-center gap-3">
-                    <a
-                      href={readerLive.link}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="inline-flex items-center gap-2 px-6 py-3 bg-neutral-950 dark:bg-gold text-white dark:text-black font-extrabold text-xs uppercase tracking-[0.16em] hover:opacity-90 transition-opacity"
-                    >
-                      <span>{isAr ? `قراءة المقال كاملاً في ${readerLive.publisher}` : `Read Full Story on ${readerLive.publisher}`}</span>
-                      <ExternalLink className="w-3.5 h-3.5" />
-                    </a>
-                    <a
-                      href={PUBLISHER_TABS.find((p) => p.slug === readerLive.publisherSlug)?.homeUrl || readerLive.link}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="inline-flex items-center gap-1.5 px-4 py-3 border border-neutral-300 dark:border-white/20 text-xs font-mono font-bold uppercase hover:border-gold"
-                    >
-                      <span>{readerLive.publisher} Edition</span>
-                      <ArrowUpRight className="w-3 h-3" />
-                    </a>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      )}
 
       {/* READER MODAL FOR REGIONAL GCC FEATURES */}
       {readerLocal && (
@@ -1096,6 +1050,29 @@ export function MagazineEditorialHub() {
                     ))}
                   </div>
                 </div>
+              </div>
+
+              <div className="p-4 sm:p-5 rounded-2xl bg-[#0A0D14] text-white border border-gold/40 flex flex-wrap items-center justify-between gap-4">
+                <div>
+                  <span className="text-[10px] font-mono uppercase tracking-wider text-gold font-bold block">
+                    {isAr ? 'القطعة المختارة لهذا التقرير • أمنية ستورز' : 'FEATURED ACQUISITION • OMNIA STORES'}
+                  </span>
+                  <h4 className="text-base font-serif font-bold mt-0.5">
+                    {isAr ? readerLocal.omniaPairing.nameAr : readerLocal.omniaPairing.nameEn}
+                  </h4>
+                  <span className="text-xs font-mono text-amber-200">
+                    {formatAmt(readerLocal.omniaPairing.priceAed)} • Code: OMNIA-VIP15
+                  </span>
+                </div>
+                <a
+                  href={readerLocal.omniaPairing.url}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="px-5 py-2.5 rounded-xl bg-gradient-to-r from-gold via-amber-300 to-[#AA8C2C] text-black font-extrabold text-xs uppercase tracking-wider flex items-center gap-1.5 hover:scale-105 transition-transform"
+                >
+                  <span>{isAr ? 'تسوق على omniastores.com' : 'Shop on omniastores.com'}</span>
+                  <ExternalLink className="w-3.5 h-3.5" />
+                </a>
               </div>
             </div>
           </div>

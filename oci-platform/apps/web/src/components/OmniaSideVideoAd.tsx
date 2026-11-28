@@ -18,19 +18,13 @@ import { useLuxury } from './ThemeProvider';
 
 const SIDE_VIDEOS = [
   {
-    id: 'sale-reveal',
-    title: '11:11 Sale Reveal',
-    src: '/advertising/11-11-sale-reveal.mp4',
-  },
-  {
-    id: 'marketing-campaign',
-    title: '11:11 Gala Campaign',
-    src: '/advertising/11-11-marketing-campaign.mp4',
-  },
-  {
-    id: 'marketing-white',
-    title: '11:11 White 4K Edit',
-    src: '/advertising/11-11-marketing-white.mp4',
+    id: 'brooch-collection',
+    title: 'Omnia Brooch Collection 1080P',
+    titleAr: 'تشكيلة البروشات الفاخرة 1080P',
+    src: '/videos/brooch-collection-1080p.mp4',
+    url: 'https://omniastores.com/collections/brooches',
+    cta: 'Shop Brooches • omniastores.com',
+    ctaAr: 'تسوق البروشات • omniastores.com',
   },
 ];
 
@@ -96,7 +90,7 @@ export function OmniaSideVideoAd() {
           onClick={() => setIsMinimized(false)}
           className="relative group p-3 rounded-full bg-gradient-to-r from-[#DFB743] via-[#FCEAA5] to-[#C99E32] text-black shadow-[0_4px_25px_rgba(212,175,55,0.6)] border border-black/20 flex items-center justify-center cursor-pointer hover:scale-110 active:scale-95 transition-transform"
           aria-label="Expand video player"
-          title="Watch 11:11 Video"
+          title="Watch Omnia Stores Brooch Collection 1080P"
         >
           <Film className="w-5 h-5 text-black animate-pulse" />
           <span className="absolute -top-1 -right-1 flex h-3 w-3">
@@ -121,8 +115,8 @@ export function OmniaSideVideoAd() {
       <div className="absolute top-2 left-2 right-2 z-20 flex items-center justify-between gap-1 pointer-events-none">
         {/* Live Indicator Pill */}
         <div className="flex items-center gap-1.5 px-2 py-0.5 rounded-full bg-black/80 backdrop-blur-md border border-gold/40 text-[9px] font-mono font-bold text-[#E5C365]">
-          <span className="w-1.5 h-1.5 rounded-full bg-red-500 animate-ping" />
-          <span>11:11 LIVE</span>
+          <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-ping" />
+          <span>{isAr ? 'أمنية مباشر' : 'OMNIA LIVE'}</span>
         </div>
 
         {/* Action Buttons */}
@@ -162,11 +156,11 @@ export function OmniaSideVideoAd() {
       {/* 2. Video Player Element (Clean, pure video playing) */}
       <div className="relative w-full aspect-video bg-black overflow-hidden group cursor-pointer">
         <a
-          href="https://omniastores.com/collections/discounted-items"
+          href={activeVideo.url}
           target="_blank"
           rel="noopener noreferrer"
           className="block w-full h-full"
-          title="Visit omniastores.com 11:11 Special Collection"
+          title="Explore Omnia Stores Official Brooch & Jewellery Collection"
         >
           <video
             ref={videoRef}
@@ -199,27 +193,28 @@ export function OmniaSideVideoAd() {
       {/* 3. Direct Link Button to omniastores.com (Sleek, responsive bottom bar) */}
       <div className="p-2 sm:p-2.5 bg-[#090C13] border-t border-gold/30 flex items-center justify-between gap-2">
         <a
-          href="https://omniastores.com/collections/discounted-items"
+          href={activeVideo.url}
           target="_blank"
           rel="noopener noreferrer"
           className="flex-1 flex items-center justify-between px-3 py-1.5 rounded-xl bg-gradient-to-r from-[#DFB743] via-[#FCEAA5] to-[#C99E32] text-black font-serif font-black text-[10px] sm:text-xs uppercase tracking-wider hover:opacity-95 hover:scale-[1.02] active:scale-95 transition-all shadow-md group/cta"
         >
           <div className="flex items-center gap-1.5 truncate">
             <ShoppingBag className="w-3.5 h-3.5 text-black shrink-0 group-hover/cta:rotate-12 transition-transform" />
-            <span className="truncate">{isAr ? 'تسوق على omniastores.com' : 'omniastores.com (85% Off)'}</span>
+            <span className="truncate">{isAr ? activeVideo.ctaAr : activeVideo.cta}</span>
           </div>
           <ArrowUpRight className="w-3.5 h-3.5 shrink-0" />
         </a>
 
-        {/* Next Video Clip Mini Switcher */}
-        <button
-          onClick={nextVideo}
-          className="p-1.5 rounded-xl bg-white/5 hover:bg-white/15 text-gold border border-gold/30 text-[9px] font-mono font-bold shrink-0 transition-colors"
-          title="Next video"
-          aria-label="Next video"
-        >
-          {currentVideoIdx + 1}/{SIDE_VIDEOS.length}
-        </button>
+        {SIDE_VIDEOS.length > 1 && (
+          <button
+            onClick={nextVideo}
+            className="p-1.5 rounded-xl bg-white/5 hover:bg-white/15 text-gold border border-gold/30 text-[9px] font-mono font-bold shrink-0 transition-colors"
+            title="Next video"
+            aria-label="Next video"
+          >
+            {currentVideoIdx + 1}/{SIDE_VIDEOS.length}
+          </button>
+        )}
       </div>
     </aside>
   );

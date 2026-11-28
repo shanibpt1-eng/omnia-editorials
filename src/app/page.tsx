@@ -22,6 +22,7 @@ import { GccCityConciergeRibbon } from '../components/GccCityConciergeRibbon';
 import { VipGalaTestimonials } from '../components/VipGalaTestimonials';
 import { OmniaBacklinkDirectory } from '../components/OmniaBacklinkDirectory';
 import { OmniaEventEditorialShowcase } from '../components/OmniaEventEditorialShowcase';
+import { OmniaFreeSpaceAdPanel } from '../components/OmniaFreeSpaceAdPanel';
 import { SeoHead } from '../components/SeoHead';
 import { useLuxury } from '../components/ThemeProvider';
 import { ArrowRight } from 'lucide-react';
@@ -118,6 +119,9 @@ export default function LuxuryEditorialHomepage() {
           topic={isAr ? 'مقارنة أسواق المجوهرات بالإمارات ودول الخليج' : 'UAE & GCC Jewellery Market Comparison & Best Practices'}
         />
       </div>
+
+      {/* 4.8 Official Omnia Stores Brooch & Campaign Advertisement Panel */}
+      <OmniaFreeSpaceAdPanel />
 
       {/* 5. Interactive "Shop The Look" Magazine Spread with Pulsing Gold Pins */}
       <InteractiveShopTheLook />

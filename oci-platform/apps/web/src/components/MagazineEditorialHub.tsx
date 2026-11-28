@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
 import {
@@ -14,6 +14,7 @@ import {
   ShoppingBag,
   ShieldCheck,
   Layers,
+  RefreshCw,
 } from 'lucide-react';
 import {
   MAGAZINE_PILLARS,
@@ -26,11 +27,54 @@ import {
 } from '../data/magazine-editions-data';
 import { useLuxury } from './ThemeProvider';
 
+interface LiveMagazineFeedItem {
+  id: string;
+  publisher: string;
+  publisherSlug: string;
+  title: string;
+  excerpt: string;
+  link: string;
+  publishedAt: string;
+  publishedDisplay: string;
+  category: string;
+  author: string;
+  thumbnail: string;
+  omniaPairingTitle: string;
+  omniaPairingHref: string;
+  isFallback?: boolean;
+}
+
 export function MagazineEditorialHub() {
   const { language, currency } = useLuxury();
   const isAr = language === 'ar';
   const [activePillar, setActivePillar] = useState<MagazinePillarId>('all');
   const [readerStory, setReaderStory] = useState<MagazineFeatureStory | null>(null);
+  const [liveItems, setLiveItems] = useState<LiveMagazineFeedItem[]>([]);
+  const [liveLoading, setLiveLoading] = useState<boolean>(true);
+  const [liveMode, setLiveMode] = useState<string>('live-rss-syndication');
+  const [selectedPublisher, setSelectedPublisher] = useState<string>('all');
+
+  const fetchLiveWire = useCallback(async (sourceSlug: string) => {
+    setLiveLoading(true);
+    try {
+      const res = await fetch(`/api/magazine/latest?source=${encodeURIComponent(sourceSlug)}`);
+      if (res.ok) {
+        const data = await res.json();
+        if (Array.isArray(data.items)) {
+          setLiveItems(data.items);
+          setLiveMode(data.mode || 'live-rss-syndication');
+        }
+      }
+    } catch {
+      // Keep UI resilient if offline
+    } finally {
+      setLiveLoading(false);
+    }
+  }, []);
+
+  useEffect(() => {
+    fetchLiveWire(selectedPublisher);
+  }, [selectedPublisher, fetchLiveWire]);
 
   const mult = currency === 'SAR' ? 1.02 : 1;
   const currLabel = currency === 'SAR' ? (isAr ? 'ر.س' : 'SAR') : (isAr ? 'د.إ' : 'AED');
@@ -231,7 +275,7 @@ export function MagazineEditorialHub() {
               >
                 <div className="relative aspect-[4/5] w-full overflow-hidden">
                   <Image
-                    src="/banners/marquise-floral-empress.jpg"
+                    src="/press/omnia-fouad-founder-spread.png"
                     alt="Omnia Stores Official Brooch & Bridal Collection"
                     fill
                     unoptimized
@@ -471,6 +515,153 @@ export function MagazineEditorialHub() {
               </button>
             ))}
           </div>
+        </div>
+
+        {/* 6B. LIVE GLOBAL & LUXURY MAGAZINE WIRE (RSS SYNDICATION: VOGUE, HARPER'S BAZAAR, WWD, ELLE) */}
+        <div className="pt-4 space-y-5">
+          <div className="flex flex-col md:flex-row md:items-center justify-between gap-3 border-b-2 border-neutral-950 dark:border-gold/40 pb-3">
+            <div className="space-y-1">
+              <div className="flex items-center gap-2">
+                <span className="inline-flex h-2 w-2 rounded-full bg-emerald-500 animate-pulse" />
+                <h3 className="text-sm font-mono font-extrabold uppercase tracking-[0.2em]">
+                  {isAr
+                    ? 'البث الحي لأحدث إصدارات المجلات العالمية (فوغ، هاربرز بازار، WWD، إيل)'
+                    : 'LIVE GLOBAL MAGAZINE WIRE — VOGUE, HARPER’S BAZAAR, WWD & ELLE'}
+                </h3>
+              </div>
+              <p className="text-[11px] text-neutral-600 dark:text-neutral-400 font-serif">
+                {isAr
+                  ? 'عناوين ومقتطفات محدثة تلقائياً من المصادر العالمية المعتمدة مع روابط القراءة الأصلية وتنسيقات أمنية ستورز المرافقة.'
+                  : 'Real-time syndicated headlines & editorial summaries attributed directly to international publishers, paired with Omnia Stores shoppable edits.'}
+              </p>
+            </div>
+
+            <div className="flex flex-wrap items-center gap-2">
+              <span className="px-2.5 py-1 rounded-full bg-emerald-500/10 border border-emerald-500/30 text-emerald-700 dark:text-emerald-400 text-[10px] font-mono font-bold">
+                {liveMode === 'live-rss-syndication'
+                  ? (isAr ? 'مزامنة RSS حية' : 'LIVE RSS SYNCED')
+                  : (isAr ? 'ملخصات تحريرية احتياطية' : 'CURATED EDITION FEED')}
+              </span>
+              <button
+                type="button"
+                onClick={() => fetchLiveWire(selectedPublisher)}
+                disabled={liveLoading}
+                className="px-3 py-1 rounded-full border border-neutral-300 dark:border-gold/40 hover:bg-neutral-900 hover:text-white dark:hover:bg-gold dark:hover:text-black text-[10px] font-mono font-bold uppercase tracking-wider flex items-center gap-1.5 transition-colors cursor-pointer disabled:opacity-50"
+              >
+                <RefreshCw className={`w-3 h-3 ${liveLoading ? 'animate-spin' : ''}`} />
+                <span>{isAr ? 'تحديث البث' : 'Refresh Live Wire'}</span>
+              </button>
+            </div>
+          </div>
+
+          {/* Publisher Filter Pills */}
+          <div className="flex items-center gap-2 overflow-x-auto pb-1 scrollbar-none">
+            {[
+              { slug: 'all', label: isAr ? 'كل المجلات العالمية' : 'ALL PUBLISHERS' },
+              { slug: 'vogue', label: 'Vogue' },
+              { slug: 'harpers-bazaar', label: "Harper's Bazaar" },
+              { slug: 'wwd', label: 'WWD' },
+              { slug: 'elle', label: 'Elle' },
+            ].map((pubFilter) => (
+              <button
+                key={pubFilter.slug}
+                type="button"
+                onClick={() => setSelectedPublisher(pubFilter.slug)}
+                className={`px-3.5 py-1.5 text-[11px] font-mono font-bold uppercase tracking-wider whitespace-nowrap transition-colors cursor-pointer border ${
+                  selectedPublisher === pubFilter.slug
+                    ? 'bg-neutral-950 text-white border-neutral-950 dark:bg-gold dark:text-black dark:border-gold'
+                    : 'bg-transparent text-neutral-700 dark:text-neutral-300 border-neutral-300 dark:border-white/15 hover:border-gold'
+                }`}
+              >
+                {pubFilter.label}
+              </button>
+            ))}
+          </div>
+
+          {/* Live Syndicated Magazine Cards */}
+          {liveLoading && liveItems.length === 0 ? (
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
+              {[1, 2, 3, 4, 5, 6].map((sk) => (
+                <div
+                  key={sk}
+                  className="h-80 rounded-2xl border border-neutral-200 dark:border-white/10 bg-neutral-100 dark:bg-white/5 animate-pulse"
+                />
+              ))}
+            </div>
+          ) : (
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
+              {liveItems.slice(0, 9).map((item) => (
+                <div
+                  key={item.id}
+                  className="group rounded-2xl border border-neutral-200 dark:border-white/15 bg-[#FAF7F2] dark:bg-[#0B0F18] overflow-hidden flex flex-col justify-between hover:border-gold transition-colors shadow-sm"
+                >
+                  <div>
+                    <div className="relative aspect-[16/10] w-full overflow-hidden bg-neutral-900">
+                      <img
+                        src={item.thumbnail}
+                        alt={item.title}
+                        loading="lazy"
+                        onError={(e) => {
+                          const target = e.currentTarget;
+                          if (!target.dataset.fb) {
+                            target.dataset.fb = '1';
+                            target.src = '/ai-models/omnia-runway-model.jpg';
+                          }
+                        }}
+                        className="w-full h-full object-cover object-center group-hover:scale-105 transition-transform duration-700"
+                      />
+                      <div className="absolute inset-0 bg-gradient-to-t from-black/75 via-transparent to-black/25" />
+                      <span className="absolute top-2.5 left-2.5 px-2.5 py-0.5 bg-neutral-950/90 text-gold text-[10px] font-mono font-extrabold uppercase tracking-wider border border-gold/40">
+                        {item.publisher}
+                      </span>
+                      <span className="absolute top-2.5 right-2.5 px-2 py-0.5 bg-black/70 text-white/90 text-[9px] font-mono rounded">
+                        {item.publishedDisplay}
+                      </span>
+                    </div>
+
+                    <div className="p-4 space-y-2">
+                      <div className="flex items-center justify-between gap-2 text-[10px] font-mono text-[#8B6508] dark:text-gold font-bold uppercase tracking-wider">
+                        <span className="truncate">{item.category}</span>
+                        <span className="text-neutral-500 shrink-0 truncate max-w-[140px]">{item.author}</span>
+                      </div>
+                      <h4 className="text-base font-serif font-bold text-neutral-950 dark:text-white leading-snug line-clamp-2 group-hover:underline">
+                        {item.title}
+                      </h4>
+                      <p className="text-xs text-neutral-600 dark:text-neutral-400 leading-relaxed line-clamp-3">
+                        {item.excerpt}
+                      </p>
+                    </div>
+                  </div>
+
+                  <div className="px-4 pb-4 space-y-2.5">
+                    <div className="pt-2.5 border-t border-neutral-200 dark:border-white/10 flex items-center justify-between gap-2 text-[11px] font-mono">
+                      <a
+                        href={item.link}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="font-bold text-neutral-950 dark:text-white hover:text-[#8B6508] dark:hover:text-gold flex items-center gap-1"
+                      >
+                        <span>{isAr ? `قراءة في ${item.publisher}` : `Read on ${item.publisher}`}</span>
+                        <ExternalLink className="w-3 h-3" />
+                      </a>
+                    </div>
+
+                    <a
+                      href={item.omniaPairingHref}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="flex items-center justify-between gap-2 px-3 py-2 rounded-xl bg-neutral-950 dark:bg-gold/10 text-white dark:text-gold border border-gold/30 hover:border-gold text-[10px] font-mono font-bold transition-colors"
+                    >
+                      <span className="truncate">
+                        {isAr ? `اختيار أمنية: ${item.omniaPairingTitle}` : `Omnia Pairing: ${item.omniaPairingTitle}`}
+                      </span>
+                      <ShoppingBag className="w-3 h-3 shrink-0 text-gold" />
+                    </a>
+                  </div>
+                </div>
+              ))}
+            </div>
+          )}
         </div>
 
         {/* 7. MULTI-PUBLISHER INDUSTRY PRESS RADAR */}

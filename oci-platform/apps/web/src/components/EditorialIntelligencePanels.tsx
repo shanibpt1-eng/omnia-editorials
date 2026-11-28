@@ -134,7 +134,7 @@ const TRENDING_FASHION_LOOKS = [
     titleAr: 'تشوكر اللؤلؤ الإمبراطوري والزمرد',
     stylingEn: 'Frames high-collar Emirati thobes and formal silk caftans with balanced neckline poise.',
     stylingAr: 'يبرز جمال الياقات المرتفعة والقفاطين الحريرية في احتفالات اليوم الوطني.',
-    image: '/editorial-looks/imperial-emerald-pearl-choker.jpg',
+    image: '/campaigns/emerald-prestige.jpg',
     url: 'https://omniastores.com/collections/chokers-collection',
   },
   {
@@ -145,7 +145,7 @@ const TRENDING_FASHION_LOOKS = [
     titleAr: 'طوق الألماس الهندسي ولؤلؤ البحار الجنوبية',
     stylingEn: 'Architectural neckline geometry crafted for minimalist satin column dresses.',
     stylingAr: 'تصميم هندسي معاصر يلائم فساتين الساتان الراقية وحفلات التخرج والزفاف.',
-    image: '/editorial-looks/geometric-diamond-south-sea-pearl.jpg',
+    image: '/campaigns/golden-lumiere.jpg',
     url: 'https://omniastores.com/collections/bridal-collection',
   },
   {
@@ -156,7 +156,7 @@ const TRENDING_FASHION_LOOKS = [
     titleAr: 'طقم الياقوت الوردي الملكي وهالة الألماس',
     stylingEn: 'Soft rose fire accents pastel organza ensembles and daytime afternoon tea jewelry styling.',
     stylingAr: 'بريق وردي ناعم يكمل إطلالات الأورجانزا الهادئة واللقاءات النهارية الراقية.',
-    image: '/editorial-looks/pink-sapphire-halo-pendant.jpg',
+    image: '/campaigns/azure-pendant-edit.jpg',
     url: 'https://omniastores.com/collections/necklaces',
   },
 ];

@@ -68,7 +68,7 @@ const AD_SLOTS = [
     tagAr: 'حملة حصرية',
     titleEn: 'Luxury Jewellery Highlights',
     titleAr: 'أبرز تشكيلات المجوهرات الفاخرة',
-    image: '/banners/upcoming-events-luxury-highlights-banner.jpg',
+    image: '/events/main-event-luxury-gala.jpg',
     url: 'https://omniastores.com/collections/necklaces',
   },
   {
@@ -77,7 +77,7 @@ const AD_SLOTS = [
     tagAr: 'اليوم الوطني',
     titleEn: 'Spirit of the Emirates Pearls',
     titleAr: 'لؤلؤ روح الاتحاد والزمرد',
-    image: '/banners/national-day-spirit-of-emirates-banner.jpg',
+    image: '/events/uae-national-day-celebrate-in-style.jpg',
     url: 'https://omniastores.com/collections/chokers-collection',
   },
   {
@@ -86,7 +86,7 @@ const AD_SLOTS = [
     tagAr: 'رأس السنة 2027',
     titleEn: 'Timeless Bridal Elegance',
     titleAr: 'أناقة الأعراس الخالدة',
-    image: '/banners/new-year-timeless-elegance-banner.jpg',
+    image: '/events/new-year-sale-2027-event.jpg',
     url: 'https://omniastores.com/collections/bridal-collection',
   },
 ];
@@ -100,7 +100,7 @@ const FEATURE_AD_SLOTS = [
     titleAr: 'عروض البلاك فرايدي والجمعة البيضاء الحصرية',
     subEn: 'Pink sapphire halos & solid 925 solitaires with Tabby 4x split payments',
     subAr: 'سوليتير الياقوت الوردي والفضة 925 مع تقسيط تابي على 4 دفعات',
-    image: '/banners/black-friday-luxury-offers-banner.jpg',
+    image: '/events/white-friday-sale-gcc-marquise-suite.jpg',
     url: 'https://omniastores.com/collections/discounted-items',
   },
   {
@@ -111,7 +111,7 @@ const FEATURE_AD_SLOTS = [
     titleAr: 'أناقة رمضان وإشراقة قلادات الفراشة الملكية',
     subEn: 'Canary pavé butterfly pendants crafted for Majlis & evening soirées',
     subAr: 'قلادات الفراشة الكناري المصاغة لأمسيات رمضان والسهرات الراقية',
-    image: '/banners/ramadan-grace-light-elegance-banner.jpg',
+    image: '/events/ramadan-sale-festive-event.jpg',
     url: 'https://omniastores.com/collections/necklaces',
   },
 ];

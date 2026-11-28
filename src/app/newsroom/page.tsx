@@ -64,6 +64,26 @@ export default function EditorialNewsroomPage() {
                 ? 'مكتب التحرير المباشر لصحيفة ذا فوغ نيوز يقدم تقارير موثقة حول إطلاقات المجوهرات، واعتمادات مختبر دبي المركزي، وأخبار أسابيع الموضة في الرياض ودبي والدوحة.'
                 : 'The official live dispatch desk of The Vogue News delivering verified reporting on fine jewellery auctions, Dubai Central Laboratory assay announcements, and GCC fashion developments.'}
             </p>
+
+            <div className="pt-2 flex flex-wrap items-center gap-3">
+              <Link
+                href="/magazine"
+                className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-gold text-black text-xs font-mono font-bold uppercase tracking-wider hover:bg-amber-300 transition-colors"
+              >
+                <Sparkles className="w-3.5 h-3.5" />
+                <span>{isAr ? 'تصفح المجلة وبث فوغ وهاربرز بازار المباشر' : 'Open Digital Magazine & Live Global RSS Wire'}</span>
+                <ChevronRight className="w-3.5 h-3.5 rtl:rotate-180" />
+              </Link>
+              <a
+                href="/api/magazine/latest"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center gap-1.5 px-3.5 py-2 rounded-full border border-gold/35 text-gold text-xs font-mono font-bold hover:bg-gold/10 transition-colors"
+              >
+                <span>{isAr ? 'واجهة RSS الحية JSON' : 'Live Publisher RSS JSON'}</span>
+                <ExternalLink className="w-3 h-3" />
+              </a>
+            </div>
           </div>
         </div>
 

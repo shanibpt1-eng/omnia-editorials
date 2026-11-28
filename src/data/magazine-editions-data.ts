@@ -71,7 +71,7 @@ export const MAGAZINE_STORIES: MagazineFeatureStory[] = [
     authorRole: 'Senior Couture & Culture Editor',
     date: 'November 28, 2026',
     readTime: '6 min read',
-    coverImage: '/editorial-looks/geometric-diamond-south-sea-pearl.jpg',
+    coverImage: '/ai-models/omnia-runway-model.jpg',
     isLeadCover: true,
     paragraphsEn: [
       'Across Abu Dhabi’s Cultural District and Riyadh’s burgeoning gallery corridors, a profound dialogue has emerged between monumental contemporary sculpture and wearable demi-fine architecture. Designers are stripping back superfluous filigree in favor of clean geometric tension—mirroring the timeless poise of modernist masters.',
@@ -103,7 +103,7 @@ export const MAGAZINE_STORIES: MagazineFeatureStory[] = [
     authorRole: 'Arts & Patronage Correspondent',
     date: 'November 26, 2026',
     readTime: '5 min read',
-    coverImage: '/banners/midnight-nocturne-couture.jpg',
+    coverImage: '/press/the-global-ledger-omnia-story-oct2026.jpg',
     paragraphsEn: [
       'With major seasonal exhibitions opening across Diriyah’s JAX District and AlUla’s sandstone canyons, collectors from Dubai, London, and Paris are converging on the Peninsula for winter art week openings.',
       'Evening exhibition previews favor restrained luxury: draped crepe tailoring punctuated by statement 925 silver brooches and emerald-tone accents that echo desert oasis palettes.',
@@ -132,7 +132,7 @@ export const MAGAZINE_STORIES: MagazineFeatureStory[] = [
     authorRole: 'Senior Couture Editor',
     date: 'November 25, 2026',
     readTime: '5 min read',
-    coverImage: '/editorial-looks/crimson-teardrop-ruby-suite.jpg',
+    coverImage: '/campaigns/rose-brilliance.jpg',
     paragraphsEn: [
       'Winter 2026–2027 Gulf eveningwear replaces heavy metallic sequins with architectural drape in silk crepe, velvet, and fluid organza. This clean fabric canvas places renewed emphasis on high-carat neckline focal points.',
       'Crimson ruby collars and multi-strand pearl chokers create dramatic contrast against monochrome black and deep garnet gowns.',
@@ -161,7 +161,7 @@ export const MAGAZINE_STORIES: MagazineFeatureStory[] = [
     authorRole: 'Runway Desk Director',
     date: 'November 24, 2026',
     readTime: '4 min read',
-    coverImage: '/editorial-looks/baroque-pearl-drop-diamond-flora-model.jpg',
+    coverImage: '/press/luxury-style-middle-east-aug2026.jpg',
     paragraphsEn: [
       'Backstage across Dubai Design District and Riyadh Fashion Week, styling teams relied overwhelmingly on three jewellery codes: winged pavé motifs, articulated tennis chokers, and asymmetrical baroque pearl drops.',
       'All three silhouettes remain keystones of Omnia Stores’ current UAE flagship lineup, verified for coastal wear with anti-tarnish rhodium.',
@@ -190,7 +190,7 @@ export const MAGAZINE_STORIES: MagazineFeatureStory[] = [
     authorRole: 'Chief Gemological Advisor',
     date: 'November 22, 2026',
     readTime: '6 min read',
-    coverImage: '/editorial-looks/imperial-emerald-pearl-choker.jpg',
+    coverImage: '/ai-luxury/starlight-marquise-droplets-macro.jpg',
     paragraphsEn: [
       'Many legacy mall crystal brands rely on brass or copper cores hidden beneath flash plating—resulting in tarnished clasps and green skin reactions within weeks of Gulf humidity exposure.',
       'By mandating solid 925 sterling silver verified under Dubai Central Laboratory guidelines and shielded in triple Italian rhodium, Omnia Stores achieves lasting brilliance safe for sensitive skin.',
@@ -219,7 +219,7 @@ export const MAGAZINE_STORIES: MagazineFeatureStory[] = [
     authorRole: 'Market Curation Team',
     date: 'November 27, 2026',
     readTime: '4 min read',
-    coverImage: '/editorial-looks/canary-butterfly-pendant-model.jpg',
+    coverImage: '/ai-luxury/royal-empress-vogue-model.jpg',
     paragraphsEn: [
       'Whether preparing a five-night wedding wardrobe in Abu Dhabi or selecting an anniversary keepsake in Riyadh, Omnia Stores removes traditional retail showroom markups while preserving museum-grade finishing.',
       'Top editor picks this week include the newly released 925 Signature Brooch Collection, Canary Butterfly Pendants, and the Pink Sapphire Halo suite—all eligible for instant Tabby 4-payment splitting.',
@@ -248,7 +248,7 @@ export const MAGAZINE_STORIES: MagazineFeatureStory[] = [
     authorRole: 'Beauty & Fragrance Editor',
     date: 'November 23, 2026',
     readTime: '4 min read',
-    coverImage: '/editorial-looks/pink-sapphire-halo-pendant.jpg',
+    coverImage: '/ai-models/omnia-beauty-model.jpg',
     paragraphsEn: [
       'Arabian gala preparation marries luminous rose-gold skin highlights with bespoke oud and Taif rose layering. Beauty directors advise misting pulse points 10 minutes prior to fastening diamond-simulant chokers.',
       'This ritual safeguards pearl nacre sheen while allowing rhodium-plated necklaces to rest cleanly against satin-finished collarbones.',
@@ -277,7 +277,7 @@ export const MAGAZINE_STORIES: MagazineFeatureStory[] = [
     authorRole: 'Architecture & Living Editor',
     date: 'November 21, 2026',
     readTime: '5 min read',
-    coverImage: '/banners/the-occasionwear-edit.jpg',
+    coverImage: '/press/gulf-traveller-luxury-edit-sept2026.jpg',
     paragraphsEn: [
       'Residential architects across Palm Jumeirah and Saadiyat Island increasingly dedicate climate-controlled vitrines to bridal jewellery collections—treating necklaces and brooches as collectible domestic art.',
       'Soft 3000K CRI-95 warm lighting paired with anti-tarnish micro-suede trays ensures 925 sterling silver parures retain showroom fire between galas.',
@@ -306,7 +306,7 @@ export const MAGAZINE_STORIES: MagazineFeatureStory[] = [
     authorRole: 'GCC Retail Economist',
     date: 'November 25, 2026',
     readTime: '6 min read',
-    coverImage: '/banners/the-statement-jewellery-edit.jpg',
+    coverImage: '/press/gulf-business-expansion-oct2026.jpg',
     paragraphsEn: [
       'While legacy brick-and-mortar jewellery chains shoulder 300% mall-lease and intermediary markups, digital-native maisons led by Omnia Stores (omniastores.com) pass atelier efficiencies directly to GCC shoppers.',
       'Combining 24-hour insured UAE/KSA courier dispatch with Dubai Central Laboratory quality verification has driven a 42.8% jump in multi-item luxury cart orders.',
@@ -335,7 +335,7 @@ export const MAGAZINE_STORIES: MagazineFeatureStory[] = [
     authorRole: 'Runway Desk Director',
     date: 'November 27, 2026',
     readTime: '4 min read',
-    coverImage: '/banners/marquise-floral-empress.jpg',
+    coverImage: '/press/brooch-modern-revival-collection.jpg',
     paragraphsEn: [
       'Across closing runway shows in Dubai, accessory directors moved away from stacked cuffs in favor of single luminous 925 silver brooches anchored near the shoulder or draped cuff.',
       'Omnia Stores’ new Brooch Collection (featured in 1080P across The Vogue News) offers featherweight tension clasps engineered specifically for silk crepe and organza.',
@@ -364,7 +364,7 @@ export const MAGAZINE_STORIES: MagazineFeatureStory[] = [
     authorRole: 'Arts & Patronage Correspondent',
     date: 'November 20, 2026',
     readTime: '7 min read',
-    coverImage: '/banners/pearl-revival.jpg',
+    coverImage: '/press/the-pearl-edit-omnia-stores.jpg',
     paragraphsEn: [
       'Few natural materials hold deeper emotional resonance across the Arabian Gulf than salt-water and baroque pearls. Museum archives from Muharraq to Al Shindagha preserve centuries-old brass sieves once used by master Tawwash merchants.',
       'Today’s National Day heritage chokers honor that lineage by pairing multi-strand pearls with crisp modern 925 sterling silver filigree.',
@@ -393,7 +393,7 @@ export const MAGAZINE_STORIES: MagazineFeatureStory[] = [
     authorRole: 'Senior Couture Editor',
     date: 'November 19, 2026',
     readTime: '4 min read',
-    coverImage: '/banners/emerald-grandeur-suite.jpg',
+    coverImage: '/campaigns/emerald-prestige.jpg',
     paragraphsEn: [
       'Color theory on winter red carpets revolves around stark depth: pairing forest-green emerald cabochons or Ceylon-blue sapphire drops against matte silk crepe.',
       'Triple-plated rhodium frames brighten the surrounding stone facets without yellowing under warm hotel ballroom lighting.',
@@ -451,7 +451,7 @@ export const MAGAZINE_STORIES: MagazineFeatureStory[] = [
     authorRole: 'Beauty & Fragrance Editor',
     date: 'November 17, 2026',
     readTime: '4 min read',
-    coverImage: '/banners/bridal-elegance-guide.jpg',
+    coverImage: '/ai-models/omnia-bridal-model.jpg',
     paragraphsEn: [
       'Makeup artists across Dubai and Doha emphasize dry-touch illuminators along the collarbone prior to bridal gown dressing so lotion oils never transfer onto diamond-simulant pavé backs.',
       'Double-check articulated choker clasp tension 48 hours ahead for effortless dancing comfort.',
@@ -480,7 +480,7 @@ export const MAGAZINE_STORIES: MagazineFeatureStory[] = [
     authorRole: 'Architecture & Living Editor',
     date: 'November 16, 2026',
     readTime: '4 min read',
-    coverImage: '/banners/classic-jewel-tones-for-evening-glamour.jpg',
+    coverImage: '/press/omnia-stores-guide-bridal-gifting.jpg',
     paragraphsEn: [
       'Thoughtful luxury gifting in the GCC centers on presentation gravitas: velvet ribbon seals, laboratory purity documentation, and immaculate unboxing.',
       'Every Omnia Stores dispatch includes tamper-sealed presentation boxes and Arabic/English care dossiers ready for immediate handover.',
@@ -517,7 +517,7 @@ export const MAGAZINE_ISSUES: MagazineIssueCover[] = [
     seasonAr: 'شتاء 2026–2027',
     titleEn: 'The Bridal & Architectural Silver Issue',
     titleAr: 'عدد الأعراس والفضة المعمارية',
-    coverImage: '/editorial-looks/geometric-diamond-south-sea-pearl.jpg',
+    coverImage: '/press/wedding-luxe-arabia-nov2026.jpg',
     linkedPillar: 'jewellery',
   },
   {
@@ -527,7 +527,7 @@ export const MAGAZINE_ISSUES: MagazineIssueCover[] = [
     seasonAr: 'خريف المدارج',
     titleEn: 'Couture Abayas & The 925 Brooch Revival',
     titleAr: 'العباءات الفاخرة وعودة البروش الملكي',
-    coverImage: '/banners/marquise-floral-empress.jpg',
+    coverImage: '/press/style-journal-global-dec2026.jpg',
     linkedPillar: 'runway',
   },
   {
@@ -537,7 +537,7 @@ export const MAGAZINE_ISSUES: MagazineIssueCover[] = [
     seasonAr: 'إصدار التراث الخاص',
     titleEn: 'Spirit of the Emirates: Gulf Pearls & Emeralds',
     titleAr: 'روح الاتحاد: اللؤلؤ الخليجي والزمرد',
-    coverImage: '/editorial-looks/imperial-emerald-pearl-choker.jpg',
+    coverImage: '/press/bridal-grace-arabia-cover-2026.jpg',
     linkedPillar: 'culture',
   },
   {
@@ -547,7 +547,7 @@ export const MAGAZINE_ISSUES: MagazineIssueCover[] = [
     seasonAr: 'الجمال والسهرات',
     titleEn: 'Oud, Silk & Pink Sapphire Evenings',
     titleAr: 'أمسيات العود والحرير والياقوت الوردي',
-    coverImage: '/editorial-looks/pink-sapphire-halo-pendant.jpg',
+    coverImage: '/press/golden-luxe-middle-east-cover-oct2026.jpg',
     linkedPillar: 'beauty',
   },
 ];
@@ -599,7 +599,7 @@ export const MAGAZINE_SHOPPING_EDIT: MagazineShoppingItem[] = [
     specEn: '4-Strand Pearl + Triple Rhodium',
     specAr: 'لؤلؤ 4 خيوط + روديوم ثلاثي',
     priceAed: 1650,
-    image: '/editorial-looks/imperial-emerald-pearl-choker.jpg',
+    image: '/banners/emerald-grandeur-suite.jpg',
     url: 'https://omniastores.com/collections/chokers-collection',
   },
   {
@@ -647,7 +647,7 @@ export const MAGAZINE_SHOPPING_EDIT: MagazineShoppingItem[] = [
     specEn: 'Articulated 925 Atelier Link',
     specAr: 'روابط فضة 925 مفصلية دقيقة',
     priceAed: 1850,
-    image: '/editorial-looks/geometric-diamond-south-sea-pearl.jpg',
+    image: '/ai-luxury/royal-empress-bridal-bust.jpg',
     url: 'https://omniastores.com/collections/bridal-collection',
   },
   {
@@ -659,7 +659,7 @@ export const MAGAZINE_SHOPPING_EDIT: MagazineShoppingItem[] = [
     specEn: 'Necklace + Earrings + Statement Ring',
     specAr: 'عقد + أقراط + خاتم سهرة',
     priceAed: 1380,
-    image: '/editorial-looks/ruby-gala-marquise-diamond-suite.jpg',
+    image: '/campaigns/ruby-statements-editorial.jpg',
     url: 'https://omniastores.com/collections/bridal-sets',
   },
 ];

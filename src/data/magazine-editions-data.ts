@@ -1,19 +1,18 @@
 /**
- * The Vogue News — Multi-Industry Magazine & Editorial Digest Data
- * Original luxury journalism & curated GCC industry digests across:
- * Fashion, Runway, Shopping (Omnia Stores), Beauty, Culture & Arts, Luxury Living, GCC Business, High Jewellery.
+ * The Vogue News — Multi-Industry Digital Magazine & Vogue-Style Frontpage Data
+ * Original luxury journalism, collectible issues, shoppable Omnia Edit, and attributed GCC press digests.
  */
 
 export type MagazinePillarId =
   | 'all'
   | 'fashion'
   | 'runway'
+  | 'jewellery'
   | 'shopping'
   | 'beauty'
   | 'culture'
   | 'living'
-  | 'business'
-  | 'jewellery';
+  | 'business';
 
 export interface MagazinePillar {
   id: MagazinePillarId;
@@ -322,6 +321,346 @@ export const MAGAZINE_STORIES: MagazineFeatureStory[] = [
       priceAed: 950,
       url: 'https://omniastores.com',
     },
+  },
+  {
+    id: 'mag-runway-brooch-edit',
+    pillar: 'runway',
+    tagEn: 'RUNWAY • ACCESSORY',
+    tagAr: 'عروض الأزياء • بروشات',
+    titleEn: 'Backstage at Dubai Design District: Why 925 Brooches Replaced Oversized Cuffs on Winter Runways',
+    titleAr: 'كواليس حي دبي للتصميم: لماذا تفوقت البروشات الفضية عيار 925 على الأساور الضخمة؟',
+    subtitleEn: 'Stylists pin sculptural butterfly and botanical 925 brooches across silk shawls and evening lapels.',
+    subtitleAr: 'المنسقون يثبتون بروشات الفراشة والزهور على الشيلات الحريرية وياقات السهرة.',
+    author: 'Salomé Mansour',
+    authorRole: 'Runway Desk Director',
+    date: 'November 27, 2026',
+    readTime: '4 min read',
+    coverImage: '/banners/marquise-floral-empress.jpg',
+    paragraphsEn: [
+      'Across closing runway shows in Dubai, accessory directors moved away from stacked cuffs in favor of single luminous 925 silver brooches anchored near the shoulder or draped cuff.',
+      'Omnia Stores’ new Brooch Collection (featured in 1080P across The Vogue News) offers featherweight tension clasps engineered specifically for silk crepe and organza.',
+    ],
+    paragraphsAr: [
+      'في العروض الختامية بأسبوع الموضة في دبي، برز البروش الفضي عيار 925 كبديل أنيق ومبتكر يزين الأكتاف والأوشحة الحريرية.',
+      'وتقدم أمنية ستورز في تشكيلتها الجديدة مشابك أمان فائقة الخفة لا تترك أي أثر على الأقمشة الفاخرة.',
+    ],
+    omniaPairing: {
+      nameEn: 'Omnia Signature 925 Brooch Collection',
+      nameAr: 'تشكيلة بروشات أمنية الملكية عيار 925',
+      priceAed: 490,
+      url: 'https://omniastores.com/collections/brooches',
+    },
+  },
+  {
+    id: 'mag-culture-pearl-archive',
+    pillar: 'culture',
+    tagEn: 'HERITAGE ARCHIVE',
+    tagAr: 'الأرشيف التراثي',
+    titleEn: 'From Arabian Gulf Pearling Boats to Modern 925 Chokers: A 100-Year Visual History',
+    titleAr: 'من سفن الغوص على اللؤلؤ في الخليج إلى أطواق الفضة المعاصرة: تاريخ بصري ممتد لمئة عام',
+    subtitleEn: 'Tracing the cultural symbolism of coastal pearl grading across Abu Dhabi, Bahrain, and Sharjah museums.',
+    subtitleAr: 'تتبع الرمزية الثقافية لتصنيف اللؤلؤ الساحلي في متاحف أبوظبي والبحرين والشارقة.',
+    author: 'Nadia Al-Qasimi',
+    authorRole: 'Arts & Patronage Correspondent',
+    date: 'November 20, 2026',
+    readTime: '7 min read',
+    coverImage: '/banners/pearl-revival.jpg',
+    paragraphsEn: [
+      'Few natural materials hold deeper emotional resonance across the Arabian Gulf than salt-water and baroque pearls. Museum archives from Muharraq to Al Shindagha preserve centuries-old brass sieves once used by master Tawwash merchants.',
+      'Today’s National Day heritage chokers honor that lineage by pairing multi-strand pearls with crisp modern 925 sterling silver filigree.',
+    ],
+    paragraphsAr: [
+      'يحتل اللؤلؤ مكانة وجدانية وتاريخية فريدة في الخليج العربي، وتوثق المتاحف في المحرق والشندغة إرث الطواويش العريق.',
+      'وتستعيد أطواق اليوم الوطني هذا الإرث من خلال تنسيق خيوط اللؤلؤ المتعددة مع صياغة حديثة من الفضة 925.',
+    ],
+    omniaPairing: {
+      nameEn: 'Emirates Heritage Multi-Strand Pearl Choker',
+      nameAr: 'طوق اللؤلؤ التراثي الإماراتي متعدد الخيوط',
+      priceAed: 1650,
+      url: 'https://omniastores.com/collections/chokers-collection',
+    },
+  },
+  {
+    id: 'mag-fashion-emerald-galas',
+    pillar: 'fashion',
+    tagEn: 'FASHION • EVENINGWEAR',
+    tagAr: 'الأزياء • فساتين السهرة',
+    titleEn: 'Jewel-Tone Winter Dressing: Styling Deep Emerald & Royal Sapphire Against Midnight Velvet',
+    titleAr: 'إطلالات الأحجار الكريمة الشتوية: تنسيق الزمرد والياقوت الأزرق مع المخمل الداكن',
+    subtitleEn: 'Why monochrome black evening gowns remain the premier canvas for high-dispersion gemstone suites.',
+    subtitleAr: 'لماذا تظل الفساتين السوداء الأحادية الخلفية الأمثل لإبراز بريق الأحجار الملونة.',
+    author: 'Elena Vance',
+    authorRole: 'Senior Couture Editor',
+    date: 'November 19, 2026',
+    readTime: '4 min read',
+    coverImage: '/banners/emerald-grandeur-suite.jpg',
+    paragraphsEn: [
+      'Color theory on winter red carpets revolves around stark depth: pairing forest-green emerald cabochons or Ceylon-blue sapphire drops against matte silk crepe.',
+      'Triple-plated rhodium frames brighten the surrounding stone facets without yellowing under warm hotel ballroom lighting.',
+    ],
+    paragraphsAr: [
+      'تعتمد إطلالات السهرة الشتوية على التباين القوي بين حجر الزمرد الأخضر الداكن أو الياقوت الأزرق مع قماش الكريب الأسود المطفأ.',
+      'وتعمل إطارات الروديوم الثلاثي على عكس الضوء بشكل متوازن يضفي توهجاً استثنائياً.',
+    ],
+    omniaPairing: {
+      nameEn: 'Emerald Grandeur 925 Gala Suite',
+      nameAr: 'طقم فخامة الزمرد عيار 925 للسهرات',
+      priceAed: 1180,
+      url: 'https://omniastores.com/collections/necklaces',
+    },
+  },
+  {
+    id: 'mag-jewellery-simulant-science',
+    pillar: 'jewellery',
+    tagEn: 'GEMOLOGY SCIENCE',
+    tagAr: 'علم الأحجار الكريمة',
+    titleEn: 'Refractive Index 2.65 vs. 1.50: Why Precision 58-Facet 5A Stones Outshine Mall Crystal Glass',
+    titleAr: 'معامل الانكسار 2.65 مقابل 1.50: لماذا تتفوق أحجار 5A بـ 58 وجهاً على كريستال المولات',
+    subtitleEn: 'A laboratory breakdown comparing light dispersion, Mohs hardness, and prong durability.',
+    subtitleAr: 'تحليل مخبري يقارن بين التشتت الضوئي والصلابة وثبات الترصيع بالمخالب.',
+    author: 'Dr. Amina Al-Mansoor, FGA',
+    authorRole: 'Chief Gemological Advisor',
+    date: 'November 18, 2026',
+    readTime: '5 min read',
+    coverImage: '/banners/diamond-radiance.jpg',
+    paragraphsEn: [
+      'Standard fashion crystals rely on lead-glass formulations scoring below 6.0 on the Mohs scale and dulling rapidly if exposed to shower steam or hand cream.',
+      'By contrast, GRA moissanite and optical 58-facet 5A stones hand-set in four-prong 925 mounts preserve razor-sharp scintillation for years of regular wear.',
+    ],
+    paragraphsAr: [
+      'تعتمد البلورات الزجاجية العادية على تركيبات لينة نسبياً تفقد بريقها عند تعرضها للبخار أو الكريمات.',
+      'على النقيض، تحافظ أحجار المويسانيت وأحجار 5A ذات 58 وجهاً والمثبتة بالمخالب اليدوية على بريقها الماسي الدائم.',
+    ],
+    omniaPairing: {
+      nameEn: 'Imperial Diamond Cascade Bridal Collier',
+      nameAr: 'عقد شلال الألماس الإمبراطوري للعرائس',
+      priceAed: 1450,
+      url: 'https://omniastores.com/collections/bridal-collection',
+    },
+  },
+  {
+    id: 'mag-beauty-bridal-prep',
+    pillar: 'beauty',
+    tagEn: 'BEAUTY • BRIDAL RITUALS',
+    tagAr: 'الجمال • تحضيرات العروس',
+    titleEn: 'The 72-Hour Gulf Bridal Countdown: Luminous Décolleté Care Before Clasping Your Parure',
+    titleAr: 'العد التنازلي 72 ساعة للعروس: عناية إشراقة العنق قبل ارتداء طقم الزفاف الملكي',
+    subtitleEn: 'Hydration serums, non-transferring mineral illuminating powders, and necklace clasp fitting tips.',
+    subtitleAr: 'سيرومات الترطيب، ومستحضرات الإضاءة المعدنية المقاومة للنقل، ونصائح ضبط قفل العقد.',
+    author: 'Layla Al-Harbi',
+    authorRole: 'Beauty & Fragrance Editor',
+    date: 'November 17, 2026',
+    readTime: '4 min read',
+    coverImage: '/banners/bridal-elegance-guide.jpg',
+    paragraphsEn: [
+      'Makeup artists across Dubai and Doha emphasize dry-touch illuminators along the collarbone prior to bridal gown dressing so lotion oils never transfer onto diamond-simulant pavé backs.',
+      'Double-check articulated choker clasp tension 48 hours ahead for effortless dancing comfort.',
+    ],
+    paragraphsAr: [
+      'ينصح خبراء التجميل في دبي والدوحة باستخدام مستحضرات إضاءة جافة الملمس على منطقة الترقوة حتى لا تلتصق أي زيوت بخلفية الأحجار المرصعة.',
+      'وتضمن أطواق أمنية ستورز ثباتاً مريحاً طوال ساعات حفل الزفاف.',
+    ],
+    omniaPairing: {
+      nameEn: 'Royal Bridal Full Collier & Earring Suite',
+      nameAr: 'طقم العروس الملكي الكامل (عقد وأقراط)',
+      priceAed: 1450,
+      url: 'https://omniastores.com/collections/bridal-sets',
+    },
+  },
+  {
+    id: 'mag-living-gifting-etiquette',
+    pillar: 'living',
+    tagEn: 'LIVING • ETIQUETTE',
+    tagAr: 'نمط الحياة • الإتيكيت',
+    titleEn: 'The Modern Protocol of Luxury Jewellery Gifting Across Eid, National Day & Royal Weddings',
+    titleAr: 'بروتوكول هدايا المجوهرات الفاخرة في الأعياد واليوم الوطني وحفلات الزفاف',
+    subtitleEn: 'Presentation vault boxes, bilingual certificates of authenticity, and courier white-glove etiquette.',
+    subtitleAr: 'صناديق العرض المخملية، وشهادات الأصالة ثنائية اللغة، وإتيكيت التوصيل السريع.',
+    author: 'Karim Zayd',
+    authorRole: 'Architecture & Living Editor',
+    date: 'November 16, 2026',
+    readTime: '4 min read',
+    coverImage: '/banners/classic-jewel-tones-for-evening-glamour.jpg',
+    paragraphsEn: [
+      'Thoughtful luxury gifting in the GCC centers on presentation gravitas: velvet ribbon seals, laboratory purity documentation, and immaculate unboxing.',
+      'Every Omnia Stores dispatch includes tamper-sealed presentation boxes and Arabic/English care dossiers ready for immediate handover.',
+    ],
+    paragraphsAr: [
+      'تكتمل روعة الهدية الفاخرة في الخليج بفخامة التغليف ووجود شهادة نقاء المعدن ودليل العناية باللغتين العربية والإنجليزية.',
+      'وتصل جميع طلبات أمنية ستورز في علب مخملية أنيقة جاهزة للتقديم المباشر.',
+    ],
+    omniaPairing: {
+      nameEn: 'Dual Royal Velvet Presentation Suite',
+      nameAr: 'الطقم الملكي المزدوج في صندوق مخملي',
+      priceAed: 1550,
+      url: 'https://omniastores.com/collections/bridal-sets',
+    },
+  },
+];
+
+export interface MagazineIssueCover {
+  id: string;
+  issueNumber: string;
+  seasonEn: string;
+  seasonAr: string;
+  titleEn: string;
+  titleAr: string;
+  coverImage: string;
+  linkedPillar: MagazinePillarId;
+}
+
+export const MAGAZINE_ISSUES: MagazineIssueCover[] = [
+  {
+    id: 'issue-winter-2027',
+    issueNumber: 'ISSUE NO. 38',
+    seasonEn: 'WINTER 2026–2027',
+    seasonAr: 'شتاء 2026–2027',
+    titleEn: 'The Bridal & Architectural Silver Issue',
+    titleAr: 'عدد الأعراس والفضة المعمارية',
+    coverImage: '/editorial-looks/geometric-diamond-south-sea-pearl.jpg',
+    linkedPillar: 'jewellery',
+  },
+  {
+    id: 'issue-brooch-edit',
+    issueNumber: 'ISSUE NO. 37',
+    seasonEn: 'AUTUMN RUNWAY',
+    seasonAr: 'خريف المدارج',
+    titleEn: 'Couture Abayas & The 925 Brooch Revival',
+    titleAr: 'العباءات الفاخرة وعودة البروش الملكي',
+    coverImage: '/banners/marquise-floral-empress.jpg',
+    linkedPillar: 'runway',
+  },
+  {
+    id: 'issue-national-day',
+    issueNumber: 'ISSUE NO. 36',
+    seasonEn: 'HERITAGE SPECIAL',
+    seasonAr: 'إصدار التراث الخاص',
+    titleEn: 'Spirit of the Emirates: Gulf Pearls & Emeralds',
+    titleAr: 'روح الاتحاد: اللؤلؤ الخليجي والزمرد',
+    coverImage: '/editorial-looks/imperial-emerald-pearl-choker.jpg',
+    linkedPillar: 'culture',
+  },
+  {
+    id: 'issue-beauty-gala',
+    issueNumber: 'ISSUE NO. 35',
+    seasonEn: 'GALA & BEAUTY',
+    seasonAr: 'الجمال والسهرات',
+    titleEn: 'Oud, Silk & Pink Sapphire Evenings',
+    titleAr: 'أمسيات العود والحرير والياقوت الوردي',
+    coverImage: '/editorial-looks/pink-sapphire-halo-pendant.jpg',
+    linkedPillar: 'beauty',
+  },
+];
+
+export interface MagazineShoppingItem {
+  id: string;
+  badgeEn: string;
+  badgeAr: string;
+  nameEn: string;
+  nameAr: string;
+  specEn: string;
+  specAr: string;
+  priceAed: number;
+  image: string;
+  url: string;
+}
+
+export const MAGAZINE_SHOPPING_EDIT: MagazineShoppingItem[] = [
+  {
+    id: 'shop-brooch-1',
+    badgeEn: 'NEW ARRIVAL • 1080P',
+    badgeAr: 'وصل حديثاً',
+    nameEn: 'Signature 925 Brooch Collection',
+    nameAr: 'تشكيلة البروشات الملكية عيار 925',
+    specEn: 'Solid 925 Silver + Safe Silk Clasp',
+    specAr: 'فضة 925 + مشبك آمن للحرير',
+    priceAed: 490,
+    image: '/banners/marquise-floral-empress.jpg',
+    url: 'https://omniastores.com/collections/brooches',
+  },
+  {
+    id: 'shop-pearl-flora',
+    badgeEn: 'COVER FEATURE',
+    badgeAr: 'قطعة الغلاف',
+    nameEn: 'Royal Empress Baroque Pearl Suite',
+    nameAr: 'طقم إمبراطورة اللؤلؤ الباروكي',
+    specEn: 'Freshwater Pearls + 5A Diamonds',
+    specAr: 'لؤلؤ طبيعي + أحجار 5A',
+    priceAed: 1450,
+    image: '/editorial-looks/baroque-pearl-drop-diamond-flora-model.jpg',
+    url: 'https://omniastores.com/collections/necklaces',
+  },
+  {
+    id: 'shop-emerald-choker',
+    badgeEn: 'UAE NATIONAL DAY',
+    badgeAr: 'اليوم الوطني',
+    nameEn: 'Imperial 4-Strand Emerald Choker',
+    nameAr: 'تشوكر اللؤلؤ الإمبراطوري والزمرد',
+    specEn: '4-Strand Pearl + Triple Rhodium',
+    specAr: 'لؤلؤ 4 خيوط + روديوم ثلاثي',
+    priceAed: 1650,
+    image: '/editorial-looks/imperial-emerald-pearl-choker.jpg',
+    url: 'https://omniastores.com/collections/chokers-collection',
+  },
+  {
+    id: 'shop-ruby-parure',
+    badgeEn: 'GALA BESTSELLER',
+    badgeAr: 'الأكثر مبيعاً',
+    nameEn: 'Crimson Teardrop Ruby Gala Parure',
+    nameAr: 'طقم قطرة الياقوت القرمزي للسهرات',
+    specEn: 'Pigeon-Blood Tone + DCL 925',
+    specAr: 'لون ياقوت قرمزي + فضة 925',
+    priceAed: 950,
+    image: '/editorial-looks/crimson-teardrop-ruby-suite.jpg',
+    url: 'https://omniastores.com/collections/bridal-collection',
+  },
+  {
+    id: 'shop-canary-butterfly',
+    badgeEn: 'RAMADAN & MAJLIS',
+    badgeAr: 'رمضان والمجالس',
+    nameEn: 'Monarch Canary Butterfly Pendant',
+    nameAr: 'قلادة الفراشة الكناري الصفراء',
+    specEn: '58-Facet Yellow Radiance Cut',
+    specAr: 'قطع كناري مشع بـ 58 وجهاً',
+    priceAed: 920,
+    image: '/editorial-looks/canary-butterfly-pendant-model.jpg',
+    url: 'https://omniastores.com/collections/necklaces',
+  },
+  {
+    id: 'shop-pink-sapphire',
+    badgeEn: 'VIP GIFT PICK',
+    badgeAr: 'هدية فاخرة',
+    nameEn: 'Rose Princess Pink Sapphire Halo',
+    nameAr: 'قلادة الياقوت الوردي وهالة الألماس',
+    specEn: 'Champagne Velvet Gift Box Included',
+    specAr: 'شامل علبة الهدايا المخملية',
+    priceAed: 890,
+    image: '/editorial-looks/pink-sapphire-halo-pendant.jpg',
+    url: 'https://omniastores.com/collections/necklaces',
+  },
+  {
+    id: 'shop-south-sea',
+    badgeEn: 'NEW YEAR 2027',
+    badgeAr: 'رأس السنة 2027',
+    nameEn: 'Geometric Collar & South Sea Pearl',
+    nameAr: 'طوق الألماس الهندسي ولؤلؤ البحار',
+    specEn: 'Articulated 925 Atelier Link',
+    specAr: 'روابط فضة 925 مفصلية دقيقة',
+    priceAed: 1850,
+    image: '/editorial-looks/geometric-diamond-south-sea-pearl.jpg',
+    url: 'https://omniastores.com/collections/bridal-collection',
+  },
+  {
+    id: 'shop-marquise-gala',
+    badgeEn: 'BRIDAL SUITE',
+    badgeAr: 'طقم عرائس',
+    nameEn: 'Ruby Gala Marquise Diamond Suite',
+    nameAr: 'طقم الماركيز الملكي بالياقوت والألماس',
+    specEn: 'Necklace + Earrings + Statement Ring',
+    specAr: 'عقد + أقراط + خاتم سهرة',
+    priceAed: 1380,
+    image: '/editorial-looks/ruby-gala-marquise-diamond-suite.jpg',
+    url: 'https://omniastores.com/collections/bridal-sets',
   },
 ];
 

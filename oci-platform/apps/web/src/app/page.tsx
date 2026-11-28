@@ -23,6 +23,7 @@ import { VipGalaTestimonials } from '../components/VipGalaTestimonials';
 import { OmniaBacklinkDirectory } from '../components/OmniaBacklinkDirectory';
 import { OmniaEventEditorialShowcase } from '../components/OmniaEventEditorialShowcase';
 import { OmniaFreeSpaceAdPanel } from '../components/OmniaFreeSpaceAdPanel';
+import { MagazineEditorialHub } from '../components/MagazineEditorialHub';
 import { SeoHead } from '../components/SeoHead';
 import { useLuxury } from '../components/ThemeProvider';
 import { ArrowRight } from 'lucide-react';
@@ -122,6 +123,9 @@ export default function LuxuryEditorialHomepage() {
 
       {/* 4.8 Official Omnia Stores Brooch & Campaign Advertisement Panel */}
       <OmniaFreeSpaceAdPanel />
+
+      {/* 4.9 Multi-Industry Digital Magazine & Publisher Digest Showcase */}
+      <MagazineEditorialHub />
 
       {/* 5. Interactive "Shop The Look" Magazine Spread with Pulsing Gold Pins */}
       <InteractiveShopTheLook />

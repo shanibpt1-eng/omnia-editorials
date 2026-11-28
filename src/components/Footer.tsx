@@ -56,6 +56,7 @@ export function Footer() {
               {language === 'ar' ? 'التحليلات التحريرية' : 'Editorial Intelligence'}
             </h4>
             <ul className="space-y-2 text-xs">
+              <li><Link href="/magazine" className="hover:text-[#B8860B] dark:hover:text-gold transition-colors font-semibold text-[#8B6508] dark:text-gold">{language === 'ar' ? 'المجلة الرقمية الشاملة' : 'Digital Magazine Edition'}</Link></li>
               <li><Link href="/fashion-intelligence" className="hover:text-[#B8860B] dark:hover:text-gold transition-colors">{language === 'ar' ? 'مركز معلومات الأزياء' : 'Fashion Intelligence'}</Link></li>
               <li><Link href="/jewellery-knowledge" className="hover:text-[#B8860B] dark:hover:text-gold transition-colors">{language === 'ar' ? 'مركز أبحاث المجوهرات' : 'Jewellery Knowledge'}</Link></li>
               <li><Link href="/newsroom" className="hover:text-[#B8860B] dark:hover:text-gold transition-colors">{language === 'ar' ? 'غرفة الأخبار التحريرية' : 'Editorial Newsroom'}</Link></li>

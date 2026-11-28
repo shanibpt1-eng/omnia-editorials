@@ -18,6 +18,7 @@ export function Header() {
     { label: t.navHome, href: '/' },
     { label: t.navTrending, href: '/trending' },
     { label: t.navEditorials, href: '/editorials' },
+    { label: language === 'ar' ? 'المجلة' : 'Magazine', href: '/magazine' },
     { label: t.navProducts, href: '/products' },
     { label: t.navAbout, href: '/about' },
   ];

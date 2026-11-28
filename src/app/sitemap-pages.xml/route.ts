@@ -10,6 +10,7 @@ export async function GET() {
   const pages = [
     { path: '', priority: '1.0', changefreq: 'daily' },
     { path: '/editorials', priority: '0.95', changefreq: 'daily' },
+    { path: '/magazine', priority: '0.94', changefreq: 'daily' },
     { path: '/trending', priority: '0.90', changefreq: 'daily' },
     { path: '/fashion-intelligence', priority: '0.90', changefreq: 'weekly' },
     { path: '/jewellery-knowledge', priority: '0.90', changefreq: 'weekly' },

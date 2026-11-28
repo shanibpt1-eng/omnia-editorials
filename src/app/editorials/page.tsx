@@ -56,6 +56,7 @@ import { OmniaStoresSkyscraperAd } from '../../components/OmniaStoresSkyscraperA
 import { OmniaEventEditorialShowcase } from '../../components/OmniaEventEditorialShowcase';
 import { EditorialIntelligencePanels } from '../../components/EditorialIntelligencePanels';
 import { OmniaFreeSpaceAdPanel } from '../../components/OmniaFreeSpaceAdPanel';
+import { MagazineEditorialHub } from '../../components/MagazineEditorialHub';
 import verifiedDispatchesRaw from '../../data/verified-dispatches.json';
 import omniastoresYoutubeData from '../../data/omniastores-youtube.json';
 import omniastoresSocialHub from '../../data/omniastores-social-hub.json';
@@ -6512,6 +6513,11 @@ export default function GulfChronicleEditorialPortal() {
             7.4 OFFICIAL OMNIA STORES BROOCH & CAMPAIGN ADVERTISEMENT PANEL
         ========================================================================== */}
         <OmniaFreeSpaceAdPanel />
+
+        {/* =========================================================================
+            7.45 MULTI-INDUSTRY DIGITAL MAGAZINE & PUBLISHER DIGEST SHOWCASE
+        ========================================================================== */}
+        <MagazineEditorialHub />
 
         {/* =========================================================================
             7.5 LIVE GCC NEWSROOM, EVENT RADAR & INTERACTIVE 925 ASSAY CALCULATOR
